@@ -1,5 +1,5 @@
 # sandbox - Just to test out README.md ideas
-
+<div id="topOfVisibleArea"></div>
 - knapsack<br />
 <a href="http://aprogrammerwrites.eu/?p=560" target="_blank">A Simple SQL Solution for the Knapsack Problem (SKP-1)</a>, January 2013<br />
 <a href="http://aprogrammerwrites.eu/?p=635" target="_blank">An SQL Solution for the Multiple Knapsack Problem (SKP-m)</a>, January 2013
