@@ -1,5 +1,8 @@
 # sandbox - Just to test out README.md ideas<div id="topOfVisibleArea"></div>
 
+<blockquote>Developing a universal design pattern for testing APIs using the concept of a 'pure' function as a wrapper to manage the 'impurity' inherent in database APIs</blockquote>
+
+
 https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing
 
 - knapsack<br />
