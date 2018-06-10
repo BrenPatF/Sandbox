@@ -4,6 +4,20 @@
 
 <a href="https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing" target="_blank">Database API Viewed As A Mathematical Function: Insights into Testing</a>
 
+Advantages include:
+
+- Once the unit test program is written for one scenario (that includes all data groups), no further programming is required to handle additional scenarios
+- The outputs from the unit testing program show exactly what the program actually does in terms of data inputs and outputs
+- All unit test programs can follow a single, straightfoward pattern
+
+Folder structure:
+- bat: Windows .bat files to execute the main/test programs and direct any error output to files in out root folder
+- code: main .js programs
+- inp: .json test data files
+- lib: library helper modules
+- out: root holds .out and .err files from the .bat (usually empty), *title* subfolders hold result files for test programs with a single <em>title</em>.txt 
+- test: test .js programs
+
 https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing
 
 - knapsack<br />
