@@ -105,7 +105,7 @@ $ npm install timer-set
 
 ## See also
 
-- [trapit (unit testing package)](https://github.com/BrenPatF/trapit)
+- [trapit (unit testing package)](https://github.com/BrenPatF/trapit_nodejs_tester)
 
 ## License
 
