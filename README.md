@@ -1,36 +1,123 @@
 # sandbox - Just to test out README.md ideas<div id="topOfVisibleArea"></div>
 
-- knapsack<br />
-<a href="http://aprogrammerwrites.eu/?p=560" target="_blank">A Simple SQL Solution for the Knapsack Problem (SKP-1)</a>, January 2013<br />
-<a href="http://aprogrammerwrites.eu/?p=635" target="_blank">An SQL Solution for the Multiple Knapsack Problem (SKP-m)</a>, January 2013
+# timer-set
 
-- bal_num_part<br />
-<a href="http://aprogrammerwrites.eu/?p=803" target="_blank">SQL for the Balanced Number Partitioning Problem</a>, May 2013
+> Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage.
 
-- fan_foot<br />
-<a href="http://aprogrammerwrites.eu/?p=878" target="_blank">SQL for the Fantasy Football Knapsack Problem</a>, June 2013
+## Background
 
-- tsp<br />
-<a href="http://aprogrammerwrites.eu/?p=896" target="_blank">SQL for the Travelling Salesman Problem</a>, July 2013
+Sometimes you'd like to store a simple (key, value) mapping for a short time
+using a service that's already running and is highly available -- like Twitter.
 
-- shortest_path<br />
-<a href="http://aprogrammerwrites.eu/?p=1391" target="_blank">SQL for Shortest Path Problems</a>, April 2015<br />
-<a href="http://aprogrammerwrites.eu/?p=1415" target="_blank">SQL for Shortest Path Problems 2: A Branch and Bound Approach</a>, May 2015
+*No access tokens required!*
 
-1. Update the logon script SYS.bat for your own credentials for the SYS schema
-2. Update the logon scripts bren.bat, knapsack.bat, bal_num_part.bat, fan_foot.bat,
-shortest_path.bat, tsp.bat with your own connect string
-3. Update Install_SYS.sql with the name of an input directory on your database server that
-can be used for external tables to read from, and place all the files in db_server_input there
-4. Run Install_SYS.sql in SYS schema from SQL*Plus, or other SQL client, to set up the bren
-common schema, and the problem-specific schemas
-5. Run Install_bren.sql in bren schema to create the bren schema common objects
-6. Run the install script for each schema to create the schema objects:
-- knapsack:      Install_Knapsack.sql
-- bal_num_part:  Install_Bal_Num_Part.sql
-- fan_foot:      Install_Fan_Foot.sql
-- tsp:           Install_TSP.sql
-- shortest_path: Install_Shortest_Path.sql
-7. Run Main_*.sql as desired in the specific schemas to run the SQL for the different datasets and
-get execution plans and results logs. For example, for fan_foot: Main_Bra.sql and Main_Eng.sql are
-the driving scripts
+Since HTTP scraping is used under the hood in
+[`latest-tweets`](https://github.com/noffle/latest-tweets), only the last couple
+dozen tweets will be available, making this ideal for use as a transient store.
+
+## Usage (extract from main-col-group.js)
+
+```js
+const TimerSet = require('timer-set');
+
+let tsColGroup = new TimerSet('ColGroup Timers');
+let grp = new ColGroup(INPUT_FILE, DELIM, COL);
+tsColGroup.incrementTime('ColGroup');
+.
+.
+.
+grp.prList('value', grp.sortByValue());
+tsColGroup.incrementTime('sortByValue');
+
+console.log(tsColGroup.formatResults());
+```
+
+This will create a timer set and time the sections, with listing at the end:
+
+```
+Timer set: ColGroup Timers, constructed at Mon Oct 01 2018 14:25:38, written at Mon Oct 01 2018 14:25:38
+========================================================================================================
+Timer           Elapsed         USR         SYS       Calls       Ela/Call       USR/Call       SYS/Call
+-----------  ----------  ----------  ----------  ----------  -------------  -------------  -------------
+ColGroup           0.05        0.00        0.01           1        0.04800        0.00387        0.00775
+listAsIs           0.09        0.01        0.02           1        0.08500        0.01150        0.01750
+sortByKey          0.06        0.01        0.02           1        0.05600        0.00788        0.01762
+sortByValue        0.05        0.00        0.01           1        0.05100        0.00200        0.00975
+(Other)            0.00        0.00        0.00           1        0.00000        0.00000        0.00000
+-----------  ----------  ----------  ----------  ----------  -------------  -------------  -------------
+Total              0.24        0.03        0.05           5        0.04800        0.00505        0.01052
+-----------  ----------  ----------  ----------  ----------  -------------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.16832, USR: 0.00000, SYS: 0.01856]
+```
+
+```
+value: bar
+```
+
+## API
+
+```js
+const TimerSet = require('timer-set');
+```
+
+### let ts = new TimerSet(tsName);
+
+Constructs a new timer set `ts` with name `tsName`.
+
+### ts.incrementTime(timerName);
+
+Increments the timing statistics (elapsed, user and system CPU, and number of calls) for a timer `timerName` within the timer set `ts` with the times passed since the previous call to incrementTime, initTime or the constructor of the timer set instance. Resets the statistics for timer set `ts` to the current time, so that the next call to incrementTime measures from this point for its increment.
+
+### ts.initTime();
+
+Resets the statistics for timer set `ts` to the current time, so that the next call to incrementTime measures from this point for its increment. This is only used where there are gaps between sections to be timed.
+
+### ts.getTimers();
+
+Returns the results for timer set `ts` in an array of objects, with fields:
+
+* `timer`: timer name
+* `ela`: elapsed time in ms
+* `usr`: user CPU time in ms
+* `sys`: system CPU time in ms
+* `calls`: number of calls
+
+After a record for each named timer, in order of creation, there are two calculated records:
+
+* `Other`: differences between `Total` values and the sums of the named timers
+* `Total`: totals calculated from the times at timer set construction
+
+### ts.formatTimers(time_width, time_dp, time_ratio_dp, calls_width);
+
+Returns the results for timer set `ts` in an array of formatted strings, including column headers and formatting lines, with fields as in getTimers, but with times in seconds, and per call values added, with parameters:
+
+* `time_width`: width of time fields (excluding decimal places), default 8
+* `time_dp`: decimal places to show for absolute time fields, default 2
+* `time_ratio_dp`: decimal places to show for per call time fields, default 5
+* `calls_width`: width of calls field, default 10
+
+### TimerSet.getSelfTimer();
+
+Static method to time the incrementTime method as a way of estimating the overhead in using the timer set. Constructs a timer set instance and calls incrementTime on it within a loop until 0.1s has elapsed.
+
+Returns elapsed, user and system CPU times in ms per call.
+
+### TimerSet.formatSelfTimer(time_width, time_dp, time_ratio_dp);
+
+Static method to return the results from getSelfTimer in a formatted string, with parameters as formatTimers (but any extra spaces are trimmed here).
+
+### ts.formatResults(time_width, time_dp, time_ratio_dp, calls_width);
+
+Returns the results for timer set `ts` in a formatted string, with parameters as formatTimers. It uses the array returned from  formatTimers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
+
+## Install
+
+With [npm](https://npmjs.org/) installed, run
+
+```
+$ npm install timer-set
+```
+
+## License
+
+ISC
