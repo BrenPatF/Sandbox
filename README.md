@@ -4,24 +4,13 @@
 
 > Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage.
 
-## Background
-
-Sometimes you'd like to store a simple (key, value) mapping for a short time
-using a service that's already running and is highly available -- like Twitter.
-
-*No access tokens required!*
-
-Since HTTP scraping is used under the hood in
-[`latest-tweets`](https://github.com/noffle/latest-tweets), only the last couple
-dozen tweets will be available, making this ideal for use as a transient store.
-
 ## Usage (extract from main-col-group.js)
 
 ```js
 const TimerSet = require('timer-set');
 
-let tsColGroup = new TimerSet('ColGroup Timers');
-let grp = new ColGroup(INPUT_FILE, DELIM, COL);
+const tsColGroup = new TimerSet('ColGroup Timers');
+const grp = new ColGroup(INPUT_FILE, DELIM, COL);
 tsColGroup.incrementTime('ColGroup');
 .
 .
@@ -50,17 +39,13 @@ Total              0.24        0.03        0.05           5        0.04800      
 [Timer timed (per call in ms): Elapsed: 0.16832, USR: 0.00000, SYS: 0.01856]
 ```
 
-```
-value: bar
-```
-
 ## API
 
 ```js
 const TimerSet = require('timer-set');
 ```
 
-### let ts = new TimerSet(tsName);
+### const ts = new TimerSet(tsName);
 
 Constructs a new timer set `ts` with name `tsName`.
 
@@ -117,6 +102,10 @@ With [npm](https://npmjs.org/) installed, run
 ```
 $ npm install timer-set
 ```
+
+## See also
+
+- [trapit (unit testing package)](https://github.com/BrenPatF/trapit)
 
 ## License
 
