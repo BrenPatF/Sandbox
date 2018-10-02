@@ -1,8 +1,11 @@
 # sandbox - Just to test out README.md ideas<div id="topOfVisibleArea"></div>
 
-The Math Function Unit Testing design pattern, implemented in nodejs
-====================================================================
+# trapit
+> The Math Function Unit Testing design pattern, implemented in nodejs
+
 This package supports a new design pattern for unit testing that can be applied in any language, and is here implemented in nodejs. It includes a function to read a JSON file for processing externally-sourced tests, and a set of functions for analysing test results and reporting in plain text and/or html. The package includes several examples of use, for both nodejs programs and externally-sourced tests, and a unit test program for the core function of the package itself, which of course uses the package itself to process results. In this design pattern, the unit test driver program reads the inputs and expected outputs from file, and simply runs the unit under test within a loop, gathering the actual outputs into an object that is passed to the current package for reporting the results.
+
+## Background
 
 On March 23, 2018 I made the following presentation at the Oracle User Group conference in Dublin:
 
@@ -31,7 +34,9 @@ Advantages include:
 - All unit test programs can follow a single, straightfoward pattern
 - The nodejs assertion package can be used to process results files generated from any language as .json files, and four examples from Oracle PL/SQL are included
 
-## Usage (extract from test-col-group.js)
+## Usage
+
+### Usage 1 - testing Javascript programs (extract from test-col-group.js)
 
 ```js
 const Trapit = require('trapit');
@@ -55,7 +60,33 @@ console.log(Utils.heading(result.nFail + ' of ' + result.nTest + ' scenarios fai
    ROOT + result.resFolder + ' for scenario listings'));
 ```
 
-This extract shows how the package function `getUTData` is used to read the test data JSON file, then after calling the design pattern wrapper function within a loop over the scenarios, the package function `prUTResultsHTML` is called to generate the results output files in HTML format. 
+This extract shows how the package function `getUTData` is used to read the test data JSON file, then after calling the design pattern wrapper function within a loop over the scenarios, the package function `prUTResultsHTML` is called to generate the results output files in HTML format. You can see the output files in the folder mentioned below. 
+
+### Usage 2 - testing external programs (test-externals.js)
+
+The package can be used to report the results of testing programs in any language that follow the same design patter and generate JSON output files in the design pattern format. The following is the complete source code for a driver Javascript program that reads all JSON files in a folder and generates the output files for each one in a separate folder in both text and HTML formats. 
+```js
+const Trapit = require('trapit');
+const ROOT = './examples/externals/';
+
+function testExternal(fileName) {
+
+	const testData = Trapit.getUTData(fileName);
+	const [meta, scenarios] = [testData.meta, testData.scenarios];
+
+	return Trapit.prUTResultsTextAndHTML(meta, scenarios, ROOT).nFail;
+}
+
+const fs = require('fs');
+let failFiles = [];
+fs.readdirSync(ROOT).forEach(file => {
+	if ( /.*\.json$/.test(file) && testExternal(ROOT + file) ) failFiles.push(file);
+});
+console.log(failFiles.length + ' externals failed, see ' + ROOT + ' for scenario listings');
+failFiles.map(file => console.log(file));
+```
+
+ You can see the output files in the folder mentioned below. 
 
 ## API
 
