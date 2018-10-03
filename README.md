@@ -6,7 +6,6 @@
 This package supports a new design pattern for unit testing that can be applied in any language, and is here implemented in nodejs. It includes a function to read a JSON file for processing externally-sourced tests, and a set of functions for analysing test results and reporting in plain text and/or html. The package includes several examples of use, for both nodejs programs and externally-sourced tests, and a unit test program for the core function of the package itself, which of course uses the package itself to process results. In this design pattern, the unit test driver program reads the inputs and expected outputs from file, and simply runs the unit under test within a loop, gathering the actual outputs into an object that is passed to the current package for reporting the results.
 
 ## Background
-
 On March 23, 2018 I made the following presentation at the Oracle User Group conference in Dublin:
 
 <a href="https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing" target="_blank">Database API Viewed As A Mathematical Function: Insights into Testing</a>
@@ -35,9 +34,7 @@ Advantages include:
 - The nodejs assertion package can be used to process results files generated from any language as .json files, and four examples from Oracle PL/SQL are included
 
 ## Usage
-
 ### Usage 1 - testing Javascript programs (extract from test-col-group.js)
-
 ```js
 const Trapit = require('trapit');
 .
@@ -63,7 +60,6 @@ console.log(Utils.heading(result.nFail + ' of ' + result.nTest + ' scenarios fai
 This extract shows how the package function `getUTData` is used to read the test data JSON file, then after calling the design pattern wrapper function within a loop over the scenarios, the package function `prUTResultsHTML` is called to generate the results output files in HTML format. You can see the output files in the folder mentioned below. 
 
 ### Usage 2 - testing external programs (test-externals.js)
-
 The package can be used to report the results of testing programs in any language that follow the same design patter and generate JSON output files in the design pattern format. The following is the complete source code for a driver Javascript program that reads all JSON files in a folder and generates the output files for each one in a separate folder in both text and HTML formats. 
 ```js
 const Trapit = require('trapit');
@@ -89,17 +85,14 @@ failFiles.map(file => console.log(file));
  You can see the output files in the folder mentioned below. 
 
 ## API
-
 ```js
 const Trapit = require('trapit');
 ```
 
 ### Trapit.getUTData(dataFile);
-
 Return the contents of the JSON input file, `dataFile` as a Javascript object.
 
 ### Trapit.getUTResults(meta, scenarios)
-
 Pure function that returns the test results, based on the input parameters, in the form of a Javascript object, with parameters:
 
 * `meta`: metadata describing the data structures for the unit under test
@@ -108,13 +101,11 @@ Pure function that returns the test results, based on the input parameters, in t
 This `pure` function is called by the `impure` functions that are used to write the results out to file, in HTML and/or text format, and facilitates unit testing. Normally, it is sufficient to call just one of the `wrapper` functions below.
 
 ### Trapit.prUTResultsText(meta, scenarios, rootFolder)
-
 Wrapper function that calls getUTResults, writing a single text file with a summary section for all scenarios, followed by a section for each scenario, with first two parameters the same as getUTResults, plus:
 
 * `rootFolder`: root folder, where the results output files are to be written in a subfolder with name based on the report title, default './'
 
 ### Trapit.prUTResultsHTML(meta, scenarios, rootFolder)
-
 Wrapper function that calls getUTResults, writing one summary file in HTML format for all scenarios, with links to a separate file for each scenario. The parameters are the same as for prUTResultsText.
 
 ### Trapit.prUTResultsTextAndHTML(meta, scenarios, rootFolder)
@@ -122,14 +113,12 @@ Wrapper function that calls getUTResults, writing one summary file in HTML forma
 Wrapper function that calls getUTResults, writing results output files for both text and HTML formats, as if both the previous wrapper functions were called. The parameters are the same as for prUTResultsText.
 
 ## Install
-
 With [npm](https://npmjs.org/) installed, run
 
 ```
 $ npm install trapit
 ```
 ### Unit testing 
-
 ```
 $ npm test
 ```
@@ -137,7 +126,6 @@ The trapit core function is unit tested, covering five scenarios including excep
 
 ## Structure
 ### Folder structure
-
 * `examples`: example main programs and unit test programs using the package
 	- externals subfolder has externally-sourced JSON output files that are processed by test-externals.js
 	- *title* subfolders hold result files for test programs with a single *title*.txt that has all the results in text format...
@@ -147,7 +135,6 @@ The trapit core function is unit tested, covering five scenarios including excep
         - to run from trapit folder: npm test
 
 ### Design pattern examples
-
 As well as the unit testing of the package itself, there are three examples of use, two of which have example main programs. To run from the package root, trapit, using the first main program as an example:
 ```
 $ node examples\hello-world\main-hello-world
@@ -168,7 +155,6 @@ $ node examples\hello-world\main-hello-world
 ====================================================================================================
 ```
 ### Module structure
-
 As well as the entry point module, Trapit, there are one helper class and three helper modules of pure functions.
 ```
 ====================================================================================================
@@ -190,8 +176,7 @@ As well as the entry point module, Trapit, there are one helper class and three 
 
 The files are from an Oracle project, named {package}.{procedure}_out.json.
 
-See https://github.com/BrenPatF/trapit_oracle_tester for the project that creates these files.
-
+See [trapit_oracle_tester on GitHub](https://github.com/BrenPatF/trapit_oracle_tester) for the project that creates these files.
 ```
 ================================================================================================================
 |  File                                       |  Notes                                                         | 
