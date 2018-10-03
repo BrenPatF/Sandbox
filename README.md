@@ -121,7 +121,24 @@ Wrapper function that calls getUTResults, writing one summary file in HTML forma
 
 Wrapper function that calls getUTResults, writing results output files for both text and HTML formats, as if both the previous wrapper functions were called. The parameters are the same as for prUTResultsText.
 
-## Folder structure
+## Install
+
+With [npm](https://npmjs.org/) installed, run
+
+```
+$ npm install trapit
+```
+### Unit testing 
+
+$ npm test
+The Trapit core function covers five scenarios including exceptions. Note that each scenario covers a number of sub-scenarios.
+
+## See also
+
+- [timer-set (npm module that uses trapit for unit testing)](https://github.com/BrenPatF/timer-set-nodejs)
+
+## Structure
+### Folder structure
 
 - examples: example main programs and unit test programs using the package
 	- externals subfolder has externally-sourced JSON output files that are processed by test-externals.js
@@ -131,7 +148,10 @@ Wrapper function that calls getUTResults, writing results output files for both 
 - test: test-trapit.js unit test driver; this tests the package itself, and reports the results using the package itself
         - to run from trapit folder: npm test
 
-Design pattern examples: As well as the unit testing of the package itself, there are three examples of use, two of which have example main programs
+### Design pattern examples
+
+As well as the unit testing of the package itself, there are three examples of use, two of which have example main programs. To run from the package root, trapit, using the first main program as an example:
+> node examples\hello-world\main-hello-world
 ```=================================================================================================
 |  Main/Test         |  Unit Module |  Notes                                                       |
 |====================|==============|===============================================================
@@ -145,20 +165,27 @@ Design pattern examples: As well as the unit testing of the package itself, ther
 |                    |              |  to report the results using externally produced JSON files  |
 ====================================================================================================
 ```
-Helper modules: There are one helper class and three helper modules of pure functions
+### Module structure
+
+As well as the entry point module, Trapit, there are one helper class and three helper modules of pure functions.
 ```====================================================================================================
-|  Module    |  Notes                                                                              | 
+|  Module  |  Notes                                                                                |
 |===================================================================================================
-|  Utils     |  General utility functions, called mainly by the Text module below                  |
+|  Trapit  |  Entry point module, written with core pure functions to facilitate unit testing and  |
+|          |  multiple reporters                                                                   |
 ----------------------------------------------------------------------------------------------------
-|  Pages     |  Class used to buffer pages of text ahead of writing to file, used by Text and HTML |
+|  Utils   |  General utility functions, called mainly by the Text module below                    |
 ----------------------------------------------------------------------------------------------------
-|  Text      |  Module of pure functions that format text report output and buffer using Pages     |
+|  Pages   |  Class used to buffer pages of text ahead of writing to file, used by Text and HTML   |
 ----------------------------------------------------------------------------------------------------
-|  HTML      |  Module of pure functions that format HTML report output and buffer using Pages     |
+|  Text    |  Module of pure functions that format text report output and buffer using Pages       |
+----------------------------------------------------------------------------------------------------
+|  HTML    |  Module of pure functions that format HTML report output and buffer using Pages       |
 ====================================================================================================
 ```
-Externally-sourced JSON files: The files are from an Oracle project, named {package}.{procedure}_out.json.
+###Externally-sourced JSON files
+
+The files are from an Oracle project, named {package}.{procedure}_out.json.
 
 See https://github.com/BrenPatF/trapit_oracle_tester for the project that creates these files.
 
@@ -174,4 +201,7 @@ See https://github.com/BrenPatF/trapit_oracle_tester for the project that create
 |  tt_view_drivers.tt_hr_test_view_v_out.json |  Batch view getting department, employee data                  |
 ================================================================================================================
 ```
-Unit testing the Trapit core function covers five scenarios including exceptions. Note that each scenario covers a number of sub-scenarios.
+
+## License
+
+ISC
