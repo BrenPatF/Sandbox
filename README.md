@@ -153,7 +153,8 @@ As well as the unit testing of the package itself, there are three examples of u
 $ node examples\hello-world\main-hello-world
 ```
 
-```=================================================================================================
+```
+=================================================================================================
 |  Main/Test         |  Unit Module |  Notes                                                       |
 |====================|==============|===============================================================
 |  main-hello-world  |              |  Simple Hello World program done as pure function to allow   |
@@ -169,7 +170,8 @@ $ node examples\hello-world\main-hello-world
 ### Module structure
 
 As well as the entry point module, Trapit, there are one helper class and three helper modules of pure functions.
-```====================================================================================================
+```
+====================================================================================================
 |  Module  |  Notes                                                                                |
 |===================================================================================================
 |  Trapit  |  Entry point module, written with core pure functions to facilitate unit testing and  |
@@ -190,7 +192,8 @@ The files are from an Oracle project, named {package}.{procedure}_out.json.
 
 See https://github.com/BrenPatF/trapit_oracle_tester for the project that creates these files.
 
-```================================================================================================================
+```
+================================================================================================================
 |  File                                       |  Notes                                                         | 
 |===============================================================================================================
 |  tt_emp_batch.tt_aip_load_emps_out.json     |  Batch loading of employee data from file to table             |
