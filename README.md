@@ -149,7 +149,10 @@ The trapit core function is unit tested, covering five scenarios including excep
 ### Design pattern examples
 
 As well as the unit testing of the package itself, there are three examples of use, two of which have example main programs. To run from the package root, trapit, using the first main program as an example:
-> node examples\hello-world\main-hello-world
+```
+$ node examples\hello-world\main-hello-world
+```
+
 ```=================================================================================================
 |  Main/Test         |  Unit Module |  Notes                                                       |
 |====================|==============|===============================================================
@@ -181,7 +184,7 @@ As well as the entry point module, Trapit, there are one helper class and three 
 |  HTML    |  Module of pure functions that format HTML report output and buffer using Pages       |
 ====================================================================================================
 ```
-###Externally-sourced JSON files
+### Externally-sourced JSON files
 
 The files are from an Oracle project, named {package}.{procedure}_out.json.
 
