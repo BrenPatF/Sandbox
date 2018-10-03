@@ -138,12 +138,12 @@ The trapit core function is unit tested, covering five scenarios including excep
 ## Structure
 ### Folder structure
 
-- examples: example main programs and unit test programs using the package
+* `examples`: example main programs and unit test programs using the package
 	- externals subfolder has externally-sourced JSON output files that are processed by test-externals.js
 	- *title* subfolders hold result files for test programs with a single *title*.txt that has all the results in text format...
 	- ...and *title*.html as the root page with links for pages per scenario in html format
-- lib: entry point and helper modules
-- test: test-trapit.js unit test driver; this tests the package itself, and reports the results using the package itself
+* `lib`: entry point and helper modules
+* `test`: test-trapit.js unit test driver; this tests the package itself, and reports the results using the package itself
         - to run from trapit folder: npm test
 
 ### Design pattern examples
