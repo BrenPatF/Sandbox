@@ -130,12 +130,10 @@ $ npm install trapit
 ```
 ### Unit testing 
 
+```
 $ npm test
-The Trapit core function covers five scenarios including exceptions. Note that each scenario covers a number of sub-scenarios.
-
-## See also
-
-- [timer-set (npm module that uses trapit for unit testing)](https://github.com/BrenPatF/timer-set-nodejs)
+```
+The trapit core function is unit tested, covering five scenarios including exceptions, with each scenario covering a number of sub-scenarios.
 
 ## Structure
 ### Folder structure
@@ -201,6 +199,9 @@ See https://github.com/BrenPatF/trapit_oracle_tester for the project that create
 |  tt_view_drivers.tt_hr_test_view_v_out.json |  Batch view getting department, employee data                  |
 ================================================================================================================
 ```
+## See also
+
+- [timer-set (npm module that uses trapit for unit testing)](https://github.com/BrenPatF/timer-set-nodejs)
 
 ## License
 
