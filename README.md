@@ -80,7 +80,7 @@ Returns elapsed, user and system CPU times in ms per call.
 Static method to return the results from getSelfTimer in a formatted string, with parameters as formatTimers (but any extra spaces are trimmed here).
 
 ### ts.formatResults(time_width, time_dp, time_ratio_dp, calls_width);
-Returns the results for timer set `ts` in a formatted string, with parameters as formatTimers. It uses the array returned from  formatTimers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
+Returns the results for timer set `ts` in a formatted string, with parameters as formatTimers. It uses the array returned from formatTimers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
 
 ## Install
 With [npm](https://npmjs.org/) installed, run
@@ -88,6 +88,15 @@ With [npm](https://npmjs.org/) installed, run
 ```
 $ npm install timer-set
 ```
+### Unit testing 
+```
+$ npm test
+```
+The package is fairly thoroughly tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and can be tested within a loop over scenario records read from a JSON file.
+
+The wrapper function represents a generalised transactional use of the package in which multiple timer sets may be constructed, and then timings carried out and reported on at the end of the transaction. 
+
+This kind of package would usually be thought hard to unit-test, with CPU and elapsed times being inherently non-deterministic. However, this is a good example of the power of the design pattern that I recemtly introduced: One of the inputs is a yes/no flag indicating whether to mock the system timing calls, or not. The function calls used to return epochal CPU and elapsed times are actually parameters that take the (Windows) system calls as defaults, while in the mocked case deterministic versions are supplied by the test driver, that read the values to return from the input scenario data. In this way we can test correctness of the timing aggregations, independence of timer sets etc. using the deterministics functions; on the other hand, one of the key benefits of automated unit testing is to test the actual dependencies, and we do this in the non-mocked case by having the wrapper function return values that are tested against ranges of values.
 
 ## See also
 - [trapit (unit testing package)](https://github.com/BrenPatF/trapit)
