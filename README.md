@@ -1,7 +1,7 @@
 # sandbox - Just to test out README.md ideas<div id="topOfVisibleArea"></div>
 
 # timer-set
-Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage.
+Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Windows version.
 
 ## Usage (extract from main-col-group.js)
 ```js
