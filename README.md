@@ -3,10 +3,10 @@
 # timer-set
 Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. 
 
-##Tested On
-###Windows
+## Tested On
+### Windows
 Windows 10, node v8.1.4 and node v10.6.0
-###Unix
+### Unix
 Oracle Linux Server 7.5 (via Virtualbox on Windows host), node v8.12.0
 
 ## Usage (extract from main-col-group.js)
@@ -42,9 +42,9 @@ Total              0.24        0.03        0.05           5        0.04800      
 ```
 To run the example from root (timer-set) folder (eg /home/oracle/npm_ts/node_modules/timer-set when installed from /home/oracle/npm_ts):
 
-###Unix
+### Unix
 $ node examples/col-group/main-col-group
-###Windows
+### Windows
 $ node examples\col-group\main-col-group
 
 ## API
