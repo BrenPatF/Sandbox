@@ -1,7 +1,13 @@
 # sandbox - Just to test out README.md ideas<div id="topOfVisibleArea"></div>
 
 # timer-set
-Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Windows version.
+Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. 
+
+##Tested On
+###Windows
+Windows 10, node v8.1.4 and node v10.6.0
+###Unix
+Oracle Linux Server 7.5 (via Virtualbox on Windows host), node v8.12.0
 
 ## Usage (extract from main-col-group.js)
 ```js
@@ -34,6 +40,12 @@ Total              0.24        0.03        0.05           5        0.04800      
 -----------  ----------  ----------  ----------  ----------  -------------  -------------  -------------
 [Timer timed (per call in ms): Elapsed: 0.16832, USR: 0.00000, SYS: 0.01856]
 ```
+To run the example from root (timer-set) folder (eg /home/oracle/npm_ts/node_modules/timer-set when installed from /home/oracle/npm_ts):
+
+###Unix
+$ node examples/col-group/main-col-group
+###Windows
+$ node examples\col-group\main-col-group
 
 ## API
 ```js
@@ -74,7 +86,11 @@ Returns the results for timer set `ts` in an array of formatted strings, includi
 ### TimerSet.getSelfTimer();
 Static method to time the incrementTime method as a way of estimating the overhead in using the timer set. Constructs a timer set instance and calls incrementTime on it within a loop until 0.1s has elapsed.
 
-Returns elapsed, user and system CPU times in ms per call.
+Returns an object, with fields:
+
+* `ela`: elapsed time per call in ms
+* `usr`: user CPU time per call in ms
+* `sys`: system CPU time per call in ms
 
 ### TimerSet.formatSelfTimer(time_width, time_dp, time_ratio_dp);
 Static method to return the results from getSelfTimer in a formatted string, with parameters as formatTimers (but any extra spaces are trimmed here).
@@ -92,14 +108,14 @@ $ npm install timer-set
 ```
 $ npm test
 ```
-The package is fairly thoroughly tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and can be tested within a loop over scenario records read from a JSON file.
+The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
 The wrapper function represents a generalised transactional use of the package in which multiple timer sets may be constructed, and then timings carried out and reported on at the end of the transaction. 
 
-This kind of package would usually be thought hard to unit-test, with CPU and elapsed times being inherently non-deterministic. However, this is a good example of the power of the design pattern that I recemtly introduced: One of the inputs is a yes/no flag indicating whether to mock the system timing calls, or not. The function calls used to return epochal CPU and elapsed times are actually parameters that take the (Windows) system calls as defaults, while in the mocked case deterministic versions are supplied by the test driver, that read the values to return from the input scenario data. In this way we can test correctness of the timing aggregations, independence of timer sets etc. using the deterministics functions; on the other hand, one of the key benefits of automated unit testing is to test the actual dependencies, and we do this in the non-mocked case by having the wrapper function return values that are tested against ranges of values.
+This kind of package would usually be thought hard to unit-test, with CPU and elapsed times being inherently non-deterministic. However, this is a good example of the power of the design pattern that I recently introduced: One of the inputs is a yes/no flag indicating whether to mock the system timing calls, or not. The function calls used to return epochal CPU and elapsed times are actually parameters that take the (Windows) system functions as defaults, while in the mocked case deterministic versions are supplied by the test driver, that read the values to return from the input scenario data. In this way we can test correctness of the timing aggregations, independence of timer sets etc. using the deterministic functions; on the other hand, one of the key benefits of automated unit testing is to test the actual dependencies, and we do this in the non-mocked case by passing in 'sleep' times to the wrapper function and testing the outputs against ranges of values.
 
 ## See also
-- [trapit (unit testing package)](https://github.com/BrenPatF/trapit)
+- [trapit (unit testing package)](https://github.com/BrenPatF/trapit_nodejs_tester)
 
 ## License
 ISC
