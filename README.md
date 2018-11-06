@@ -1,7 +1,7 @@
 # sandbox - Just to test out README.md ideas<div id="topOfVisibleArea"></div>
 
 # timer-set
-Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. 
+Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Tested on Unix and windows.
 
 ## Usage (extract from main-col-group.js)
 ```js
@@ -34,7 +34,7 @@ Total              0.24        0.03        0.05           5        0.04800      
 -----------  ----------  ----------  ----------  ----------  -------------  -------------  -------------
 [Timer timed (per call in ms): Elapsed: 0.16832, USR: 0.00000, SYS: 0.01856]
 ```
-To run the example from root (timer-set) folder (eg /home/oracle/npm_ts/node_modules/timer-set when installed from /home/oracle/npm_ts):
+To run the example from root (timer-set) folder:
 
 ### Unix
 $ node examples/col-group/main-col-group
