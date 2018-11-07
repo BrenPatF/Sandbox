@@ -138,13 +138,10 @@ The trapit core function is unit tested, covering five scenarios including excep
 
 ### Design pattern examples
 As well as the unit testing of the package itself, there are three examples of use, two of which have example main programs. To run from the package root, trapit, using the first test program as an example:
-```
 #### Windows
 $ node examples\hello-world\test-hello-world
 #### Unix
 node examples/hello-world/test-hello-world
-```
-
 ```
 =================================================================================================
 |  Main/Test         |  Unit Module |  Notes                                                       |
