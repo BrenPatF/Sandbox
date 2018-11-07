@@ -5,7 +5,7 @@
 
 This package supports a new design pattern for unit testing that can be applied in any language, and is here implemented in nodejs. It includes a function to read a JSON file for processing externally-sourced tests, and a set of functions for analysing test results and reporting in plain text and/or html. The package includes several examples of use, for both nodejs programs and externally-sourced tests, and a unit test program for the core function of the package itself, which of course uses the package itself to process results. In this design pattern, the unit test driver program reads the inputs and expected outputs from file, and simply runs the unit under test within a loop, gathering the actual outputs into an object that is passed to the current package for reporting the results.
 
-Tested on Unix and windows.
+Tested on Unix and Windows.
 
 ## Background
 On March 23, 2018 I made the following presentation at the Oracle User Group conference in Dublin:
@@ -139,9 +139,9 @@ The trapit core function is unit tested, covering five scenarios including excep
 ### Design pattern examples
 As well as the unit testing of the package itself, there are three examples of use, two of which have example main programs. To run from the package root, trapit, using the first test program as an example:
 ```
-####Windows
+#### Windows
 $ node examples\hello-world\test-hello-world
-####Unix
+#### Unix
 node examples/hello-world/test-hello-world
 ```
 
