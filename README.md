@@ -1,56 +1,135 @@
 # sandbox - Just to test out README.md ideas<div id="topOfVisibleArea"></div>
 
-<blockquote>Developing a universal design pattern for testing APIs using the concept of a 'pure' function as a wrapper to manage the 'impurity' inherent in database APIs</blockquote>
+# timerset
+Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Tested on Unix and Windows.
 
-<a href="https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing" target="_blank">Database API Viewed As A Mathematical Function: Insights into Testing</a>
+## Usage (extract from maincolgroup.js)
+```py
+from context import timerset
+import colgroup as cg
 
-Advantages include:
+ts = timerset.TimerSet('Timer_ts')
 
-- Once the unit test program is written for one scenario (that includes all data groups), no further programming is required to handle additional scenarios
-- The outputs from the unit testing program show exactly what the program actually does in terms of data inputs and outputs
-- All unit test programs can follow a single, straightfoward pattern
+(input_file, delim, col) = './examples/colgroup/fantasy_premier_league_player_stats.csv', ',', 6
 
-Folder structure:
-- bat: Windows .bat files to execute the main/test programs and direct any error output to files in out root folder
-- code: main .js programs
-- inp: .json test data files
-- lib: library helper modules
-- out: root holds .out and .err files from the .bat (usually empty), *title* subfolders hold result files for test programs with a single <em>title</em>.txt 
-- test: test .js programs
+grp = cg.ColGroup(input_file, delim, col)
+ts.increment_time ('ColGroup')
+.
+.
+.
+grp.pr_list('value (lambda)', grp.sort_by_value_lambda())
+ts.increment_time ('sort_by_value_lambda')
 
-https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing
+print(ts.format_results())
+```
+This will create a timer set and time the sections, with listing at the end:
+```
+Timer set: Timer_ts, constructed at 2018-12-04 07:11:19, written at 2018-12-04 07:11:19
+=======================================================================================
+Timer                    Elapsed         CPU       Calls       Ela/Call       CPU/Call
+--------------------  ----------  ----------  ----------  -------------  -------------
+ColGroup                    0.08        0.05           1        0.08144        0.04688
+list_as_is                  0.01        0.00           1        0.01002        0.00000
+sort_by_key                 0.01        0.00           1        0.00841        0.00000
+sort_by_valueIG             0.01        0.00           1        0.01271        0.00000
+sort_by_value_lambda        0.01        0.00           1        0.01315        0.00000
+(Other)                     0.00        0.00           1        0.00009        0.00000
+--------------------  ----------  ----------  ----------  -------------  -------------
+Total                       0.13        0.05           6        0.02097        0.00781
+--------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.00249, CPU: 0.00233]
+```
+To run the example from root (timerset) folder:
 
-- knapsack<br />
-<a href="http://aprogrammerwrites.eu/?p=560" target="_blank">A Simple SQL Solution for the Knapsack Problem (SKP-1)</a>, January 2013<br />
-<a href="http://aprogrammerwrites.eu/?p=635" target="_blank">An SQL Solution for the Multiple Knapsack Problem (SKP-m)</a>, January 2013
+### Unix
+$ python ./examples/colgroup/maincolgroup.py
+### Windows
+$ python .\examples\colgroup\maincolgroup.py
 
-- bal_num_part<br />
-<a href="http://aprogrammerwrites.eu/?p=803" target="_blank">SQL for the Balanced Number Partitioning Problem</a>, May 2013
+## API
+```py
+from context import timerset
+```
 
-- fan_foot<br />
-<a href="http://aprogrammerwrites.eu/?p=878" target="_blank">SQL for the Fantasy Football Knapsack Problem</a>, June 2013
+### ts = timerset.TimerSet('ts_name')
+Constructs a new timer set `ts` with name `ts_name`.
 
-- tsp<br />
-<a href="http://aprogrammerwrites.eu/?p=896" target="_blank">SQL for the Travelling Salesman Problem</a>, July 2013
+### ts.increment_time(timer_name);
+Increments the timing statistics (elapsed, user and system CPU, and number of calls) for a timer `timer_name` within the timer set `ts` with the times passed since the previous call to increment_time, initTime or the constructor of the timer set instance. Resets the statistics for timer set `ts` to the current time, so that the next call to increment_time measures from this point for its increment.
 
-- shortest_path<br />
-<a href="http://aprogrammerwrites.eu/?p=1391" target="_blank">SQL for Shortest Path Problems</a>, April 2015<br />
-<a href="http://aprogrammerwrites.eu/?p=1415" target="_blank">SQL for Shortest Path Problems 2: A Branch and Bound Approach</a>, May 2015
+### ts.init_time();
+Resets the statistics for timer set `ts` to the current time, so that the next call to increment_time measures from this point for its increment. This is only used where there are gaps between sections to be timed.
 
-1. Update the logon script SYS.bat for your own credentials for the SYS schema
-2. Update the logon scripts bren.bat, knapsack.bat, bal_num_part.bat, fan_foot.bat,
-shortest_path.bat, tsp.bat with your own connect string
-3. Update Install_SYS.sql with the name of an input directory on your database server that
-can be used for external tables to read from, and place all the files in db_server_input there
-4. Run Install_SYS.sql in SYS schema from SQL*Plus, or other SQL client, to set up the bren
-common schema, and the problem-specific schemas
-5. Run Install_bren.sql in bren schema to create the bren schema common objects
-6. Run the install script for each schema to create the schema objects:
-- knapsack:      Install_Knapsack.sql
-- bal_num_part:  Install_Bal_Num_Part.sql
-- fan_foot:      Install_Fan_Foot.sql
-- tsp:           Install_TSP.sql
-- shortest_path: Install_Shortest_Path.sql
-7. Run Main_*.sql as desired in the specific schemas to run the SQL for the different datasets and
-get execution plans and results logs. For example, for fan_foot: Main_Bra.sql and Main_Eng.sql are
-the driving scripts
+### ts.get_timers();
+Returns the results for timer set `ts` in an array of tuples, with fields:
+
+* `timer`: timer name
+* `ela`: elapsed time in s
+* `cpu`: CPU time in s
+* `calls`: number of calls
+
+After a record for each named timer, in order of creation, there are two calculated records:
+
+* `Other`: differences between `Total` values and the sums of the named timers
+* `Total`: totals calculated from the times at timer set construction
+
+### ts.format_timers(time_width, time_dp, time_ratio_dp, calls_width);
+Returns the results for timer set `ts` in an array of formatted strings, including column headers and formatting lines, with fields as in get_timers, times in seconds, and per call values added, with parameters:
+
+* `time_width`: width of time fields (excluding decimal places), default 8
+* `time_dp`: decimal places to show for absolute time fields, default 2
+* `time_ratio_dp`: decimal places to show for per call time fields, default 5
+* `calls_width`: width of calls field, default 10
+
+### TimerSet.get_self_timer();
+Static method to time the increment_time method as a way of estimating the overhead in using the timer set. Constructs a timer set instance and calls increment_time on it within a loop until 0.1s has elapsed.
+
+Returns a tuple, with fields:
+
+* `ela`: elapsed time per call in ms
+* `cpu`: CPU time per call in ms
+
+### TimerSet.format_self_timer(time_width, time_dp, time_ratio_dp);
+Static method to return the results from getSelfTimer in a formatted string, with parameters as format_timers (but any extra spaces are trimmed here).
+
+### ts.format_results(time_width, time_dp, time_ratio_dp, calls_width);
+Returns the results for timer set `ts` in a formatted string, with parameters as format_timers. It uses the array returned from format_timers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
+
+## Install
+Run
+```
+$ pip install timerset
+```
+### Unit testing
+The unit test program may be run from the package root folder (timerset):
+
+python ./test/testtimerset.py
+
+The program is data-driven from the input file timerset.json and produces an output file timerset_out.json, that contains arrays of expected and actual records by group and scenario.
+
+If desired, the output file can be processed by a separate Javascript program that has to be downloaded separately from the `npm` Javascript repository. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the folder test\timerset. To install the Javascript program, `trapit`:
+
+With [npm](https://npmjs.org/) installed, run
+
+```
+$ npm install trapit
+```
+
+The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
+
+The wrapper function represents a generalised transactional use of the package in which multiple timer sets may be constructed, and then timings carried out and reported on at the end of the transaction. 
+
+This kind of package would usually be thought hard to unit-test, with CPU and elapsed times being inherently non-deterministic. However, this is a good example of the power of the design pattern that I recently introduced: One of the inputs is a yes/no flag indicating whether to mock the system timing calls, or not. The function calls used to return epochal CPU and elapsed times are actually parameters that take the (Windows) system functions as defaults, while in the mocked case deterministic versions are supplied by the test driver, that read the values to return from the input scenario data. In this way we can test correctness of the timing aggregations, independence of timer sets etc. using the deterministic functions; on the other hand, one of the key benefits of automated unit testing is to test the actual dependencies, and we do this in the non-mocked case by passing in 'sleep' times to the wrapper function and testing the outputs against ranges of values.
+
+## Operating Systems
+The package works on both Unix and Windows. It requires Python 3.x, and has been tested on:
+### Windows
+Windows 10, python 3.7.1
+### Unix
+Oracle Linux Server 7.5 (via Virtualbox on Windows host), python 3.7.1
+
+## See also
+- [trapit (unit testing package)](https://github.com/BrenPatF/trapit_nodejs_tester)
+
+## License
+MIT
