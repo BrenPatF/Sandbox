@@ -126,7 +126,9 @@ Windows 10, python 3.7.1
 Oracle Linux Server 7.5 (via Virtualbox on Windows host), python 3.7.1
 
 ## See also
-- [trapit (unit testing package)](https://github.com/BrenPatF/trapit_nodejs_tester)
-
+- [trapit unit testing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [python timerset package on GitHub](https://github.com/BrenPatF/timerset_python)
+- [Code Timing and Object Orientation and Zombies, Brendan Furey, November 2010](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies)
+   
 ## License
 MIT
