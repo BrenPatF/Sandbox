@@ -1,9 +1,9 @@
 # sandbox - Just to test out README.md ideas<div id="topOfVisibleArea"></div>
 
 # timerset
-Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Tested on Unix and Windows.
+Facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Construction and reporting require only a single line each, regardless of how many timers are included in a set. Tested on Unix and Windows.
 
-## Usage (extract from maincolgroup.js)
+## Usage (extract from maincolgroup.py)
 ```py
 from context import timerset
 import colgroup as cg
@@ -39,12 +39,9 @@ Total                       0.13        0.05           6        0.02097        0
 --------------------  ----------  ----------  ----------  -------------  -------------
 [Timer timed (per call in ms): Elapsed: 0.00249, CPU: 0.00233]
 ```
-To run the example from root (timerset) folder:
+To run the example from root (timerset) folder (Unix form):
 
-### Unix
 $ python ./examples/colgroup/maincolgroup.py
-### Windows
-$ python .\examples\colgroup\maincolgroup.py
 
 ## API
 ```py
@@ -60,7 +57,7 @@ Increments the timing statistics (elapsed, user and system CPU, and number of ca
 ### ts.init_time();
 Resets the statistics for timer set `ts` to the current time, so that the next call to increment_time measures from this point for its increment. This is only used where there are gaps between sections to be timed.
 
-### ts.get_timers();
+### ts.get_timers()
 Returns the results for timer set `ts` in an array of tuples, with fields:
 
 * `timer`: timer name
@@ -73,7 +70,7 @@ After a record for each named timer, in order of creation, there are two calcula
 * `Other`: differences between `Total` values and the sums of the named timers
 * `Total`: totals calculated from the times at timer set construction
 
-### ts.format_timers(time_width, time_dp, time_ratio_dp, calls_width);
+### ts.format_timers(time_width, time_dp, time_ratio_dp, calls_width)
 Returns the results for timer set `ts` in an array of formatted strings, including column headers and formatting lines, with fields as in get_timers, times in seconds, and per call values added, with parameters:
 
 * `time_width`: width of time fields (excluding decimal places), default 8
@@ -81,7 +78,7 @@ Returns the results for timer set `ts` in an array of formatted strings, includi
 * `time_ratio_dp`: decimal places to show for per call time fields, default 5
 * `calls_width`: width of calls field, default 10
 
-### TimerSet.get_self_timer();
+### TimerSet.get_self_timer()
 Static method to time the increment_time method as a way of estimating the overhead in using the timer set. Constructs a timer set instance and calls increment_time on it within a loop until 0.1s has elapsed.
 
 Returns a tuple, with fields:
@@ -89,10 +86,10 @@ Returns a tuple, with fields:
 * `ela`: elapsed time per call in ms
 * `cpu`: CPU time per call in ms
 
-### TimerSet.format_self_timer(time_width, time_dp, time_ratio_dp);
-Static method to return the results from getSelfTimer in a formatted string, with parameters as format_timers (but any extra spaces are trimmed here).
+### TimerSet.format_self_timer(time_width, time_dp, time_ratio_dp)
+Static method to return the results from get_self_timer in a formatted string, with parameters as format_timers (but any extra spaces are trimmed here).
 
-### ts.format_results(time_width, time_dp, time_ratio_dp, calls_width);
+### ts.format_results(time_width, time_dp, time_ratio_dp, calls_width)
 Returns the results for timer set `ts` in a formatted string, with parameters as format_timers. It uses the array returned from format_timers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
 
 ## Install
