@@ -102,6 +102,7 @@ SQL> @install_sys
 
 #### lib subfolder, lib schema
 SQL> @install_lib
+
 SQL> @install_lib_tt
 
 #### app subfolder, app schema
@@ -112,7 +113,7 @@ The unit test program may be run from the lib subfolder:
 
 SQL> @r_tests
 
-The program is data-driven from the input file timerset.json and produces an output file timerset_out.json, that contains arrays of expected and actual records by group and scenario.
+The program is data-driven from the input file tt_timer_set.json and produces an output file tt_timer_set.tt_main_out.json, that contains arrays of expected and actual records by group and scenario.
 
 If desired, the output file can be processed by a Javascript program that has to be downloaded separately from the `npm` Javascript repository. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the folder test_output. To install the Javascript program, `trapit`:
 
