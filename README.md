@@ -1,5 +1,5 @@
 # Timer_Set
-Oracle PL/SQL packaage that facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Construction and reporting require only a single line each, regardless of how many timers are included in a set.
+Oracle PL/SQL package that facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Construction and reporting require only a single line each, regardless of how many timers are included in a set.
 
 ## Usage (extract from main_col_group.sql)
 ```sql
@@ -127,7 +127,7 @@ The package is tested using the Math Function Unit Testing design pattern (`See 
 
 The wrapper function represents a generalised transactional use of the package in which multiple timer sets may be constructed, and then timings carried out and reported on at the end of the transaction. 
 
-This kind of package would usually be thought hard to unit-test, with CPU and elapsed times being inherently non-deterministic. However, this is a good example of the power of the design pattern that I recently introduced: One of the inputs is a yes/no flag indicating whether to mock the system timing calls, or not. The timer set Construct method takes as an optional parameter an array containing a stream of mocked elapsed and  CPU times read from the input scenario data. 
+This kind of package would usually be thought hard to unit-test, with CPU and elapsed times being inherently non-deterministic. However, this is a good example of the power of the design pattern that I recently introduced: One of the inputs is a yes/no flag indicating whether to mock the system timing calls, or not. The timer set `Construct` method takes as an optional parameter an array containing a stream of mocked elapsed and  CPU times read from the input scenario data. 
 
 In the non-mocked function calls are made to return elapsed and epochal CPU times, while in the mocked scenarios these are bypassed, and deterministic values read from the input array.
 
@@ -141,9 +141,9 @@ Windows 10
 - Base code (and example) should work on earlier versions at least as far back as v10 and v11
 
 ## See also
-- [trapit unit testing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
-- [nodejs timer-set package on GitHub](https://github.com/BrenPatF/timer-set-nodejs)
-- [python timerset package on GitHub](https://github.com/BrenPatF/timerset_python)
+- [trapit - Javascript unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [nodejs version of timer set package on GitHub](https://github.com/BrenPatF/timer-set-nodejs)
+- [python version of timer set package on GitHub](https://github.com/BrenPatF/timerset_python)
 - [Code Timing and Object Orientation and Zombies, Brendan Furey, November 2010](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies)
    
 ## License
