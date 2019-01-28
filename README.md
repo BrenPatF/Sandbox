@@ -82,15 +82,16 @@ Static method to return the results from Get_Self_Timer in a formatted string, w
 ### TimerSet.Format_Results(l_timer_set, l_format_prms)
 Returns the results for timer set `l_timer_set` in a formatted string, with parameters as Format_Timers. It uses the array returned from Format_Timers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
 
-## Installs
-### Install (Base code only)
+## Installation
+You can install just the base code in an existing schema, or alternatively, install base code plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
+### Install (base code only)
 To install the base code only, comprising 4 object types and two packages, run the following script in a sqlplus session in the desired schema from the lib subfolder:
 
 SQL> @install_lib
 
-This creates the required objects along with public synonyms and grants for them. It does not include the example or the unit test code, the latter of which requires at least Oracle database 12.2.
+This creates the required objects along with public synonyms and grants for them. It does not include the example or the unit test code, the latter of which requires at least Oracle database 12.2
 
-### Install (Base code plus example and unit test code)
+### Install (base code plus example and unit test code)
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
 - Copy the following files from the root folder to the `input_dir` folder:
 	- fantasy_premier_league_player_stats.csv
