@@ -89,9 +89,10 @@ To install the base code only, comprising 4 object types and two packages, run t
 
 SQL> @install_lib
 
-This creates the required objects along with public synonyms and grants for them. It does not include the example or the unit test code, the latter of which requires at least Oracle database 12.2
+This creates the required objects along with public synonyms and grants for them. It does not include the example or the unit test code, the latter of which requires a minimum Oracle database version of 12.2.
 
 ### Install (base code plus example and unit test code)
+The extended installation requires a minimum Oracle database version of 12.2, and processing the unit test output file requires a separate nodejs install from npm. You can review the resukts from the example code in the `àpp` subfolder, and the unit test formatted results in the `test_output` subfolder, without needing to do the extended installation [timer_set.html is the root page for the HTML version and timer_set.txt has the reults in text format].
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
 - Copy the following files from the root folder to the `input_dir` folder:
 	- fantasy_premier_league_player_stats.csv
@@ -110,13 +111,13 @@ SQL> @install_lib_tt
 SQL> @install_app
 
 ## Unit testing
-The unit test program may be run from the lib subfolder:
+The unit test program (if installed) may be run from the lib subfolder:
 
 SQL> @r_tests
 
 The program is data-driven from the input file tt_timer_set.json and produces an output file tt_timer_set.tt_main_out.json, that contains arrays of expected and actual records by group and scenario.
 
-If desired, the output file can be processed by a Javascript program that has to be downloaded separately from the `npm` Javascript repository. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the folder test_output. To install the Javascript program, `trapit`:
+The output file can be processed by a Javascript program that has to be downloaded separately from the `npm` Javascript repository. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the subfolder test_output. To install the Javascript program, `trapit`:
 
 With [npm](https://npmjs.org/) installed, run
 
