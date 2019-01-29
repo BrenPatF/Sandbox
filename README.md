@@ -92,7 +92,7 @@ SQL> @install_lib
 This creates the required objects along with public synonyms and grants for them. It does not include the example or the unit test code, the latter of which requires a minimum Oracle database version of 12.2.
 
 ### Install (base code plus example and unit test code)
-The extended installation requires a minimum Oracle database version of 12.2, and processing the unit test output file requires a separate nodejs install from npm. You can review the resukts from the example code in the `àpp` subfolder, and the unit test formatted results in the `test_output` subfolder, without needing to do the extended installation [timer_set.html is the root page for the HTML version and timer_set.txt has the reults in text format].
+The extended installation requires a minimum Oracle database version of 12.2, and processing the unit test output file requires a separate nodejs install from npm. You can review the results from the example code in the `app` subfolder, and the unit test formatted results in the `test_output` subfolder, without needing to do the extended installation [timer_set.html is the root page for the HTML version and timer_set.txt has the results in text format].
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
 - Copy the following files from the root folder to the `input_dir` folder:
 	- fantasy_premier_league_player_stats.csv
@@ -131,7 +131,7 @@ The wrapper function represents a generalised transactional use of the package i
 
 This kind of package would usually be thought hard to unit-test, with CPU and elapsed times being inherently non-deterministic. However, this is a good example of the power of the design pattern that I recently introduced: One of the inputs is a yes/no flag indicating whether to mock the system timing calls, or not. The timer set `Construct` method takes as an optional parameter an array containing a stream of mocked elapsed and  CPU times read from the input scenario data. 
 
-In the non-mocked function calls are made to return elapsed and epochal CPU times, while in the mocked scenarios these are bypassed, and deterministic values read from the input array.
+In the non-mocked scenarios standard function calls are made to return elapsed and epochal CPU times, while in the mocked scenarios these are bypassed, and deterministic values read from the input array.
 
 In this way we can test correctness of the timing aggregations, independence of timer sets etc. using the deterministic values; on the other hand, one of the key benefits of automated unit testing is to test the actual dependencies, and we do this in the non-mocked case by passing in 'sleep' times to the wrapper function and testing the outputs against ranges of values.
 
@@ -143,7 +143,7 @@ Windows 10
 - Base code (and example) should work on earlier versions at least as far back as v10 and v11
 
 ## See also
-- [trapit - Javascript unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
 - [nodejs version of timer set package on GitHub](https://github.com/BrenPatF/timer-set-nodejs)
 - [python version of timer set package on GitHub](https://github.com/BrenPatF/timerset_python)
 - [Code Timing and Object Orientation and Zombies, Brendan Furey, November 2010](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies)
