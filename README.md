@@ -1,7 +1,11 @@
 # Log_Set
 Oracle logging framework.
 
-PL/SQL package that facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Construction and reporting require only a single line each, regardless of how many timers are included in a set.
+The framework consists of 3 tables, 6 object types and 3 PL/SQL packages that support the writing of messages to log tables, along with various optional data items that may be specified as parameters or read at runtime via system calls.
+
+The framework is designed to be as simple as possible to use in default mode, while allowing for a high degree of configuration. A client program first constructs a log pointing to a configuration key, then writes lines to the log conditionally depending on the line minimum print level being at least equal to the configuration print level. By creating new versions of the keyed configuration the amount and type of information printed can be varied without code changes to support production debugging and analysis.
+
+Multiple logs can be processed simultaneously within and across sessions without interference.
 
 ## Usage (extract from main_col_group.sql)
 ```sql
@@ -29,7 +33,7 @@ SELECT line_text
 /
 
 ```
-This will create a timer set and time the sections, with listing at the end:
+This will create a log of the results from an example program, with listing at the end:
 ```
 As Is
 =====
