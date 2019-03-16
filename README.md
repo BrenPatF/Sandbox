@@ -7,6 +7,8 @@ The framework is designed to be as simple as possible to use in default mode, wh
 
 Multiple logs can be processed simultaneously within and across sessions without interference.
 
+In order to maximise performance, writes are buffered, and only the log header uses an Oracle sequence for its unique identifier, with lines being numbered sequentially in PL/SQL.
+
 ## Usage (extract from main_col_group.sql)
 ```sql
 DECLARE
@@ -53,7 +55,9 @@ SQL> @main_col_group
 ## API
 There are several versions of the log constructor function, and of the log writer methods, and calls are simplified by the use of two record types to group parameters, for which constructor functions are included. The parameters of these types have default records and so can be omitted, as in the example calls above, in which case the field values are as defaulted in the type definitions. These field level defaults are also taken when any of the record fields are not set explicitly. Field defaults are mentioned below where not null.
 
-### l_con_rec Log_Set.con_rec := Log_Set.Con_Construct_Rec(`parameters`)
+All commits are through autonomous transactions.
+
+### l_con_rec Log_Set.con_rec := Log_Set.Con_Construct_Rec(`optional parameters`)
 Returns a record to be passed to a Construct function, with parameters as follows (all optional):
 
 * `config_key`: references configuration in log_configs table, of which there should be one active version; defaults to 'DEF_CONFIG'
@@ -205,8 +209,8 @@ Windows 10
 - Base code (and example) should work on earlier versions at least as far back as v11
 
 ## See also
-- [timer_set - code timing package on GitHub](https://github.com/BrenPatF/timer_set_oracle)
 - [trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [timer_set - code timing package on GitHub](https://github.com/BrenPatF/timer_set_oracle)
    
 ## License
 MIT
