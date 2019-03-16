@@ -52,7 +52,7 @@ To run the example in a slqplus session from app subfolder (after installation):
 
 SQL> @main_col_group
 
-## API
+## API - Log_Set
 There are several versions of the log constructor function, and of the log writer methods, and calls are simplified by the use of two record types to group parameters, for which constructor functions are included. The parameters of these types have default records and so can be omitted, as in the example calls above, in which case the field values are as defaulted in the type definitions. These field level defaults are also taken when any of the record fields are not set explicitly. Field defaults are mentioned below where not null.
 
 All commits are through autonomous transactions.
@@ -60,10 +60,10 @@ All commits are through autonomous transactions.
 ### l_con_rec Log_Set.con_rec := Log_Set.Con_Construct_Rec(`optional parameters`)
 Returns a record to be passed to a Construct function, with parameters as follows (all optional):
 
-* `config_key`: references configuration in log_configs table, of which there should be one active version; defaults to 'DEF_CONFIG'
-* `description`: log description
-* `print_lev_min`: minimum print level: Log not written if the print_lev in log_configs is lower; defaults to 0
-* `do_close`: boolean, True if the log is to be closed immediately; defaults to False
+* `p_config_key`: references configuration in log_configs table, of which there should be one active version; defaults to 'DEF_CONFIG'
+* `p_description`: log description
+* `p_print_lev_min`: minimum print level: Log not written if the print_lev in log_configs is lower; defaults to 0
+* `p_do_close`: boolean, True if the log is to be closed immediately; defaults to False
 
 ### l_line_rec Log_Set.line_rec := Log_Set.Con_Line_Rec(`optional parameters`)
 Returns a record to be passed to a method that writes lines, with parameters as follows (all optional):
@@ -103,28 +103,29 @@ Constructs a new log with integer handle `l_log_set`, passing a list of lines of
 * `p_construct_rec`: construct parameters record of type Log_Set.con_rec, as defined above, default CONSTRUCT_DEF
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
-### Log_Set.Put_Line(p_log_id, p_line_text, `optional parameters`)
+### Log_Set.Put_Line(p_line_text, `optional parameters`)
 Writes a line of text to the new log.
 
-* `p_log_id`: id of log to write to
 * `p_line_text`: line of text to write
 
 `optional parameters`
+* `p_log_id`: id of log to write to; if omitted, a single log with config value of singleton_yn = 'Y' must have been constructed, and that log will be used
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
-### Log_Set.Put_List(p_log_id, p_line_lis, `optional parameters`)
+### Log_Set.Put_List(p_line_lis, `optional parameters`)
 Writes a list of lines of text to the new log.
 
-* `p_log_id`: id of log to write to
 * `p_line_lis`: list of lines of text to write, of type L1_chr_arr
 
 `optional parameters`
+* `p_log_id`: id of log to write to; if omitted, a single log with config value of singleton_yn = 'Y' must have been constructed, and that log will be used
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
-### Log_Set.Close_Log(p_log_id)
+### Log_Set.Close_Log(`optional parameters`)
 Closes a log, after saving any unsaved buffer lines.
 
-* `p_log_id`: id of log to close
+`optional parameters`
+* `p_log_id`: id of log to close; if omitted, a single log with config value of singleton_yn = 'Y' must have been constructed, and that log will be used
 
 ### Log_Set.Raise_Error(p_err_msg, `optional parameters`)
 Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the message to a log, if the log id is passed.
@@ -151,6 +152,27 @@ Deletes all logs matching either a single log id or a session id which may have 
 
 * `p_log_id`: id of log to delete
 * `p_session_id`: session id of logs to delete
+
+## API - Log_Config
+This package allows for insertion and deletion of the configuration records, with no commits.
+
+### Log_Config.Ins_Config(`optional parameters`)
+Inserts a new record in the log_configs table. If the config_key already exists, a new active version will be inserted with the old version de-activated. All parameters are optional, with null defaults except where mentioned:
+
+* `p_config_key`: references configuration in log_configs table, of which there should be one active version; default 'DEF_CONFIG'
+* `p_config_type`: configuration type; if new version, takes same as previous version if not passed
+* `p_description`: log description; if new version, takes same as previous version if not passed
+* `p_print_lev`: print level, default 10; minimum print levels at header and line level are compared to this
+* `p_print_lev_stack`: print level for call stack; if line is printing, the minimum line print level is compared to this for printing the call stack field
+* `p_print_lev_cpu`:  print level for CPU time; if line is printing, the minimum line print level is compared to this for printing the CPU time field
+* `p_ctx_inp_lis`: 
+* `p_print_lev_module`:  print level for module; if line is printing, the minimum line print level is compared to this for printing the module field
+* `p_print_lev_action`:  print level for action; if line is printing, the minimum line print level is compared to this for printing the action field
+* `p_print_lev_client_info`:  print level for client info; if line is printing, the minimum line print level is compared to this for printing the client info field
+* `p_app_info_only_yn`: if 'Y' do not write to table, but set application info only
+* `p_singleton_yn`: if 'Y' designates a `singleton` configuration, meaning only a single log with this setting can be active at a time, and the log id is stored internally, so can be omitted from the put and close methods
+* `p_buff_len`: number of lines that are stored before saving to table; default 100
+* `p_extend_len`: number of elements to extend the buffer by when needed; default 100
 
 ## Installation
 You can install just the base application in an existing schema, or alternatively, install base application plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
