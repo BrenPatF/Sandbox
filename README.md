@@ -118,16 +118,19 @@ Writes a list of lines of text to the new log.
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
 ### Log_Set.Close_Log(p_log_id)
-Closes a log.
+Closes a log, after saving any unsaved buffer lines.
 
 * `p_log_id`: id of log to close
 
-### Log_Set.Raise_Error(`optional parameters`)
-Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the message to a log, if the log id is passed, and using p_line_rec.err_msg as the message.
+### Log_Set.Raise_Error(p_err_msg, `optional parameters`)
+Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the message to a log, if the log id is passed.
+
+* `p_err_msg`: error message
 
 `optional parameters`
 * `p_log_id`: id of log to write to
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
+* `p_do_close`: boolean, True if the log is to be closed after writing error details; defaults to True
 
 ### Log_Set.Write_Other_Error(p_log_id, `optional parameters`)
 Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the message to a log, if the log id is passed, and using p_line_rec.err_msg as the message.
@@ -138,6 +141,12 @@ Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the 
 * `p_line_text`: line of text to write, default null
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 * `p_do_close`: boolean, True if the log is to be closed after writing error details; defaults to True
+
+### Log_Set.Delete_Log(p_log_id, p_session_id)
+Deletes all logs matching either a single log id or a session id which may have multiple logs. Exactly one parameter must be passed. This uses an autonomous transaction.
+
+* `p_log_id`: id of log to delete
+* `p_session_id`: session id of logs to delete
 
 ## Installation
 You can install just the base application in an existing schema, or alternatively, install base application plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
@@ -182,11 +191,11 @@ With [npm](https://npmjs.org/) installed, run
 $ npm install trapit
 ```
 
-The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
+The package is tested using the Math Function Unit Testing design pattern (`See also - trapit` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
 The wrapper function represents a generalised transactional use of the package in which multiple logs may be constructed, and written to independently. 
 
-This kind of package would usually be thought hard to unit-test, with . However, this is a good example of the power of the design pattern that I recently introduced. 
+This is a good example of the power of the design pattern that I recently introduced, and is a second example, after `See also - timer_set` below, of unit testing where the 'unit' is taken to be a full generalised transaction, from start to finish of a logging (or timing) session.
 
 ## Operating System/Oracle Versions
 ### Windows
@@ -196,6 +205,7 @@ Windows 10
 - Base code (and example) should work on earlier versions at least as far back as v11
 
 ## See also
+- [timer_set - code timing package on GitHub](https://github.com/BrenPatF/timer_set_oracle)
 - [trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
    
 ## License
