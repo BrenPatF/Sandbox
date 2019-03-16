@@ -17,8 +17,8 @@ BEGIN
 .
   Log_Set.Put_Line(p_log_id => l_log_id, p_line_text  => '');
 .
-  Log_Set.Close_Log(p_log_id => l_log_id);
-  RAISE NO_DATA_FOUND; -- showing use for error logging
+  RAISE NO_DATA_FOUND; -- Example of unexpected error handling in others
+  Log_Set.Close_Log(p_log_id => l_log_id); -- will be closed by Write_Other_Error
 
 EXCEPTION
   WHEN OTHERS THEN
@@ -26,7 +26,7 @@ EXCEPTION
     RAISE;
 END;
 /
-SELECT line_text
+SELECT line_num lno, Nvl(err_msg, line_text) text
   FROM log_lines
  WHERE log_id = (SELECT MAX(h.id) FROM log_headers h)
  ORDER BY line_num
@@ -35,13 +35,16 @@ SELECT line_text
 ```
 This will create a log of the results from an example program, with listing at the end:
 ```
-As Is
-=====
-Team                             Apps
-------------------------------  -----
-team_name_2                         1
-Blackburn                          33
+   1 As Is
+   2 =====
+   3 Team                             Apps
+   4 ------------------------------  -----
+   5 team_name_2                         1
+   6 Blackburn                          33
 ...
+  89 QPR                              1517
+  90
+  91 ORA-01403: no data found
 ```
 To run the example in a slqplus session from app subfolder (after installation):
 
