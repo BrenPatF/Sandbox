@@ -62,7 +62,7 @@ Returns a record to be passed to a Construct function, with parameters as follow
 
 * `p_config_key`: references configuration in log_configs table, of which there should be one active version; defaults to 'DEF_CONFIG'
 * `p_description`: log description
-* `p_put_lev_min`: minimum put level: Log not written if the put_lev in log_configs is lower; defaults to 0
+* `p_put_lev_min`: minimum put level: Log not put if the put_lev in log_configs is lower; defaults to 0
 * `p_do_close`: boolean, True if the log is to be closed immediately; defaults to False
 
 ### l_line_rec Log_Set.line_rec := Log_Set.Con_Line_Rec(`optional parameters`)
@@ -87,7 +87,7 @@ Constructs a new log with integer handle `l_log_set`.
 * `p_construct_rec`: construct parameters record of type Log_Set.line_rec, as defined above, default CONSTRUCT_DEF
 
 ### l_log_set   PLS_INTEGER := Log_Set.Construct(p_line_text, `optional parameters`)
-Constructs a new log with integer handle `l_log_set`, passing line of text to be written to the new log.
+Constructs a new log with integer handle `l_log_set`, passing line of text to be put to the new log.
 
 * `p_line_text`: line of text to write
 
@@ -95,7 +95,7 @@ Constructs a new log with integer handle `l_log_set`, passing line of text to be
 * `p_construct_rec`: construct parameters record of type Log_Set.line_rec, as defined above, default CONSTRUCT_DEF
 
 ### l_log_set   PLS_INTEGER := Log_Set.Construct(p_line_lis, `optional parameters`)
-Constructs a new log with integer handle `l_log_set`, passing a list of lines of text to be written to the new log.
+Constructs a new log with integer handle `l_log_set`, passing a list of lines of text to be put to the new log.
 
 * `p_line_lis`: list of lines of text to write, of type L1_chr_arr
 
@@ -162,7 +162,7 @@ Inserts a new record in the log_configs table. If the config_key already exists,
 One of the columns in the table is of a custom array type, ctx_inp_arr. This is an array of objects of type ctx_inp_obj, which contain information on possible writing of system contexts in the USERENV namespace [Oracle SYS_CONTEXT](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/sqlrf/SYS_CONTEXT.html#GUID-B9934A5D-D97B-4E51-B01B-80C76A5BD086). The object type has fields as follows:
         
  * `ctx_nm`: context name
- * `put_lev`: put level for the context; if header/line is written, the minimum header/line put level is compared to this for writing the context value
+ * `put_lev`: put level for the context; if header/line is put, the minimum header/line put level is compared to this for writing the context value
  * `head_line_fg`: write for 'H' - header only, 'L' - line only, 'B' - both header and line
 
 An entry in the array should be added for each context desired.
@@ -173,12 +173,12 @@ All parameters are optional, with null defaults except where mentioned:
 * `p_config_type`: configuration type; if new version, takes same as previous version if not passed
 * `p_description`: log description; if new version, takes same as previous version if not passed
 * `p_put_lev`: put level, default 10; minimum put levels at header and line level are compared to this
-* `p_put_lev_stack`: put level for call stack; if line is written, the minimum line put level is compared to this for writing the call stack field
-* `p_put_lev_cpu`:  put level for CPU time; if line is written, the minimum line put level is compared to this for writing the CPU time field
+* `p_put_lev_stack`: put level for call stack; if line is put, the minimum line put level is compared to this for writing the call stack field
+* `p_put_lev_cpu`:  put level for CPU time; if line is put, the minimum line put level is compared to this for writing the CPU time field
 * `p_ctx_inp_lis`: list of contexts to write depending on the put levels specified
-* `p_put_lev_module`:  put level for module; if line is written, the minimum line put level is compared to this for writing the module field
-* `p_put_lev_action`:  put level for action; if line is written, the minimum line put level is compared to this for writing the action field
-* `p_put_lev_client_info`:  put level for client info; if line is written, the minimum line put level is compared to this for writing the client info field
+* `p_put_lev_module`:  put level for module; if line is put, the minimum line put level is compared to this for writing the module field
+* `p_put_lev_action`:  put level for action; if line is put, the minimum line put level is compared to this for writing the action field
+* `p_put_lev_client_info`:  put level for client info; if line is put, the minimum line put level is compared to this for writing the client info field
 * `p_app_info_only_yn`: if 'Y' do not write to table, but set application info only
 * `p_singleton_yn`: if 'Y' designates a `singleton` configuration, meaning only a single log with this setting can be active at a time, and the log id is stored internally, so can be omitted from the put and close methods
 * `p_buff_len`: number of lines that are stored before saving to table; default 100
@@ -229,7 +229,7 @@ $ npm install trapit
 
 The package is tested using the Math Function Unit Testing design pattern (`See also - trapit` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
-The wrapper function represents a generalised transactional use of the package in which multiple logs may be constructed, and written to independently. 
+The wrapper function represents a generalised transactional use of the package in which multiple logs may be constructed, and put to independently. 
 
 This is a good example of the power of the design pattern that I recently introduced, and is a second example, after `See also - timer_set` below, of unit testing where the 'unit' is taken to be a full generalised transaction, from start to finish of a logging (or timing) session.
 
