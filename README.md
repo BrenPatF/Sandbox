@@ -3,11 +3,11 @@ Oracle logging framework.
 
 The framework consists of 3 tables, 6 object types and 3 PL/SQL packages that support the writing of messages to log tables, along with various optional data items that may be specified as parameters or read at runtime via system calls.
 
-The framework is designed to be as simple as possible to use in default mode, while allowing for a high degree of configuration. A client program first constructs a log pointing to a configuration key, then writes lines to the log conditionally depending on the line minimum put level being at least equal to the configuration put level. By creating new versions of the keyed configuration the amount and type of information printed can be varied without code changes to support production debugging and analysis.
+The framework is designed to be as simple as possible to use in default mode, while allowing for a high degree of configuration. A client program first constructs a log pointing to a configuration key, then puts lines to the log conditionally depending on the line minimum put level being at least equal to the configuration put level. By creating new versions of the keyed configuration the amount and type of information put can be varied without code changes to support production debugging and analysis.
 
 Multiple logs can be processed simultaneously within and across sessions without interference.
 
-In order to maximise performance, writes are buffered, and only the log header uses an Oracle sequence for its unique identifier, with lines being numbered sequentially in PL/SQL.
+In order to maximise performance, puts are buffered, and only the log header uses an Oracle sequence for its unique identifier, with lines being numbered sequentially in PL/SQL.
 
 ## Usage (extract from main_col_group.sql)
 ```sql
@@ -66,14 +66,14 @@ Returns a record to be passed to a Construct function, with parameters as follow
 * `p_do_close`: boolean, True if the log is to be closed immediately; defaults to False
 
 ### l_line_rec Log_Set.line_rec := Log_Set.Con_Line_Rec(`optional parameters`)
-Returns a record to be passed to a method that writes lines, with parameters as follows (all optional):
+Returns a record to be passed to a method that puts lines, with parameters as follows (all optional):
 
 * `p_line_type`: log line type, eg 'ERROR' etc., not validated
 * `p_plsql_unit`: PL/SQL package name, as given by $$PLSQL_UNIT
 * `p_plsql_line`: PL/SQL line number, as given by $$PLSQL_LINE
 * `p_group_text`: free text that can be used to group lines
 * `p_action`: action that can be used as the action in DBMS_Application_Info.Set_Action, and logged with a line
-* `p_put_lev_min`: minimum put level: Log line not printed if the put_lev in log_configs is lower; also affects indp_ividual fields that have their own level, eg put_lev_stack; defaults to 0
+* `p_put_lev_min`: minimum put level: Log line not put if the put_lev in log_configs is lower; also affects indp_ividual fields that have their own level, eg put_lev_stack; defaults to 0
 * `p_err_num`: error number when passed explicitly, also set to SQLCODE by Write_Other_Error
 * `p_err_msg`: error message when passed explicitly, also set to SQLERRM by Write_Other_Error
 * `p_call_stack`: call stack set by Write_Other_Error using DBMS_Utility.Format_Call_Stack
