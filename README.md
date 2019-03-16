@@ -157,18 +157,28 @@ Deletes all logs matching either a single log id or a session id which may have 
 This package allows for insertion and deletion of the configuration records, with no commits.
 
 ### Log_Config.Ins_Config(`optional parameters`)
-Inserts a new record in the log_configs table. If the config_key already exists, a new active version will be inserted with the old version de-activated. All parameters are optional, with null defaults except where mentioned:
+Inserts a new record in the log_configs table. If the config_key already exists, a new active version will be inserted with the old version de-activated. 
+
+One of the columns in the table is of a custom array type, ctx_inp_arr. This is an array of objects of type ctx_inp_obj, which contain information on possible writing of system contexts in the USERENV namespace [Oracle SYS_CONTEXT](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/sqlrf/SYS_CONTEXT.html#GUID-B9934A5D-D97B-4E51-B01B-80C76A5BD086). The object type has fields as follows:
+        
+ * `ctx_nm`: context name
+ * `print_lev`: print level for the context; if header/line is written, the minimum header/line print level is compared to this for writing the context value
+ * `head_line_fg`: write for 'H' - header only, 'L' - line only, 'B' - both header and line
+
+An entry in the array should be added for each context desired.
+
+All parameters are optional, with null defaults except where mentioned:
 
 * `p_config_key`: references configuration in log_configs table, of which there should be one active version; default 'DEF_CONFIG'
 * `p_config_type`: configuration type; if new version, takes same as previous version if not passed
 * `p_description`: log description; if new version, takes same as previous version if not passed
 * `p_print_lev`: print level, default 10; minimum print levels at header and line level are compared to this
-* `p_print_lev_stack`: print level for call stack; if line is printing, the minimum line print level is compared to this for printing the call stack field
-* `p_print_lev_cpu`:  print level for CPU time; if line is printing, the minimum line print level is compared to this for printing the CPU time field
-* `p_ctx_inp_lis`: 
-* `p_print_lev_module`:  print level for module; if line is printing, the minimum line print level is compared to this for printing the module field
-* `p_print_lev_action`:  print level for action; if line is printing, the minimum line print level is compared to this for printing the action field
-* `p_print_lev_client_info`:  print level for client info; if line is printing, the minimum line print level is compared to this for printing the client info field
+* `p_print_lev_stack`: print level for call stack; if line is written, the minimum line print level is compared to this for writing the call stack field
+* `p_print_lev_cpu`:  print level for CPU time; if line is written, the minimum line print level is compared to this for writing the CPU time field
+* `p_ctx_inp_lis`: list of contexts to write depending on the print levels specified
+* `p_print_lev_module`:  print level for module; if line is written, the minimum line print level is compared to this for writing the module field
+* `p_print_lev_action`:  print level for action; if line is written, the minimum line print level is compared to this for writing the action field
+* `p_print_lev_client_info`:  print level for client info; if line is written, the minimum line print level is compared to this for writing the client info field
 * `p_app_info_only_yn`: if 'Y' do not write to table, but set application info only
 * `p_singleton_yn`: if 'Y' designates a `singleton` configuration, meaning only a single log with this setting can be active at a time, and the log id is stored internally, so can be omitted from the put and close methods
 * `p_buff_len`: number of lines that are stored before saving to table; default 100
