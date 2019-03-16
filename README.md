@@ -53,7 +53,7 @@ To run the example in a slqplus session from app subfolder (after installation):
 SQL> @main_col_group
 
 ## API - Log_Set
-There are several versions of the log constructor function, and of the log writer methods, and calls are simplified by the use of two record types to group parameters, for which constructor functions are included. The parameters of these types have default records and so can be omitted, as in the example calls above, in which case the field values are as defaulted in the type definitions. These field level defaults are also taken when any of the record fields are not set explicitly. Field defaults are mentioned below where not null.
+There are several versions of the log constructor function, and of the log putr methods, and calls are simplified by the use of two record types to group parameters, for which constructor functions are included. The parameters of these types have default records and so can be omitted, as in the example calls above, in which case the field values are as defaulted in the type definitions. These field level defaults are also taken when any of the record fields are not set explicitly. Field defaults are mentioned below where not null.
 
 All commits are through autonomous transactions.
 
@@ -89,7 +89,7 @@ Constructs a new log with integer handle `l_log_set`.
 ### l_log_set   PLS_INTEGER := Log_Set.Construct(p_line_text, `optional parameters`)
 Constructs a new log with integer handle `l_log_set`, passing line of text to be put to the new log.
 
-* `p_line_text`: line of text to write
+* `p_line_text`: line of text to put
 
 `optional parameters`
 * `p_construct_rec`: construct parameters record of type Log_Set.line_rec, as defined above, default CONSTRUCT_DEF
@@ -97,7 +97,7 @@ Constructs a new log with integer handle `l_log_set`, passing line of text to be
 ### l_log_set   PLS_INTEGER := Log_Set.Construct(p_line_lis, `optional parameters`)
 Constructs a new log with integer handle `l_log_set`, passing a list of lines of text to be put to the new log.
 
-* `p_line_lis`: list of lines of text to write, of type L1_chr_arr
+* `p_line_lis`: list of lines of text to put, of type L1_chr_arr
 
 `optional parameters`
 * `p_construct_rec`: construct parameters record of type Log_Set.con_rec, as defined above, default CONSTRUCT_DEF
@@ -106,19 +106,19 @@ Constructs a new log with integer handle `l_log_set`, passing a list of lines of
 ### Log_Set.Put_Line(p_line_text, `optional parameters`)
 Writes a line of text to the new log.
 
-* `p_line_text`: line of text to write
+* `p_line_text`: line of text to put
 
 `optional parameters`
-* `p_log_id`: id of log to write to; if omitted, a single log with config value of singleton_yn = 'Y' must have been constructed, and that log will be used
+* `p_log_id`: id of log to put to; if omitted, a single log with config value of singleton_yn = 'Y' must have been constructed, and that log will be used
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
 ### Log_Set.Put_List(p_line_lis, `optional parameters`)
 Writes a list of lines of text to the new log.
 
-* `p_line_lis`: list of lines of text to write, of type L1_chr_arr
+* `p_line_lis`: list of lines of text to put, of type L1_chr_arr
 
 `optional parameters`
-* `p_log_id`: id of log to write to; if omitted, a single log with config value of singleton_yn = 'Y' must have been constructed, and that log will be used
+* `p_log_id`: id of log to put to; if omitted, a single log with config value of singleton_yn = 'Y' must have been constructed, and that log will be used
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
 ### Log_Set.Close_Log(`optional parameters`)
@@ -133,17 +133,17 @@ Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the 
 * `p_err_msg`: error message
 
 `optional parameters`
-* `p_log_id`: id of log to write to
+* `p_log_id`: id of log to put to
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 * `p_do_close`: boolean, True if the log is to be closed after writing error details; defaults to True
 
 ### Log_Set.Write_Other_Error(p_log_id, `optional parameters`)
 Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the message to a log, if the log id is passed, and using p_line_rec.err_msg as the message.
 
-* `p_log_id`: id of log to write to
+* `p_log_id`: id of log to put to
 
 `optional parameters`
-* `p_line_text`: line of text to write, default null
+* `p_line_text`: line of text to put, default null
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 * `p_do_close`: boolean, True if the log is to be closed after writing error details; defaults to True
 
@@ -163,7 +163,7 @@ One of the columns in the table is of a custom array type, ctx_inp_arr. This is 
         
  * `ctx_nm`: context name
  * `put_lev`: put level for the context; if header/line is put, the minimum header/line put level is compared to this for writing the context value
- * `head_line_fg`: write for 'H' - header only, 'L' - line only, 'B' - both header and line
+ * `head_line_fg`: put for 'H' - header only, 'L' - line only, 'B' - both header and line
 
 An entry in the array should be added for each context desired.
 
@@ -175,11 +175,11 @@ All parameters are optional, with null defaults except where mentioned:
 * `p_put_lev`: put level, default 10; minimum put levels at header and line level are compared to this
 * `p_put_lev_stack`: put level for call stack; if line is put, the minimum line put level is compared to this for writing the call stack field
 * `p_put_lev_cpu`:  put level for CPU time; if line is put, the minimum line put level is compared to this for writing the CPU time field
-* `p_ctx_inp_lis`: list of contexts to write depending on the put levels specified
+* `p_ctx_inp_lis`: list of contexts to put depending on the put levels specified
 * `p_put_lev_module`:  put level for module; if line is put, the minimum line put level is compared to this for writing the module field
 * `p_put_lev_action`:  put level for action; if line is put, the minimum line put level is compared to this for writing the action field
 * `p_put_lev_client_info`:  put level for client info; if line is put, the minimum line put level is compared to this for writing the client info field
-* `p_app_info_only_yn`: if 'Y' do not write to table, but set application info only
+* `p_app_info_only_yn`: if 'Y' do not put to table, but set application info only
 * `p_singleton_yn`: if 'Y' designates a `singleton` configuration, meaning only a single log with this setting can be active at a time, and the log id is stored internally, so can be omitted from the put and close methods
 * `p_buff_len`: number of lines that are stored before saving to table; default 100
 * `p_extend_len`: number of elements to extend the buffer by when needed; default 100
@@ -195,7 +195,7 @@ This creates the required objects along with public synonyms and grants for them
 
 ### Install (base application plus example and unit test code)
 The extended installation requires a minimum Oracle database version of 12.2, and processing the unit test output file requires a separate nodejs install from npm. You can review the results from the example code in the `app` subfolder, and the unit test formatted results in the `test_output` subfolder, without needing to do the extended installation [log_set.html is the root page for the HTML version and log_set.txt has the results in text format].
-- install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
+- install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/put access for the Oracle OS user
 - Copy the following files from the root folder to the `input_dir` folder:
 	- fantasy_premier_league_player_stats.csv
 	- tt_log_set.json
