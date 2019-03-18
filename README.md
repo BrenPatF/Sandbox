@@ -3,40 +3,60 @@ Oracle logging framework.
 
 The framework consists of 3 tables, 6 object types and 3 PL/SQL packages that support the writing of messages to log tables, along with various optional data items that may be specified as parameters or read at runtime via system calls.
 
-The framework is designed to be as simple as possible to use in default mode, while allowing for a high degree of configuration. A client program first constructs a log pointing to a configuration key, then puts lines to the log conditionally depending on the line minimum put level being at least equal to the configuration put level. By creating new versions of the keyed configuration the amount and type of information put can be varied without code changes to support production debugging and analysis.
+The framework is designed to be as simple as possible to use in default mode, while allowing for a high degree of configuration. A client program first constructs a log pointing to a configuration key, then puts lines to the log conditionally depending on the line minimum put level being at least equal to the configuration put level. By creating new versions of the keyed configuration the amount and type of information put can be varied without code changes, to support production debugging and analysis.
 
 Multiple logs can be processed simultaneously within and across sessions without interference.
 
-In order to maximise performance, puts are buffered, and only the log header uses an Oracle sequence for its unique identifier, with lines being numbered sequentially in PL/SQL.
+In order to maximise performance, puts may be buffered, and only the log header uses an Oracle sequence for its unique identifier, with lines being numbered sequentially in PL/SQL.
 
 ## Usage (extract from main_col_group.sql)
 ```sql
 DECLARE
   l_log_id               PLS_INTEGER := Log_Set.Construct;
+  l_len_lis              L1_num_arr := L1_num_arr(30, -5);
+  l_res_arr              chr_int_arr;
+
 BEGIN
 
-  Log_Set.Put_List(p_log_id => l_log_id, p_line_lis => Utils.Heading(p_name));
-.
-  Log_Set.Put_Line(p_log_id => l_log_id, p_line_text  => '');
-.
+  Col_Group.AIP_Load_File(p_file => 'fantasy_premier_league_player_stats.csv', p_delim => ',',
+   p_colnum => 7);
+  l_res_arr := Col_Group.AIP_List_Asis;
+  Log_Set.Put_List(p_line_lis => Utils.Col_Headers(L1_chr_arr('Team', 'Apps'), l_len_lis));
+  FOR i IN 1..l_res_arr.COUNT LOOP
+    Log_Set.Put_Line(p_line_text  => Utils.List_To_Line(
+                        L1_chr_arr(l_res_arr(i).chr_field, l_res_arr(i).int_field), l_len_lis));
+                        
+    
+  END LOOP;
+--  Log_Set.Raise_Error(p_err_msg => 'Example custom error raising');
   RAISE NO_DATA_FOUND; -- Example of unexpected error handling in others
-  Log_Set.Close_Log(p_log_id => l_log_id); -- will be closed by Write_Other_Error
 
 EXCEPTION
   WHEN OTHERS THEN
-    Log_Set.Write_Other_Error(p_log_id => l_log_id);
+    Log_Set.Write_Other_Error;
     RAISE;
 END;
 /
-SELECT line_num lno, Nvl(err_msg, line_text) text
+PROMPT Normal lines
+SELECT line_num lno, line_text text
   FROM log_lines
  WHERE log_id = (SELECT MAX(h.id) FROM log_headers h)
+   AND line_type IS NULL
+ ORDER BY line_num
+/
+PROMPT Errors
+SELECT line_num lno, err_msg, error_backtrace
+  FROM log_lines
+ WHERE log_id = (SELECT MAX(h.id) FROM log_headers h)
+   AND line_type = 'ERROR'
  ORDER BY line_num
 /
 
 ```
-This will create a log of the results from an example program, with listing at the end:
+This will create a log of the results from the example program, with listing at the end:
 ```
+Normal lines
+
    1 As Is
    2 =====
    3 Team                             Apps
@@ -44,23 +64,25 @@ This will create a log of the results from an example program, with listing at t
    5 team_name_2                         1
    6 Blackburn                          33
 ...
-  89 QPR                              1517
-  90
-  91 ORA-01403: no data found
+  29 Reading                          1167
+
+Errors
+
+  30 ORA-01403: no data found       ORA-06512: at line 23
 ```
 To run the example in a slqplus session from app subfolder (after installation):
 
 SQL> @main_col_group
 
 ## API - Log_Set
-There are several versions of the log constructor function, and of the log putr methods, and calls are simplified by the use of two record types to group parameters, for which constructor functions are included. The parameters of these types have default records and so can be omitted, as in the example calls above, in which case the field values are as defaulted in the type definitions. These field level defaults are also taken when any of the record fields are not set explicitly. Field defaults are mentioned below where not null.
+There are several versions of the log constructor function, and of the log put methods, and calls are simplified by the use of two record types to group parameters, for which constructor functions are included. The parameters of these types have default records and so can be omitted, as in the example calls above. Field defaults are mentioned below where not null.
 
 All commits are through autonomous transactions.
 
 ### l_con_rec Log_Set.con_rec := Log_Set.Con_Construct_Rec(`optional parameters`)
 Returns a record to be passed to a Construct function, with parameters as follows (all optional):
 
-* `p_config_key`: references configuration in log_configs table, of which there should be one active version; defaults to 'DEF_CONFIG'
+* `p_config_key`: references configuration in log_configs table, of which there should be one active version
 * `p_description`: log description
 * `p_put_lev_min`: minimum put level: Log not put if the put_lev in log_configs is lower; defaults to 0
 * `p_do_close`: boolean, True if the log is to be closed immediately; defaults to False
@@ -73,7 +95,7 @@ Returns a record to be passed to a method that puts lines, with parameters as fo
 * `p_plsql_line`: PL/SQL line number, as given by $$PLSQL_LINE
 * `p_group_text`: free text that can be used to group lines
 * `p_action`: action that can be used as the action in DBMS_Application_Info.Set_Action, and logged with a line
-* `p_put_lev_min`: minimum put level: Log line not put if the put_lev in log_configs is lower; also affects indp_ividual fields that have their own level, eg put_lev_stack; defaults to 0
+* `p_put_lev_min`: minimum put level: Log line not put if the put_lev in log_configs is lower; also affects individual fields that have their own level, eg put_lev_stack; defaults to 0
 * `p_err_num`: error number when passed explicitly, also set to SQLCODE by Write_Other_Error
 * `p_err_msg`: error message when passed explicitly, also set to SQLERRM by Write_Other_Error
 * `p_call_stack`: call stack set by Write_Other_Error using DBMS_Utility.Format_Call_Stack
@@ -93,6 +115,7 @@ Constructs a new log with integer handle `l_log_set`, passing line of text to be
 
 `optional parameters`
 * `p_construct_rec`: construct parameters record of type Log_Set.line_rec, as defined above, default CONSTRUCT_DEF
+* `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
 ### l_log_set   PLS_INTEGER := Log_Set.Construct(p_line_lis, `optional parameters`)
 Constructs a new log with integer handle `l_log_set`, passing a list of lines of text to be put to the new log.
@@ -135,7 +158,7 @@ Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the 
 `optional parameters`
 * `p_log_id`: id of log to put to
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
-* `p_do_close`: boolean, True if the log is to be closed after writing error details; defaults to True
+* `p_do_close`: boolean, True if the log is to be closed after writing error details; default  True
 
 ### Log_Set.Write_Other_Error(p_log_id, `optional parameters`)
 Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the message to a log, if the log id is passed, and using p_line_rec.err_msg as the message.
@@ -156,6 +179,24 @@ Deletes all logs matching either a single log id or a session id which may have 
 ## API - Log_Config
 This package allows for insertion and deletion of the configuration records, with no commits.
 
+### Log_Config.Set_Default_Config(p_config_key)
+Sets a record in the log_configs table to be the default config.
+
+* `p_config_key`: references configuration in log_configs table, of which there should be one active version
+
+### l_config_key log_configs.config_key%TYPE := Log_Config.Get_Default_Config
+Gets the config key for the default config in the log_configs table.
+
+### l_config log_configs%ROWTYPE := Log_Config.Get_Config(p_config_key)
+Gets the config record in the log_configs table for the config key passed.
+
+* `p_config_key`: references configuration in log_configs table, of which there should be one active version
+
+### Log_Config.Del_Config(p_config_key)
+Deletes the currently active record in the log_configs table for the config key passed, activating any most recent prior record.
+
+* `p_config_key`: references configuration in log_configs table, of which there should be one active version
+
 ### Log_Config.Ins_Config(`optional parameters`)
 Inserts a new record in the log_configs table. If the config_key already exists, a new active version will be inserted with the old version de-activated. 
 
@@ -169,8 +210,10 @@ An entry in the array should be added for each context desired.
 
 All parameters are optional, with null defaults except where mentioned:
 
-* `p_config_key`: references configuration in log_configs table, of which there should be one active version; default 'DEF_CONFIG'
+* `p_config_key`: references configuration in log_configs table, of which there should be one active version
 * `p_config_type`: configuration type; if new version, takes same as previous version if not passed
+* `p_default_yn`: if 'Y' config is default
+* `p_singleton_yn`: if 'Y' designates a `singleton` configuration, meaning only a single log with this setting can be active at a time, and the log id is stored internally, so can be omitted from the put and close methods
 * `p_description`: log description; if new version, takes same as previous version if not passed
 * `p_put_lev`: put level, default 10; minimum put levels at header and line level are compared to this
 * `p_put_lev_stack`: put level for call stack; if line is put, the minimum line put level is compared to this for writing the call stack field
@@ -180,7 +223,6 @@ All parameters are optional, with null defaults except where mentioned:
 * `p_put_lev_action`:  put level for action; if line is put, the minimum line put level is compared to this for writing the action field
 * `p_put_lev_client_info`:  put level for client info; if line is put, the minimum line put level is compared to this for writing the client info field
 * `p_app_info_only_yn`: if 'Y' do not put to table, but set application info only
-* `p_singleton_yn`: if 'Y' designates a `singleton` configuration, meaning only a single log with this setting can be active at a time, and the log id is stored internally, so can be omitted from the put and close methods
 * `p_buff_len`: number of lines that are stored before saving to table; default 100
 * `p_extend_len`: number of elements to extend the buffer by when needed; default 100
 
