@@ -25,8 +25,6 @@ BEGIN
   FOR i IN 1..l_res_arr.COUNT LOOP
     Log_Set.Put_Line(p_line_text  => Utils.List_To_Line(
                         L1_chr_arr(l_res_arr(i).chr_field, l_res_arr(i).int_field), l_len_lis));
-                        
-    
   END LOOP;
 --  Log_Set.Raise_Error(p_err_msg => 'Example custom error raising');
   RAISE NO_DATA_FOUND; -- Example of unexpected error handling in others
@@ -102,14 +100,14 @@ Returns a record to be passed to a method that puts lines, with parameters as fo
 * `p_error_backtrace`: error backtrace set by Write_Other_Error using DBMS_Utility.Format_Error_Backtrace
 * `p_do_close`: boolean, True if the log is to be closed after writing line or list of lines; defaults to False
 
-### l_log_set   PLS_INTEGER := Log_Set.Construct(`optional parameters`)
-Constructs a new log with integer handle `l_log_set`.
+### l_log_id   PLS_INTEGER := Log_Set.Construct(`optional parameters`)
+Constructs a new log with integer handle `l_log_id`.
 
 `optional parameters`
 * `p_construct_rec`: construct parameters record of type Log_Set.line_rec, as defined above, default CONSTRUCT_DEF
 
-### l_log_set   PLS_INTEGER := Log_Set.Construct(p_line_text, `optional parameters`)
-Constructs a new log with integer handle `l_log_set`, passing line of text to be put to the new log.
+### l_log_id   PLS_INTEGER := Log_Set.Construct(p_line_text, `optional parameters`)
+Constructs a new log with integer handle `l_log_id`, passing line of text to be put to the new log.
 
 * `p_line_text`: line of text to put
 
@@ -117,8 +115,8 @@ Constructs a new log with integer handle `l_log_set`, passing line of text to be
 * `p_construct_rec`: construct parameters record of type Log_Set.line_rec, as defined above, default CONSTRUCT_DEF
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
-### l_log_set   PLS_INTEGER := Log_Set.Construct(p_line_lis, `optional parameters`)
-Constructs a new log with integer handle `l_log_set`, passing a list of lines of text to be put to the new log.
+### l_log_id   PLS_INTEGER := Log_Set.Construct(p_line_lis, `optional parameters`)
+Constructs a new log with integer handle `l_log_id`, passing a list of lines of text to be put to the new log.
 
 * `p_line_lis`: list of lines of text to put, of type L1_chr_arr
 
@@ -160,12 +158,11 @@ Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the 
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 * `p_do_close`: boolean, True if the log is to be closed after writing error details; default  True
 
-### Log_Set.Write_Other_Error(p_log_id, `optional parameters`)
+### Log_Set.Write_Other_Error(`optional parameters`)
 Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the message to a log, if the log id is passed, and using p_line_rec.err_msg as the message.
 
-* `p_log_id`: id of log to put to
-
 `optional parameters`
+* `p_log_id`: id of log to put to
 * `p_line_text`: line of text to put, default null
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 * `p_do_close`: boolean, True if the log is to be closed after writing error details; defaults to True
