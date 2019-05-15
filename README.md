@@ -1,6 +1,4 @@
 # Utils
-Oracle object types and PL/SQL functions of general utility.
-
 This module comprises a set of generic user-defined Oracle types and a PL/SQL package of functions
 and procedures of general utility.
 
@@ -27,7 +25,8 @@ BEGIN
 
 END;
 ```
-This calls the Col_Group package to read and process a CSV file, with calls to Utils procedures and functions to 'pretty-print' a listing at the end:
+The main_col_group.sql script gives examples of usage for all the functions
+and procedures in the Utils package. In the extract above, an example package, Col_Group, is called to read and process a CSV file, with calls to Utils procedures and functions to 'pretty-print' a listing at the end:
 ```
 As Is
 =====
@@ -37,14 +36,11 @@ team_name_2                         1
 Blackburn                          33
 ...
 ```
-The script also calls the other Utils procedures and functions as examples of usage.
 To run the example script in a slqplus session from app subfolder (after installation):
 
 SQL> @main_col_group
 
 ## API
-.
-
 ### l_heading_lis L1_chr_arr := Utils.Heading(`parameters`)
 Returns a 2-element string array consisting of the string passed in and a string of underlining '=' of the same length, with parameters as follows:
 
@@ -161,7 +157,6 @@ SQL> @install_utils_tt
 
 #### app subfolder, app schema
 SQL> @install_app
-You can also install the example code in any schema just by running the above script.
 
 ## Unit testing
 The unit test program (if installed) may be run from the lib subfolder:
@@ -180,7 +175,7 @@ $ npm install trapit
 
 The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
-The wrapper function represents a generalised transactional use of the package in which multiple logs may be constructed, and written to independently. 
+In this case, where we have a set of small independent methods, most of which are pure functions, the wrapper function is designed to test all of them in a single generalised transaction. 
 
 ## Operating System/Oracle Versions
 ### Windows
