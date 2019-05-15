@@ -1,7 +1,8 @@
 # Utils
-Oracle logging framework.
+Oracle object types and PL/SQL functions of general utility.
 
-PL/SQL package that facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Construction and reporting require only a single line each, regardless of how many timers are included in a set.
+This module comprises a set of generic user-defined Oracle types and a PL/SQL package of functions
+and procedures of general utility.
 
 ## Usage (extract from main_col_group.sql)
 ```sql
