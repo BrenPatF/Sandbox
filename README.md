@@ -133,7 +133,7 @@ Writes a list of lines of text using DBMS_Output.Put_line, with parameters as fo
 ## Installation
 You can install just the base module in an existing schema, or alternatively, install base module plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
 ### Install (base module only)
-To install the base module only, comprising 2 object and 2 array types, 1 package, with associated (public) grants and synonyms, run the following script in a sqlplus session in the desired schema from the lib subfolder:
+To install the base module only, comprising 2 object and 2 array types, and 1 package, with associated (public) grants and synonyms, run the following script in a sqlplus session in the desired schema from the lib subfolder:
 
 SQL> @install_utils
 
@@ -175,7 +175,7 @@ $ npm install trapit
 
 The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
-In this case, where we have a set of small independent methods, most of which are pure functions, the wrapper function is designed to test all of them in a single generalised transaction. 
+In this case, where we have a set of small independent methods, most of which are pure functions, the wrapper function is designed to test all of them in a single generalised transaction. Four high level scenarios were identified (`Small`, `Large`, `Many`, `Bad SQL`).
 
 ## Operating System/Oracle Versions
 ### Windows
