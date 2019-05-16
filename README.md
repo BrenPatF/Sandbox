@@ -132,31 +132,47 @@ Writes a list of lines of text using DBMS_Output.Put_line, with parameters as fo
 
 ## Installation
 You can install just the base module in an existing schema, or alternatively, install base module plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
-### Install (base module only)
-To install the base module only, comprising 2 object and 2 array types, and 1 package, with associated (public) grants and synonyms, run the following script in a sqlplus session in the desired schema from the lib subfolder:
 
-SQL> @install_utils
-
-This creates the required objects along with public synonyms and grants for them. It does not include the example or the unit test code, the latter of which requires a minimum Oracle database version of 12.2.
-
-### Install (base module plus example and unit test code)
-The extended installation requires a minimum Oracle database version of 12.2, and processing the unit test output file requires a separate nodejs install from npm. You can review the results from the example code in the `app` subfolder, and the unit test formatted results in the `test_output` subfolder, without needing to do the extended installation [utils.html is the root page for the HTML version and utils.txt has the results in text format].
+### Install 1 (from sys schema, root folder): Create lib and app schemas and Oracle directory (optional)
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
-- Copy the following files from the root folder to the `input_dir` folder:
-	- fantasy_premier_league_player_stats.csv
-	- tt_utils.json
-- Run the install scripts from the specified folders in sqlplus sessions for the specified schemas
-
-#### Root folder, sys schema
+Run script from slqplus:
 SQL> @install_sys
 
-#### lib subfolder, lib schema
+
+If you do not create new users, subsequent installs will be from whichever schemas are used instead of lib and app.
+
+### Install 2 (from lib schema, lib folder): Create Utils components
+Run script from slqplus:
 SQL> @install_utils
 
+This creates the required components for the base install along with public synonyms and grants for them. This install is all that is required to use the package and object types.
+
+### Install 3 (from app schema, app folder): Create components for example code
+Copy the following files from the root folder to the `input_dir` folder:
+  - fantasy_premier_league_player_stats.csv
+Run script from slqplus:
+SQL> @install_app
+
+You can review the results from the example code in the `app` subfolder without doing this install.
+
+The remaining, optional, installs are for the unit testing code, and require a minimum Oracle database version of 12.2.
+### Install 4 (from lib schema, Trapit lib folder): Install Trapit module
+Download and install the Trapit module:
+[trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
+
+### Install 4 (from lib schema, lib folder): Install unit test code
+- Copy the following files from the root folder to the `input_dir` folder:
+  - tt_utils.json
 SQL> @install_utils_tt
 
-#### app subfolder, app schema
-SQL> @install_app
+Processing the unit test output file requires a separate nodejs install from npm. You can review the  unit test formatted results in the `test_output` subfolder, without needing to do this install [utils.html is the root page for the HTML version and utils.txt has the results in text format]. The npm mduke
+
+### Install 5 (npm): Install npm package
+With [npm](https://npmjs.org/) installed, run
+
+```
+$ npm install trapit
+```
 
 ## Unit testing
 The unit test program (if installed) may be run from the lib subfolder:
