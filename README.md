@@ -135,29 +135,29 @@ You can install just the base module in an existing schema, or alternatively, in
 
 ### Install 1 (from sys schema, root folder): Create lib and app schemas and Oracle directory (optional)
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
-Run script from slqplus:
+- Run script from slqplus:
 SQL> @install_sys
 
 
 If you do not create new users, subsequent installs will be from whichever schemas are used instead of lib and app.
 
 ### Install 2 (from lib schema, lib folder): Create Utils components
-Run script from slqplus:
+- Run script from slqplus:
 SQL> @install_utils
 
 This creates the required components for the base install along with public synonyms and grants for them. This install is all that is required to use the package and object types.
 
 ### Install 3 (from app schema, app folder): Create components for example code
-Copy the following files from the root folder to the `input_dir` folder:
+- Copy the following files from the root folder to the `input_dir` folder:
   - fantasy_premier_league_player_stats.csv
-Run script from slqplus:
+- Run script from slqplus:
 SQL> @install_app
 
 You can review the results from the example code in the `app` subfolder without doing this install.
 
 The remaining, optional, installs are for the unit testing code, and require a minimum Oracle database version of 12.2.
 ### Install 4 (from lib schema, Trapit lib folder): Install Trapit module
-Download and install the Trapit module:
+- Download and install the Trapit module:
 [trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
 
 ### Install 4 (from lib schema, lib folder): Install unit test code
