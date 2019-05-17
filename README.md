@@ -144,13 +144,15 @@ SQL> @install_sys
 
 If you do not create new users, subsequent installs will be from whichever schemas are used instead of lib and app.
 
-### Install 2 (from lib schema, lib folder): Create Utils components
+### Install 2: Create Utils components
+#### [Schema: lib; Folder: lib]
 - Run script from slqplus:
 SQL> @install_utils
 
 This creates the required components for the base install along with public synonyms and grants for them. This install is all that is required to use the package and object types.
 
-### Install 3 (from app schema, app folder): Create components for example code
+### Install 3: Create components for example code
+#### [Schema: app; Folder: app]
 - Copy the following files from the root folder to the `input_dir` folder:
   - fantasy_premier_league_player_stats.csv
 - Run script from slqplus:
@@ -159,11 +161,13 @@ SQL> @install_app
 You can review the results from the example code in the `app` subfolder without doing this install.
 
 The remaining, optional, installs are for the unit testing code, and require a minimum Oracle database version of 12.2.
-### Install 4 (from lib schema, Trapit lib folder): Install Trapit module
+### Install 4: Install Trapit module
+#### [Schema: lib; Folder: (Trapit) lib]
 - Download and install the Trapit module:
-[trapit on GitHub](https://github.com/BrenPatF/trapit_oracle_tester)
+[Trapit on GitHub](https://github.com/BrenPatF/trapit_oracle_tester)
 
 ### Install 5 (from lib schema, lib folder): Install unit test code
+#### [Schema: lib; Folder: (Trapit) lib]
 - Copy the following file from the root folder to the `input_dir` folder:
   - tt_utils.json
 - Run script from slqplus:
@@ -172,7 +176,8 @@ SQL> @install_utils_tt
 Processing the unit test output file requires a separate nodejs install from npm. You can review the  unit test formatted results in the `test_output` subfolder, without needing to do this install [utils.html is the root page for the HTML version and utils.txt has the results in text format].
 
 ### Install 6 (npm): Install npm package
-Open a DOS or Powershell window in the folder where you want to install npm packages, and, with [npm](https://npmjs.org/) installed, run
+#### [Folder: (npm root)]
+Open a DOS or Powershell window in the folder where you want to install npm packages, and, with [nodejs](https://nodejs.org/en/download/) installed, run
 
 ```
 $ npm install trapit
@@ -208,6 +213,7 @@ Windows 10
 
 ## See also
 - [trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
-   
+- [nodejs download page](https://nodejs.org/en/download/)
+
 ## License
 MIT
