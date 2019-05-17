@@ -158,35 +158,36 @@ You can review the results from the example code in the `app` subfolder without 
 The remaining, optional, installs are for the unit testing code, and require a minimum Oracle database version of 12.2.
 ### Install 4 (from lib schema, Trapit lib folder): Install Trapit module
 - Download and install the Trapit module:
-[trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
+[trapit on GitHub](https://github.com/BrenPatF/trapit_oracle_tester)
 
-### Install 4 (from lib schema, lib folder): Install unit test code
-- Copy the following files from the root folder to the `input_dir` folder:
+### Install 5 (from lib schema, lib folder): Install unit test code
+- Copy the following file from the root folder to the `input_dir` folder:
   - tt_utils.json
+- Run script from slqplus:
 SQL> @install_utils_tt
 
-Processing the unit test output file requires a separate nodejs install from npm. You can review the  unit test formatted results in the `test_output` subfolder, without needing to do this install [utils.html is the root page for the HTML version and utils.txt has the results in text format]. The npm mduke
+Processing the unit test output file requires a separate nodejs install from npm. You can review the  unit test formatted results in the `test_output` subfolder, without needing to do this install [utils.html is the root page for the HTML version and utils.txt has the results in text format].
 
-### Install 5 (npm): Install npm package
-With [npm](https://npmjs.org/) installed, run
+### Install 6 (npm): Install npm package
+Open a DOS or Powershell window in the folder where you want to install npm packages, and, with [npm](https://npmjs.org/) installed, run
 
 ```
 $ npm install trapit
 ```
 
+This should install the trapit nodejs package in a subfolder .\node_modules\trapit
+
 ## Unit testing
-The unit test program (if installed) may be run from the lib subfolder:
+The unit test program (if installed) may be run from the Oracle lib subfolder:
 
 SQL> @r_tests
 
 The program is data-driven from the input file tt_utils.json and produces an output file tt_utils.tt_main_out.json, that contains arrays of expected and actual records by group and scenario.
 
-The output file can be processed by a Javascript program that has to be downloaded separately from the `npm` Javascript repository. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the subfolder test_output. To install the Javascript program, `trapit`:
-
-With [npm](https://npmjs.org/) installed, run
+The output file can be processed by a Javascript program that has to be installed separately from the `npm` Javascript repository, as noted in `Install 6` above. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.tt_main_out.json, in the subfolder ./examples/externals and run:
 
 ```
-$ npm install trapit
+$ node ./examples/externals/test-externals
 ```
 
 The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
