@@ -136,7 +136,7 @@ Writes a list of lines of text using DBMS_Output.Put_line, with parameters as fo
 You can install just the base module in an existing schema, or alternatively, install base module plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
 
 ### Install 1: Create lib and app schemas and Oracle directory (optional)
-####[Schema: sys; Folder: (module root)]
+#### [Schema: sys; Folder: (module root)]
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
 - Run script from slqplus:
 SQL> @install_sys
