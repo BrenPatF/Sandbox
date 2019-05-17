@@ -5,6 +5,11 @@ and procedures of general utility. It includes functions and procedures for:
 - returning records from cursors or views/tables as lists of delimited strings
 - joining lists of values into delimited strings, and the converse splitting operation
 
+This module is a pre-requisite for other Oracle GitHub modules:
+- [Log_Set](https://github.com/BrenPatF/log_set_oracle)
+- [Trapit](https://github.com/BrenPatF/trapit_oracle_tester)
+- [Timer_Set](https://github.com/BrenPatF/timer_set_oracle)
+
 ## Usage (extract from main_col_group.sql)
 ```sql
 DECLARE
@@ -166,8 +171,8 @@ The remaining, optional, installs are for the unit testing code, and require a m
 - Download and install the Trapit module:
 [Trapit on GitHub](https://github.com/BrenPatF/trapit_oracle_tester)
 
-### Install 5 (from lib schema, lib folder): Install unit test code
-#### [Schema: lib; Folder: (Trapit) lib]
+### Install 5: Install unit test code
+#### [Schema: lib; Folder: lib]
 - Copy the following file from the root folder to the `input_dir` folder:
   - tt_utils.json
 - Run script from slqplus:
@@ -175,7 +180,7 @@ SQL> @install_utils_tt
 
 Processing the unit test output file requires a separate nodejs install from npm. You can review the  unit test formatted results in the `test_output` subfolder, without needing to do this install [utils.html is the root page for the HTML version and utils.txt has the results in text format].
 
-### Install 6 (npm): Install npm package
+### Install 6: Install npm package
 #### [Folder: (npm root)]
 Open a DOS or Powershell window in the folder where you want to install npm packages, and, with [nodejs](https://nodejs.org/en/download/) installed, run
 
