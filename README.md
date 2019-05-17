@@ -1,6 +1,9 @@
 # Utils
 This module comprises a set of generic user-defined Oracle types and a PL/SQL package of functions
-and procedures of general utility.
+and procedures of general utility. It includes functions and procedures for:
+- 'pretty-printing'
+- returning records from cursors or views/tables as lists of delimited strings
+- joining lists of values into delimited strings, and the converse splitting operation
 
 ## Usage (extract from main_col_group.sql)
 ```sql
@@ -25,8 +28,7 @@ BEGIN
 
 END;
 ```
-The main_col_group.sql script gives examples of usage for all the functions
-and procedures in the Utils package. In the extract above, an example package, Col_Group, is called to read and process a CSV file, with calls to Utils procedures and functions to 'pretty-print' a listing at the end:
+The main_col_group.sql script gives examples of usage for all the functions and procedures in the Utils package. In the extract above, an example package, Col_Group, is called to read and process a CSV file, with calls to Utils procedures and functions to 'pretty-print' a listing at the end:
 ```
 As Is
 =====
@@ -133,7 +135,8 @@ Writes a list of lines of text using DBMS_Output.Put_line, with parameters as fo
 ## Installation
 You can install just the base module in an existing schema, or alternatively, install base module plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
 
-### Install 1 (from sys schema, root folder): Create lib and app schemas and Oracle directory (optional)
+### Install 1 (from  schema,  folder): Create lib and app schemas and Oracle directory (optional)
+[Schema: sys; Folder: (module root)]
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
 - Run script from slqplus:
 SQL> @install_sys
@@ -189,6 +192,8 @@ The output file can be processed by a Javascript program that has to be installe
 ```
 $ node ./examples/externals/test-externals
 ```
+
+The three testing steps can easily be automated in Powershell (or Unix bash).
 
 The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
