@@ -144,15 +144,18 @@ You can install just the base module in an existing schema, or alternatively, in
 #### [Schema: sys; Folder: (module root)]
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
 - Run script from slqplus:
+```
 SQL> @install_sys
-
+```
 
 If you do not create new users, subsequent installs will be from whichever schemas are used instead of lib and app.
 
 ### Install 2: Create Utils components
 #### [Schema: lib; Folder: lib]
 - Run script from slqplus:
+```
 SQL> @install_utils
+```
 
 This creates the required components for the base install along with public synonyms and grants for them. This install is all that is required to use the package and object types.
 
@@ -161,7 +164,9 @@ This creates the required components for the base install along with public syno
 - Copy the following files from the root folder to the `input_dir` folder:
   - fantasy_premier_league_player_stats.csv
 - Run script from slqplus:
+```
 SQL> @install_app
+```
 
 You can review the results from the example code in the `app` subfolder without doing this install.
 
@@ -176,7 +181,9 @@ The remaining, optional, installs are for the unit testing code, and require a m
 - Copy the following file from the root folder to the `input_dir` folder:
   - tt_utils.json
 - Run script from slqplus:
+```
 SQL> @install_utils_tt
+```
 
 Processing the unit test output file requires a separate nodejs install from npm. You can review the  unit test formatted results in the `test_output` subfolder, without needing to do this install [utils.html is the root page for the HTML version and utils.txt has the results in text format].
 
@@ -193,9 +200,11 @@ This should install the trapit nodejs package in a subfolder .\node_modules\trap
 ## Unit testing
 The unit test program (if installed) may be run from the Oracle lib subfolder:
 
+```
 SQL> @r_tests
+```
 
-The program is data-driven from the input file tt_utils.json and produces an output file tt_utils.tt_main_out.json, that contains arrays of expected and actual records by group and scenario.
+The program is data-driven from the input file tt_utils.json and produces an output file, tt_utils.tt_main_out.json, that contains arrays of expected and actual records by group and scenario.
 
 The output file can be processed by a Javascript program that has to be installed separately from the `npm` Javascript repository, as noted in `Install 6` above. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.tt_main_out.json, in the subfolder ./examples/externals and run:
 
