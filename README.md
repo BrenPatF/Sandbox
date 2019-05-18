@@ -45,7 +45,9 @@ Blackburn                          33
 ```
 To run the example script in a slqplus session from app subfolder (after installation):
 
+```
 SQL> @main_col_group
+```
 
 ## API
 ### l_heading_lis L1_chr_arr := Utils.Heading(`parameters`)
