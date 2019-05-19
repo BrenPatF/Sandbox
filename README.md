@@ -7,7 +7,18 @@ The framework is designed as a lightweight PL/SQL-based framework for API testin
 
 ## Usage ()
 
-?
+In order to use the framework for unit testing, the following preliminary steps are required: 
+* A JSON file is created containing the input test data including expected return values in the required format
+* A unit test PL/SQL program is created as a public procedure in a package
+* A record is inserted into the tt_units table using the Trapit.Add_Ttu procedure, passing names of package, procedure, JSON file (which should be placed in an Oracle directory, INPUT_DIR) and an active Y/N flag
+
+Once the preliminary steps are executed, the following steps run the unit test program: 
+* The procedure Trapit.Run_Tests is called to run active test programs, writing JSON output files both to the tt_units table and to the Oracle directory, INPUT_DIR
+* Open a DOS or Powershell window in the trapit package folder after placing the output JSON file in the subfolder ./examples/externals and run:
+```
+$ node ./examples/externals/test-externals
+```
+The Javascript program produces listings of the results in html and/or text format. The unit test steps can easily be automated in Powershell (or in a Unix script).
 
 ## API
 ### l_scenarios Trapit.scenarios_rec := Trapit.Get_Inputs(`parameters`)
@@ -16,7 +27,7 @@ Returns a record containing a delimiter and 4-level list of scenario metadata fo
 * `p_package_nm`: package name
 * `p_procedure_nm`: procedure name
 
-`return value`
+`Return Value`
 * `scenarios_rec`: record type with two fields:
   * `delim`: record delimiter
   * `scenarios_4lis`: 4-level list of scenario input values - (scenario, group, record, field)
@@ -53,25 +64,15 @@ The install depends on the pre-requisite module Utils, and `lib` schema refers t
 ```
 SQL> @install_trapit
 ```
-
 This creates the required objects without public synonyms or grants. It requires a minimum Oracle database version of 12.2.
 
-## Use in unit testing
-The unit test program (if installed) may be run from the lib subfolder:
-
-SQL> @r_tests
-
-The program is data-driven from the input file x.json and produces an output file x.tt_main_out.json, that contains arrays of expected and actual records by group and scenario.
-
-The output file can be processed by a Javascript program that has to be downloaded separately from the `npm` Javascript repository. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the subfolder test_output. To install the Javascript program, `trapit`:
-
-With [npm](https://npmjs.org/) installed, run
-
+### Install 3: Install npm package
+#### [Folder: (npm root)]
+Open a DOS or Powershell window in the folder where you want to install npm packages, and, with [nodejs](https://nodejs.org/en/download/) installed, run
 ```
 $ npm install trapit
 ```
-
-The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
+This should install the trapit nodejs package in a subfolder .\node_modules\trapit
 
 ## Operating System/Oracle Versions
 ### Windows
