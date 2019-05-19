@@ -14,7 +14,7 @@ In order to use the framework for unit testing, the following preliminary steps 
 
 Once the preliminary steps are executed, the following steps run the unit test program: 
 * The procedure Trapit.Run_Tests is called to run active test programs, writing JSON output files both to the tt_units table and to the Oracle directory, INPUT_DIR
-* Open a DOS or Powershell window in the trapit package folder after placing the output JSON file in the subfolder ./examples/externals and run:
+* Open a DOS or Powershell window in the trapit npm package folder (`see Install 3: Install npm trapit package below`) after placing the output JSON file in the subfolder ./examples/externals and run:
 ```
 $ node ./examples/externals/test-externals
 ```
@@ -66,7 +66,7 @@ SQL> @install_trapit
 ```
 This creates the required objects without public synonyms or grants. It requires a minimum Oracle database version of 12.2.
 
-### Install 3: Install npm package
+### Install 3: Install npm trapit package
 #### [Folder: (npm root)]
 Open a DOS or Powershell window in the folder where you want to install npm packages, and, with [nodejs](https://nodejs.org/en/download/) installed, run
 ```
