@@ -5,7 +5,7 @@ and procedures of general utility. It includes functions and procedures for:
 - returning records from cursors or views/tables as lists of delimited strings
 - joining lists of values into delimited strings, and the converse splitting operation
 
-This module is a pre-requisite for other Oracle GitHub modules:
+This module is a pre-requisite for other these Oracle GitHub modules:
 - [Log_Set](https://github.com/BrenPatF/log_set_oracle)
 - [Trapit](https://github.com/BrenPatF/trapit_oracle_tester)
 - [Timer_Set](https://github.com/BrenPatF/timer_set_oracle)
@@ -222,7 +222,7 @@ In this case, where we have a set of small independent methods, most of which ar
 
 ## Operating System/Oracle Versions
 ### Windows
-Windows 10
+Tested on Windows 10, should be OS-independent
 ### Oracle
 - Tested on Oracle Database Version 18.3.0.0.0
 - Base code (and example) should work on earlier versions at least as far back as v11
