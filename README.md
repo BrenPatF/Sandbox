@@ -1,15 +1,17 @@
 # trapit_oracle_tester
 TRansactional API Testing (TRAPIT) framework for Oracle PL/SQL unit testing.
 
-The framework is designed as a lightweight PL/SQL-based framework for API testing that can be considered as an alternative to utPLSQL. The framework is based on the idea that all API testing programs can follow a universal design pattern for testing APIs, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
+The framework is designed as a lightweight PL/SQL-based framework for API testing that can be considered as an alternative to utPLSQL. The framework is based on the idea that all API testing programs can follow a universal design pattern for testing APIs, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
 
 - [The Database API Viewed As A Mathematical Function: Insights into Testing](https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing)
 
-## Usage ()
+## Usage
 
 In order to use the framework for unit testing, the following preliminary steps are required: 
 * A JSON file is created containing the input test data including expected return values in the required format
-* A unit test PL/SQL program is created as a public procedure in a package
+* A unit test PL/SQL program is created as a public procedure in a package (see example below). The program calls:
+  * Trapit.Get_Inputs to get the JSON data and translate into PL/SQL arrays
+  * Trapit.Set_Outputs to convert actual results in PL/SQL arrays into JSON, and write the output JSON file
 * A record is inserted into the tt_units table using the Trapit.Add_Ttu procedure, passing names of package, procedure, JSON file (which should be placed in an Oracle directory, INPUT_DIR) and an active Y/N flag
 
 Once the preliminary steps are executed, the following steps run the unit test program: 
@@ -19,6 +21,36 @@ Once the preliminary steps are executed, the following steps run the unit test p
 $ node ./examples/externals/test-externals
 ```
 The Javascript program produces listings of the results in html and/or text format. The unit test steps can easily be automated in Powershell (or in a Unix script).
+
+### Example test program main procedure from Utils module
+```
+PROCEDURE Test_API IS
+
+  PROC_NM                        CONSTANT VARCHAR2(30) := 'Test_API';
+
+  l_act_3lis                     L3_chr_arr := L3_chr_arr();
+  l_sces_4lis                    L4_chr_arr;
+  l_scenarios                    Trapit.scenarios_rec;
+  l_delim                        VARCHAR2(10);
+BEGIN
+
+  l_scenarios := Trapit.Get_Inputs(p_package_nm  => $$PLSQL_UNIT,
+                                   p_procedure_nm => PROC_NM);
+  l_sces_4lis := l_scenarios.scenarios_4lis;
+  l_delim := l_scenarios.delim;
+  l_act_3lis.EXTEND(l_sces_4lis.COUNT);
+  FOR i IN 1..l_sces_4lis.COUNT LOOP
+    l_act_3lis(i) := purely_Wrap_API(p_delim    => l_delim,
+                                     p_inp_3lis => l_sces_4lis(i));
+
+  END LOOP;
+
+  Trapit.Set_Outputs(p_package_nm   => $$PLSQL_UNIT,
+                     p_procedure_nm => PROC_NM,
+                     p_act_3lis     => l_act_3lis);
+
+END Test_API;
+```
 
 ## API
 ### l_scenarios Trapit.scenarios_rec := Trapit.Get_Inputs(`parameters`)
@@ -58,7 +90,7 @@ The install depends on the pre-requisite module Utils, and `lib` schema refers t
 - Download and install the Utils module:
 [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils)
 
-### Install 2: Trapit
+### Install 2: Install Oracle Trapit module
 #### [Schema: lib; Folder: lib]
 - Run script from slqplus:
 ```
