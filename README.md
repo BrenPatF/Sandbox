@@ -8,7 +8,9 @@ The framework is designed as a lightweight PL/SQL-based framework for API testin
 ## Usage
 
 In order to use the framework for unit testing, the following preliminary steps are required: 
-* A JSON file is created containing the input test data including expected return values in the required format
+* A JSON file is created containing the input test data including expected return values in the required format. The input JSON file essentially consists of two objects: 
+  * `meta`: inp and out objects each containing group objects with arrays of field names
+  * `scenarios`: scenario objects containing inp and out objects, with inp and out objects containing, for each group defined in meta, an array of input records and an array of expected output records, respectively, records being in delimited fields format
 * A unit test PL/SQL program is created as a public procedure in a package (see example below). The program calls:
   * Trapit.Get_Inputs to get the JSON data and translate into PL/SQL arrays
   * Trapit.Set_Outputs to convert actual results in PL/SQL arrays into JSON, and write the output JSON file
@@ -27,7 +29,6 @@ The Javascript program produces listings of the results in html and/or text form
 PROCEDURE Test_API IS
 
   PROC_NM                        CONSTANT VARCHAR2(30) := 'Test_API';
-
   l_act_3lis                     L3_chr_arr := L3_chr_arr();
   l_sces_4lis                    L4_chr_arr;
   l_scenarios                    Trapit.scenarios_rec;
@@ -42,13 +43,11 @@ BEGIN
   FOR i IN 1..l_sces_4lis.COUNT LOOP
     l_act_3lis(i) := purely_Wrap_API(p_delim    => l_delim,
                                      p_inp_3lis => l_sces_4lis(i));
-
   END LOOP;
 
   Trapit.Set_Outputs(p_package_nm   => $$PLSQL_UNIT,
                      p_procedure_nm => PROC_NM,
                      p_act_3lis     => l_act_3lis);
-
 END Test_API;
 ```
 
