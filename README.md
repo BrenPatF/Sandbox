@@ -115,6 +115,7 @@ Tested on Windows 10, should be OS-independent
 
 ## See also
 - [trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [Utils - Oracle PL/SQL module on GitHub](https://github.com/BrenPatF/oracle_plsql_utils)
    
 ## License
 MIT
