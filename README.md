@@ -55,18 +55,18 @@ END Test_API;
 ```
 
 ## API
-### l_scenarios Trapit.scenarios_rec := Trapit.Get_Inputs(`parameters`)
+### l_scenarios Trapit.scenarios_rec := Trapit.Get_Inputs(p_package_nm, p_procedure_nm)
 Returns a record containing a delimiter and 4-level list of scenario metadata for testing the given package procedure, with parameters as follows:
 
 * `p_package_nm`: package name
 * `p_procedure_nm`: procedure name
 
-`Return Value`
+Return Value
 * `scenarios_rec`: record type with two fields:
   * `delim`: record delimiter
   * `scenarios_4lis`: 4-level list of scenario input values - (scenario, group, record, field)
 
-### Trapit.Set_Outputs(`parameters`)
+### Trapit.Set_Outputs(p_package_nm, p_procedure_nm, p_act_3lis)
 Adds the actual results data into the JSON input object for testing the given package procedure and writes it to file, and to a column in tt_units table, with parameters as follows:
 
 * `p_package_nm`: package name
@@ -76,7 +76,7 @@ Adds the actual results data into the JSON input object for testing the given pa
 ### Trapit.Run_Tests
 Runs the unit test program for each package procedure set to active in tt_units table.
 
-### Trapit.Add_Ttu(`parameters`)
+### Trapit.Add_Ttu(p_package_nm, p_procedure_nm, p_active_yn, p_input_file)
 Adds a record to tt_units table, with parameters as follows:
 
 * `p_package_nm`: package name
