@@ -106,7 +106,7 @@ This creates the required components for the base install along with public syno
 
 ### Install 3: Install unit test code
 #### [Schema: lib; Folder: lib]
-- Copy the following file from the root folder to the `input_dir` folder:
+- Copy the following file from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
   - tt_timer_set.test_api_inp.json
 - Run script from slqplus:
 ```
