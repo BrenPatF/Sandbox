@@ -3,6 +3,8 @@ Oracle PL/SQL package that facilitates code timing for instrumentation and other
 
 See [Code Timing and Object Orientation and Zombies](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies), November 2010, for the original idea implemented in Oracle PL/SQL, Perl and Java.
 
+The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\log_set.html for the unit test results root page.
+
 ## Usage (extract from main_col_group.sql)
 ```sql
 DECLARE
@@ -144,7 +146,9 @@ Windows 10
 - Base code (and example) should work on earlier versions at least as far back as v10 and v11
 
 ## See also
-- [trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [Utils - Oracle PL/SQL module](https://github.com/BrenPatF/oracle_plsql_utils)
+- [Log_Set - Oracle PL/SQL module](https://github.com/BrenPatF/log_set_oracle)
+- [Trapit - nodejs unit test processing package](https://github.com/BrenPatF/trapit_nodejs_tester)
 - [Code Timing and Object Orientation and Zombies, Brendan Furey, November 2010](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies)
    
 ## License
