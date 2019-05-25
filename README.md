@@ -72,7 +72,7 @@ Returns the results for timer set `l_timer_set` in an array of formatted strings
 * `time_ratio_dp`: decimal places to show for per call time fields, default 5
 * `calls_width`: width of calls field, default 10
 
-### TimerSet.Get_Self_Timer
+### Timer_Set.Get_Self_Timer
 Static method to time the Increment_Time method as a way of estimating the overhead in using the timer set. Constructs a timer set instance and calls Increment_Time on it within a loop until 0.1s has elapsed.
 
 Returns a tuple, with fields:
@@ -80,10 +80,10 @@ Returns a tuple, with fields:
 * `ela`: elapsed time per call in ms
 * `cpu`: CPU time per call in ms
 
-### TimerSet.Format_Self_Timer(l_format_prms)
+### Timer_Set.Format_Self_Timer(l_format_prms)
 Static method to return the results from Get_Self_Timer in a formatted string, with parameter as Format_Timers (but any extra spaces are trimmed here).
 
-### TimerSet.Format_Results(l_timer_set, l_format_prms)
+### Timer_Set.Format_Results(l_timer_set, l_format_prms)
 Returns the results for timer set `l_timer_set` in a formatted string, with parameters as Format_Timers. It uses the array returned from Format_Timers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
 
 ## Installation
