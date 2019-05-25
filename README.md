@@ -119,7 +119,7 @@ Sleeps for a given number of seconds elapsed time, including a given proportion 
 
 * `p_ela_seconds`: elapsed time to sleep
 
-`optional parameters`
+Optional parameters
 * `p_fraction_CPU`: fraction of elapsed time to use CPU, default 0.5
 
 ### Utils.Raise_Error(p_message)
@@ -194,7 +194,7 @@ SQL> @r_tests
 
 The program is data-driven from the input file tt_utils.json and produces an output file, tt_utils.tt_main_out.json, that contains arrays of expected and actual records by group and scenario.
 
-The output file is processed by a Javascript program that has to be installed separately from the `npm` Javascript repository, as described in the Trapit install in `Install 4` above. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.tt_main_out.json, in the subfolder ./examples/externals and run:
+The output file is processed by a Javascript program that has to be installed separately from the `npm` Javascript repository, as described in the Trapit install in `Install 4` above. The Javascript program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.tt_main_out.json, in the subfolder ./examples/externals and run:
 
 ```
 $ node ./examples/externals/test-externals
@@ -217,7 +217,6 @@ Tested on Windows 10, should be OS-independent
 
 ## See also
 - [trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
-- [nodejs download page](https://nodejs.org/en/download/)
 
 ## License
 MIT
