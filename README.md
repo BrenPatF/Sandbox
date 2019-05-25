@@ -10,14 +10,16 @@ DECLARE
 
 BEGIN
 
-  Col_Group.AIP_Load_File(p_file => CSV_FILE, p_delim => DELIM, p_colnum => COLNUM);
+  Col_Group.Load_File(p_file   => 'fantasy_premier_league_player_stats.csv', 
+                      p_delim  => ',', 
+                      p_colnum => 7);
   Timer_Set.Increment_Time(l_timer_set, 'Load File');
 .
 .
 .
   Print_Results('Sorted by Value, Key', Col_Group.AIP_Sort_By_Value);
   Timer_Set.Increment_Time(l_timer_set, 'Sort_By_Value');
-  Utils.Write_Log(Timer_Set.Format_Results(l_timer_set));
+  Utils.W(p_line_lis => Timer_Set.Format_Results(l_timer_set));
 ```
 This will create a timer set and time the sections, with listing at the end:
 ```
@@ -85,47 +87,44 @@ Static method to return the results from Get_Self_Timer in a formatted string, w
 Returns the results for timer set `l_timer_set` in a formatted string, with parameters as Format_Timers. It uses the array returned from Format_Timers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
 
 ## Installation
-You can install just the base code in an existing schema, or alternatively, install base code plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
-### Install (base code only)
-To install the base code only, comprising 4 object types and two packages, run the following script in a sqlplus session in the desired schema from the lib subfolder:
+The install depends on the pre-requisite module Utils, and `lib` schema refers to the schema in which Utils is installed.
 
-SQL> @install_lib
+### Install 1: Install Utils module (if not present)
+#### [Schema: lib; Folder: (Utils) lib]
+- Download and install the Utils module:
+[Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils)
 
-This creates the required objects along with public synonyms and grants for them. It does not include the example or the unit test code, the latter of which requires a minimum Oracle database version of 12.2.
+The base Utils install is required for the base Timer_Set install, while the unit test install and running the example require the corresponding Utils install sections.
 
-### Install (base code plus example and unit test code)
-The extended installation requires a minimum Oracle database version of 12.2, and processing the unit test output file requires a separate nodejs install from npm. You can review the results from the example code in the `app` subfolder, and the unit test formatted results in the `test_output` subfolder, without needing to do the extended installation [timer_set.html is the root page for the HTML version and timer_set.txt has the results in text format].
-- install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
-- Copy the following files from the root folder to the `input_dir` folder:
-	- fantasy_premier_league_player_stats.csv
-	- tt_timer_set.json
-- Run the install scripts from the specified folders in sqlplus sessions for the specified schemas
+### Install 2: Create Timer_Set components
+#### [Schema: lib; Folder: lib]
+- Run script from slqplus:
+```
+SQL> @install_timer_set
+```
+This creates the required components for the base install along with public synonyms and grants for them. This install is all that is required to use the package.
 
-#### Root folder, sys schema
-SQL> @install_sys
-
-#### lib subfolder, lib schema
-SQL> @install_lib
-
-SQL> @install_lib_tt
-
-#### app subfolder, app schema
-SQL> @install_app
+### Install 3: Install unit test code
+#### [Schema: lib; Folder: lib]
+- Copy the following file from the root folder to the `input_dir` folder:
+  - tt_timer_set.test_api_inp.json
+- Run script from slqplus:
+```
+SQL> @install_timer_set_tt
+```
 
 ## Unit testing
 The unit test program (if installed) may be run from the lib subfolder:
 
 SQL> @r_tests
 
-The program is data-driven from the input file tt_timer_set.json and produces an output file tt_timer_set.tt_main_out.json, that contains arrays of expected and actual records by group and scenario.
+The program is data-driven from the input file tt_timer_set.test_api_inp.json and produces an output file tt_timer_set.test_api_out.json, that contains arrays of expected and actual records by group and scenario.
 
-The output file can be processed by a Javascript program that has to be downloaded separately from the `npm` Javascript repository. The Javascript program produces listings of the results in html and/or text format, and a sample set of listings is included in the subfolder test_output. To install the Javascript program, `trapit`:
-
-With [npm](https://npmjs.org/) installed, run
-
+The output file is processed by a Javascript program that has to be installed separately from the `npm` Javascript repository, as described in the Trapit install in `Install 1` above. The Javascript program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.test_api_out.json, in the subfolder ./examples/externals and run:
 ```
-$ npm install trapit
+$ node ./examples/externals/test-externals
 ```
+The three testing steps can easily be automated in Powershell (or Unix bash).
 
 The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
@@ -141,13 +140,11 @@ In this way we can test correctness of the timing aggregations, independence of 
 ### Windows
 Windows 10
 ### Oracle
-- Tested on Oracle Database 12c 12.2.0.1.0 
+- Tested on Oracle Database Version 18.3.0.0.0
 - Base code (and example) should work on earlier versions at least as far back as v10 and v11
 
 ## See also
 - [trapit - nodejs unit test processing package on GitHub](https://github.com/BrenPatF/trapit_nodejs_tester)
-- [nodejs version of timer set package on GitHub](https://github.com/BrenPatF/timer-set-nodejs)
-- [python version of timer set package on GitHub](https://github.com/BrenPatF/timerset_python)
 - [Code Timing and Object Orientation and Zombies, Brendan Furey, November 2010](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies)
    
 ## License
