@@ -148,9 +148,9 @@ Windows 10
 - Base code (and example) should work on earlier versions at least as far back as v10 and v11
 
 ## See also
-- [Utils - Oracle PL/SQL general utilities](https://github.com/BrenPatF/oracle_plsql_utils)
+- [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
 - [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
-- [Log_Set - Oracle logging framework](https://github.com/BrenPatF/log_set_oracle)
+- [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
 - [Trapit - nodejs unit test processing package](https://github.com/BrenPatF/trapit_nodejs_tester)
 - [Code Timing and Object Orientation and Zombies, Brendan Furey, November 2010](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies)
    
