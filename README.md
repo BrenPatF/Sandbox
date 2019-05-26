@@ -3,7 +3,7 @@ Oracle PL/SQL package that facilitates code timing for instrumentation and other
 
 See [Code Timing and Object Orientation and Zombies](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies), November 2010, for the original idea implemented in Oracle PL/SQL, Perl and Java.
 
-The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\log_set.html for the unit test results root page.
+The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\timer_set.html for the unit test results root page.
 
 ## Usage (extract from main_col_group.sql)
 ```sql
@@ -122,13 +122,13 @@ SQL> @r_tests
 
 The program is data-driven from the input file tt_timer_set.test_api_inp.json and produces an output file tt_timer_set.test_api_out.json, that contains arrays of expected and actual records by group and scenario.
 
-The output file is processed by a Javascript program that has to be installed separately from the `npm` Javascript repository, as described in the Trapit install in `Install 1` above. The Javascript program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.test_api_out.json, in the subfolder ./examples/externals and run:
+The output file is processed by a Javascript program that has to be installed separately from the `npm` Javascript repository, as described in the Trapit install in `Install 1` above. The Javascript program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_timer_set.test_api_out.json, in the subfolder ./examples/externals and run:
 ```
 $ node ./examples/externals/test-externals
 ```
 The three testing steps can easily be automated in Powershell (or Unix bash).
 
-The package is tested using the Math Function Unit Testing design pattern (`See also` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
+The package is tested using the Math Function Unit Testing design pattern (`See also - Trapit` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
 The wrapper function represents a generalised transactional use of the package in which multiple timer sets may be constructed, and then timings carried out and reported on at the end of the transaction. 
 
