@@ -1,4 +1,6 @@
 # Timer_Set
+Oracle PL/SQL code timing module.
+
 Oracle PL/SQL package that facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Construction and reporting require only a single line each, regardless of how many timers are included in a set.
 
 See [Code Timing and Object Orientation and Zombies](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies), November 2010, for the original idea implemented in Oracle PL/SQL, Perl and Java.
@@ -19,7 +21,7 @@ BEGIN
 .
 .
 .
-  Print_Results('Sorted by Value, Key', Col_Group.AIP_Sort_By_Value);
+  Print_Results('Sorted by Value, Key', Col_Group.Sort_By_Value);
   Timer_Set.Increment_Time(l_timer_set, 'Sort_By_Value');
   Utils.W(p_line_lis => Timer_Set.Format_Results(l_timer_set));
 ```
@@ -146,8 +148,9 @@ Windows 10
 - Base code (and example) should work on earlier versions at least as far back as v10 and v11
 
 ## See also
-- [Utils - Oracle PL/SQL module](https://github.com/BrenPatF/oracle_plsql_utils)
-- [Log_Set - Oracle PL/SQL module](https://github.com/BrenPatF/log_set_oracle)
+- [Utils - Oracle PL/SQL general utilities](https://github.com/BrenPatF/oracle_plsql_utils)
+- [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
+- [Log_Set - Oracle logging framework](https://github.com/BrenPatF/log_set_oracle)
 - [Trapit - nodejs unit test processing package](https://github.com/BrenPatF/trapit_nodejs_tester)
 - [Code Timing and Object Orientation and Zombies, Brendan Furey, November 2010](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies)
    
