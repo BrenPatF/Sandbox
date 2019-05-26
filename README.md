@@ -1,7 +1,7 @@
 # Log_Set
 Oracle logging module.
 
-The module is a framework for logging consisting of 3 tables, 6 object types and 3 PL/SQL packages that support the writing of messages to log tables, along with various optional data items that may be specified as parameters or read at runtime via system calls.
+The module is a framework for logging, consisting of 3 tables, 6 object types and 3 PL/SQL packages that support the writing of messages to log tables, along with various optional data items that may be specified as parameters or read at runtime via system calls.
 
 The module is designed to be as simple as possible to use in default mode, while allowing for a high degree of configuration. A client program first constructs a log pointing to a configuration key, then puts lines to the log conditionally depending on the line minimum put level being at least equal to the configuration put level. By creating new versions of the keyed configuration the amount and type of information put can be varied without code changes, to support production debugging and analysis.
 
@@ -21,8 +21,8 @@ DECLARE
 BEGIN
 
   Col_Group.Load_File(p_file   => 'fantasy_premier_league_player_stats.csv', 
-                          p_delim  => ',',
-                          p_colnum => 7);
+                      p_delim  => ',',
+                      p_colnum => 7);
   l_res_arr := Col_Group.List_Asis;
   Log_Set.Put_List(p_line_lis => Utils.Heading('As Is'));
   Log_Set.Put_List(p_line_lis => Utils.Col_Headers(p_value_lis => chr_int_arr(chr_int_rec('Team', 30), 
@@ -241,7 +241,7 @@ The install depends on the pre-requisite module Utils, and `lib` schema refers t
 
 The base Utils install is required for the base Log_Set install, while the unit test install and running the example require the corresponding Utils install sections.
 
-### Install 2: Create Timer_Set components
+### Install 2: Create Log_Set components
 #### [Schema: lib; Folder: lib]
 - Run script from slqplus:
 ```
@@ -265,7 +265,7 @@ SQL> @r_tests
 
 The program is data-driven from the input file tt_log_set.test_api_inp.json and produces an output file tt_log_set.test_api_out.json, that contains arrays of expected and actual records by group and scenario.
 
-The output file is processed by a Javascript program that has to be installed separately from the `npm` Javascript repository, as described in the Trapit install in `Install 1` above. The Javascript program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_log_set.test_api_out.json, in the subfolder ./examples/externals and run:
+The output file is processed by a nodejs program that has to be installed separately from the `npm` nodejs repository, as described in the Trapit install in `Install 1` above. The nodejs program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_log_set.test_api_out.json, in the subfolder ./examples/externals and run:
 ```
 $ node ./examples/externals/test-externals
 ```
