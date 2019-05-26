@@ -212,7 +212,7 @@ The package is tested using the Math Function Unit Testing design pattern (`See 
 
 In this case, where we have a set of small independent methods, most of which are pure functions, the wrapper function is designed to test all of them in a single generalised transaction. Four high level scenarios were identified (`Small`, `Large`, `Many`, `Bad SQL`).
 
-You can review the  unit test formatted results in the `test_output` subfolder, without needing to do this install [utils.html is the root page for the HTML version and utils.txt has the results in text format].
+You can review the  unit test formatted results obtained by the author in the `test_output` subfolder [utils.html is the root page for the HTML version and utils.txt has the results in text format].
 
 ## Operating System/Oracle Versions
 ### Windows
