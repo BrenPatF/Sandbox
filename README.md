@@ -198,9 +198,9 @@ The unit test program (if installed) may be run from the Oracle lib subfolder:
 SQL> @r_tests
 ```
 
-The program is data-driven from the input file tt_utils.json and produces an output file, tt_utils.tt_main_out.json, that contains arrays of expected and actual records by group and scenario.
+The program is data-driven from the input file tt_utils.json and produces an output file, tt_utils.test_api_out.json, that contains arrays of expected and actual records by group and scenario.
 
-The output file is processed by a Javascript program that has to be installed separately from the `npm` Javascript repository, as described in the Trapit install in `Install 4` above. The Javascript program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.tt_main_out.json, in the subfolder ./examples/externals and run:
+The output file is processed by a nodejs program that has to be installed separately from the `npm` nodejs repository, as described in the Trapit install in `Install 4` above. The nodejs program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.test_api_out.json, in the subfolder ./examples/externals and run:
 
 ```
 $ node ./examples/externals/test-externals
