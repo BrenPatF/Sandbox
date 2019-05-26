@@ -19,9 +19,10 @@ DECLARE
   l_res_arr              chr_int_arr;
 BEGIN
 
-  Col_Group.AIP_Load_File(p_file => 'fantasy_premier_league_player_stats.csv', p_delim => ',',
-   p_colnum => 7);
-  l_res_arr := Col_Group.AIP_List_Asis;
+  Col_Group.Load_File(p_file   => 'fantasy_premier_league_player_stats.csv', 
+                      p_delim  => ',', 
+                      p_colnum => 7);
+  l_res_arr := Col_Group.List_Asis;
   Utils.W(p_line_lis => Utils.Heading(p_head => 'As Is'));
 
   Utils.W(p_line_lis => Utils.Col_Headers(p_value_lis => chr_int_arr(chr_int_rec('Team', 30), 
@@ -29,8 +30,9 @@ BEGIN
   )));
 
   FOR i IN 1..l_res_arr.COUNT LOOP
-    Utils.W(p_line => Utils.List_To_Line(p_value_lis => chr_int_arr(chr_int_rec(l_res_arr(i).chr_value, 30), 
-                                                                    chr_int_rec(l_res_arr(i).int_value, -5)
+    Utils.W(p_line => Utils.List_To_Line(
+                          p_value_lis => chr_int_arr(chr_int_rec(p_res_arr(i).chr_value, 30), 
+                                                     chr_int_rec(p_res_arr(i).int_value, -5)
     )));
   END LOOP;
 
