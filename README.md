@@ -1,231 +1,171 @@
-# Utils
-Oracle PL/SQL general utilities module.
+# Timer_Set
+Oracle PL/SQL code timing module.
 
-This module comprises a set of generic user-defined Oracle types and a PL/SQL package of functions and procedures of general utility. It includes functions and procedures for:
-- 'pretty-printing'
-- returning records from cursors or views/tables as lists of delimited strings
-- joining lists of values into delimited strings, and the converse splitting operation
+Oracle PL/SQL package that facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Construction and reporting require only a single line each, regardless of how many timers are included in a set.
 
-This module is a pre-requisite for these other Oracle GitHub modules:
-- [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
-- [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
-- [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
+See [Code Timing and Object Orientation and Zombies](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies), November 2010, for the original idea implemented in Oracle PL/SQL, Perl and Java.
 
-The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\utils.html for the unit test results root page.
+The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\timer_set.html for the unit test results root page.
 
 ## Usage (extract from main_col_group.sql)
 ```sql
 DECLARE
-  l_res_arr              chr_int_arr;
+  l_timer_set   PLS_INTEGER := Timer_Set.Construct('Col Group');
+
 BEGIN
 
   Col_Group.Load_File(p_file   => 'fantasy_premier_league_player_stats.csv', 
                       p_delim  => ',', 
                       p_colnum => 7);
-  l_res_arr := Col_Group.List_Asis;
-  Utils.W(p_line_lis => Utils.Heading(p_head => 'As Is'));
-
-  Utils.W(p_line_lis => Utils.Col_Headers(p_value_lis => chr_int_arr(chr_int_rec('Team', 30), 
-                                                                     chr_int_rec('Apps', -5)
-  )));
-
-  FOR i IN 1..l_res_arr.COUNT LOOP
-    Utils.W(p_line => Utils.List_To_Line(
-                          p_value_lis => chr_int_arr(chr_int_rec(p_res_arr(i).chr_value, 30), 
-                                                     chr_int_rec(p_res_arr(i).int_value, -5)
-    )));
-  END LOOP;
-
-END;
+  Timer_Set.Increment_Time(l_timer_set, 'Load File');
+.
+.
+.
+  Print_Results('Sorted by Value, Key', Col_Group.Sort_By_Value);
+  Timer_Set.Increment_Time(l_timer_set, 'Sort_By_Value');
+  Utils.W(p_line_lis => Timer_Set.Format_Results(l_timer_set));
 ```
-The main_col_group.sql script gives examples of usage for all the functions and procedures in the Utils package. In the extract above, an example package, Col_Group, is called to read and process a CSV file, with calls to Utils procedures and functions to 'pretty-print' a listing at the end:
+This will create a timer set and time the sections, with listing at the end:
 ```
-As Is
-=====
-Team                             Apps
-------------------------------  -----
-team_name_2                         1
-Blackburn                          33
-...
+Timer Set: Col Group, Constructed at 26 Jan 2019 14:16:12, written at 14:16:12
+==============================================================================
+Timer             Elapsed         CPU       Calls       Ela/Call       CPU/Call
+-------------  ----------  ----------  ----------  -------------  -------------
+Load File            0.18        0.08           1        0.17500        0.08000
+List_Asis            0.00        0.00           1        0.00100        0.00000
+Sort_By_Key          0.00        0.00           1        0.00000        0.00000
+Sort_By_Value        0.00        0.00           1        0.00000        0.00000
+(Other)              0.00        0.00           1        0.00000        0.00000
+-------------  ----------  ----------  ----------  -------------  -------------
+Total                0.18        0.08           5        0.03520        0.01600
+-------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01124, CPU: 0.01011]
 ```
-To run the example script in a slqplus session from app subfolder (after installation):
+To run the example in a slqplus session from app subfolder (after installation):
 
-```
 SQL> @main_col_group
-```
 
 ## API
-### l_heading_lis L1_chr_arr := Utils.Heading(p_head)
-Returns a 2-element string array consisting of the string passed in and a string of underlining '=' of the same length, with parameters as follows:
+### l_timer_set   PLS_INTEGER := Timer_Set.Construct('ts_name')
+Constructs a new timer set with name `ts_name`, and integer handle `l_timer_set`.
 
-* `p_head`: string to be used as a heading
+### Timer_Set.Increment_Time(l_timer_set, timer_name)
+Increments the timing statistics (elapsed, user and system CPU, and number of calls) for a timer `timer_name` within the timer set `l_timer_set` with the times passed since the previous call to Increment_Time, Init_Time or the constructor of the timer set instance. Resets the statistics for timer set `l_timer_set` to the current time, so that the next call to increment_time measures from this point for its increment.
 
-### l_headers_lis L1_chr_arr := Utils.Col_Headers(p_value_lis)
-Returns a 2-element string array consisting of a string containing the column headers passed in, justified as specified, and a string of sets of underlining '-' of the same lengths as the justified column headers, with parameters as follows:
+### Timer_Set.Increment_Time(l_timer_set)
+Resets the statistics for timer set `l_timer_set` to the current time, so that the next call to increment_time measures from this point for its increment. This is only used where there are gaps between sections to be timed.
 
-* `p_value_lis`: chr_int_arr type, array of objects of type chr_int_rec:
-  * `chr_value`: column header text
-  * `int_value`: field size for the column header, right-justify if < 0, else left-justify
+### Timer_Set.Get_Timers(l_timer_set)
+Returns the results for timer set `l_timer_set` in an array of records of type `Timer_Set.timer_stat_rec`, with fields:
 
-### l_line VARCHAR2(4000) := Utils.List_To_Line(p_value_lis)
-Returns a string containing the values passed in as a list of tuples, justified as specified in the second element of the tuple, with parameters as follows:
-* `p_value_lis`: chr_int_arr type, array of objects of type chr_int_rec:
-  * `chr_value`: value text
-  * `int_value`: field size for the value, right-justify if < 0, else left-justify
+* `name`: timer name
+* `ela_secs`: elapsed time in seconds
+* `cpu_secs`: CPU time in seconds
+* `calls`: number of calls
 
-### l_line VARCHAR2(4000) := Utils.Join_Values(p_value_lis, `optional parameters`)
-Returns a string containing the values passed in as a list of strings, delimited by the optional p_delim parameter that defaults to '|', with parameters as follows:
-* `p_value_lis`: list of strings
+After a record for each named timer, in order of creation, there are two calculated records:
 
-Optional parameters:
-* `p_delim`: delimiter string, defaults to '|'
+* `Other`: differences between `Total` values and the sums of the named timers
+* `Total`: totals calculated from the times at timer set construction
 
-### l_line VARCHAR2(4000) := Utils.Join_Values(p_value1, `optional parameters`)
-Returns a string containing the values passed in as distinct parameters, delimited by the optional p_delim parameter that defaults to '|', with parameters as follows:
-* `p_value1`: mandatory first value
+### Timer_Set.Format_Timers(l_timer_set, l_format_prms)
+Returns the results for timer set `l_timer_set` in an array of formatted strings, including column headers and formatting lines, with fields as in Get_Timers, times in seconds, and per call values added, with l_format_prms record parameter of type `Timer_Set.format_prm_rec` and default `Timer_Set.FORMAT_PRMS_DEF`:
 
-Optional parameters:
-* `p_value2-p_value17`: 16 optional values, defaulting to the constant PRMS_END. The first defaulted value encountered acts as a list terminator
-* `p_delim`: delimiter string, defaults to '|'
+* `time_width`: width of time fields (excluding decimal places), default 8
+* `time_dp`: decimal places to show for absolute time fields, default 2
+* `time_ratio_dp`: decimal places to show for per call time fields, default 5
+* `calls_width`: width of calls field, default 10
 
-### l_value_lis L1_chr_arr := Utils.Split_Values(p_string, `optional parameters`)
-Returns a list of string values obtained by splitting the input string on a given delimiter, with parameters as follows:
+### Timer_Set.Get_Self_Timer
+Static method to time the Increment_Time method as a way of estimating the overhead in using the timer set. Constructs a timer set instance and calls Increment_Time on it within a loop until 0.1s has elapsed.
 
-* `p_string`: string to split
+Returns a tuple, with fields:
 
-Optional parameters:
-* `p_delim`: delimiter string, defaults to '|'
+* `ela`: elapsed time per call in ms
+* `cpu`: CPU time per call in ms
 
-### l_row_lis L1_chr_arr := Utils.View_To_List(p_view_name, p_sel_value_lis, , `optional parameters`)
-Returns a list of rows returned from the specified view/table, with specified column list and where clause, delimiting values with specified delimiter, with parameters as follows:
+### Timer_Set.Format_Self_Timer(l_format_prms)
+Static method to return the results from Get_Self_Timer in a formatted string, with parameter as Format_Timers (but any extra spaces are trimmed here).
 
-* `p_view_name`: name of table or view
-* `p_sel_value_lis`: L1_chr_arr list of columns to select
-
-Optional parameters:
-* `p_where`: where clause, omitting WHERE key-word
-* `p_delim`: delimiter string, defaults to '|'
-
-### l_row_lis L1_chr_arr := Utils.Cursor_To_List(x_csr, `optional parameters`)
-Returns a list of rows returned from the ref cursor passed, delimiting values with specified delimiter, with filter clause applied via RegExp_Like to the delimited rows, with parameters as follows:
-
-* `x_csr`: IN OUT SYS_REFCURSOR, passed as open, and closed in function after processing
-
-Optional parameters:
-* `p_filter`: filter clause, regex expression passed to RegExp_Like against output line
-* `p_delim`: delimiter string, defaults to '|'
-
-### l_seconds NUMBER := Utils.IntervalDS_To_Seconds(p_interval)
-Returns the number of seconds in a day-to-second interval, with parameters as follows:
-
-* `p_interval`: INTERVAL DAY TO SECOND
-
-### Utils.Sleep(p_ela_seconds, `optional parameters`)
-Sleeps for a given number of seconds elapsed time, including a given proportion of CPU time, with both numbers approximate, with parameters as follows:
-
-* `p_ela_seconds`: elapsed time to sleep
-
-Optional parameters
-* `p_fraction_CPU`: fraction of elapsed time to use CPU, default 0.5
-
-### Utils.Raise_Error(p_message)
-Raises an error using Raise_Application_Error with fixed error number of 20000, with parameters as follows:
-
-* `p_message`: error message
-
-### Utils.W(p_line)
-Writes a line of text using DBMS_Output.Put_line, with parameters as follows:
-
-* `p_line`: line of text to write
-
-### Utils.W(p_line_lis)
-Writes a list of lines of text using DBMS_Output.Put_line, with parameters as follows:
-
-* `p_line_lis`: L1_chr_arr list of lines of text to write
+### Timer_Set.Format_Results(l_timer_set, l_format_prms)
+Returns the results for timer set `l_timer_set` in a formatted string, with parameters as Format_Timers. It uses the array returned from Format_Timers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
 
 ## Installation
-You can install just the base module in an existing schema, or alternatively, install base module plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
+The install depends on the pre-requisite module Utils, and `lib` schema refers to the schema in which Utils is installed.
 
-### Install 1: Create lib and app schemas and Oracle directory (optional)
-#### [Schema: sys; Folder: (module root)]
-- install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
-- Run script from slqplus:
-```
-SQL> @install_sys
-```
+### Install 1: Install Utils module (if not present)
+#### [Schema: lib; Folder: (Utils) lib]
+- Download and install the Utils module:
+[Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils)
 
-If you do not create new users, subsequent installs will be from whichever schemas are used instead of lib and app.
+The base Utils install is required for the base Timer_Set install, while the unit test install and running the example require the corresponding Utils install sections.
 
-### Install 2: Create Utils components
+### Install 2: Create Timer_Set components
 #### [Schema: lib; Folder: lib]
 - Run script from slqplus:
 ```
-SQL> @install_utils
+SQL> @install_timer_set app
+```
+This creates the required components for the base install along with grants for them to the app schema (passing none instead of app will bypass the grants). This install is all that is required to use the package within the lib schema and app (if passed). To grant privileges to any `schema`, run the grants script directly, passing `schema`:
+```
+SQL> @grant_trapit_to_app schema
 ```
 
-This creates the required components for the base install along with public synonyms and grants for them. This install is all that is required to use the package and object types.
-
-### Install 3: Create components for example code
+### Install 3: Create synonyms to lib
 #### [Schema: app; Folder: app]
-- Copy the following files from the root folder to the `input_dir` folder:
-  - fantasy_premier_league_player_stats.csv
 - Run script from slqplus:
 ```
-SQL> @install_col_group
+SQL> @c_timer_set_syns lib
 ```
+This install creates private synonyms to the lib schema. To create synonyms within any other schema, run the synonyms script directly from that schema, passing lib schema.
 
-You can review the results from the example code in the `app` subfolder without doing this install.
-
-The remaining, optional, installs are for the unit testing code, and require a minimum Oracle database version of 12.2.
-### Install 4: Install Trapit module
-#### [Schema: lib; Folder: (Trapit) lib]
-- Download and install the Trapit module:
-[Trapit on GitHub](https://github.com/BrenPatF/trapit_oracle_tester)
-
-### Install 5: Install unit test code
+### Install 4: Install unit test code
 #### [Schema: lib; Folder: lib]
 - Copy the following file from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
-  - tt_utils.test_api_inp.json
+  - tt_timer_set.test_api_inp.json
 - Run script from slqplus:
 ```
-SQL> @install_utils_tt
+SQL> @install_timer_set_tt
 ```
 
 ## Unit testing
-The unit test program (if installed) may be run from the Oracle lib subfolder:
+The unit test program (if installed) may be run from the lib subfolder:
 
-```
 SQL> @r_tests
-```
 
-The program is data-driven from the input file tt_utils.json and produces an output file, tt_utils.test_api_out.json, that contains arrays of expected and actual records by group and scenario.
+The program is data-driven from the input file tt_timer_set.test_api_inp.json and produces an output file tt_timer_set.test_api_out.json, that contains arrays of expected and actual records by group and scenario.
 
-The output file is processed by a nodejs program that has to be installed separately from the `npm` nodejs repository, as described in the Trapit install in `Install 4` above. The nodejs program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.test_api_out.json, in the subfolder ./examples/externals and run:
-
+The output file is processed by a nodejs program that has to be installed separately from the `npm` nodejs repository, as described in the Trapit install in `Install 1` above. The nodejs program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_timer_set.test_api_out.json, in the subfolder ./examples/externals and run:
 ```
 $ node ./examples/externals/test-externals
 ```
-
 The three testing steps can easily be automated in Powershell (or Unix bash).
 
 The package is tested using the Math Function Unit Testing design pattern (`See also - Trapit` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
-In this case, where we have a set of small independent methods, most of which are pure functions, the wrapper function is designed to test all of them in a single generalised transaction. Four high level scenarios were identified (`Small`, `Large`, `Many`, `Bad SQL`).
+The wrapper function represents a generalised transactional use of the package in which multiple timer sets may be constructed, and then timings carried out and reported on at the end of the transaction. 
 
-You can review the  unit test formatted results obtained by the author in the `test_output` subfolder [utils.html is the root page for the HTML version and utils.txt has the results in text format].
+This kind of package would usually be thought hard to unit-test, with CPU and elapsed times being inherently non-deterministic. However, this is a good example of the power of the design pattern that I recently introduced: One of the inputs is a yes/no flag indicating whether to mock the system timing calls, or not. The timer set `Construct` method takes as an optional parameter an array containing a stream of mocked elapsed and  CPU times read from the input scenario data. 
+
+In the non-mocked scenarios standard function calls are made to return elapsed and epochal CPU times, while in the mocked scenarios these are bypassed, and deterministic values read from the input array.
+
+In this way we can test correctness of the timing aggregations, independence of timer sets etc. using the deterministic values; on the other hand, one of the key benefits of automated unit testing is to test the actual dependencies, and we do this in the non-mocked case by passing in 'sleep' times to the wrapper function and testing the outputs against ranges of values.
+
+You can review the  unit test formatted results obtained by the author in the `test_output` subfolder [timer_set.html is the root page for the HTML version and timer_set.txt has the results in text format].
 
 ## Operating System/Oracle Versions
 ### Windows
-Tested on Windows 10, should be OS-independent
+Windows 10, should be OS-independent
 ### Oracle
 - Tested on Oracle Database Version 18.3.0.0.0
-- Base code (and example) should work on earlier versions at least as far back as v11
+- Base code (and example) should work on earlier versions at least as far back as v10 and v11
 
 ## See also
+- [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
 - [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
 - [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
-- [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
 - [Trapit - nodejs unit test processing package](https://github.com/BrenPatF/trapit_nodejs_tester)
-
+- [Code Timing and Object Orientation and Zombies, Brendan Furey, November 2010](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies)
+   
 ## License
 MIT
