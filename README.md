@@ -54,7 +54,9 @@ To run the example script in a slqplus session from app subfolder (after install
 SQL> @main_col_group
 ```
 
-## API
+## API - Utils
+This package runs with Invoker rights, not the default Definer rights, so that the dynamic SQL methods execute SQL using the rights of the calling schema, not the lib schema (if different).
+
 ### l_heading_lis L1_chr_arr := Utils.Heading(p_head)
 Returns a 2-element string array consisting of the string passed in and a string of underlining '=' of the same length, with parameters as follows:
 
