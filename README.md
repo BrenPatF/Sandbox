@@ -261,6 +261,7 @@ This install creates private synonyms to the lib schema. To create synonyms with
 
 ### Install 4: Install unit test code
 #### [Schema: lib; Folder: lib]
+This step requires the Trapit module option to have been installed as part of Install 1.
 - Copy the following file from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
   - tt_log_set.test_api_inp.json
 - Run script from slqplus:
