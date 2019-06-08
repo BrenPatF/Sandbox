@@ -113,7 +113,7 @@ The install depends on the pre-requisite module Utils, and `lib` schema refers t
 ```
 SQL> @install_trapit app
 ```
-This creates the required components for the base install along with grants for them to the app schema (passing none instead of app will bypass the grants). It requires a minimum Oracle database version of 12.2. This install is all that is required to use the package within the lib schema and app (if passed). To grant privileges to another `schema`, run the grants script directly, passing `schema`:
+This creates the required components for the base install along with grants for them to the app schema (passing none instead of app will bypass the grants). It requires a minimum Oracle database version of 12.2. To grant privileges to another `schema`, run the grants script directly, passing `schema`:
 ```
 SQL> @grant_trapit_to_app schema
 ```
