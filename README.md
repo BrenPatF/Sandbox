@@ -82,14 +82,6 @@ Adds the actual results data into the JSON input object for testing the given pa
 * `p_procedure_nm`: procedure name
 * `p_act_3lis`: 3-level list of actual values as delimited records, by scenario and group
 
-## API - Trapit_Run
-This package is specified to run with Invoker rights, so that dynamic SQL calls to the test packages in the calling schema do not require execute privilege to be granted to owning schema (if different from caller).
-
-### Trapit.Run_Tests(p_group_nm)
-Runs the unit test program for each package procedure set to active in tt_units table for a given test group, with parameters as follows:
-
-* `p_group_nm`: test group name
-
 ### Trapit.Add_Ttu(p_package_nm, p_procedure_nm, p_group_nm, p_active_yn, p_input_file)
 Adds a record to tt_units table, with parameters as follows:
 
@@ -98,6 +90,14 @@ Adds a record to tt_units table, with parameters as follows:
 * `p_group_nm`: test group name
 * `p_active_yn`: active Y/N flag
 * `p_input_file`: name of input file, which has to exist in Oracle directory `input_dir`
+
+## API - Trapit_Run
+This package is specified to run with Invoker rights, so that dynamic SQL calls to the test packages in the calling schema do not require execute privilege to be granted to owning schema (if different from caller).
+
+### Trapit.Run_Tests(p_group_nm)
+Runs the unit test program for each package procedure set to active in tt_units table for a given test group, with parameters as follows:
+
+* `p_group_nm`: test group name
 
 ## Installation
 The install depends on the pre-requisite module Utils, and `lib` schema refers to the schema in which Utils is installed.
@@ -125,8 +125,6 @@ SQL> @grant_trapit_to_app schema
 SQL> @c_trapit_syns lib
 ```
 This install creates private synonyms to the lib schema. To create synonyms within another schema, run the synonyms script directly from that schema, passing lib schema.
-
-The remaining, optional, installs are for the unit testing code, and require a minimum Oracle database version of 12.2.
 
 ### Install 4: Install npm trapit package
 #### [Folder: (npm root)]
