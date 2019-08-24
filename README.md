@@ -136,6 +136,11 @@ SQL> @grant_net_pipe_to_app schema
 The package reads the network from a view links_v and the install script above creates a 1-link dummy view. To run against any other network, simply recreate the view to point to the network data, as shown in the example scripts (Install 3).
 
 ### Install 3: Example networks (optional)
+#### Synonym [Schema: app; Folder: app]
+- Run script from slqplus to create the synonym to the lib package:
+```
+SQL> @c_net_pipe_syns lib
+```
 #### Foreign keys [Schema: app; Folder: app\net_fk]
 - Run script from slqplus:
 ```
