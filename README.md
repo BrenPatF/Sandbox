@@ -1,11 +1,15 @@
 # Net_Pipe
 Oracle PL/SQL network analysis module.
 
-Oracle PL/SQL package containing a pipelined function for analysis of any network that can be represented by an Oracle view whose records are links between two nodes. The pipelined function returns a record for each link in all connected subnetworks specified by the view links_v.  The root_node_id field identifies the subnetwork that a link belongs to. You can use SQL to list the network in detail, or at any desired level of aggregation. The output can be used to show the structure of the network, with tree and loop-joining links identified, as in the example below. I find it quite useful to map out a database schema like this.
+The module contains a PL/SQL package for the efficient analysis of networks that can be specified
+by a view representing their node pair links. The package has a pipelined function that returns a
+record for each link in all connected subnetworks, with the root node id used to identify the
+subnetwork that a link belongs to. Examples are included showing how to call the function from SQL
+to list a network in detail, or at any desired level of aggregation. I find it quite useful to map out a database schema like this.
 
 See [PL/SQL Pipelined Function for Network Analysis](http://aprogrammerwrites.eu/?p=1426), May 2015
 
-The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\net_pipe.html for the unit test results root page.
+The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\net_pipe.html for the unit test results root page. The module also comes with two example networks.
 
 ## Usage - example for app schema foreign key network
 ### Network detail
@@ -142,7 +146,7 @@ This install creates and populates the table fk_link with the Oracle foreign key
 SQL> @main_fk
 ```
 #### Brightkite [Schema: app; Folder: app\net_brightkite]
-- Ensure Oracle directory  `input_dir` is set up and points to a folder with read/write access
+- Ensure Oracle directory  INPUT_DIR is set up and points to a folder with read/write access
 - Place file Brightkite_edges.csv in folder pointed to by Oracle directory INPUT_DIR
 - Run script from slqplus:
 ```
@@ -178,6 +182,11 @@ The three testing steps can easily be automated in Powershell (or Unix bash).
 The package is tested using the Math Function Unit Testing design pattern (`See also - Trapit` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
 You can review the  unit test formatted results obtained by the author in the `test_output` subfolder [net_pipe.html is the root page for the HTML version and net_pipe.txt has the results in text format].
+
+There are two diagrams to illustrate the unit testing:
+
+- plsql_network - JSD.png: shows the structure of the unit test wrapper function
+- plsql_network - Scenario 3.png: diagram of the 4-subnetwork network in scenario 3
 
 ## Operating System/Oracle Versions
 ### Windows
