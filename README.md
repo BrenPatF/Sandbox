@@ -1,4 +1,4 @@
-# plsql_network
+# Net_Pipe
 Oracle PL/SQL network analysis module.
 
 Oracle PL/SQL package containing a pipelined function for analysis of any network that can be represented by an Oracle view whose records are links between two nodes. The pipelined function returns a record for each link in all connected subnetworks specified by the view links_v.  The root_node_id field identifies the subnetwork that a link belongs to. You can use SQL to list the network in detail, or at any desired level of aggregation. The output can be used to show the structure of the network, with tree and loop-joining links identified, as in the example below. I find it quite useful to map out a database schema like this.
@@ -66,7 +66,7 @@ SELECT root_node_id            "Network",
  GROUP BY root_node_id
  ORDER BY 2
 
-Network summary 1 - by network
+Network summary 1 - by subnetwork
 
 Network                                     #Links  #Nodes    Max Lev
 ------------------------------------------ ------- ------- ----------
@@ -91,10 +91,11 @@ SQL> @main_fk
 
 [net_brightkite]
 SQL> @main_brightkite
+This is a fairly large example, the "Friendship network of Brightkite users", having 58,228 nodes and 214,078 links taken from: https://snap.stanford.edu/data/loc-brightkite.html. The analysis SQL ran in around 38 seconds at summary level on my laptop, and 85 seconds at detail level with 214,625 lines spooled.
 
 ## API
 ### View links_v
-The pipelined function reads the network configuration by means of a view representing all the links in the network. The view must be created with three fields:
+The pipelined function reads the network configuration by means of a view representing all the links in the network. The view must be created with three character fields, up to 100 characters long:
 - link_id
 - node_id_fr
 - node_id_to
@@ -142,7 +143,7 @@ SQL> @main_fk
 ```
 #### Brightkite [Schema: app; Folder: app\net_brightkite]
 - Ensure Oracle directory  `input_dir` is set up and points to a folder with read/write access
-- Place file Brightkite_edges.csv in folder pointed to by Oracle directory  `input_dir`
+- Place file Brightkite_edges.csv in folder pointed to by Oracle directory INPUT_DIR
 - Run script from slqplus:
 ```
 SQL> @install_brightkite
