@@ -2,15 +2,12 @@
 Module demonstrating instrumentation and logging, code timing and unit testing of PL/SQL APIs.
 
 PL/SQL procedures were written against Oracle's HR demo schema to represent the different kinds of API across two axes: Setter/Getter and Real Time/Batch.
-'''
-===================================================================================
-| Mode          | Setter Example (S)          | Getter Example (G)                |
-===================================================================================
-| Real Time (R) | Web Service Saving          | Web Service Getting by REF Cursor |
------------------------------------------------------------------------------------
-| Batch (B)     | Batch Loading of Flat Files | Views                             |
-===================================================================================
-'''
+
+Mode          | Setter Example (S)          | Getter Example (G)
+--------------|-----------------------------|----------------------------------
+Real Time (R) | Web Service Saving          | Web Service Getting by REF Cursor
+Batch (B)     | Batch Loading of Flat Files | Views
+
 The PL/SQL procedures and view were written originally to demonstrate unit testing, and are as follows:
 
 - RS: Emp_WS.Save_Emps - Save a list of new employees to database, returning list of ids with Julian dates; logging errors to err$ table
