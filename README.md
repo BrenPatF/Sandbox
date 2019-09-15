@@ -5,8 +5,8 @@ PL/SQL procedures were written against Oracle's HR demo schema to represent the 
 
 Mode          | Setter Example (S)          | Getter Example (G)
 --------------|-----------------------------|----------------------------------
-Real Time (R) | Web Service Saving          | Web Service Getting by REF Cursor
-Batch (B)     | Batch Loading of Flat Files | Views
+Real Time (R) | Web service saving          | Web service getting by ref cursor
+Batch (B)     | Batch loading of flat files | Views
 
 The PL/SQL procedures and view were written originally to demonstrate unit testing, and are as follows:
 
@@ -16,30 +16,54 @@ The PL/SQL procedures and view were written originally to demonstrate unit testi
 - BG: hr_test_view_v - View returning department and employee details including salary ratios, excluding employees with job 'AD_ASST', and returning none if global salary total < 1600
 
 ## Unit Testing
-The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\log_set.html for the unit test results root page.
+The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
+
+<a href="https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing" target="_blank">The Database API Viewed As A Mathematical Function: Insights into Testing</a>
+
+In this data-driven design pattern a driver program reads a set of scenarios from a JSON file, and loops over the scenarios calling the wrapper function with the scenario as input and obtaining the results as the return value.
+The following article :
+
+<a href="http://aprogrammerwrites.eu/?p=1723" target="_blank">TRAPIT - TRansactional API Testing in Oracle</a>
+
+See test_output\log_set.html for the unit test results root page.
 
 ## Logging and Instrumentation
 
 ## Code Timing
 
 ## Installation
-The install depends on the pre-requisite module Utils, and `lib` schema refers to the schema in which Utils is installed.
+The install depends on the pre-requisite modules Utils, Log_Set, and Timer_Set, and `lib` schema refers to the schema in which Utils is installed.
 
-Demonstrating Oracle PL/SQL API procedures for getting and setting database data, with code timing, message logging and unit testing. 
+### Install 1: Install Utils module
+#### [Schema: lib; Folder: (Utils) lib]
+- Download and install the Utils module:
+[Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils)
+
+The Utils install includes a step to install the separate Trapit PL/SQL unit testing module, and this step is required for the unit test part of the current module.
+
+### Install 2: Install Log_Set module
+#### [Schema: lib; Folder: (Log_Set) lib]
+- Download and install the Log_Set module:
+[Log_Set on GitHub](https://github.com/BrenPatF/log_set_oracle)
+
+### Install 3: Install Timer_Set module
+#### [Schema: lib; Folder: (Timer_Set) lib]
+- Download and install the Timer_Set module:
+[Timer_Set on GitHub](https://github.com/BrenPatF/timer_set_oracle)
+
+
+### Install 2: Create Log_Set components
+#### [Schema: lib; Folder: lib]
+- Run script from slqplus:
+```
+SQL> @install_log_set app
+```
 
 27 May 2019: Work in progress: Copied from trapit_oracle_tester and planning to restructure so that calls are made to separate modules for unit testing and other utility code. 
 
 TRansactional API Test (TRAPIT) utility packages for Oracle plus demo base and test programs for Oracle's HR demo schema.
 
-The test utility packages and types are designed as a lightweight PL/SQL-based framework for API testing that can be considered as an alternative to utPLSQL. The framework is based on the idea that all API testing programs can follow a universal design pattern for testing APIs, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
-
-<a href="https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing" target="_blank">The Database API Viewed As A Mathematical Function: Insights into Testing</a>
-
-The following article provides example output and links to articles describing design patterns the framework is designed to facilitate, as well as anti-patterns it is designed to discourage:
-
-<a href="http://aprogrammerwrites.eu/?p=1723" target="_blank">TRAPIT - TRansactional API Testing in Oracle</a>
-
-6 July 2018: json_input_output feature branch created that moves all inputs out of the packages and into JSON files, and creates output JSON files that include the actuals. A new table is added to store the input and output JSON files by package and procedure. The output files can be used as inputs to a Nodejs program, recently added to GitHub, to produce result reports formatted in both HTML and text. The input JSON files are read into the new table at installation time, and read from the table thereafter. The Nodejs project includes the formatted reports for this Oracle project. The output JSON files are written to Oracle directory input_dir (and the input JSON files are read from there), but I have copied them into the project oracle root for reference.
+The test utility packages and types are designed as a lightweight PL/SQL-based framework for API testing that can be considered as an alternative to utPLSQL. The 6 July 2018: json_input_output feature branch created that moves all inputs out of the packages and into JSON files, and creates output JSON files that include the actuals. A new table is added to store the input and output JSON files by package and procedure. The output files can be used as inputs to a Nodejs program, recently added to GitHub, to produce result reports formatted in both HTML and text. The input JSON files are read into the new table at installation time, and read from the table thereafter. The Nodejs project includes the formatted reports for this Oracle project. The output JSON files are written to Oracle directory input_dir (and the input JSON files are read from there), but I have copied them into the project oracle root for reference.
 
 <a href="https://github.com/BrenPatF/trapit_nodejs_tester" target="_blank">trapit_nodejs_tester</a>
 
