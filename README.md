@@ -1,4 +1,4 @@
-# Oracle_PLSQL_API_Demos
+# Oracle PL/SQL API Demos
 Module demonstrating instrumentation and logging, code timing and unit testing of PL/SQL APIs.
 
 PL/SQL procedures were written against Oracle's HR demo schema to represent the different kinds of API across two axes: Setter/Getter and Real Time/Batch.
@@ -14,6 +14,8 @@ The PL/SQL procedures and view were written originally to demonstrate unit testi
 - RG: Emp_WS.Get_Dept_Emps - For given department id, return department and employee details including salary ratios, excluding employees with job 'AD_ASST', and returning none if global salary total < 1600, via ref cursor
 - BS: Emp_Batch.Load_Emps - Load new employees from file via external table
 - BG: hr_test_view_v - View returning department and employee details including salary ratios, excluding employees with job 'AD_ASST', and returning none if global salary total < 1600
+
+Each of these is unit tested, as described below, and in addition there is a driver script, api_driver.sql, that calls each of them and lists the results of logging and code timing.
 
 ## Unit Testing
 The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
@@ -31,14 +33,14 @@ Where the actual output record matches expected, just one is represented, while 
 
 Each of the `pkg.prc` subfolders also includes a JSON Structure Diagram, `pkg.prc.png`, showing the input/output structure of the pure unit test wrapper function.
 
-
-The following article :
-
-<a href="http://aprogrammerwrites.eu/?p=1723" target="_blank">TRAPIT - TRansactional API Testing in Oracle</a>
-
-See test_output\log_set.html for the unit test results root page.
-
 ## Logging and Instrumentation
+Program instrumentation means including lines of code to monitor the execution of a program, such as tracing lines covered, numbers of records processed, and timing information. Logging means storing such information, in database tables or elsewhere.
+
+The Log_Set module allows for logging of various data in a lines table linked to a header for a given log, with the logging level configurable at runtime. The module also uses Oracle's DBMS_Application_Info API to allow for logging in memory only with information accessible via the V$SESSION and V$SESSION_LONGOPS views.
+
+The two web service-type APIs, Emp_WS.Save_Emps and Emp_WS.Get_Dept_Emps, use a configuration that logs only via DBMS_Application_Info, while the batch API, Emp_Batch.Load_Emps, also logs to the tables. The view of course does not do any logging itself but calling programs can log the results of querying it.
+
+The driver script api_driver.sql calls all four of the demo APIs and performs its own logging of the calls and the results returned, including the DBMS_Application_Info on exit. The driver logs using a special DEBUG configuration where the log is constructed implicitly by the first Put, and there is no need to pass a log identifier when putting (so debug lines can be easily added in any called package). At the end of the script queries are run that list the contents of the logs created during the session in creation order, first normal logs, then a listing for error logs (of which one is created by deliberately raising an exception handled in WHEN OTHERS).
 
 ## Code Timing
 
@@ -85,12 +87,6 @@ In order to run the demo unit test suite, you must have installed Oracle's HR de
 <a href="https://docs.oracle.com/cd/E11882_01/server.112/e10831/installation.htm#COMSC001" target="_blank">Oracle Database Sample Schemas</a>
     
 There are no other dependencies outside this project, other than that the latest, JSON, version produces JSON outputs but not formatted reports, which can be obtained from my Nodejs project, mentioned above. I may add a PL/SQL formatter at a later date.
-
-Output logging
-==============
-The testing utility packages use my own simple logging framework, installed as part of the installation scripts. To replace this with your own preferred logging framework, simply edit the procedure Utils.Write_Log to output using your own logging procedure, and optionally drop the log_headers and log_lines tables, along with the three Utils.*_Log methods.
-
-As far as I know, prior to the latest JSON version, the code should work on any recent-ish version - I have tested on 11.2 and 12.1. The JSON version may require 12.2.
 
 Install steps
 =============
