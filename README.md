@@ -43,6 +43,23 @@ The two web service-type APIs, Emp_WS.Save_Emps and Emp_WS.Get_Dept_Emps, use a 
 The driver script api_driver.sql calls all four of the demo APIs and performs its own logging of the calls and the results returned, including the DBMS_Application_Info on exit. The driver logs using a special DEBUG configuration where the log is constructed implicitly by the first Put, and there is no need to pass a log identifier when putting (so debug lines can be easily added in any called package). At the end of the script queries are run that list the contents of the logs created during the session in creation order, first normal logs, then a listing for error logs (of which one is created by deliberately raising an exception handled in WHEN OTHERS).
 
 ## Code Timing
+The code timing module Timer_Set is used by the drvier script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set. The timing results, for illustration are listed below:
+
+    Timer Set: api_driver, Constructed at 12 Sep 2019 06:20:28, written at 06:20:29
+    ===============================================================================
+    Timer             Elapsed         CPU       Calls       Ela/Call       CPU/Call
+    -------------  ----------  ----------  ----------  -------------  -------------
+    Save_Emps            0.00        0.00           1        0.00100        0.00000
+    Get_Dept_Emps        0.00        0.00           1        0.00100        0.00000
+    Write_File           0.00        0.02           1        0.00300        0.02000
+    Load_Emps            0.22        0.15           1        0.22200        0.15000
+    Delete_File          0.00        0.00           1        0.00200        0.00000
+    View_To_List         0.00        0.00           1        0.00200        0.00000
+    (Other)              0.00        0.00           1        0.00000        0.00000
+    -------------  ----------  ----------  ----------  -------------  -------------
+    Total                0.23        0.17           7        0.03300        0.02429
+    -------------  ----------  ----------  ----------  -------------  -------------
+    [Timer timed (per call in ms): Elapsed: 0.00794, CPU: 0.00873]
 
 ## Installation
 The install depends on the pre-requisite modules Utils, Log_Set, and Timer_Set, and `lib` schema refers to the schema in which Utils is installed.
