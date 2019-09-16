@@ -43,7 +43,7 @@ The two web service-type APIs, Emp_WS.Save_Emps and Emp_WS.Get_Dept_Emps, use a 
 The driver script api_driver.sql calls all four of the demo APIs and performs its own logging of the calls and the results returned, including the DBMS_Application_Info on exit. The driver logs using a special DEBUG configuration where the log is constructed implicitly by the first Put, and there is no need to pass a log identifier when putting (so debug lines can be easily added in any called package). At the end of the script queries are run that list the contents of the logs created during the session in creation order, first normal logs, then a listing for error logs (of which one is created by deliberately raising an exception handled in WHEN OTHERS).
 
 ## Code Timing
-The code timing module Timer_Set is used by the drvier script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set. The timing results, for illustration are listed below:
+The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set. The timing results, for illustration are listed below:
 
     Timer Set: api_driver, Constructed at 12 Sep 2019 06:20:28, written at 06:20:29
     ===============================================================================
@@ -62,14 +62,18 @@ The code timing module Timer_Set is used by the drvier script, api_driver.sql, t
     [Timer timed (per call in ms): Elapsed: 0.00794, CPU: 0.00873]
 
 ## Installation
-The install depends on the pre-requisite modules Utils, Log_Set, and Timer_Set, and `lib` schema refers to the schema in which Utils is installed.
+The database installation requires a minimum Oracle version of 12.2, with Oracle's HR demo schema installed:
+
+<a href="https://docs.oracle.com/cd/E11882_01/server.112/e10831/installation.htm#COMSC001" target="_blank">Oracle Database Sample Schemas</a>
+
+The install depends on the pre-requisite modules Utils, Log_Set, and Timer_Set, and `lib`, `app` schemas refer to the schemas in which Utils, examples are installed, respectively.
 
 ### Install 1: Install Utils module
 #### [Schema: lib; Folder: (Utils) lib]
 - Download and install the Utils module:
 [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils)
 
-The Utils install includes a step to install the separate Trapit PL/SQL unit testing module, and this step is required for the unit test part of the current module.
+The Utils install includes a step to install the separate Trapit PL/SQL unit testing module, and this step is required for the unit testing part of the current module.
 
 ### Install 2: Install Log_Set module
 #### [Schema: lib; Folder: (Log_Set) lib]
@@ -81,44 +85,41 @@ The Utils install includes a step to install the separate Trapit PL/SQL unit tes
 - Download and install the Timer_Set module:
 [Timer_Set on GitHub](https://github.com/BrenPatF/timer_set_oracle)
 
+### Install 4: Create Oracle_PLSQL_API_Demos components
+- Copy the following files from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
+    - tt_emp_batch.load_emps_inp.json
+    - tt_emp_ws.get_dept_emps_inp.json
+    - tt_emp_ws.save_emps_inp.json
+    - tt_view_drivers.hr_test_view_v_inp.json
 
-### Install 2: Create Log_Set components
 #### [Schema: lib; Folder: lib]
 - Run script from slqplus:
 ```
-SQL> @install_log_set app
+SQL> @install_jobs app
+```
+#### [Schema: hr; Folder: hr]
+- Run script from slqplus:
+```
+SQL> @install_hr app
+```
+#### [Schema: app; Folder: app]
+- Run script from slqplus:
+```
+SQL> @install_oracle_plsql_api_demos lib
 ```
 
-27 May 2019: Work in progress: Copied from trapit_oracle_tester and planning to restructure so that calls are made to separate modules for unit testing and other utility code. 
+## Operating System/Oracle Versions
+### Windows
+Tested on Windows 10, should be OS-independent
+### Oracle
+- Tested on Oracle Database Version 18.3.0.0.0 (minimum required: 12.2)
 
-TRansactional API Test (TRAPIT) utility packages for Oracle plus demo base and test programs for Oracle's HR demo schema.
+## See also
+- [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
+- [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
+- [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
+- [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
+- [Trapit - nodejs unit test processing package](https://github.com/BrenPatF/trapit_nodejs_tester)
 
-The test utility packages and types are designed as a lightweight PL/SQL-based framework for API testing that can be considered as an alternative to utPLSQL. The 6 July 2018: json_input_output feature branch created that moves all inputs out of the packages and into JSON files, and creates output JSON files that include the actuals. A new table is added to store the input and output JSON files by package and procedure. The output files can be used as inputs to a Nodejs program, recently added to GitHub, to produce result reports formatted in both HTML and text. The input JSON files are read into the new table at installation time, and read from the table thereafter. The Nodejs project includes the formatted reports for this Oracle project. The output JSON files are written to Oracle directory input_dir (and the input JSON files are read from there), but I have copied them into the project oracle root for reference.
-
-<a href="https://github.com/BrenPatF/trapit_nodejs_tester" target="_blank">trapit_nodejs_tester</a>
-
-Pre-requisites
-==============
-In order to run the demo unit test suite, you must have installed Oracle's HR demo schema on your Oracle instance:
-
-<a href="https://docs.oracle.com/cd/E11882_01/server.112/e10831/installation.htm#COMSC001" target="_blank">Oracle Database Sample Schemas</a>
-    
-There are no other dependencies outside this project, other than that the latest, JSON, version produces JSON outputs but not formatted reports, which can be obtained from my Nodejs project, mentioned above. I may add a PL/SQL formatter at a later date.
-
-Install steps
-=============
-     Extract all the files into a directory
-     Update Install_SYS.sql to ensure Oracle directory input_dir points to a writable directory on the database sever (in repo now is set to 'C:\input')
-    Copy the input JSON files to the directory pointed to by input_dir:
-        TT_EMP_BATCH.tt_AIP_Load_Emps.json
-        TT_EMP_WS.tt_AIP_Get_Dept_Emps.json
-        TT_EMP_WS.tt_AIP_Save_Emps.json
-        TT_VIEW_DRIVERS.tt_HR_Test_View_V.json
-     Run Install_SYS.sql as a DBA passing new library schema name as parameter (eg @Install_SYS trapit)
-     Run Install_HR.sql from the HR schema passing library utilities schema name as parameter  (eg @Install_HR trapit)
-     Run Install_Bren.sql from the schema for the library utilities (@Install_Bren)
-     Check log files for any errors
-
-Running the demo test suite
-===========================
-Run R_Suite_br.sql from the schema for the library utilities in the installation directory.
+## License
+MIT
