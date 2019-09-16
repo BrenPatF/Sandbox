@@ -33,6 +33,19 @@ Where the actual output record matches expected, just one is represented, while 
 
 Each of the `pkg.prc` subfolders also includes a JSON Structure Diagram, `pkg.prc.png`, showing the input/output structure of the pure unit test wrapper function.
 
+Here, for example, is the unit test summary (in text version) for the first test:
+
+    Unit Test Report: TT_Emp_WS.Save_Emps
+    =====================================
+    
+       SCENARIO 1: 1 valid record : 0 failed of 3: SUCCESS
+       SCENARIO 2: 1 invalid job id : 0 failed of 3: SUCCESS
+       SCENARIO 3: 1 invalid number : 0 failed of 3: SUCCESS
+       SCENARIO 4: 2 valid records, 1 invalid job id (2 deliberate errors) : 1 failed of 3: FAILURE
+    
+    Test scenarios: 1 failed of 4: FAILURE
+    ======================================
+
 ## Logging and Instrumentation
 Program instrumentation means including lines of code to monitor the execution of a program, such as tracing lines covered, numbers of records processed, and timing information. Logging means storing such information, in database tables or elsewhere.
 
@@ -41,6 +54,18 @@ The Log_Set module allows for logging of various data in a lines table linked to
 The two web service-type APIs, Emp_WS.Save_Emps and Emp_WS.Get_Dept_Emps, use a configuration that logs only via DBMS_Application_Info, while the batch API, Emp_Batch.Load_Emps, also logs to the tables. The view of course does not do any logging itself but calling programs can log the results of querying it.
 
 The driver script api_driver.sql calls all four of the demo APIs and performs its own logging of the calls and the results returned, including the DBMS_Application_Info on exit. The driver logs using a special DEBUG configuration where the log is constructed implicitly by the first Put, and there is no need to pass a log identifier when putting (so debug lines can be easily added in any called package). At the end of the script queries are run that list the contents of the logs created during the session in creation order, first normal logs, then a listing for error logs (of which one is created by deliberately raising an exception handled in WHEN OTHERS).
+
+Here, for example, is the text logged by the driver script for the first call:
+
+    Call Emp_WS.Save_Emps to save a list of employees passed...
+    ===========================================================
+    DBMS_Application_Info: Module = EMP_WS: Log id 127
+    ...................... Action = Log id 127 closed at 12-Sep-2019 06:20:2
+    ...................... Client Info = Exit: Save_Emps, 2 inserted
+    Print the records returned...
+    =============================
+    1862 - ONE THOUSAND EIGHT HUNDRED SIXTY-TWO
+    1863 - ONE THOUSAND EIGHT HUNDRED SIXTY-THREE
 
 ## Code Timing
 The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set. The timing results, for illustration are listed below:
@@ -66,7 +91,7 @@ The database installation requires a minimum Oracle version of 12.2, with Oracle
 
 <a href="https://docs.oracle.com/cd/E11882_01/server.112/e10831/installation.htm#COMSC001" target="_blank">Oracle Database Sample Schemas</a>
 
-The install depends on the pre-requisite modules Utils, Log_Set, and Timer_Set, and `lib`, `app` schemas refer to the schemas in which Utils, examples are installed, respectively.
+The demo install depends on the pre-requisite modules Utils, Log_Set, and Timer_Set, and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
 
 ### Install 1: Install Utils module
 #### [Schema: lib; Folder: (Utils) lib]
@@ -108,7 +133,7 @@ SQL> @install_hr app
 SQL> @install_oracle_plsql_api_demos lib
 ```
 
-## Running driver script and unit tests
+## Running Driver Script and Unit Tests
 ### Running driver script
 #### [Schema: app; Folder: app]
 - Run script from slqplus:
@@ -125,10 +150,10 @@ SQL> @r_tests
 ```
 Testing is data-driven from the input JSON objects that are loaded from files into the table tt_units, and produces JSON output files in the INPUT_DIR folder, that contain arrays of expected and actual records by group and scenario. These files are:
 
-    - tt_emp_batch.load_emps_inp.json
-    - tt_emp_ws.get_dept_emps_inp.json
-    - tt_emp_ws.save_emps_inp.json
-    - tt_view_drivers.hr_test_view_v_inp.json
+- tt_emp_batch.load_emps_inp.json
+- tt_emp_ws.get_dept_emps_inp.json
+- tt_emp_ws.save_emps_inp.json
+- tt_view_drivers.hr_test_view_v_inp.json
 
 The output files are processed by a nodejs program that has to be installed separately, from the `npm` nodejs repository, as described in the Trapit install (from the Utils `Install 1` above). The nodejs program produces listings of the results in HTML and/or text format, and result files are included in the subfolders below test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON files in the subfolder ./examples/externals and run:
 
