@@ -108,6 +108,34 @@ SQL> @install_hr app
 SQL> @install_oracle_plsql_api_demos lib
 ```
 
+## Running driver script and unit tests
+### Running driver script
+#### [Schema: app; Folder: app]
+- Run script from slqplus:
+```
+SQL> @api_driver
+```
+The output is in api_driver.log
+
+### Running unit tests
+#### [Schema: app; Folder: app]
+- Run script from slqplus:
+```
+SQL> @r_tests
+```
+Testing is data-driven from the input JSON objects that are loaded from files into the table tt_units, and produces JSON output files in the INPUT_DIR folder, that contain arrays of expected and actual records by group and scenario. These files are:
+
+    - tt_emp_batch.load_emps_inp.json
+    - tt_emp_ws.get_dept_emps_inp.json
+    - tt_emp_ws.save_emps_inp.json
+    - tt_view_drivers.hr_test_view_v_inp.json
+
+The output files are processed by a nodejs program that has to be installed separately, from the `npm` nodejs repository, as described in the Trapit install (from the Utils `Install 1` above). The nodejs program produces listings of the results in HTML and/or text format, and result files are included in the subfolders below test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON files in the subfolder ./examples/externals and run:
+
+```
+$ node ./examples/externals/test-externals
+```
+
 ## Operating System/Oracle Versions
 ### Windows
 Tested on Windows 10, should be OS-independent
