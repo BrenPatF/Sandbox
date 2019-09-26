@@ -129,7 +129,7 @@ This should install the trapit nodejs package in a subfolder .\node_modules\trap
     - tt_emp_batch.load_emps_inp.json
     - tt_view_drivers.hr_test_view_v_inp.json
 
-There is also a bash script to do this, assuming C:\input as INPUT_DIR: 
+There is also a bash script to do this, assuming C:\input as INPUT_DIR:
     - cp_json_to_input.ksh
 
 #### [Schema: lib; Folder: lib]
