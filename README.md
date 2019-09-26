@@ -68,7 +68,7 @@ Here, for example, is the text logged by the driver script for the first call:
     1863 - ONE THOUSAND EIGHT HUNDRED SIXTY-THREE
 
 ## Code Timing
-The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set. The timing results, for illustration are listed below:
+The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set. The timing results are listed for illustration below:
 
     Timer Set: api_driver, Constructed at 12 Sep 2019 06:20:28, written at 06:20:29
     ===============================================================================
@@ -107,10 +107,10 @@ SQL> @install_sys
 ```
 SQL> @install_lib_all
 ```
-#### [Schema: app; Folder: install_prereq\app] Create app components
+#### [Schema: app; Folder: install_prereq\app] Create app synonyms
 - Run script from slqplus:
 ```
-SQL> @install_app_all
+SQL> @c_syns_all
 ```
 #### [Folder: (npm root)] Install npm trapit package
 The npm trapit package is a nodejs package used to format unit test results as HTML pages.
@@ -129,7 +129,8 @@ This should install the trapit nodejs package in a subfolder .\node_modules\trap
     - tt_emp_batch.load_emps_inp.json
     - tt_view_drivers.hr_test_view_v_inp.json
 
-There is also a bash script to do this, assuming C:\input as INPUT_DIR: cp_json_to_input.ksh
+There is also a bash script to do this, assuming C:\input as INPUT_DIR: 
+    - cp_json_to_input.ksh
 
 #### [Schema: lib; Folder: lib]
 - Run script from slqplus:
@@ -169,7 +170,7 @@ Testing is data-driven from the input JSON objects that are loaded from files in
 - tt_emp_ws.save_emps_out.json
 - tt_view_drivers.hr_test_view_v_out.json
 
-The output files are processed by a nodejs program that has to be installed separately, from the `npm` nodejs repository, as described in the Install section above. The nodejs program produces listings of the results in HTML and/or text format, and result files are included in the subfolders below test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON files in the subfolder ./examples/externals and run:
+The output files are processed by a nodejs program that has to be installed separately, from the `npm` nodejs repository, as described in the Installation section above. The nodejs program produces listings of the results in HTML and/or text format, and result files are included in the subfolders below test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON files in the subfolder ./examples/externals and run:
 
 ```
 $ node ./examples/externals/test-externals
