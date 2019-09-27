@@ -1,113 +1,204 @@
-# Oracle PL/SQL API Demos
-Module demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs.
+# Utils
+Oracle PL/SQL general utilities module.
 
-PL/SQL procedures were written against Oracle's HR demo schema to represent the different kinds of API across two axes: Setter/Getter and Real Time/Batch.
+This module comprises a set of generic user-defined Oracle types and a PL/SQL package of functions and procedures of general utility. It includes functions and procedures for:
+- 'pretty-printing'
+- returning records from cursors or views/tables as lists of delimited strings
+- joining lists of values into delimited strings, and the converse splitting operation
 
-Mode          | Setter Example (S)          | Getter Example (G)
---------------|-----------------------------|----------------------------------
-Real Time (R) | Web service saving          | Web service getting by ref cursor
-Batch (B)     | Batch loading of flat files | Views
+This module is a pre-requisite for these other Oracle GitHub modules:
+- [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
+- [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
+- [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
 
-The PL/SQL procedures and view were written originally to demonstrate unit testing, and are as follows:
+The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\utils.html for the unit test results root page.
 
-- RS: Emp_WS.Save_Emps - Save a list of new employees to database, returning list of ids with Julian dates; logging errors to err$ table
-- RG: Emp_WS.Get_Dept_Emps - For given department id, return department and employee details including salary ratios, excluding employees with job 'AD_ASST', and returning none if global salary total < 1600, via ref cursor
-- BS: Emp_Batch.Load_Emps - Load new/updated employees from file via external table
-- BG: hr_test_view_v - View returning department and employee details including salary ratios, excluding employees with job 'AD_ASST', and returning none if global salary total < 1600
+## Usage (extract from main_col_group.sql)
+```sql
+DECLARE
+  l_res_arr              chr_int_arr;
+BEGIN
 
-Each of these is unit tested, as described below, and in addition there is a driver script, api_driver.sql, that calls each of them and lists the results of logging and code timing.
+  Col_Group.Load_File(p_file   => 'fantasy_premier_league_player_stats.csv', 
+                      p_delim  => ',', 
+                      p_colnum => 7);
+  l_res_arr := Col_Group.List_Asis;
+  Utils.W(p_line_lis => Utils.Heading(p_head => 'As Is'));
 
-## Unit Testing
-The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
+  Utils.W(p_line_lis => Utils.Col_Headers(p_value_lis => chr_int_arr(chr_int_rec('Team', 30), 
+                                                                     chr_int_rec('Apps', -5)
+  )));
 
-<a href="https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing" target="_blank">The Database API Viewed As A Mathematical Function: Insights into Testing</a>
+  FOR i IN 1..l_res_arr.COUNT LOOP
+    Utils.W(p_line => Utils.List_To_Line(
+                          p_value_lis => chr_int_arr(chr_int_rec(p_res_arr(i).chr_value, 30), 
+                                                     chr_int_rec(p_res_arr(i).int_value, -5)
+    )));
+  END LOOP;
 
-In this data-driven design pattern a driver program reads a set of scenarios from a JSON file, and loops over the scenarios calling the wrapper function with the scenario as input and obtaining the results as the return value. Utility functions from the Trapit module convert the input JSON into PL/SQL arrays, and, conversely, the output arrays into JSON text that is written to an output JSON file. This latter file contains all the input values and output values (expected and actual), as well as metadata describing the input and output groups. A separate nodejs module can be run to process the output files and create HTML files showing the results: Each unit test (say `pkg.prc`) has its own root page `pkg.prc.html` with links to a page for each scenario, located within a subfolder `pkg.prc`. Here, they have been copied into a subfolder test_output, as follows:
+END;
+```
+The main_col_group.sql script gives examples of usage for all the functions and procedures in the Utils package. In the extract above, an example package, Col_Group, is called to read and process a CSV file, with calls to Utils procedures and functions to 'pretty-print' a listing at the end:
+```
+As Is
+=====
+Team                             Apps
+------------------------------  -----
+team_name_2                         1
+Blackburn                          33
+...
+```
+To run the example script in a slqplus session from app subfolder (after installation):
 
-- tt_emp_batch.load_emps
-- tt_emp_ws.get_dept_emps
-- tt_emp_ws.save_emps
-- tt_view_drivers.hr_test_view_v
+```
+SQL> @main_col_group
+```
 
-Where the actual output record matches expected, just one is represented, while if the actual differs it is listed below the expected and with background colour red. The employee group in scenario 4 of tt_emp_ws.save_emps has two records deliberately not matching, the first by changing the expected salary and the second by adding a duplicate expected record.
+There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_demos) demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs, which also uses this module.
 
-Each of the `pkg.prc` subfolders also includes a JSON Structure Diagram, `pkg.prc.png`, showing the input/output structure of the pure unit test wrapper function.
+## API - Utils
+This package runs with Invoker rights, not the default Definer rights, so that the dynamic SQL methods execute SQL using the rights of the calling schema, not the lib schema (if different).
 
-Here, for example, is the unit test summary (in text version) for the first test:
+### l_heading_lis L1_chr_arr := Utils.Heading(p_head)
+Returns a 2-element string array consisting of the string passed in and a string of underlining '=' of the same length, with parameters as follows:
 
-    Unit Test Report: TT_Emp_WS.Save_Emps
-    =====================================
-    
-       SCENARIO 1: 1 valid record : 0 failed of 3: SUCCESS
-       SCENARIO 2: 1 invalid job id : 0 failed of 3: SUCCESS
-       SCENARIO 3: 1 invalid number : 0 failed of 3: SUCCESS
-       SCENARIO 4: 2 valid records, 1 invalid job id (2 deliberate errors) : 1 failed of 3: FAILURE
-    
-    Test scenarios: 1 failed of 4: FAILURE
-    ======================================
+* `p_head`: string to be used as a heading
 
-## Logging and Instrumentation
-Program instrumentation means including lines of code to monitor the execution of a program, such as tracing lines covered, numbers of records processed, and timing information. Logging means storing such information, in database tables or elsewhere.
+### l_headers_lis L1_chr_arr := Utils.Col_Headers(p_value_lis)
+Returns a 2-element string array consisting of a string containing the column headers passed in, justified as specified, and a string of sets of underlining '-' of the same lengths as the justified column headers, with parameters as follows:
 
-The Log_Set module allows for logging of various data in a lines table linked to a header for a given log, with the logging level configurable at runtime. The module also uses Oracle's DBMS_Application_Info API to allow for logging in memory only with information accessible via the V$SESSION and V$SESSION_LONGOPS views.
+* `p_value_lis`: chr_int_arr type, array of objects of type chr_int_rec:
+  * `chr_value`: column header text
+  * `int_value`: field size for the column header, right-justify if < 0, else left-justify
 
-The two web service-type APIs, Emp_WS.Save_Emps and Emp_WS.Get_Dept_Emps, use a configuration that logs only via DBMS_Application_Info, while the batch API, Emp_Batch.Load_Emps, also logs to the tables. The view of course does not do any logging itself but calling programs can log the results of querying it.
+### l_line VARCHAR2(4000) := Utils.List_To_Line(p_value_lis)
+Returns a string containing the values passed in as a list of tuples, justified as specified in the second element of the tuple, with parameters as follows:
+* `p_value_lis`: chr_int_arr type, array of objects of type chr_int_rec:
+  * `chr_value`: value text
+  * `int_value`: field size for the value, right-justify if < 0, else left-justify
 
-The driver script api_driver.sql calls all four of the demo APIs and performs its own logging of the calls and the results returned, including the DBMS_Application_Info on exit. The driver logs using a special DEBUG configuration where the log is constructed implicitly by the first Put, and there is no need to pass a log identifier when putting (so debug lines can be easily added in any called package). At the end of the script queries are run that list the contents of the logs created during the session in creation order, first normal logs, then a listing for error logs (of which one is created by deliberately raising an exception handled in WHEN OTHERS).
+### l_line VARCHAR2(4000) := Utils.Join_Values(p_value_lis, `optional parameters`)
+Returns a string containing the values passed in as a list of strings, delimited by the optional p_delim parameter that defaults to '|', with parameters as follows:
+* `p_value_lis`: list of strings
 
-Here, for example, is the text logged by the driver script for the first call:
+Optional parameters:
+* `p_delim`: delimiter string, defaults to '|'
 
-    Call Emp_WS.Save_Emps to save a list of employees passed...
-    ===========================================================
-    DBMS_Application_Info: Module = EMP_WS: Log id 127
-    ...................... Action = Log id 127 closed at 12-Sep-2019 06:20:2
-    ...................... Client Info = Exit: Save_Emps, 2 inserted
-    Print the records returned...
-    =============================
-    1862 - ONE THOUSAND EIGHT HUNDRED SIXTY-TWO
-    1863 - ONE THOUSAND EIGHT HUNDRED SIXTY-THREE
+### l_line VARCHAR2(4000) := Utils.Join_Values(p_value1, `optional parameters`)
+Returns a string containing the values passed in as distinct parameters, delimited by the optional p_delim parameter that defaults to '|', with parameters as follows:
+* `p_value1`: mandatory first value
 
-## Code Timing
-The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set. The timing results are listed for illustration below:
+Optional parameters:
+* `p_value2-p_value17`: 16 optional values, defaulting to the constant PRMS_END. The first defaulted value encountered acts as a list terminator
+* `p_delim`: delimiter string, defaults to '|'
 
-    Timer Set: api_driver, Constructed at 12 Sep 2019 06:20:28, written at 06:20:29
-    ===============================================================================
-    Timer             Elapsed         CPU       Calls       Ela/Call       CPU/Call
-    -------------  ----------  ----------  ----------  -------------  -------------
-    Save_Emps            0.00        0.00           1        0.00100        0.00000
-    Get_Dept_Emps        0.00        0.00           1        0.00100        0.00000
-    Write_File           0.00        0.02           1        0.00300        0.02000
-    Load_Emps            0.22        0.15           1        0.22200        0.15000
-    Delete_File          0.00        0.00           1        0.00200        0.00000
-    View_To_List         0.00        0.00           1        0.00200        0.00000
-    (Other)              0.00        0.00           1        0.00000        0.00000
-    -------------  ----------  ----------  ----------  -------------  -------------
-    Total                0.23        0.17           7        0.03300        0.02429
-    -------------  ----------  ----------  ----------  -------------  -------------
-    [Timer timed (per call in ms): Elapsed: 0.00794, CPU: 0.00873]
+### l_value_lis L1_chr_arr := Utils.Split_Values(p_string, `optional parameters`)
+Returns a list of string values obtained by splitting the input string on a given delimiter, with parameters as follows:
+
+* `p_string`: string to split
+
+Optional parameters:
+* `p_delim`: delimiter string, defaults to '|'
+
+### l_row_lis L1_chr_arr := Utils.View_To_List(p_view_name, p_sel_value_lis, , `optional parameters`)
+Returns a list of rows returned from the specified view/table, with specified column list and where clause, delimiting values with specified delimiter, with parameters as follows:
+
+* `p_view_name`: name of table or view
+* `p_sel_value_lis`: L1_chr_arr list of columns to select
+
+Optional parameters:
+* `p_where`: where clause, omitting WHERE key-word
+* `p_delim`: delimiter string, defaults to '|'
+
+### l_row_lis L1_chr_arr := Utils.Cursor_To_List(x_csr, `optional parameters`)
+Returns a list of rows returned from the ref cursor passed, delimiting values with specified delimiter, with filter clause applied via RegExp_Like to the delimited rows, with parameters as follows:
+
+* `x_csr`: IN OUT SYS_REFCURSOR, passed as open, and closed in function after processing
+
+Optional parameters:
+* `p_filter`: filter clause, regex expression passed to RegExp_Like against output line
+* `p_delim`: delimiter string, defaults to '|'
+
+### l_seconds NUMBER := Utils.IntervalDS_To_Seconds(p_interval)
+Returns the number of seconds in a day-to-second interval, with parameters as follows:
+
+* `p_interval`: INTERVAL DAY TO SECOND
+
+### Utils.Sleep(p_ela_seconds, `optional parameters`)
+Sleeps for a given number of seconds elapsed time, including a given proportion of CPU time, with both numbers approximate, with parameters as follows:
+
+* `p_ela_seconds`: elapsed time to sleep
+
+Optional parameters
+* `p_fraction_CPU`: fraction of elapsed time to use CPU, default 0.5
+
+### Utils.Raise_Error(p_message)
+Raises an error using Raise_Application_Error with fixed error number of 20000, with parameters as follows:
+
+* `p_message`: error message
+
+### Utils.W(p_line)
+Writes a line of text using DBMS_Output.Put_line, with parameters as follows:
+
+* `p_line`: line of text to write
+
+### Utils.W(p_line_lis)
+Writes a list of lines of text using DBMS_Output.Put_line, with parameters as follows:
+
+* `p_line_lis`: L1_chr_arr list of lines of text to write
 
 ## Installation
-The database installation requires a minimum Oracle version of 12.2, with Oracle's HR demo schema installed:
+You can install just the base module in an existing schema, or alternatively, install base module plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
 
-<a href="https://docs.oracle.com/cd/E11882_01/server.112/e10831/installation.htm#COMSC001" target="_blank">Oracle Database Sample Schemas</a>
-
-The demo install depends on the pre-requisite modules Utils, Trapit, Log_Set, and Timer_Set, and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
-
-### Install 1: Install pre-requisite modules
-The pre-requisite modules can be installed by following the instructions for each module at the module root pages listed in the `See also` section below. This allows inclusion of the examples and unit tests for those modules. Alternatively, the next section shows how to install these modules directly without their examples or unit tests here.
-
-#### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
+### Install 1: Create lib and app schemas and Oracle directory (optional)
+#### [Schema: sys; Folder: (module root)]
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
 - Run script from slqplus:
 ```
 SQL> @install_sys
 ```
-#### [Schema: lib; Folder: install_prereq\lib] Create lib components
+
+If you do not create new users, subsequent installs will be from whichever schemas are used instead of lib and app.
+
+### Install 2: Create Utils components
+#### [Schema: lib; Folder: lib]
+- Run script from slqplus:
+```
+SQL> @install_utils app
+```
+
+This creates the required components for the base install along with grants for them to the app schema (passing none instead of app will bypass the grants). This install is all that is required to use the package and object types within the lib schema and app (if passed). To grant privileges to any `schema`, run the grants script directly, passing `schema`:
+```
+SQL> @grant_utils_to_app schema
+```
+
+### Install 3: Create components for example code
+#### [Schema: app; Folder: app]
+- Copy the following files from the root folder to the `input_dir` folder:
+  - fantasy_premier_league_player_stats.csv
+- Run script from slqplus:
+```
+SQL> @install_col_group lib
+```
+
+You can review the results from the example code in the `app` subfolder without doing this install. This install creates private synonyms to the lib schema. To create synonyms within another schema, run the synonyms script directly from that schema, passing lib schema:
+```
+SQL> @c_utils_syns lib
+```
+
+The remaining, optional, installs are for the unit testing code, and require a minimum Oracle database version of 12.2.
+
+### Install 4: Install Trapit module
+The module can be installed from its own Github page:
+[Trapit on GitHub](https://github.com/BrenPatF/trapit_oracle_tester)
+Alternatively, it can be installed directly here as follows:
+
+#### [Schema: lib; Folder: install_ut_prereq\lib] Create lib components
 - Run script from slqplus:
 ```
 SQL> @install_lib_all
 ```
-#### [Schema: app; Folder: install_prereq\app] Create app synonyms
+#### [Schema: app; Folder: install_ut_prereq\app] Create app synonyms
 - Run script from slqplus:
 ```
 SQL> @c_syns_all
@@ -121,73 +212,51 @@ $ npm install trapit
 ```
 This should install the trapit nodejs package in a subfolder .\node_modules\trapit
 
-### Install 2: Create Oracle PL/SQL API Demos components
-#### [Folder: (root)]
-- Copy the following files from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
-    - tt_emp_ws.save_emps_inp.json
-    - tt_emp_ws.get_dept_emps_inp.json
-    - tt_emp_batch.load_emps_inp.json
-    - tt_view_drivers.hr_test_view_v_inp.json
-
-- There is also a bash script to do this, assuming C:\input as INPUT_DIR:
-    - cp_json_to_input.ksh
-
+### Install 5: Install unit test code
 #### [Schema: lib; Folder: lib]
+- Copy the following file from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
+  - tt_utils.test_api_inp.json
 - Run script from slqplus:
 ```
-SQL> @install_jobs app
-```
-#### [Schema: hr; Folder: hr]
-- Run script from slqplus:
-```
-SQL> @install_hr app
-```
-#### [Schema: app; Folder: app]
-- Run script from slqplus:
-```
-SQL> @install_api_demos lib
+SQL> @install_utils_tt
 ```
 
-## Running Driver Script and Unit Tests
-### Running driver script
-#### [Schema: app; Folder: app]
-- Run script from slqplus:
-```
-SQL> @api_driver
-```
-The output is in api_driver.log
+## Unit testing
+The unit test program (if installed) may be run from the Oracle lib subfolder:
 
-### Running unit tests
-#### [Schema: app; Folder: app]
-- Run script from slqplus:
 ```
 SQL> @r_tests
 ```
-Testing is data-driven from the input JSON objects that are loaded from files into the table tt_units (at install time), and produces JSON output files in the INPUT_DIR folder, that contain arrays of expected and actual records by group and scenario. These files are:
 
-- tt_emp_batch.load_emps_out.json
-- tt_emp_ws.get_dept_emps_out.json
-- tt_emp_ws.save_emps_out.json
-- tt_view_drivers.hr_test_view_v_out.json
+The program is data-driven from the input file tt_utils.test_api_inp.json and produces an output file, tt_utils.test_api_out.json, that contains arrays of expected and actual records by group and scenario.
 
-The output files are processed by a nodejs program that has to be installed separately, from the `npm` nodejs repository, as described in the Installation section above. The nodejs program produces listings of the results in HTML and/or text format, and result files are included in the subfolders below test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON files in the subfolder ./examples/externals and run:
+The output file is processed by a nodejs program that has to be installed separately from the `npm` nodejs repository, as described in the Trapit install in `Install 4` above. The nodejs program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_utils.test_api_out.json, in the subfolder ./examples/externals and run:
 
 ```
 $ node ./examples/externals/test-externals
 ```
 
+The three testing steps can easily be automated in Powershell (or Unix bash).
+
+The package is tested using the Math Function Unit Testing design pattern (`See also - Trapit` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
+
+In this case, where we have a set of small independent methods, most of which are pure functions, the wrapper function is designed to test all of them in a single generalised transaction. Four high level scenarios were identified (`Small`, `Large`, `Many`, `Bad SQL`).
+
+You can review the  unit test formatted results obtained by the author in the `test_output` subfolder [utils.html is the root page for the HTML version and utils.txt has the results in text format].
+
 ## Operating System/Oracle Versions
 ### Windows
 Tested on Windows 10, should be OS-independent
 ### Oracle
-- Tested on Oracle Database Version 18.3.0.0.0 (minimum required: 12.2)
+- Tested on Oracle Database Version 18.3.0.0.0
+- Base code (and example) should work on earlier versions at least as far back as v11
 
 ## See also
-- [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
 - [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
 - [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
 - [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
 - [Trapit - nodejs unit test processing package](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [Oracle PL/SQL API Demos - demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs](https://github.com/BrenPatF/oracle_plsql_api_demos)
 
 ## License
 MIT
