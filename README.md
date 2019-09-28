@@ -250,7 +250,7 @@ SQL> @install_sys
     - fantasy_premier_league_player_stats.csv
 
 - There is also a bash script to do this, assuming C:\input as INPUT_DIR:
-    - cp_csv_to_input.ksh
+    - ./cp_csv_to_input.ksh
 
 #### [Schema: lib; Folder: install_prereq\lib] Create lib components
 - Run script from slqplus:
@@ -291,14 +291,16 @@ SQL> @c_log_set_syns lib
 This install creates private synonyms to the lib schema. To create synonyms within another schema, run the synonyms script directly from that schema, passing lib schema.
 
 ### Install 4: Install unit test code
-#### [Schema: lib; Folder: lib]
 This step requires the Trapit module option to have been installed as part of Install 1.
+
+#### [Folder: (module root)] Copy unit test JSON file to input folder
 - Copy the following file from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
   - tt_log_set.test_api_inp.json
 
 - There is also a bash script to do this, assuming C:\input as INPUT_DIR:
-    - cp_json_to_input.ksh
+    - ./cp_json_to_input.ksh
 
+#### [Schema: lib; Folder: lib] Install unit test code
 - Run script from slqplus:
 ```
 SQL> @install_log_set_tt
