@@ -114,15 +114,6 @@ The pre-requisite module can be installed by following the instructions at [Util
 SQL> @install_sys
 ```
 
-#### [Folder: install_prereq] Copy example csv file to input folder
-- Copy the following file from the install_prereq folder to the server folder pointed to by the Oracle directory INPUT_DIR:
-    - fantasy_premier_league_player_stats.csv
-
-- There is also a bash script to do this, assuming C:\input as INPUT_DIR:
-```
-$ ./cp_csv_to_input.ksh
-```
-
 #### [Schema: lib; Folder: install_prereq\lib] Create lib components
 - Run script from slqplus:
 ```
