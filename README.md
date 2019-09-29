@@ -232,7 +232,7 @@ $ ./cp_data_files_to_input.ksh
 #### [Schema: lib; Folder: lib] Install unit test code
 - Run script from slqplus:
 ```
-SQL> @install_log_set_tt
+SQL> @install_utils_tt
 ```
 
 ## Unit testing
