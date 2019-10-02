@@ -100,7 +100,14 @@ In order to clone the code as a git repository you need to have the git applicat
 #### nodejs (Javascript backend)
 nodejs is needed to run a program that turns the unit test output files into formatted HTML pages. It requires no javascript knowledge to run the program, and nodejs can be installed [here](https://nodejs.org/en/download/).
 
-### Install 2: Install pre-requisite modules
+### Install 2: Clone git repository
+- From module root page, [Oracle PL/SQL API Demos](https://github.com/BrenPatF/oracle_plsql_api_demos), click [Clone or download] and https://github.com/BrenPatF/oracle_plsql_api_demos.git
+- Open Github desktop and click [File/Clone repository...]
+- Paste into the url field on the URL tab: https://github.com/BrenPatF/oracle_plsql_api_demos.git
+- Choose local path as folder where you want your GitHub root to be
+- Click [Clone]
+
+### Install 3: Install pre-requisite modules
 The demo install depends on the pre-requisite modules Utils, Trapit, Log_Set, and Timer_Set, and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
 
 The pre-requisite modules can be installed by following the instructions for each module at the module root pages listed in the `See also` section below. This allows inclusion of the examples and unit tests for those modules. Alternatively, the next section shows how to install these modules directly without their examples or unit tests here.
@@ -130,7 +137,7 @@ $ npm install trapit
 ```
 This should install the trapit nodejs package in a subfolder .\node_modules\trapit
 
-### Install 3: Create Oracle PL/SQL API Demos components
+### Install 4: Create Oracle PL/SQL API Demos components
 #### [Folder: (root)]
 - Copy the following files from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
     - tt_emp_ws.save_emps_inp.json
