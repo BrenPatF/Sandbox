@@ -101,7 +101,7 @@ In order to clone the code as a git repository you need to have the git applicat
 nodejs is needed to run a program that turns the unit test output files into formatted HTML pages. It requires no javascript knowledge to run the program, and nodejs can be installed [here](https://nodejs.org/en/download/).
 
 ### Install 2: Clone git repository
-- From module root page, [Oracle PL/SQL API Demos](https://github.com/BrenPatF/oracle_plsql_api_demos), click [Clone or download] and https://github.com/BrenPatF/oracle_plsql_api_demos.git
+The following steps will download the repository into a folder, oracle_plsql_api_demos, within your GitHub root folder:
 - Open Github desktop and click [File/Clone repository...]
 - Paste into the url field on the URL tab: https://github.com/BrenPatF/oracle_plsql_api_demos.git
 - Choose local path as folder where you want your GitHub root to be
