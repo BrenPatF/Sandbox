@@ -98,7 +98,7 @@ In order to clone the code as a git repository you need to have the git applicat
 [How to install GitHub Desktop](https://www.techrepublic.com/article/how-to-install-github-desktop/).
 
 #### nodejs (Javascript backend)
-nodejs is needed to run a program that turns the unit test output files into formatted HTML pages. It requires no javascript knowledge to run the program, and : [nodejs can be installed here](https://nodejs.org/en/download/).
+nodejs is needed to run a program that turns the unit test output files into formatted HTML pages. It requires no javascript knowledge to run the program, and nodejs can be installed [here](https://nodejs.org/en/download/).
 
 ### Install 2: Install pre-requisite modules
 The demo install depends on the pre-requisite modules Utils, Trapit, Log_Set, and Timer_Set, and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
