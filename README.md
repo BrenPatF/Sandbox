@@ -87,13 +87,22 @@ The code timing module Timer_Set is used by the driver script, api_driver.sql, t
     [Timer timed (per call in ms): Elapsed: 0.00794, CPU: 0.00873]
 
 ## Installation
-The database installation requires a minimum Oracle version of 12.2, with Oracle's HR demo schema installed:
+### Install 1: Install pre-requisite tools
+#### Oracle database with HR demo schema
+The database installation requires a minimum Oracle version of 12.2, with Oracle's HR demo schema installed [Oracle Database Software Downloads](https://www.oracle.com/database/technologies/oracle-database-software-downloads.html).
 
-<a href="https://docs.oracle.com/cd/E11882_01/server.112/e10831/installation.htm#COMSC001" target="_blank">Oracle Database Sample Schemas</a>
+If HR demo schema is not installed, it can be got from here: [Oracle Database Sample Schemas](https://docs.oracle.com/cd/E11882_01/server.112/e10831/installation.htm#COMSC001).
 
+#### Github Desktop
+In order to clone the code as a git repository you need to have the git application installed. I recommend [Github Desktop](https://desktop.github.com/) UI for managing repositories on windows. This depends on the git application, available here: [git downloads](https://git-scm.com/downloads), but can also be installed from within Github Desktop, according to these instructions: 
+[How to install GitHub Desktop](https://www.techrepublic.com/article/how-to-install-github-desktop/).
+
+#### nodejs (Javascript backend)
+nodejs is needed to run a program that turns the unit test output files into formatted HTML pages. It requires no javascript knowledge to run the program, and : [nodejs can be installed here](https://nodejs.org/en/download/).
+
+### Install 2: Install pre-requisite modules
 The demo install depends on the pre-requisite modules Utils, Trapit, Log_Set, and Timer_Set, and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
 
-### Install 1: Install pre-requisite modules
 The pre-requisite modules can be installed by following the instructions for each module at the module root pages listed in the `See also` section below. This allows inclusion of the examples and unit tests for those modules. Alternatively, the next section shows how to install these modules directly without their examples or unit tests here.
 
 #### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
@@ -121,7 +130,7 @@ $ npm install trapit
 ```
 This should install the trapit nodejs package in a subfolder .\node_modules\trapit
 
-### Install 2: Create Oracle PL/SQL API Demos components
+### Install 3: Create Oracle PL/SQL API Demos components
 #### [Folder: (root)]
 - Copy the following files from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
     - tt_emp_ws.save_emps_inp.json
