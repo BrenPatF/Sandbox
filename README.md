@@ -46,6 +46,8 @@ Here, for example, is the unit test summary (in text version) for the first test
     Test scenarios: 1 failed of 4: FAILURE
     ======================================
 
+<a href="2-valid-records,-1-invalid-job-id-(2-deliberate-errors).html" target="_blank"></a>
+
 ## Logging and Instrumentation
 Program instrumentation means including lines of code to monitor the execution of a program, such as tracing lines covered, numbers of records processed, and timing information. Logging means storing such information, in database tables or elsewhere.
 
