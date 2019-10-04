@@ -32,7 +32,7 @@ In this data-driven design pattern a driver program reads a set of scenarios fro
 Where the actual output record matches expected, just one is represented, while if the actual differs it is listed below the expected and with background colour red. The employee group in scenario 4 of tt_emp_ws.save_emps has two records deliberately not matching, the first by changing the expected salary and the second by adding a duplicate expected record.
 
 Each of the `pkg.prc` subfolders also includes a JSON Structure Diagram, `pkg.prc.png`, showing the input/output structure of the pure unit test wrapper function.
-
+<img src="tt_emp_ws.save_emps.png">
 Here, for example, is the unit test summary (in text version) for the first test:
 
     Unit Test Report: TT_Emp_WS.Save_Emps
