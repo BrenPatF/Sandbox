@@ -33,26 +33,11 @@ Where the actual output record matches expected, just one is represented, while 
 
 Each of the `pkg.prc` subfolders also includes a JSON Structure Diagram, `pkg.prc.png`, showing the input/output structure of the pure unit test wrapper function. For example:
 <img src="tt_emp_ws.save_emps.png">
-Here, for example, is the unit test summary (in text version) for the first test:
+Here, are images of the unit test summary and 4'th scenario pages for the corresponding test:
 
-    Unit Test Report: TT_Emp_WS.Save_Emps
-    =====================================
-    
-       SCENARIO 1: 1 valid record : 0 failed of 3: SUCCESS
-       SCENARIO 2: 1 invalid job id : 0 failed of 3: SUCCESS
-       SCENARIO 3: 1 invalid number : 0 failed of 3: SUCCESS
-       SCENARIO 4: 2 valid records, 1 invalid job id (2 deliberate errors) : 1 failed of 3: FAILURE
-    
-    Test scenarios: 1 failed of 4: FAILURE
-    ======================================
+<img src="ws-save.png">
 
 <img src="sce-4.png">
-
-<a href="https://github.com/BrenPatF/Sandbox/2-valid-records,-1-invalid-job-id-(2-deliberate-errors).html" target="_blank">ws via anchor</a>
-
-[ws example](2-valid-records,-1-invalid-job-id-(2-deliberate-errors).html)
-
-<img src="(2-valid-records,-1-invalid-job-id-(2-deliberate-errors).html">
 
 ## Logging and Instrumentation
 Program instrumentation means including lines of code to monitor the execution of a program, such as tracing lines covered, numbers of records processed, and timing information. Logging means storing such information, in database tables or elsewhere.
