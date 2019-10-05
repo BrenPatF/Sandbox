@@ -33,6 +33,51 @@ Where the actual output record matches expected, just one is represented, while 
 
 Each of the `pkg.prc` subfolders also includes a JSON Structure Diagram, `pkg.prc.png`, showing the input/output structure of the pure unit test wrapper function. For example:
 <img src="tt_emp_ws.save_emps.png">
+Here is the output JSON for the 4'th scenario of the corresponding test:
+
+    "2 valid records, 1 invalid job id (2 deliberate errors)":{
+       "inp":{
+          "Employee":[
+             "LN 4|EM 4|IT_PROG|3000",
+             "LN 5|EM 5|NON_JOB|4000",
+             "LN 6|EM 6|IT_PROG|5000"
+          ]
+       },
+       "out":{
+          "Employee":{
+             "exp":[
+                "3|LN 4|EM 4|IT_PROG|1000",
+                "5|LN 6|EM 6|IT_PROG|5000",
+                "5|LN 6|EM 6|IT_PROG|5000"
+             ],
+             "act":[
+                "3|LN 4|EM 4|IT_PROG|3000",
+                "5|LN 6|EM 6|IT_PROG|5000"
+             ]
+          },
+          "Output array":{
+             "exp":[
+                "3|LIKE /^[A-Z -]+[A-Z]$/",
+                "0|ORA-02291: integrity constraint (.) violated - parent key not found",
+                "5|LIKE /^[A-Z -]+[A-Z]$/"
+             ],
+             "act":[
+                "3|ONE THOUSAND NINE HUNDRED NINETY-EIGHT",
+                "0|ORA-02291: integrity constraint (.) violated - parent key not found",
+                "5|TWO THOUSAND"
+             ]
+          },
+          "Exception":{
+             "exp":[
+    
+             ],
+             "act":[
+    
+             ]
+          }
+       }
+    }
+
 Here, are images of the unit test summary and 4'th scenario pages for the corresponding test:
 
 <img src="ws-save.png">
