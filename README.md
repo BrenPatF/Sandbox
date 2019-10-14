@@ -78,6 +78,9 @@ Here is the output JSON for the 4'th scenario of the corresponding test:
        }
     }
 
+Running a test causes the actual values to be inserted to the JSON object, which is then formatted as HTML pages:
+<img src="Oracle PLSQL API Demos - DFD.png">
+
 Here, are images of the unit test summary and 4'th scenario pages for the corresponding test:
 
 <img src="ws-save.png">
