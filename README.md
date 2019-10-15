@@ -33,6 +33,13 @@ Where the actual output record matches expected, just one is represented, while 
 
 Each of the `pkg.prc` subfolders also includes a JSON Structure Diagram, `pkg.prc.png`, showing the input/output structure of the pure unit test wrapper function. For example:
 <img src="tt_emp_ws.save_emps.png">
+
+Running a test causes the actual values to be inserted to the JSON object, which is then formatted as HTML pages:
+
+<div>
+<img src="Oracle PLSQL API Demos - DFD.png" text-align="center" display="inline-block">
+</div>
+
 Here is the output JSON for the 4'th scenario of the corresponding test:
 
     "2 valid records, 1 invalid job id (2 deliberate errors)":{
@@ -78,11 +85,6 @@ Here is the output JSON for the 4'th scenario of the corresponding test:
        }
     }
 
-Running a test causes the actual values to be inserted to the JSON object, which is then formatted as HTML pages:
-
-<div>
-<img src="Oracle PLSQL API Demos - DFD.png" text-align="center" display="inline-block">
-</div>
 Here, are images of the unit test summary and 4'th scenario pages for the corresponding test:
 
 <img src="ws-save.png">
