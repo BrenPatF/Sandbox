@@ -76,16 +76,14 @@ Here is the output JSON for the 4'th scenario of the corresponding test:
           },
           "Exception":{
              "exp":[
-    
              ],
              "act":[
-    
              ]
           }
        }
     }
 
-Here, are images of the unit test summary and 4'th scenario pages for the corresponding test:
+Here are images of the unit test summary and 4'th scenario pages for the corresponding test:
 
 <img src="ws-save.png">
 
