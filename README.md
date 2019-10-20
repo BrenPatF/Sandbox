@@ -98,6 +98,8 @@ The two web service-type APIs, Emp_WS.Save_Emps and Emp_WS.Get_Dept_Emps, use a 
 
 The driver script api_driver.sql calls all four of the demo APIs and performs its own logging of the calls and the results returned, including the DBMS_Application_Info on exit. The driver logs using a special DEBUG configuration where the log is constructed implicitly by the first Put, and there is no need to pass a log identifier when putting (so debug lines can be easily added in any called package). At the end of the script queries are run that list the contents of the logs created during the session in creation order, first normal logs, then a listing for error logs (of which one is created by deliberately raising an exception handled in WHEN OTHERS).
 
+<img src="Oracle PLSQL API Demos - LogSet.png">
+
 Here, for example, is the text logged by the driver script for the first call:
 
     Call Emp_WS.Save_Emps to save a list of employees passed...
@@ -111,7 +113,11 @@ Here, for example, is the text logged by the driver script for the first call:
     1863 - ONE THOUSAND EIGHT HUNDRED SIXTY-THREE
 
 ## Code Timing
-The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set. The timing results are listed for illustration below:
+The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set.
+
+<img src="Oracle PLSQL API Demos - TimerSet.png">
+
+ The timing results are listed for illustration below:
 
     Timer Set: api_driver, Constructed at 12 Sep 2019 06:20:28, written at 06:20:29
     ===============================================================================
