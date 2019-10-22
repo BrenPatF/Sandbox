@@ -115,6 +115,8 @@ Here, for example, is the text logged by the driver script for the first call:
 ## Code Timing
 The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set.
 
+<img src="Oracle PLSQL API Demos - TimerSet-Flow.png">
+
 <img src="Oracle PLSQL API Demos - TimerSet.png">
 
  The timing results are listed for illustration below:
