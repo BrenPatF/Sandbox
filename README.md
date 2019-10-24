@@ -98,7 +98,6 @@ The two web service-type APIs, Emp_WS.Save_Emps and Emp_WS.Get_Dept_Emps, use a 
 
 The driver script api_driver.sql calls all four of the demo APIs and performs its own logging of the calls and the results returned, including the DBMS_Application_Info on exit. The driver logs using a special DEBUG configuration where the log is constructed implicitly by the first Put, and there is no need to pass a log identifier when putting (so debug lines can be easily added in any called package). At the end of the script queries are run that list the contents of the logs created during the session in creation order, first normal logs, then a listing for error logs (of which one is created by deliberately raising an exception handled in WHEN OTHERS).
 
-<img src="Oracle PLSQL API Demos - LogSet-Flow.png">
 
 <img src="Oracle PLSQL API Demos - LogSet.png">
 
