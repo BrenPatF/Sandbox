@@ -17,6 +17,8 @@ The PL/SQL procedures and view were written originally to demonstrate unit testi
 
 Each of these is unit tested, as described below, and in addition there is a driver script, api_driver.sql, that calls each of them and lists the results of logging and code timing.
 
+I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in-plsql-and-sql" target="_blank" rel="noopener noreferrer">Writing Clean Code in PL/SQL and SQL</a> at the Ireland Oracle User Group Conference on 4 April 2019 in Dublin. The modules demonstrated here are written in the style recommended in the presentation, where 'functional' code is preferred, and object-oriented code is used only where necessary.
+
 ## Unit Testing
 The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
 
@@ -114,7 +116,7 @@ Here, for example, is the text logged by the driver script for the first call:
     1862 - ONE THOUSAND EIGHT HUNDRED SIXTY-TWO
     1863 - ONE THOUSAND EIGHT HUNDRED SIXTY-THREE
 
-## Code Timing
+    ## Code Timing
 The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set.
 
 <img src="Oracle PLSQL API Demos - TimerSet-Flow.png">
