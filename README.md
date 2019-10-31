@@ -23,6 +23,24 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 - object-oriented code is used only where necessary, using a package record array approach, rather than type bodies
 - record types, defaults and overloading used extensively to provide clean API interfaces 
 
+## Screen Recordings on this Module
+Overview (3 recordings – 30m)
+- [Introduction (5m)]()
+- [Unit testing (10m)]()
+- [Logging and instrumentation (9m)]()
+- [Code timing (6m)]()
+Prerequisite Tools (1 recording – 3m)
+- [Prerequisite tools (3m)]()
+Installation (3 recordings – 15m)
+- [Clone git repository (2m)]()
+- [Install prerequisite modules (7m)]()
+- [Install API demo components (6m)]()
+Running the scripts(4 recordings – 22m)
+- [Run unit tests (6m)]()
+- [Review test results (5m)]()
+- [Run API driver (6m)]()
+- [Review API driver output (5m)]()
+
 ## Unit Testing
 The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
 
