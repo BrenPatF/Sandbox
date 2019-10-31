@@ -224,7 +224,7 @@ This should install the trapit nodejs package in a subfolder .\node_modules\trap
 
 - There is also a bash script to do this, assuming C:\input as INPUT_DIR:
 ```
-$ ./cp_json_to_input.bsh
+$ ./cp_json_to_input.sh
 ```
 
 #### [Schema: lib; Folder: lib]
