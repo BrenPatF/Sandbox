@@ -24,18 +24,18 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 - record types, defaults and overloading used extensively to provide clean API interfaces 
 
 ## Screen Recordings on this Module
-Overview (3 recordings – 30m)
+### Overview (3 recordings – 30m)
 - [Introduction (5m)]()
 - [Unit testing (10m)]()
 - [Logging and instrumentation (9m)]()
 - [Code timing (6m)]()
-Prerequisite Tools (1 recording – 3m)
+### Prerequisite Tools (1 recording – 3m)
 - [Prerequisite tools (3m)]()
-Installation (3 recordings – 15m)
+### Installation (3 recordings – 15m)
 - [Clone git repository (2m)]()
 - [Install prerequisite modules (7m)]()
 - [Install API demo components (6m)]()
-Running the scripts(4 recordings – 22m)
+### Running the scripts(4 recordings – 22m)
 - [Run unit tests (6m)]()
 - [Review test results (5m)]()
 - [Run API driver (6m)]()
