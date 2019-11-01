@@ -6,7 +6,7 @@ PL/SQL procedures were written against Oracle's HR demo schema to represent the 
 Mode          | Setter Example (S)          | Getter Example (G)
 --------------|-----------------------------|----------------------------------
 Real Time (R) | Web service saving          | Web service getting by ref cursor
-Batch (B)     | Batch loading of flat files | Views
+Batch (B)     | Batch loading of flat files | View
 
 The PL/SQL procedures and view were written originally to demonstrate unit testing, and are as follows:
 
@@ -275,7 +275,7 @@ $ node ./examples/externals/test-externals
 ### Windows
 Tested on Windows 10, should be OS-independent
 ### Oracle
-- Tested on Oracle Database Version 18.3.0.0.0 (minimum required: 12.2)
+- Tested on Oracle Database Version 19.3.0.0.0 (minimum required: 12.2)
 
 ## See also
 - [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
