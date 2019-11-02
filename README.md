@@ -24,12 +24,12 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 - record types, defaults and overloading used extensively to provide clean API interfaces 
 
 ## Screen Recordings on this Module
-### Overview (4 recordings – 36m)
+### Overview (4 recordings – 40m)
 - [Introduction (5m)]()
 - [Unit testing (10m)]()
 - [Logging and instrumentation (9m)]()
 - [Code timing (6m)]()
-- [Functional PL/SQL (6m)]()
+- [Functional PL/SQL (10m)]()
 ### Prerequisite Tools (1 recording – 3m)
 - [Prerequisite tools (3m)]()
 ### Installation (3 recordings – 15m)
