@@ -36,7 +36,7 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 - [3.1 Clone git repository (2m)]()
 - [3.2 Install prerequisite modules (7m)]()
 - [3.3 Install API demo components (6m)]()
-### 4 Running the scripts(4 recordings – 22m)
+### 4 Running the scripts(4 recordings – 23m)
 - [4.1 Run unit tests (7m)]()
 - [4.2 Review test results (5m)]()
 - [4.3 Run API driver (6m)]()
