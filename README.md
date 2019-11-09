@@ -25,12 +25,12 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 
 ## Screen Recordings on this Module
 ### 1 Overview (6 recordings – 48m) [Links live]
-- [1.1 Introduction (5m)](https://reccloud.com/u/pwaretg)
+- [1.1 Introduction (5m)](https://reccloud.com/u/5usavxh)
 - [1.2 Unit testing (13m)](https://reccloud.com/u/mkgxioc)
-- [1.3 Logging and instrumentation (8m)](https://reccloud.com/u/mkgxioc)
-- [1.4 Code timing (6m)](https://reccloud.com/u/5usavxh)
+- [1.3 Logging and instrumentation (8m)](https://reccloud.com/u/pwaretg)
+- [1.4 Code timing (6m)](https://reccloud.com/u/hzi79ra)
 - [1.5 Functional PL/SQL I - pure functions; record types; separation of pure and impure (8m)](https://reccloud.com/u/jieo803)
-- [1.6 Functional PL/SQL II - refactoring for purity (8m)](https://reccloud.com/u/hzi79ra)
+- [1.6 Functional PL/SQL II - refactoring for purity (8m)](https://reccloud.com/u/y364pek)
 ### 2 Prerequisite Tools (1 recording – 3m) [Links NOT live]
 - [2.1 Prerequisite tools (3m)]()
 ### 3 Installation (3 recordings – 15m) [Links NOT live]
