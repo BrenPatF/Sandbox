@@ -24,6 +24,8 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 - record types, defaults and overloading used extensively to provide clean API interfaces 
 
 ## Screen Recordings on this Module
+I initially made a series of screen recordings that are available at the links below. I later condensed each recording to a length that would upload directly to Twitter, i.e. less than 140 seconds, and you can find the [Twitter thread here](https://twitter.com/BrenPatF/status/1195226809987674113). Both sets of recordings are also available in the recordings subfolder of the repository.
+
 ### 1 Overview (6 recordings – 48m)
 - [1.1 Introduction (5m)](https://reccloud.com/u/5usavxh)
 - [1.2 Unit testing (13m)](https://reccloud.com/u/mkgxioc)
