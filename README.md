@@ -24,24 +24,24 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 - record types, defaults and overloading used extensively to provide clean API interfaces 
 
 ## Screen Recordings on this Module
-### 1 Overview (6 recordings – 48m) [Links live]
+### 1 Overview (6 recordings – 48m)
 - [1.1 Introduction (5m)](https://reccloud.com/u/5usavxh)
 - [1.2 Unit testing (13m)](https://reccloud.com/u/mkgxioc)
 - [1.3 Logging and instrumentation (8m)](https://reccloud.com/u/pwaretg)
 - [1.4 Code timing (6m)](https://reccloud.com/u/hzi79ra)
 - [1.5 Functional PL/SQL I - pure functions; record types; separation of pure and impure (8m)](https://reccloud.com/u/jieo803)
 - [1.6 Functional PL/SQL II - refactoring for purity (8m)](https://reccloud.com/u/y364pek)
-### 2 Prerequisite Tools (1 recording – 3m) [Links NOT live]
-- [2.1 Prerequisite tools (3m)]()
-### 3 Installation (3 recordings – 15m) [Links NOT live]
-- [3.1 Clone git repository (2m)]()
-- [3.2 Install prerequisite modules (7m)]()
-- [3.3 Install API demo components (6m)]()
-### 4 Running the scripts (4 recordings – 26m) [Links NOT live]
-- [4.1 Run unit tests (7m)]()
-- [4.2 Review test results (8m)]()
-- [4.3 Run API driver (9m)]()
-- [4.4 Review API driver output (7m)]()
+### 2 Prerequisite Tools (1 recording – 3m)
+- [2.1 Prerequisite tools (3m)](https://reccloud.com/u/7czksex)
+### 3 Installation (3 recordings – 15m)
+- [3.1 Clone git repository (2m)](https://reccloud.com/u/m6pvgyr)
+- [3.2 Install prerequisite modules (7m)](https://reccloud.com/u/i8h29jn)
+- [3.3 Install API demo components (6m)](https://reccloud.com/u/ec1amfv)
+### 4 Running the scripts (4 recordings – 30m)
+- [4.1 Run unit tests (8m)](https://reccloud.com/u/3lsih2r)
+- [4.2 Review test results (7m)](https://reccloud.com/u/tm3hj8k)
+- [4.3 Run API driver (8m)](https://reccloud.com/u/bcrs10p)
+- [4.4 Review API driver output (7m)](https://reccloud.com/u/tz9ola1)
 
 ## Unit Testing
 The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Ireland Oracle User Group Conference in March 2018:
@@ -164,6 +164,11 @@ The code timing module Timer_Set is used by the driver script, api_driver.sql, t
     Total                0.23        0.17           7        0.03300        0.02429
     -------------  ----------  ----------  ----------  -------------  -------------
     [Timer timed (per call in ms): Elapsed: 0.00794, CPU: 0.00873]
+
+## Functional PL/SQL
+As an example of the 'functional' style in which we have tried to write the PL/SQL utility packages demonstrated, here is a diagram illustrating a refactoring of the main subprogram of the unit test programs.
+
+<img src="Oracle PLSQL API Demos - Nested subprograms.png">
 
 ## Installation
 ### Install 1: Install pre-requisite tools
