@@ -24,7 +24,7 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 - record types, defaults and overloading used extensively to provide clean API interfaces 
 
 ## Screen Recordings on this Module
-I initially made a series of screen recordings that are available at the links below. I later condensed each recording to a length that would upload directly to Twitter, i.e. less than 140 seconds, and you can find the [Twitter thread here](https://twitter.com/BrenPatF/status/1195226809987674113). Both sets of recordings are also available in the recordings subfolder of the repository.
+I initially made a series of screen recordings that are available at the links below, and later condensed each recording to a length that would upload directly to Twitter, i.e. less than 140 seconds. You can find the [Twitter thread here](https://twitter.com/BrenPatF/status/1195226809987674113). Both sets of recordings are also available in the recordings subfolder of the repository. The links below are to the initial, longer set of recordings.
 
 ### 1 Overview (6 recordings – 48m)
 - [1.1 Introduction (5m)](https://reccloud.com/u/5usavxh)
@@ -168,7 +168,7 @@ The code timing module Timer_Set is used by the driver script, api_driver.sql, t
     [Timer timed (per call in ms): Elapsed: 0.00794, CPU: 0.00873]
 
 ## Functional PL/SQL
-As an example of the 'functional' style in which we have tried to write the PL/SQL utility packages demonstrated, here is a diagram illustrating a refactoring of the main subprogram of the unit test programs.
+The recordings 1.5 and 1.6 show examples of the functional style of PL/SQL used in the utility packages demonstrated, and here is a diagram from 1.6 illustrating a design patter identified in refactoring the main subprogram of the unit test programs.
 
 <img src="Oracle PLSQL API Demos - Nested subprograms.png">
 
