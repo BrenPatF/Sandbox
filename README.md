@@ -1,6 +1,14 @@
 # Oracle PL/SQL API Demos
 Module demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs.
 
+.myvideo {
+position : relative;
+display : block;
+width : 30%;
+min-width : 200px;
+margin : auto;
+height : auto;
+}
 <div class="myvideo">
    <video  style="display:block; width:100%; height:auto;" autoplay controls loop="loop">
        <source src="R0 - Introduction.mp4" type="video/mp4" />
