@@ -1,6 +1,12 @@
 # Oracle PL/SQL API Demos
 Module demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs.
 
+<div class="myvideo">
+   <video  style="display:block; width:100%; height:auto;" autoplay controls loop="loop">
+       <source src="R0 - Introduction.mp4" type="video/mp4" />
+   </video>
+</div>
+
 PL/SQL procedures were written against Oracle's HR demo schema to represent the different kinds of API across two axes: Setter/Getter and Real Time/Batch.
 
 Mode          | Setter Example (S)          | Getter Example (G)
