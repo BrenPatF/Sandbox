@@ -15,6 +15,8 @@ height : auto;
    </video>
 </div>
 
+<iframe src="R0 - Introduction.mp4" type="video/mp4" frameborder="0" allowfullscreen></iframe>
+
 PL/SQL procedures were written against Oracle's HR demo schema to represent the different kinds of API across two axes: Setter/Getter and Real Time/Batch.
 
 Mode          | Setter Example (S)          | Getter Example (G)
