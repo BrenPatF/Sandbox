@@ -6,9 +6,31 @@ This project has the code and other artefacts for small SQL projects, including 
 [A Note on Running Sums and Products in SQL](http://aprogrammerwrites.eu/?p=2679)
 [Tweet](https://twitter.com/BrenPatF/status/1219149845505683459)
 
+Recording                     | SQL Script
+------------------------------|------------------
+Running Sums and Products.mp4 | sums_products.sql
+
 ## analytics_and_recursion_explainers
 
 [Analytic and Recursive SQL by Example](http://aprogrammerwrites.eu/?p=2702)
+
+### Analytic Functions
+
+Recording     | SQL Script
+--------------|--------------
+Analytics.mp4 | analytics.sql
+
+### Model Clause
+
+Recording     | SQL Script
+--------------|--------------
+Model.mp4     | model.sql
+
+### Recursive Subquery Factors
+
+Recording     | SQL Script
+--------------|--------------
+RSF.mp4       | rsf.sql
 
 Here's a query structure diagram for the final recursive query:
 <img src="analytics_and_recursion_explainers\RSF-QSD.png">
@@ -20,16 +42,9 @@ and a diagram showing partitioning and flow through the iterations for same:
 
 ## Operating System/Oracle Versions
 ### Windows
-Windows 10, should be OS-independent
+Windows 10
 ### Oracle
 - Oracle Database Version 19.3.0.0.0
-
-## See also
-- [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
-- [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
-- [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
-- [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
-- [Trapit - nodejs unit test processing package](https://github.com/BrenPatF/trapit_nodejs_tester)
 
 ## License
 MIT
