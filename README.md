@@ -14,11 +14,13 @@ Running Sums and Products.mp4 | sums_products.sql
 
 [Analytic and Recursive SQL by Example](http://aprogrammerwrites.eu/?p=2702)
 
+[Twitter Thread](https://twitter.com/BrenPatF/status/1228210581108191233)
+
 ### Analytic Functions
 
-Recording     | SQL Script
---------------|--------------
-Analytics.mp4 | analytics.sql
+Recording     | SQL Script    | Tweet
+--------------|---------------|----------------------------------
+Analytics.mp4 | analytics.sql | [SQL Analytic Functions in a Tweet](https://twitter.com/BrenPatF/status/1228210581108191233)
 
 ### Model Clause
 
@@ -38,11 +40,9 @@ Here's a query structure diagram for the final recursive query:
 and a diagram showing partitioning and flow through the iterations for same:
 <img src="analytics_and_recursion_explainers\RSF-Recursion.png">
 
-[Twitter Thread]()
-
 ## Operating System/Oracle Versions
 ### Windows
-Windows 10
+Windows 10, should be OS-independent
 ### Oracle
 - Oracle Database Version 19.3.0.0.0
 
