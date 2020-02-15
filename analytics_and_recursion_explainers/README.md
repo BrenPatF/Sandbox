@@ -5,8 +5,8 @@ This project has the code and other artefacts for small SQL projects, including 
 
 The analytics_and_recursion_explainers subproject has the scripts and artefacts for a Twitter thread in which I explain how three SQL techniques work, in a single tweet recording (< 2m20s) each.
 
-[Analytic and Recursive SQL by Example](http://aprogrammerwrites.eu/?p=2702)
-[Twitter Thread](https://twitter.com/BrenPatF/status/1228610471391113216)
+- [Analytic and Recursive SQL by Example](http://aprogrammerwrites.eu/?p=2702)
+- [Twitter Thread](https://twitter.com/BrenPatF/status/1228610471391113216)
 
 ### Analytic Functions
 
@@ -40,7 +40,6 @@ and a diagram showing partitioning and flow through the iterations for same:
 
 ## Installation
 You must have the Oracle hr demo schema installed on an Oracle database of at least v11.2 (see [README: Oracle SQL Projects](../README.md).
-
 ### [Schema: hr; Folder: analytics_and_recursion_explainers]
 
 - Run scripts from slqplus:
