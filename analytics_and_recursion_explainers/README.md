@@ -33,10 +33,10 @@ RSF.mp4       | rsf.sql       | [SQL Recursive Subquery Factors in a Tweet]
 [Oracle Doc: Recursive Subquery Factoring](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SELECT.html#GUID-CFA006CA-6FF1-4972-821E-6996142A51C6__I2077142)
 
 Here's a query structure diagram for the final recursive query:
-<img src="analytics_and_recursion_explainers\RSF-QSD.png">
+<img src="RSF-QSD.png">
 
 and a diagram showing partitioning and flow through the iterations for same:
-<img src="analytics_and_recursion_explainers\RSF-Recursion.png">
+<img src="RSF-Recursion.png">
 
 ## Installation
 ### [Schema: hr; Folder: analytics_and_recursion_explainers]
