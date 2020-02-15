@@ -16,30 +16,7 @@ Running Sums and Products.mp4 | sums_products.sql
 
 [Twitter Thread](https://twitter.com/BrenPatF/status/1228210581108191233)
 
-### Analytic Functions
-
-Recording     | SQL Script    | Tweet
---------------|---------------|----------------------------------
-Analytics.mp4 | analytics.sql | [SQL Analytic Functions in a Tweet](https://twitter.com/BrenPatF/status/1228210581108191233)
-
-### Model Clause
-
-Recording     | SQL Script
---------------|--------------
-Model.mp4     | model.sql
-
-### Recursive Subquery Factors
-
-Recording     | SQL Script
---------------|--------------
-RSF.mp4       | rsf.sql
-
-Here's a query structure diagram for the final recursive query:
-<img src="analytics_and_recursion_explainers\RSF-QSD.png">
-
-and a diagram showing partitioning and flow through the iterations for same:
-<img src="analytics_and_recursion_explainers\RSF-Recursion.png">
-
+[README: analytics_and_recursion_explainers](analytics_and_recursion_explainers/README.md)
 ## Operating System/Oracle Versions
 ### Windows
 Windows 10, should be OS-independent
