@@ -3,8 +3,8 @@ This project has the code and other artefacts for small SQL projects, including 
 
 ## sums_products
 
-[A Note on Running Sums and Products in SQL](http://aprogrammerwrites.eu/?p=2679)
-[Tweet](https://twitter.com/BrenPatF/status/1219149845505683459)
+- [A Note on Running Sums and Products in SQL](http://aprogrammerwrites.eu/?p=2679)
+- [Tweet](https://twitter.com/BrenPatF/status/1219149845505683459)
 
 Recording                     | SQL Script
 ------------------------------|------------------
