@@ -41,7 +41,7 @@ and a diagram showing partitioning and flow through the iterations for same:
 You must have the Oracle hr demo schema installed on an Oracle database of at least v11.2 (see [README: Oracle SQL Projects](../README.md)).
 ### [Schema: hr; Folder: analytics_and_recursion_explainers]
 
-- Run scripts from slqplus:
+- Run scripts from sqlplus:
 ```
 SQL> @analytics
 SQL> @model
