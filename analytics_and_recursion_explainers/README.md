@@ -37,7 +37,7 @@ Here's a query structure diagram for the final recursive query:
 and a diagram showing partitioning and flow through the iterations for same:
 <img src="RSF-Recursion.png">
 
-## Installation
+## Running the Scripts
 You must have the Oracle hr demo schema installed on an Oracle database of at least v11.2 (see [README: Oracle SQL Projects](../README.md)).
 ### [Schema: hr; Folder: analytics_and_recursion_explainers]
 
