@@ -37,6 +37,7 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 
 ## Screen Recordings on this Module
 - [In this README...](https://github.com/BrenPatF/Sandbox#In-this-README)
+
 I initially made a series of screen recordings that are available at the links below, and later condensed each recording to a length that would upload directly to Twitter, i.e. less than 140 seconds. You can find the [Twitter thread here](https://twitter.com/BrenPatF/status/1195226809987674113). Both sets of recordings are also available in the recordings subfolder of the repository. The links below are to the initial, longer set of recordings.
 
 ### 1 Overview (6 recordings – 48m)
@@ -60,6 +61,7 @@ I initially made a series of screen recordings that are available at the links b
 
 ## Unit Testing
 - [In this README...](https://github.com/BrenPatF/Sandbox#In-this-README)
+
 The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Ireland Oracle User Group Conference in March 2018:
 
 <a href="https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing" target="_blank">The Database API Viewed As A Mathematical Function: Insights into Testing</a>
@@ -133,6 +135,7 @@ Here are images of the unit test summary and 4'th scenario pages for the corresp
 
 ## Logging and Instrumentation
 - [In this README...](https://github.com/BrenPatF/Sandbox#In-this-README)
+
 Program instrumentation means including lines of code to monitor the execution of a program, such as tracing lines covered, numbers of records processed, and timing information. Logging means storing such information, in database tables or elsewhere.
 
 The Log_Set module allows for logging of various data in a lines table linked to a header for a given log, with the logging level configurable at runtime. The module also uses Oracle's DBMS_Application_Info API to allow for logging in memory only with information accessible via the V$SESSION and V$SESSION_LONGOPS views.
@@ -159,6 +162,7 @@ Here, for example, is the text logged by the driver script for the first call:
 
 ## Code Timing
 - [In this README...](https://github.com/BrenPatF/Sandbox#In-this-README)
+
 The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set.
 
 <img src="Oracle PLSQL API Demos - TimerSet-Flow.png">
@@ -185,6 +189,7 @@ The code timing module Timer_Set is used by the driver script, api_driver.sql, t
 
 ## Functional PL/SQL
 - [In this README...](https://github.com/BrenPatF/Sandbox#In-this-README)
+
 The recordings 1.5 and 1.6 show examples of the functional style of PL/SQL used in the utility packages demonstrated, and here is a diagram from 1.6 illustrating a design pattern identified in refactoring the main subprogram of the unit test programs.
 
 <img src="Oracle PLSQL API Demos - Nested subprograms.png">
