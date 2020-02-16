@@ -24,15 +24,15 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 - record types, defaults and overloading used extensively to provide clean API interfaces 
 
 In this README...
-[Oracle PL/SQL API Demos](oracle_plsql_api_demos#oracle_plsql_api_demos)
-[Screen Recordings on this Module](oracle_plsql_api_demos#screen-recordings-on-this-module)
-[Unit Testing](oracle_plsql_api_demos#unit-testing)
-[Logging and Instrumentation](oracle_plsql_api_demos#logging-and-instrumentation)
-[Code Timing](oracle_plsql_api_demos#code-timing)
-[Functional PL/SQL](oracle_plsql_api_demos#functional-plsql)
-[Installation](oracle_plsql_api_demos#Installation)
-[Running Driver Script and Unit Tests](oracle_plsql_api_demos#running-driver-script-and-unit-tests)
-[Operating System/Oracle Versions](oracle_plsql_api_demos#)
+- [Oracle PL/SQL API Demos](oracle_plsql_api_demos#oracle_plsql_api_demos)
+- [Screen Recordings on this Module](oracle_plsql_api_demos#screen-recordings-on-this-module)
+- [Unit Testing](oracle_plsql_api_demos#unit-testing)
+- [Logging and Instrumentation](oracle_plsql_api_demos#logging-and-instrumentation)
+- [Code Timing](oracle_plsql_api_demos#code-timing)
+- [Functional PL/SQL](oracle_plsql_api_demos#functional-plsql)
+- [Installation](oracle_plsql_api_demos#Installation)
+- [Running Driver Script and Unit Tests](oracle_plsql_api_demos#running-driver-script-and-unit-tests)
+- [Operating System/Oracle Versions](oracle_plsql_api_demos#)
 
 ## Screen Recordings on this Module
 I initially made a series of screen recordings that are available at the links below, and later condensed each recording to a length that would upload directly to Twitter, i.e. less than 140 seconds. You can find the [Twitter thread here](https://twitter.com/BrenPatF/status/1195226809987674113). Both sets of recordings are also available in the recordings subfolder of the repository. The links below are to the initial, longer set of recordings.
