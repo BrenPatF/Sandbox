@@ -12,12 +12,12 @@ In order to maximise performance, puts may be buffered, and only the log header 
 The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\log_set.html for the unit test results root page.
 
 ## In this README...
-- [Usage (extract from main_col_group.sql)](https://github.com/BrenPatF/log_set_oracle#usage-extract-from-main_col_groupsql)
-- [API - Log_Set](https://github.com/BrenPatF/log_set_oracle#api---log_set)
-- [API - Log_Config](https://github.com/BrenPatF/log_set_oracle#api---log_config)
-- [Installation](https://github.com/BrenPatF/log_set_oracle#installation)
-- [Unit testing](https://github.com/BrenPatF/log_set_oracle#unit-testing)
-- [Operating System/Oracle Versions](https://github.com/BrenPatF/log_set_oracle#operating-systemoracle-versions)
+- [Usage (extract from main_col_group.sql)](https://github.com/BrenPatF/sandbox#usage-extract-from-main_col_groupsql)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+- [API - Log_Config](https://github.com/BrenPatF/sandbox#api---log_config)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
+- [Unit testing](https://github.com/BrenPatF/sandbox#unit-testing)
+- [Operating System/Oracle Versions](https://github.com/BrenPatF/sandbox#operating-systemoracle-versions)
 
 ## Usage (extract from main_col_group.sql)
 ```sql
@@ -90,7 +90,7 @@ SQL> @main_col_group
 There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_demos) demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs.
 
 ## API - Log_Set
-- [In this README...](https://github.com/BrenPatF/log_set_oracle#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 There are several versions of the log constructor function, and of the log put methods, and calls are simplified by the use of two record types to group parameters, for which constructor functions are included. The parameters of these types have default records and so can be omitted, as in the example calls above. Field defaults are mentioned below where not null.
 
@@ -193,7 +193,7 @@ Deletes all logs matching either a single log id or a session id which may have 
 * `p_session_id`: session id of logs to delete
 
 ## API - Log_Config
-- [In this README...](https://github.com/BrenPatF/log_set_oracle#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 This package allows for select, update, insertion, and deletion of the configuration records, with no commits.
 
@@ -245,7 +245,7 @@ All parameters are optional, with null defaults except where mentioned:
 * `p_extend_len`: number of elements to extend the buffer by when needed; default 100
 
 ## Installation
-- [In this README...](https://github.com/BrenPatF/log_set_oracle#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 The install depends on the pre-requisite modules Utils and Trapit (unit testing only) and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
 
@@ -325,7 +325,7 @@ SQL> @install_log_set_tt
 ```
 
 ## Unit testing
-- [In this README...](https://github.com/BrenPatF/log_set_oracle#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 The unit test program (if installed) may be run from the lib subfolder:
 
@@ -346,15 +346,15 @@ The wrapper function represents a generalised transactional use of the package i
 This is a good example of the power of the design pattern that I recently introduced, and is a second example, after `See also - Timer_Set` below, of unit testing where the 'unit' is taken to be a full generalised transaction, from start to finish of a logging (or timing) session.
 
 This diagram shows the input/output structure of the pure unit test wrapper function:
-<img src="log_set_oracle.png">
+<img src="sandbox.png">
 
 This is an image of the unit test summary page, and it shows the scenarios tested.
-<img src="log_set_oracle_ut_root.png">
+<img src="sandbox_ut_root.png">
 
 You can review the unit test formatted results obtained by the author in the `test_output` subfolder [log_set.html is the root page for the HTML version and log_set.txt has the results in text format].
 
 ## Operating System/Oracle Versions
-- [In this README...](https://github.com/BrenPatF/log_set_oracle#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 ### Windows
 Windows 10, should be OS-independent
 ### Oracle
