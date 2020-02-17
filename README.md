@@ -91,12 +91,25 @@ There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_d
 
 ## API - Log_Set
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+- [Con_Construct_Rec(optional parameters)](https://github.com/BrenPatF/sandbox#l_con_rec-log_setcon_rec--log_setcon_construct_recoptional-parameters)
+- [Con_Line_Rec(optional parameters)](https://github.com/BrenPatF/sandbox#l_line_rec-log_setline_rec--log_setcon_line_recoptional-parameters)
+- [Construct(optional parameters)](https://github.com/BrenPatF/sandbox#l_log_id---pls_integer--log_setconstructoptional-parameters)
+- [Construct(p_line_text, optional parameters)](https://github.com/BrenPatF/sandbox#l_log_id---pls_integer--log_setconstructp_line_text-optional-parameters)
+- [Construct(p_line_lis, optional parameters)](https://github.com/BrenPatF/sandbox#l_log_id---pls_integer--log_setconstructp_line_lis-optional-parameters)
+- [Put_Line(p_line_text, optional parameters)](https://github.com/BrenPatF/sandbox#log_setput_linep_line_text-optional-parameters)
+- [Put_List(p_line_lis, optional parameters)](https://github.com/BrenPatF/sandbox#log_setput_listp_line_lis-optional-parameters)
+- [Close_Log(optional parameters)](https://github.com/BrenPatF/sandbox#log_setclose_logoptional-parameters)
+- [Raise_Error(p_err_msg, optional parameters)](https://github.com/BrenPatF/sandbox#log_setraise_errorp_err_msg-optional-parameters)
+- [Write_Other_Error(optional parameters)](https://github.com/BrenPatF/sandbox#log_setwrite_other_erroroptional-parameters)
+- [Delete_Log(p_log_id, p_session_id](https://github.com/BrenPatF/sandbox#log_setdelete_logp_log_id-p_session_id)
 
 There are several versions of the log constructor function, and of the log put methods, and calls are simplified by the use of two record types to group parameters, for which constructor functions are included. The parameters of these types have default records and so can be omitted, as in the example calls above. Field defaults are mentioned below where not null.
 
 All commits are through autonomous transactions.
 
 ### l_con_rec Log_Set.con_rec := Log_Set.Con_Construct_Rec(`optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Returns a record to be passed to a Construct function, with parameters as follows (all optional):
 
 * `p_config_key`: references configuration in log_configs table, of which there should be one active version
@@ -105,6 +118,8 @@ Returns a record to be passed to a Construct function, with parameters as follow
 * `p_do_close`: boolean, True if the log is to be closed immediately; defaults to False
 
 ### l_line_rec Log_Set.line_rec := Log_Set.Con_Line_Rec(`optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Returns a record to be passed to a method that puts lines, with parameters as follows (all optional):
 
 * `p_line_type`: log line type, eg 'ERROR' etc., not validated
@@ -120,12 +135,16 @@ Returns a record to be passed to a method that puts lines, with parameters as fo
 * `p_do_close`: boolean, True if the log is to be closed after writing line or list of lines; defaults to False
 
 ### l_log_id   PLS_INTEGER := Log_Set.Construct(`optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Constructs a new log with integer handle `l_log_id`.
 
 Optional parameters:
 * `p_construct_rec`: construct parameters record of type Log_Set.line_rec, as defined above, default CONSTRUCT_DEF
 
 ### l_log_id   PLS_INTEGER := Log_Set.Construct(p_line_text, `optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Constructs a new log with integer handle `l_log_id`, passing line of text to be put to the new log.
 
 * `p_line_text`: line of text to put
@@ -135,6 +154,8 @@ Optional parameters:
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
 ### l_log_id   PLS_INTEGER := Log_Set.Construct(p_line_lis, `optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Constructs a new log with integer handle `l_log_id`, passing a list of lines of text to be put to the new log.
 
 * `p_line_lis`: list of lines of text to put, of type L1_chr_arr
@@ -144,6 +165,8 @@ Optional parameters:
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
 ### Log_Set.Put_Line(p_line_text, `optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Writes a line of text to the new log.
 
 * `p_line_text`: line of text to put
@@ -153,6 +176,8 @@ Optional parameters:
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
 ### Log_Set.Put_List(p_line_lis, `optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Writes a list of lines of text to the new log.
 
 * `p_line_lis`: list of lines of text to put, of type L1_chr_arr
@@ -162,12 +187,16 @@ Optional parameters:
 * `p_line_rec`: line parameters record of type Log_Set.line_rec, as defined above, default LINE_DEF
 
 ### Log_Set.Close_Log(`optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Closes a log, after saving any unsaved buffer lines.
 
 Optional parameters:
 * `p_log_id`: id of log to close; if omitted, a single log with config value of singleton_yn = 'Y' must have been constructed, and that log will be used
 
 ### Log_Set.Raise_Error(p_err_msg, `optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the message to a log, if the log id is passed.
 
 * `p_err_msg`: error message
@@ -178,6 +207,8 @@ Optional parameters:
 * `p_do_close`: boolean, True if the log is to be closed after writing error details; default  True
 
 ### Log_Set.Write_Other_Error(`optional parameters`)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Raises an error via Oracle procedure RAISE_APPLICATION_ERROR, first writing the message to a log, if the log id is passed, and using p_line_rec.err_msg as the message.
 
 Optional parameters:
@@ -187,6 +218,8 @@ Optional parameters:
 * `p_do_close`: boolean, True if the log is to be closed after writing error details; defaults to True
 
 ### Log_Set.Delete_Log(p_log_id, p_session_id)
+- [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
+
 Deletes all logs matching either a single log id or a session id which may have multiple logs. Exactly one parameter must be passed. This uses an autonomous transaction.
 
 * `p_log_id`: id of log to delete
