@@ -227,6 +227,11 @@ Deletes all logs matching either a single log id or a session id which may have 
 
 ## API - Log_Config
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+- [Set_Default_Config(p_config_key)](https://github.com/BrenPatF/sandbox#log_configset_default_configp_config_key)
+- [Get_Default_Config](https://github.com/BrenPatF/sandbox#l_config_key-log_configsconfig_keytype--log_configget_default_config)
+- [Get_Config(p_config_key)](https://github.com/BrenPatF/sandbox#l_config-log_configsrowtype--log_configget_configp_config_key)
+- [Del_Config(p_config_key)](https://github.com/BrenPatF/sandbox#log_configdel_configp_config_key)
+- [Ins_Config(optional parameters)](https://github.com/BrenPatF/sandbox#log_configins_configoptional-parameters)
 
 This package allows for select, update, insertion, and deletion of the configuration records, with no commits.
 
@@ -249,6 +254,8 @@ Deletes the currently active record in the log_configs table for the config key 
 * `p_config_key`: references configuration in log_configs table, of which there should be one active version
 
 ### Log_Config.Ins_Config(`optional parameters`)
+- [API - Log_Config](https://github.com/BrenPatF/sandbox#api---log_config)
+
 Inserts a new record in the log_configs table. If the config_key already exists, a new active version will be inserted with the old version de-activated. 
 
 One of the columns in the table is of a custom array type, ctx_inp_arr. This is an array of objects of type ctx_inp_obj, which contain information on possible writing of system contexts in the USERENV namespace [Oracle SYS_CONTEXT](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/sqlrf/SYS_CONTEXT.html#GUID-B9934A5D-D97B-4E51-B01B-80C76A5BD086). The object type has fields as follows:
