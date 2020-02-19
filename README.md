@@ -110,6 +110,8 @@ Optional parameters:
 * `p_delim`: delimiter string, defaults to '|'
 
 ### l_line VARCHAR2(4000) := Utils.Join_Values(p_value1, `optional parameters`)
+- [API - Utils](https://github.com/BrenPatF/sandbox#api---utils)
+
 Returns a string containing the values passed in as distinct parameters, delimited by the optional p_delim parameter that defaults to '|', with parameters as follows:
 * `p_value1`: mandatory first value
 
@@ -118,8 +120,6 @@ Optional parameters:
 * `p_delim`: delimiter string, defaults to '|'
 
 ### l_value_lis L1_chr_arr := Utils.Split_Values(p_string, `optional parameters`)
-- [API - Utils](https://github.com/BrenPatF/sandbox#api---utils)
-
 Returns a list of string values obtained by splitting the input string on a given delimiter, with parameters as follows:
 
 * `p_string`: string to split
@@ -138,6 +138,8 @@ Optional parameters:
 * `p_delim`: delimiter string, defaults to '|'
 
 ### l_row_lis L1_chr_arr := Utils.Cursor_To_List(x_csr, `optional parameters`)
+- [API - Utils](https://github.com/BrenPatF/sandbox#api---utils)
+
 Returns a list of rows returned from the ref cursor passed, delimiting values with specified delimiter, with filter clause applied via RegExp_Like to the delimited rows, with parameters as follows:
 
 * `x_csr`: IN OUT SYS_REFCURSOR, passed as open, and closed in function after processing
@@ -147,13 +149,13 @@ Optional parameters:
 * `p_delim`: delimiter string, defaults to '|'
 
 ### l_seconds NUMBER := Utils.IntervalDS_To_Seconds(p_interval)
-- [API - Utils](https://github.com/BrenPatF/sandbox#api---utils)
-
 Returns the number of seconds in a day-to-second interval, with parameters as follows:
 
 * `p_interval`: INTERVAL DAY TO SECOND
 
 ### Utils.Sleep(p_ela_seconds, `optional parameters`)
+- [API - Utils](https://github.com/BrenPatF/sandbox#api---utils)
+
 Sleeps for a given number of seconds elapsed time, including a given proportion of CPU time, with both numbers approximate, with parameters as follows:
 
 * `p_ela_seconds`: elapsed time to sleep
