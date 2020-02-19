@@ -17,7 +17,7 @@ The package is tested using the Math Function Unit Testing design pattern, with 
 - [Usage (extract from main_col_group.sql)](https://github.com/BrenPatF/sandbox#usage-extract-from-main_col_groupsql)
 - [API - Utils](https://github.com/BrenPatF/sandbox#api---utils)
 - [Installation](https://github.com/BrenPatF/sandbox#installation)
-- [Unit testing](https://github.com/BrenPatF/sandbox#unit-testing)
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
 - [Operating System/Oracle Versions](https://github.com/BrenPatF/sandbox#operating-systemoracle-versions)
 
 ## Usage (extract from main_col_group.sql)
@@ -71,9 +71,9 @@ There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_d
 - [List_To_Line(p_value_lis)](https://github.com/BrenPatF/sandbox#l_line-varchar24000--utilslist_to_linep_value_lis)
 - [Join_Values(p_value_lis, optional parameters)](https://github.com/BrenPatF/sandbox#l_line-varchar24000--utilsjoin_valuesp_value_lis-optional-parameters)
 - [Join_Values(p_value1, optional parameters)](https://github.com/BrenPatF/sandbox#l_line-varchar24000--utilsjoin_valuesp_value1-optional-parameters)
-- [Split_Values(p_string, optional parameters)]https://github.com/BrenPatF/sandbox#l_value_lis-l1_chr_arr--utilssplit_valuesp_string-optional-parameters)
-- [View_To_List(p_view_name, p_sel_value_lis, , optional parameters)](https://github.com/BrenPatF/sandbox#l_row_lis-l1_chr_arr--utilsview_to_listp_view_name-p_sel_value_lis--optional-parameters)
-- [Cursor_To_List(x_csr, optional parameters)]https://github.com/BrenPatF/sandbox#l_row_lis-l1_chr_arr--utilscursor_to_listx_csr-optional-parameters)
+- [Split_Values(p_string, optional parameters)](https://github.com/BrenPatF/sandbox#l_value_lis-l1_chr_arr--utilssplit_valuesp_string-optional-parameters)
+- [View_To_List(p_view_name, p_sel_value_lis, optional parameters)](https://github.com/BrenPatF/sandbox#l_row_lis-l1_chr_arr--utilsview_to_listp_view_name-p_sel_value_lis--optional-parameters)
+- [Cursor_To_List(x_csr, optional parameters)](https://github.com/BrenPatF/sandbox#l_row_lis-l1_chr_arr--utilscursor_to_listx_csr-optional-parameters)
 - [IntervalDS_To_Seconds(p_interval)](https://github.com/BrenPatF/sandbox#l_seconds-number--utilsintervalds_to_secondsp_interval)
 - [Sleep(p_ela_seconds, optional parameters)](https://github.com/BrenPatF/sandbox#utilssleepp_ela_seconds-optional-parameters)
 - [Raise_Error(p_message)](https://github.com/BrenPatF/sandbox#utilsraise_errorp_message)
@@ -127,7 +127,7 @@ Returns a list of string values obtained by splitting the input string on a give
 Optional parameters:
 * `p_delim`: delimiter string, defaults to '|'
 
-### l_row_lis L1_chr_arr := Utils.View_To_List(p_view_name, p_sel_value_lis, , `optional parameters`)
+### l_row_lis L1_chr_arr := Utils.View_To_List(p_view_name, p_sel_value_lis, `optional parameters`)
 Returns a list of rows returned from the specified view/table, with specified column list and where clause, delimiting values with specified delimiter, with parameters as follows:
 
 * `p_view_name`: name of table or view
@@ -185,7 +185,6 @@ Writes a list of lines of text using DBMS_Output.Put_line, with parameters as fo
 - [Install 3: Create components for example code](https://github.com/BrenPatF/sandbox#install-3-create-components-for-example-code)
 - [Install 4: Install Trapit module](https://github.com/BrenPatF/sandbox#install-4-install-trapit-module)
 - [Install 5: Install unit test code](https://github.com/BrenPatF/sandbox#install-5-install-unit-test-code)
-- []()
 
 You can install just the base module in an existing schema, or alternatively, install base module plus an example of usage, and unit testing code, in two new schemas, `lib` and `app`.
 
