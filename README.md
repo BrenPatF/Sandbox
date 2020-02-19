@@ -307,6 +307,8 @@ In this case, where we have a set of small independent methods, most of which ar
 
 You can review the  unit test formatted results obtained by the author in the `test_output` subfolder [utils.html is the root page for the HTML version and utils.txt has the results in text format].
 
+[Unit Test Report: utils](test_output/utils.html)
+
 ## Operating System/Oracle Versions
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 ### Windows
