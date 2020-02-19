@@ -72,7 +72,7 @@ There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_d
 - [Join_Values(p_value_lis, optional parameters)](https://github.com/BrenPatF/sandbox#l_line-varchar24000--utilsjoin_valuesp_value_lis-optional-parameters)
 - [Join_Values(p_value1, optional parameters)](https://github.com/BrenPatF/sandbox#l_line-varchar24000--utilsjoin_valuesp_value1-optional-parameters)
 - [Split_Values(p_string, optional parameters)](https://github.com/BrenPatF/sandbox#l_value_lis-l1_chr_arr--utilssplit_valuesp_string-optional-parameters)
-- [View_To_List(p_view_name, p_sel_value_lis, optional parameters)](https://github.com/BrenPatF/sandbox#l_row_lis-l1_chr_arr--utilsview_to_listp_view_name-p_sel_value_lis--optional-parameters)
+- [View_To_List(p_view_name, p_sel_value_lis, optional parameters)](https://github.com/BrenPatF/sandbox#l_row_lis-l1_chr_arr--utilsview_to_listp_view_name-p_sel_value_lis-optional-parameters)
 - [Cursor_To_List(x_csr, optional parameters)](https://github.com/BrenPatF/sandbox#l_row_lis-l1_chr_arr--utilscursor_to_listx_csr-optional-parameters)
 - [IntervalDS_To_Seconds(p_interval)](https://github.com/BrenPatF/sandbox#l_seconds-number--utilsintervalds_to_secondsp_interval)
 - [Sleep(p_ela_seconds, optional parameters)](https://github.com/BrenPatF/sandbox#utilssleepp_ela_seconds-optional-parameters)
