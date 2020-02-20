@@ -232,8 +232,6 @@ In the non-mocked scenarios standard function calls are made to return elapsed a
 
 In this way we can test correctness of the timing aggregations, independence of timer sets etc. using the deterministic values; on the other hand, one of the key benefits of automated unit testing is to test the actual dependencies, and we do this in the non-mocked case by passing in 'sleep' times to the wrapper function and testing the outputs against ranges of values.
 
-You can review the  unit test formatted results obtained by the author in the `test_output` subfolder [timer_set.html is the root page for the HTML version and timer_set.txt has the results in text format].
-
 This diagram shows the input/output structure of the pure unit test wrapper function:
 <img src="timer_set_oracle.png">
 
