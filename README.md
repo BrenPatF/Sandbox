@@ -69,8 +69,6 @@ There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_d
 Constructs a new timer set with name `p_ts_name`, and integer handle `l_timer_set`.
 
 ### Timer_Set.Increment_Time(p_timer_set, p_timer_name)
-- [API - Timer_Set](https://github.com/BrenPatF/sandbox#api---timer_set)
-
 Increments the timing statistics (elapsed, user and system CPU, and number of calls) for a timer `p_timer_name` within the timer set `p_timer_set` with the times passed since the previous call to Increment_Time, Init_Time or the constructor of the timer set instance. Resets the statistics for timer set `p_timer_set` to the current time, so that the next call to increment_time measures from this point for its increment.
 
 ### Timer_Set.Init_Time(p_timer_set)
