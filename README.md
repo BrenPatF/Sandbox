@@ -1,225 +1,131 @@
-# Oracle PL/SQL API Demos
-Module demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs.
+# Trapit
+Oracle PL/SQL unit testing module.
 
-PL/SQL procedures were written against Oracle's HR demo schema to represent the different kinds of API across two axes: Setter/Getter and Real Time/Batch.
+TRansactional API Testing (TRAPIT) framework for Oracle PL/SQL unit testing.
 
-Mode          | Setter Example (S)          | Getter Example (G)
---------------|-----------------------------|----------------------------------
-Real Time (R) | Web service saving          | Web service getting by ref cursor
-Batch (B)     | Batch loading of flat files | View
+This is a lightweight PL/SQL-based framework for API testing that can be considered as an alternative to utPLSQL. The framework is based on the idea that all API testing programs can follow a universal design pattern for testing APIs, using the concept of a â€˜pureâ€™ function as a wrapper to manage the â€˜impurityâ€™ inherent in database APIs. In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
 
-The PL/SQL procedures and view were written originally to demonstrate unit testing, and are as follows:
+- [The Database API Viewed As A Mathematical Function: Insights into Testing](https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing)
 
-- RS: Emp_WS.Save_Emps - Save a list of new employees to database, returning list of ids with Julian dates; logging errors to err$ table
-- RG: Emp_WS.Get_Dept_Emps - For given department id, return department and employee details including salary ratios, excluding employees with job 'AD_ASST', and returning none if global salary total < 1600, via ref cursor
-- BS: Emp_Batch.Load_Emps - Load new/updated employees from file via external table
-- BG: hr_test_view_v - View returning department and employee details including salary ratios, excluding employees with job 'AD_ASST', and returning none if global salary total < 1600
+I later named the approach 'The Math Function Unit Testing design pattern':
+- [The Math Function Unit Testing design pattern, implemented in nodejs](https://github.com/BrenPatF/trapit_nodejs_tester)
 
-Each of these is unit tested, as described below, and in addition there is a driver script, api_driver.sql, that calls each of them and lists the results of logging and code timing.
-
-I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in-plsql-and-sql" target="_blank" rel="noopener noreferrer">Writing Clean Code in PL/SQL and SQL</a> at the Ireland Oracle User Group Conference on 4 April 2019 in Dublin. The modules demonstrated here are written in the style recommended in the presentation where, in particular: 
-
-- 'functional' code is preferred
-- object-oriented code is used only where necessary, using a package record array approach, rather than type bodies
-- record types, defaults and overloading used extensively to provide clean API interfaces 
+This module is a pre-requisite for the unit testing parts of these other Oracle GitHub modules:
+- [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
+- [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
+- [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
 
 ## In this README...
-- [Screen Recordings on this Module](https://github.com/BrenPatF/sandbox#screen-recordings-on-this-module)
-- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
-- [Logging and Instrumentation](https://github.com/BrenPatF/sandbox#logging-and-instrumentation)
-- [Code Timing](https://github.com/BrenPatF/sandbox#code-timing)
-- [Functional PL/SQL](https://github.com/BrenPatF/sandbox#functional-plsql)
-- [Installation](https://github.com/BrenPatF/sandbox#Installation)
-- [Running Driver Script and Unit Tests](https://github.com/BrenPatF/sandbox#running-driver-script-and-unit-tests)
-- [Operating System/Oracle Versions](https://github.com/BrenPatF/sandbox#operating-systemoracle-versions)
+- [Usage](https://github.com/BrenPatF/trapit_oracle_tester#usage)
+- [API - Trapit](https://github.com/BrenPatF/trapit_oracle_tester#api---trapit)
+- [API - Trapit_Run](https://github.com/BrenPatF/trapit_oracle_tester#api---trapit_run)
+- [Installation](https://github.com/BrenPatF/trapit_oracle_tester#installation)
+- [Operating System/Oracle Versions](https://github.com/BrenPatF/trapit_oracle_tester#operating-systemoracle-versions)
 
-## Screen Recordings on this Module
-- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+## Usage
 
-I initially made a series of screen recordings that are available at the links below, and later condensed each recording to a length that would upload directly to Twitter, i.e. less than 140 seconds. You can find the [Twitter thread here](https://twitter.com/BrenPatF/status/1195226809987674113). Both sets of recordings are also available in the recordings subfolder of the repository. The links below are to the initial, longer set of recordings.
+In order to use the framework for unit testing, the following preliminary steps are required: 
+* A JSON file is created containing the input test data including expected return values in the required format. The input JSON file essentially consists of two objects: 
+  * `meta`: inp and out objects each containing group objects with arrays of field names
+  * `scenarios`: scenario objects containing inp and out objects, with inp and out objects containing, for each group defined in meta, an array of input records and an array of expected output records, respectively, records being in delimited fields format
+* A unit test PL/SQL program is created as a public procedure in a package (see example below). The program calls:
+  * Trapit.Get_Inputs to get the JSON data and translate into PL/SQL arrays
+  * Trapit.Set_Outputs to convert actual results in PL/SQL arrays into JSON, and write the output JSON file
+* A record is inserted into the tt_units table using the Trapit.Add_Ttu procedure, passing names of package, procedure, JSON file (which should be placed in an Oracle directory, INPUT_DIR) and an active Y/N flag
 
-### 1 Overview (6 recordings – 48m)
-- [1.1 Introduction (5m)](https://reccloud.com/u/5usavxh)
-- [1.2 Unit testing (13m)](https://reccloud.com/u/mkgxioc)
-- [1.3 Logging and instrumentation (8m)](https://reccloud.com/u/pwaretg)
-- [1.4 Code timing (6m)](https://reccloud.com/u/hzi79ra)
-- [1.5 Functional PL/SQL I - pure functions; record types; separation of pure and impure (8m)](https://reccloud.com/u/jieo803)
-- [1.6 Functional PL/SQL II - refactoring for purity (8m)](https://reccloud.com/u/y364pek)
-### 2 Prerequisite Tools (1 recording – 3m)
-- [2.1 Prerequisite tools (3m)](https://reccloud.com/u/7czksex)
-### 3 Installation (3 recordings – 15m)
-- [3.1 Clone git repository (2m)](https://reccloud.com/u/m6pvgyr)
-- [3.2 Install prerequisite modules (7m)](https://reccloud.com/u/i8h29jn)
-- [3.3 Install API demo components (6m)](https://reccloud.com/u/ec1amfv)
-### 4 Running the scripts (4 recordings – 30m)
-- [4.1 Run unit tests (8m)](https://reccloud.com/u/3lsih2r)
-- [4.2 Review test results (7m)](https://reccloud.com/u/tm3hj8k)
-- [4.3 Run API driver (8m)](https://reccloud.com/u/bcrs10p)
-- [4.4 Review API driver output (7m)](https://reccloud.com/u/tz9ola1)
+Once the preliminary steps are executed, the following steps run the unit test program: 
+* The procedure Trapit.Run_Tests is called to run active test programs, writing JSON output files both to the tt_units table and to the Oracle directory, INPUT_DIR
+* Open a DOS or Powershell window in the trapit npm package folder (`see Install 3: Install npm trapit package below`) after placing the output JSON file in the subfolder ./examples/externals and run:
+```
+$ node ./examples/externals/test-externals
+```
+The nodejs program produces listings of the results in HTML and/or text format. The unit test steps can easily be automated in Powershell (or in a Unix script).
 
-## Unit Testing
-- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+### Example test program main procedure from Utils module
+```
+PROCEDURE Test_API IS
 
-The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Ireland Oracle User Group Conference in March 2018:
+  PROC_NM                        CONSTANT VARCHAR2(30) := 'Test_API';
+  l_act_3lis                     L3_chr_arr := L3_chr_arr();
+  l_sces_4lis                    L4_chr_arr;
+  l_scenarios                    Trapit.scenarios_rec;
+  l_delim                        VARCHAR2(10);
+BEGIN
 
-<a href="https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing" target="_blank">The Database API Viewed As A Mathematical Function: Insights into Testing</a>
+  l_scenarios := Trapit.Get_Inputs(p_package_nm  => $$PLSQL_UNIT,
+                                   p_procedure_nm => PROC_NM);
+  l_sces_4lis := l_scenarios.scenarios_4lis;
+  l_delim := l_scenarios.delim;
+  l_act_3lis.EXTEND(l_sces_4lis.COUNT);
+  FOR i IN 1..l_sces_4lis.COUNT LOOP
+    l_act_3lis(i) := purely_Wrap_API(p_delim    => l_delim,
+                                     p_inp_3lis => l_sces_4lis(i));
+  END LOOP;
 
-In this data-driven design pattern a driver program reads a set of scenarios from a JSON file, and loops over the scenarios calling the wrapper function with the scenario as input and obtaining the results as the return value. Utility functions from the Trapit module convert the input JSON into PL/SQL arrays, and, conversely, the output arrays into JSON text that is written to an output JSON file. This latter file contains all the input values and output values (expected and actual), as well as metadata describing the input and output groups. A separate nodejs module can be run to process the output files and create HTML files showing the results: Each unit test (say `pkg.prc`) has its own root page `pkg.prc.html` with links to a page for each scenario, located within a subfolder `pkg.prc`. Here, they have been copied into a subfolder test_output, as follows:
+  Trapit.Set_Outputs(p_package_nm   => $$PLSQL_UNIT,
+                     p_procedure_nm => PROC_NM,
+                     p_act_3lis     => l_act_3lis);
+END Test_API;
+```
 
-- tt_emp_batch.load_emps
-- tt_emp_ws.get_dept_emps
-- tt_emp_ws.save_emps
-- tt_view_drivers.hr_test_view_v
+There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_demos) demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs.
 
-Where the actual output record matches expected, just one is represented, while if the actual differs it is listed below the expected and with background colour red. The employee group in scenario 4 of tt_emp_ws.save_emps has two records deliberately not matching, the first by changing the expected salary and the second by adding a duplicate expected record.
+## API - Trapit
+- [In this README...]()
+- [Get_Inputs(p_package_nm, p_procedure_nm)](https://github.com/BrenPatF/trapit_oracle_tester#l_scenarios-trapitscenarios_rec--trapitget_inputsp_package_nm-p_procedure_nm)
+- [Set_Outputs(p_package_nm, p_procedure_nm, p_act_3lis)](https://github.com/BrenPatF/trapit_oracle_tester#trapitset_outputsp_package_nm-p_procedure_nm-p_act_3lis)
+- [Add_Ttu(p_package_nm, p_procedure_nm, p_group_nm, p_active_yn, p_input_file)](https://github.com/BrenPatF/trapit_oracle_tester#trapitadd_ttup_package_nm-p_procedure_nm-p_group_nm-p_active_yn-p_input_file)
+### l_scenarios Trapit.scenarios_rec := Trapit.Get_Inputs(p_package_nm, p_procedure_nm)
+Returns a record containing a delimiter and 4-level list of scenario metadata for testing the given package procedure, with parameters as follows:
 
-Each of the `pkg.prc` subfolders also includes a JSON Structure Diagram, `pkg.prc.png`, showing the input/output structure of the pure unit test wrapper function. For example:
-<img src="tt_emp_ws.save_emps.png">
+* `p_package_nm`: package name
+* `p_procedure_nm`: procedure name
 
-Running a test causes the actual values to be inserted to the JSON object, which is then formatted as HTML pages:
+Return Value
+* `scenarios_rec`: record type with two fields:
+  * `delim`: record delimiter
+  * `scenarios_4lis`: 4-level list of scenario input values - (scenario, group, record, field)
 
-<div>
-<img src="Oracle PLSQL API Demos - DFD.png" text-align="center" display="inline-block">
-</div>
+### Trapit.Set_Outputs(p_package_nm, p_procedure_nm, p_act_3lis)
+Adds the actual results data into the JSON input object for testing the given package procedure and writes it to file, and to a column in tt_units table, with parameters as follows:
 
-Here is the output JSON for the 4'th scenario of the corresponding test:
+* `p_package_nm`: package name
+* `p_procedure_nm`: procedure name
+* `p_act_3lis`: 3-level list of actual values as delimited records, by scenario and group
 
-    "2 valid records, 1 invalid job id (2 deliberate errors)":{
-       "inp":{
-          "Employee":[
-             "LN 4|EM 4|IT_PROG|3000",
-             "LN 5|EM 5|NON_JOB|4000",
-             "LN 6|EM 6|IT_PROG|5000"
-          ]
-       },
-       "out":{
-          "Employee":{
-             "exp":[
-                "3|LN 4|EM 4|IT_PROG|1000",
-                "5|LN 6|EM 6|IT_PROG|5000",
-                "5|LN 6|EM 6|IT_PROG|5000"
-             ],
-             "act":[
-                "3|LN 4|EM 4|IT_PROG|3000",
-                "5|LN 6|EM 6|IT_PROG|5000"
-             ]
-          },
-          "Output array":{
-             "exp":[
-                "3|LIKE /^[A-Z -]+[A-Z]$/",
-                "0|ORA-02291: integrity constraint (.) violated - parent key not found",
-                "5|LIKE /^[A-Z -]+[A-Z]$/"
-             ],
-             "act":[
-                "3|ONE THOUSAND NINE HUNDRED NINETY-EIGHT",
-                "0|ORA-02291: integrity constraint (.) violated - parent key not found",
-                "5|TWO THOUSAND"
-             ]
-          },
-          "Exception":{
-             "exp":[
-             ],
-             "act":[
-             ]
-          }
-       }
-    }
+### Trapit.Add_Ttu(p_package_nm, p_procedure_nm, p_group_nm, p_active_yn, p_input_file)
+Adds a record to tt_units table, with parameters as follows:
 
-Here are images of the unit test summary and 4'th scenario pages for the corresponding test:
+* `p_package_nm`: package name
+* `p_procedure_nm`: procedure name
+* `p_group_nm`: test group name
+* `p_active_yn`: active Y/N flag
+* `p_input_file`: name of input file, which has to exist in Oracle directory `input_dir`
 
-<img src="ws-save.png">
+## API - Trapit_Run
+- [In this README...]()
+- [Run_Tests(p_group_nm)](https://github.com/BrenPatF/trapit_oracle_tester#trapitrun_testsp_group_nm)
 
-<img src="sce-4.png">
+This package runs with Invoker rights, not the default Definer rights, so that dynamic SQL calls to the test packages in the calling schema do not require execute privilege to be granted to owning schema (if different from caller).
 
-You can review the formatted unit test results obtained by the author for the Save Emps example here, [Unit Test Report: TT_Emp_WS.Save_Emps](http://htmlpreview.github.io/?https://github.com/BrenPatF/sandbox/blob/master/test_output/tt_emp_ws.save_emps/tt_emp_ws.save_emps.html), and the files for all four examples are available in the `test_output\pkg.proc` subfolder for example `pkg.proc` [`pkg.proc`.html is the root page for the HTML version and `pkg.proc`.txt has the results in text format].
+### Trapit.Run_Tests(p_group_nm)
+Runs the unit test program for each package procedure set to active in tt_units table for a given test group, with parameters as follows:
 
-## Logging and Instrumentation
-- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+* `p_group_nm`: test group name
 
-Program instrumentation means including lines of code to monitor the execution of a program, such as tracing lines covered, numbers of records processed, and timing information. Logging means storing such information, in database tables or elsewhere.
-
-The Log_Set module allows for logging of various data in a lines table linked to a header for a given log, with the logging level configurable at runtime. The module also uses Oracle's DBMS_Application_Info API to allow for logging in memory only with information accessible via the V$SESSION and V$SESSION_LONGOPS views.
-
-The two web service-type APIs, Emp_WS.Save_Emps and Emp_WS.Get_Dept_Emps, use a configuration that logs only via DBMS_Application_Info, while the batch API, Emp_Batch.Load_Emps, also logs to the tables. The view of course does not do any logging itself but calling programs can log the results of querying it.
-
-The driver script api_driver.sql calls all four of the demo APIs and performs its own logging of the calls and the results returned, including the DBMS_Application_Info on exit. The driver logs using a special DEBUG configuration where the log is constructed implicitly by the first Put, and there is no need to pass a log identifier when putting (so debug lines can be easily added in any called package). At the end of the script queries are run that list the contents of the logs created during the session in creation order, first normal logs, then a listing for error logs (of which one is created by deliberately raising an exception handled in WHEN OTHERS).
-
-<img src="Oracle PLSQL API Demos - LogSet-Flow.png">
-
-<img src="Oracle PLSQL API Demos - LogSet.png">
-
-Here, for example, is the text logged by the driver script for the first call:
-
-    Call Emp_WS.Save_Emps to save a list of employees passed...
-    ===========================================================
-    DBMS_Application_Info: Module = EMP_WS: Log id 127
-    ...................... Action = Log id 127 closed at 12-Sep-2019 06:20:2
-    ...................... Client Info = Exit: Save_Emps, 2 inserted
-    Print the records returned...
-    =============================
-    1862 - ONE THOUSAND EIGHT HUNDRED SIXTY-TWO
-    1863 - ONE THOUSAND EIGHT HUNDRED SIXTY-THREE
-
-## Code Timing
-- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
-
-The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set.
-
-<img src="Oracle PLSQL API Demos - TimerSet-Flow.png">
-
-<img src="Oracle PLSQL API Demos - TimerSet.png">
-
- The timing results are listed for illustration below:
-
-    Timer Set: api_driver, Constructed at 12 Sep 2019 06:20:28, written at 06:20:29
-    ===============================================================================
-    Timer             Elapsed         CPU       Calls       Ela/Call       CPU/Call
-    -------------  ----------  ----------  ----------  -------------  -------------
-    Save_Emps            0.00        0.00           1        0.00100        0.00000
-    Get_Dept_Emps        0.00        0.00           1        0.00100        0.00000
-    Write_File           0.00        0.02           1        0.00300        0.02000
-    Load_Emps            0.22        0.15           1        0.22200        0.15000
-    Delete_File          0.00        0.00           1        0.00200        0.00000
-    View_To_List         0.00        0.00           1        0.00200        0.00000
-    (Other)              0.00        0.00           1        0.00000        0.00000
-    -------------  ----------  ----------  ----------  -------------  -------------
-    Total                0.23        0.17           7        0.03300        0.02429
-    -------------  ----------  ----------  ----------  -------------  -------------
-    [Timer timed (per call in ms): Elapsed: 0.00794, CPU: 0.00873]
-
-## Functional PL/SQL
-- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
-
-The recordings 1.5 and 1.6 show examples of the functional style of PL/SQL used in the utility packages demonstrated, and here is a diagram from 1.6 illustrating a design pattern identified in refactoring the main subprogram of the unit test programs.
-
-<img src="Oracle PLSQL API Demos - Nested subprograms.png">
+Normally the test packages in a group will be within a single schema from where the tests would be run.
 
 ## Installation
-- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
-### Install 1: Install pre-requisite tools
-#### Oracle database with HR demo schema
-The database installation requires a minimum Oracle version of 12.2, with Oracle's HR demo schema installed [Oracle Database Software Downloads](https://www.oracle.com/database/technologies/oracle-database-software-downloads.html).
+- [In this README...]()
+- [Install 1: Install pre-requisite module](https://github.com/BrenPatF/trapit_oracle_tester#install-1-install-pre-requisite-module)
+- [Install 2: Install Oracle Trapit module](https://github.com/BrenPatF/trapit_oracle_tester#install-2-install-oracle-trapit-module)
+- [Install 3: Create synonyms to lib](https://github.com/BrenPatF/trapit_oracle_tester#install-3-create-synonyms-to-lib)
+- [Install 4: Install npm trapit package](https://github.com/BrenPatF/trapit_oracle_tester#install-4-install-npm-trapit-package)
 
-If HR demo schema is not installed, it can be got from here: [Oracle Database Sample Schemas](https://docs.oracle.com/cd/E11882_01/server.112/e10831/installation.htm#COMSC001).
+The install depends on the pre-requisite module Utils, and `lib` schema refers to the schema in which Utils is installed.
 
-#### Github Desktop
-In order to clone the code as a git repository you need to have the git application installed. I recommend [Github Desktop](https://desktop.github.com/) UI for managing repositories on windows. This depends on the git application, available here: [git downloads](https://git-scm.com/downloads), but can also be installed from within Github Desktop, according to these instructions: 
-[How to install GitHub Desktop](https://www.techrepublic.com/article/how-to-install-github-desktop/).
-
-#### nodejs (Javascript backend)
-nodejs is needed to run a program that turns the unit test output files into formatted HTML pages. It requires no javascript knowledge to run the program, and nodejs can be installed [here](https://nodejs.org/en/download/).
-
-### Install 2: Clone git repository
-The following steps will download the repository into a folder, sandbox, within your GitHub root folder:
-- Open Github desktop and click [File/Clone repository...]
-- Paste into the url field on the URL tab: https://github.com/BrenPatF/sandbox.git
-- Choose local path as folder where you want your GitHub root to be
-- Click [Clone]
-
-### Install 3: Install pre-requisite modules
-The demo install depends on the pre-requisite modules Utils, Trapit, Log_Set, and Timer_Set, and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
-
-The pre-requisite modules can be installed by following the instructions for each module at the module root pages listed in the `See also` section below. This allows inclusion of the examples and unit tests for those modules. Alternatively, the next section shows how to install these modules directly without their examples or unit tests here.
+### Install 1: Install pre-requisite module
+The pre-requisite module can be installed by following the instructions at [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils). This allows inclusion of the examples and unit tests for the module. Alternatively, the next section shows how to install the module directly without its examples or unit tests here.
 
 #### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
 - install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
@@ -227,6 +133,7 @@ The pre-requisite modules can be installed by following the instructions for eac
 ```
 SQL> @install_sys
 ```
+
 #### [Schema: lib; Folder: install_prereq\lib] Create lib components
 - Run script from slqplus:
 ```
@@ -237,86 +144,47 @@ SQL> @install_lib_all
 ```
 SQL> @c_syns_all
 ```
-#### [Folder: (npm root)] Install npm trapit package
-The npm trapit package is a nodejs package used to format unit test results as HTML pages.
 
+### Install 2: Install Oracle Trapit module
+#### [Schema: lib; Folder: lib]
+- Run script from slqplus:
+```
+SQL> @install_trapit app
+```
+This creates the required components for the base install along with grants for them to the app schema (passing none instead of app will bypass the grants). It requires a minimum Oracle database version of 12.2. To grant privileges to another `schema`, run the grants script directly, passing `schema`:
+```
+SQL> @grant_trapit_to_app schema
+```
+
+### Install 3: Create synonyms to lib
+#### [Schema: app; Folder: app]
+- Run script from slqplus:
+```
+SQL> @c_trapit_syns lib
+```
+This install creates private synonyms to the lib schema. To create synonyms within another schema, run the synonyms script directly from that schema, passing lib schema.
+
+### Install 4: Install npm trapit package
+#### [Folder: (npm root)]
 Open a DOS or Powershell window in the folder where you want to install npm packages, and, with [nodejs](https://nodejs.org/en/download/) installed, run
 ```
 $ npm install trapit
 ```
 This should install the trapit nodejs package in a subfolder .\node_modules\trapit
 
-### Install 4: Create Oracle PL/SQL API Demos components
-#### [Folder: (root)]
-- Copy the following files from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
-    - tt_emp_ws.save_emps_inp.json
-    - tt_emp_ws.get_dept_emps_inp.json
-    - tt_emp_batch.load_emps_inp.json
-    - tt_view_drivers.hr_test_view_v_inp.json
-
-- There is also a bash script to do this, assuming C:\input as INPUT_DIR:
-```
-$ ./cp_json_to_input.sh
-```
-
-#### [Schema: lib; Folder: lib]
-- Run script from slqplus:
-```
-SQL> @install_jobs app
-```
-#### [Schema: hr; Folder: hr]
-- Run script from slqplus:
-```
-SQL> @install_hr app
-```
-#### [Schema: app; Folder: app]
-- Run script from slqplus:
-```
-SQL> @install_api_demos lib
-```
-
-## Running Driver Script and Unit Tests
-- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
-### Running driver script
-#### [Schema: app; Folder: app]
-- Run script from slqplus:
-```
-SQL> @api_driver
-```
-The output is in api_driver.log
-
-### Running unit tests
-#### [Schema: app; Folder: app]
-- Run script from slqplus:
-```
-SQL> @r_tests
-```
-Testing is data-driven from the input JSON objects that are loaded from files into the table tt_units (at install time), and produces JSON output files in the INPUT_DIR folder, that contain arrays of expected and actual records by group and scenario. These files are:
-
-- tt_emp_batch.load_emps_out.json
-- tt_emp_ws.get_dept_emps_out.json
-- tt_emp_ws.save_emps_out.json
-- tt_view_drivers.hr_test_view_v_out.json
-
-The output files are processed by a nodejs program that has to be installed separately, from the `npm` nodejs repository, as described in the Installation section above. The nodejs program produces listings of the results in HTML and/or text format, and result files are included in the subfolders below test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON files in the subfolder ./examples/externals and run:
-
-```
-$ node ./examples/externals/test-externals
-```
-
 ## Operating System/Oracle Versions
-- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 ### Windows
 Tested on Windows 10, should be OS-independent
 ### Oracle
-- Tested on Oracle Database Version 19.3.0.0.0 (minimum required: 12.2)
+- Tested on Oracle Database Version 18.3.0.0.0
+- Minimum version 12.2
 
 ## See also
 - [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
-- [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
 - [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
 - [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
 - [Trapit - nodejs unit test processing package](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [Oracle PL/SQL API Demos - demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs](https://github.com/BrenPatF/oracle_plsql_api_demos)
 
 ## License
 MIT
