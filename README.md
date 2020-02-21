@@ -104,7 +104,7 @@ Adds a record to tt_units table, with parameters as follows:
 * `p_input_file`: name of input file, which has to exist in Oracle directory `input_dir`
 
 ## API - Trapit_Run
-- [In this README...]()
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 - [Run_Tests(p_group_nm)](https://github.com/BrenPatF/sandbox#trapitrun_testsp_group_nm)
 
 This package runs with Invoker rights, not the default Definer rights, so that dynamic SQL calls to the test packages in the calling schema do not require execute privilege to be granted to owning schema (if different from caller).
