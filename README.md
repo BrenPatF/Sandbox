@@ -16,11 +16,11 @@ This module is a pre-requisite for the unit testing parts of these other Oracle 
 - [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
 
 ## In this README...
-- [Usage](https://github.com/BrenPatF/trapit_oracle_tester#usage)
-- [API - Trapit](https://github.com/BrenPatF/trapit_oracle_tester#api---trapit)
-- [API - Trapit_Run](https://github.com/BrenPatF/trapit_oracle_tester#api---trapit_run)
-- [Installation](https://github.com/BrenPatF/trapit_oracle_tester#installation)
-- [Operating System/Oracle Versions](https://github.com/BrenPatF/trapit_oracle_tester#operating-systemoracle-versions)
+- [Usage](https://github.com/BrenPatF/sandbox#usage)
+- [API - Trapit](https://github.com/BrenPatF/sandbox#api---trapit)
+- [API - Trapit_Run](https://github.com/BrenPatF/sandbox#api---trapit_run)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
+- [Operating System/Oracle Versions](https://github.com/BrenPatF/sandbox#operating-systemoracle-versions)
 
 ## Usage
 
@@ -72,9 +72,9 @@ There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_d
 
 ## API - Trapit
 - [In this README...]()
-- [Get_Inputs(p_package_nm, p_procedure_nm)](https://github.com/BrenPatF/trapit_oracle_tester#l_scenarios-trapitscenarios_rec--trapitget_inputsp_package_nm-p_procedure_nm)
-- [Set_Outputs(p_package_nm, p_procedure_nm, p_act_3lis)](https://github.com/BrenPatF/trapit_oracle_tester#trapitset_outputsp_package_nm-p_procedure_nm-p_act_3lis)
-- [Add_Ttu(p_package_nm, p_procedure_nm, p_group_nm, p_active_yn, p_input_file)](https://github.com/BrenPatF/trapit_oracle_tester#trapitadd_ttup_package_nm-p_procedure_nm-p_group_nm-p_active_yn-p_input_file)
+- [Get_Inputs(p_package_nm, p_procedure_nm)](https://github.com/BrenPatF/sandbox#l_scenarios-trapitscenarios_rec--trapitget_inputsp_package_nm-p_procedure_nm)
+- [Set_Outputs(p_package_nm, p_procedure_nm, p_act_3lis)](https://github.com/BrenPatF/sandbox#trapitset_outputsp_package_nm-p_procedure_nm-p_act_3lis)
+- [Add_Ttu(p_package_nm, p_procedure_nm, p_group_nm, p_active_yn, p_input_file)](https://github.com/BrenPatF/sandbox#trapitadd_ttup_package_nm-p_procedure_nm-p_group_nm-p_active_yn-p_input_file)
 ### l_scenarios Trapit.scenarios_rec := Trapit.Get_Inputs(p_package_nm, p_procedure_nm)
 Returns a record containing a delimiter and 4-level list of scenario metadata for testing the given package procedure, with parameters as follows:
 
@@ -104,7 +104,7 @@ Adds a record to tt_units table, with parameters as follows:
 
 ## API - Trapit_Run
 - [In this README...]()
-- [Run_Tests(p_group_nm)](https://github.com/BrenPatF/trapit_oracle_tester#trapitrun_testsp_group_nm)
+- [Run_Tests(p_group_nm)](https://github.com/BrenPatF/sandbox#trapitrun_testsp_group_nm)
 
 This package runs with Invoker rights, not the default Definer rights, so that dynamic SQL calls to the test packages in the calling schema do not require execute privilege to be granted to owning schema (if different from caller).
 
@@ -117,10 +117,10 @@ Normally the test packages in a group will be within a single schema from where 
 
 ## Installation
 - [In this README...]()
-- [Install 1: Install pre-requisite module](https://github.com/BrenPatF/trapit_oracle_tester#install-1-install-pre-requisite-module)
-- [Install 2: Install Oracle Trapit module](https://github.com/BrenPatF/trapit_oracle_tester#install-2-install-oracle-trapit-module)
-- [Install 3: Create synonyms to lib](https://github.com/BrenPatF/trapit_oracle_tester#install-3-create-synonyms-to-lib)
-- [Install 4: Install npm trapit package](https://github.com/BrenPatF/trapit_oracle_tester#install-4-install-npm-trapit-package)
+- [Install 1: Install pre-requisite module](https://github.com/BrenPatF/sandbox#install-1-install-pre-requisite-module)
+- [Install 2: Install Oracle Trapit module](https://github.com/BrenPatF/sandbox#install-2-install-oracle-trapit-module)
+- [Install 3: Create synonyms to lib](https://github.com/BrenPatF/sandbox#install-3-create-synonyms-to-lib)
+- [Install 4: Install npm trapit package](https://github.com/BrenPatF/sandbox#install-4-install-npm-trapit-package)
 
 The install depends on the pre-requisite module Utils, and `lib` schema refers to the schema in which Utils is installed.
 
