@@ -23,6 +23,7 @@ This module is a pre-requisite for the unit testing parts of these other Oracle 
 - [Operating System/Oracle Versions](https://github.com/BrenPatF/sandbox#operating-systemoracle-versions)
 
 ## Usage
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 In order to use the framework for unit testing, the following preliminary steps are required: 
 * A JSON file is created containing the input test data including expected return values in the required format. The input JSON file essentially consists of two objects: 
@@ -71,7 +72,7 @@ END Test_API;
 There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_demos) demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs.
 
 ## API - Trapit
-- [In this README...]()
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 - [Get_Inputs(p_package_nm, p_procedure_nm)](https://github.com/BrenPatF/sandbox#l_scenarios-trapitscenarios_rec--trapitget_inputsp_package_nm-p_procedure_nm)
 - [Set_Outputs(p_package_nm, p_procedure_nm, p_act_3lis)](https://github.com/BrenPatF/sandbox#trapitset_outputsp_package_nm-p_procedure_nm-p_act_3lis)
 - [Add_Ttu(p_package_nm, p_procedure_nm, p_group_nm, p_active_yn, p_input_file)](https://github.com/BrenPatF/sandbox#trapitadd_ttup_package_nm-p_procedure_nm-p_group_nm-p_active_yn-p_input_file)
@@ -116,7 +117,7 @@ Runs the unit test program for each package procedure set to active in tt_units 
 Normally the test packages in a group will be within a single schema from where the tests would be run.
 
 ## Installation
-- [In this README...]()
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 - [Install 1: Install pre-requisite module](https://github.com/BrenPatF/sandbox#install-1-install-pre-requisite-module)
 - [Install 2: Install Oracle Trapit module](https://github.com/BrenPatF/sandbox#install-2-install-oracle-trapit-module)
 - [Install 3: Create synonyms to lib](https://github.com/BrenPatF/sandbox#install-3-create-synonyms-to-lib)
@@ -125,6 +126,8 @@ Normally the test packages in a group will be within a single schema from where 
 The install depends on the pre-requisite module Utils, and `lib` schema refers to the schema in which Utils is installed.
 
 ### Install 1: Install pre-requisite module
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
+
 The pre-requisite module can be installed by following the instructions at [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils). This allows inclusion of the examples and unit tests for the module. Alternatively, the next section shows how to install the module directly without its examples or unit tests here.
 
 #### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
@@ -146,6 +149,7 @@ SQL> @c_syns_all
 ```
 
 ### Install 2: Install Oracle Trapit module
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
 #### [Schema: lib; Folder: lib]
 - Run script from slqplus:
 ```
@@ -157,6 +161,7 @@ SQL> @grant_trapit_to_app schema
 ```
 
 ### Install 3: Create synonyms to lib
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
 #### [Schema: app; Folder: app]
 - Run script from slqplus:
 ```
@@ -165,6 +170,7 @@ SQL> @c_trapit_syns lib
 This install creates private synonyms to the lib schema. To create synonyms within another schema, run the synonyms script directly from that schema, passing lib schema.
 
 ### Install 4: Install npm trapit package
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
 #### [Folder: (npm root)]
 Open a DOS or Powershell window in the folder where you want to install npm packages, and, with [nodejs](https://nodejs.org/en/download/) installed, run
 ```
@@ -173,6 +179,7 @@ $ npm install trapit
 This should install the trapit nodejs package in a subfolder .\node_modules\trapit
 
 ## Operating System/Oracle Versions
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 ### Windows
 Tested on Windows 10, should be OS-independent
 ### Oracle
