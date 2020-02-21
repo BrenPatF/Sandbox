@@ -77,6 +77,8 @@ There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_d
 - [Set_Outputs(p_package_nm, p_procedure_nm, p_act_3lis)](https://github.com/BrenPatF/sandbox#trapitset_outputsp_package_nm-p_procedure_nm-p_act_3lis)
 - [Add_Ttu(p_package_nm, p_procedure_nm, p_group_nm, p_active_yn, p_input_file)](https://github.com/BrenPatF/sandbox#trapitadd_ttup_package_nm-p_procedure_nm-p_group_nm-p_active_yn-p_input_file)
 ### l_scenarios Trapit.scenarios_rec := Trapit.Get_Inputs(p_package_nm, p_procedure_nm)
+- [API - Trapit](https://github.com/BrenPatF/sandbox#api---trapit)
+
 Returns a record containing a delimiter and 4-level list of scenario metadata for testing the given package procedure, with parameters as follows:
 
 * `p_package_nm`: package name
@@ -88,6 +90,8 @@ Return Value
   * `scenarios_4lis`: 4-level list of scenario input values - (scenario, group, record, field)
 
 ### Trapit.Set_Outputs(p_package_nm, p_procedure_nm, p_act_3lis)
+- [API - Trapit](https://github.com/BrenPatF/sandbox#api---trapit)
+
 Adds the actual results data into the JSON input object for testing the given package procedure and writes it to file, and to a column in tt_units table, with parameters as follows:
 
 * `p_package_nm`: package name
@@ -95,6 +99,8 @@ Adds the actual results data into the JSON input object for testing the given pa
 * `p_act_3lis`: 3-level list of actual values as delimited records, by scenario and group
 
 ### Trapit.Add_Ttu(p_package_nm, p_procedure_nm, p_group_nm, p_active_yn, p_input_file)
+- [API - Trapit](https://github.com/BrenPatF/sandbox#api---trapit)
+
 Adds a record to tt_units table, with parameters as follows:
 
 * `p_package_nm`: package name
