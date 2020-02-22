@@ -405,13 +405,13 @@ This is a good example of the power of the design pattern that I recently introd
 - [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
 
 This diagram shows the input/output structure of the pure unit test wrapper function:
-<img src="log_set.png">
+<img src="log_set_oracle.png">
 
 ### Unit Test Summary Page
 - [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
 
 This is an image of the unit test summary page, and it shows the scenarios tested.
-<img src="log_set_ut_root.png">
+<img src="log_set_oracle_ut_root.png">
 
 You can review the formatted unit test results obtained by the author here, [Unit Test Report: log_set](http://htmlpreview.github.io/?https://github.com/BrenPatF/sandbox/blob/master/test_output/log_set.html), and the files are available in the `test_output` subfolder [log_set.html is the root page for the HTML version and log_set.txt has the results in text format].
 
