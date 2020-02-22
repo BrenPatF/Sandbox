@@ -308,6 +308,12 @@ The package is tested using the Math Function Unit Testing design pattern (`See 
 
 In this case, where we have a set of small independent methods, most of which are pure functions, the wrapper function is designed to test all of them in a single generalised transaction. Four high level scenarios were identified (`Small`, `Large`, `Many`, `Bad SQL`).
 
+This diagram shows the input/output structure of the pure unit test wrapper function:
+<img src="utils_oracle.png">
+
+This is an image of the unit test summary page, and it shows the scenarios tested.
+<img src="plsql_network_ut_root.png">
+
 You can review the formatted unit test results obtained by the author here, [Unit Test Report: utils](http://htmlpreview.github.io/?https://github.com/BrenPatF/sandbox/blob/master/test_output/utils.html), and the files are available in the `test_output` subfolder [utils.html is the root page for the HTML version and utils.txt has the results in text format].
 
 ## Operating System/Oracle Versions
