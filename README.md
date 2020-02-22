@@ -1,8 +1,8 @@
 # Trapit
-Oracle PL/SQL unit testing module.
+Oracle PL/SQL unit testing module.:stopwatch:
 
 :nerd_face:
-:stopwatch:
+
 :hourglass:
 
 TRansactional API Testing (TRAPIT) framework for Oracle PL/SQL unit testing.
