@@ -20,7 +20,7 @@ This module is a pre-requisite for the unit testing parts of these other Oracle 
 - [Net_Pipe - Oracle PL/SQL network analysis module](https://github.com/BrenPatF/plsql_network)
 
 Examples of its use in testing four demo PL/SQL APIs can be seen here:
-[Oracle PL/SQL API Demos - demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs](https://github.com/BrenPatF/oracle_plsql_api_demos)
+- [Oracle PL/SQL API Demos - demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs](https://github.com/BrenPatF/oracle_plsql_api_demos)
 
 ## In this README...
 - [Usage](https://github.com/BrenPatF/trapit_oracle_tester#usage)
