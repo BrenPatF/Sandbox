@@ -217,9 +217,12 @@ This diagram shows the input/output structure of the pure unit test wrapper func
 <img src="plsql_network - JSD.png">
 
 This is an image of the unit test summary page, and it shows the scenarios tested.
+<img src="plsql_network_ut_root.png">
+
+This is a diagram of the 4-subnetwork network in scenario 3
 <img src="plsql_network - Scenario 3.png">
 
-You can review the formatted unit test results obtained by the author here, [Unit Test Report: net_pipe](http://htmlpreview.github.io/?https://github.com/BrenPatF/timer_set_oracle/blob/master/test_output/net_pipe.html), and the files are available in the `test_output` subfolder [net_pipe.html is the root page for the HTML version and net_pipe.txt has the results in text format].
+You can review the formatted unit test results obtained by the author here, [Unit Test Report: net_pipe](http://htmlpreview.github.io/?https://github.com/BrenPatF/sandbox/blob/master/test_output/net_pipe.html), and the files are available in the `test_output` subfolder [net_pipe.html is the root page for the HTML version and net_pipe.txt has the results in text format].
 
 ## Operating System/Oracle Versions
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
