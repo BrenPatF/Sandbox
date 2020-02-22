@@ -2,7 +2,7 @@
 <img src="mountains.png">
 Oracle PL/SQL network analysis module.
 
-:outbox_tray: :inbox_tray:
+:globe_with_meridians:
 
 The module contains a PL/SQL package for the efficient analysis of networks that can be specified
 by a view representing their node pair links. The package has a pipelined function that returns a
@@ -196,8 +196,11 @@ This step requires the Trapit module option to have been installed as part of In
 ```
 SQL> @install_net_pipe_tt
 ```
-## Unit testing
+## Unit Testing
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+- [Wrapper Function Diagram](https://github.com/BrenPatF/sandbox#wrapper-function-diagram)
+- [Unit Test Summary Page](https://github.com/BrenPatF/sandbox#unit-test-summary-page)
+- [Scenario 3 Network Diagram](https://github.com/BrenPatF/sandbox#scenario-3-network-diagram)
 
 The unit test program (if installed) may be run from the lib subfolder:
 
@@ -213,11 +216,20 @@ The three testing steps can easily be automated in Powershell (or Unix bash).
 
 The package is tested using the Math Function Unit Testing design pattern (`See also - Trapit` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
+### Wrapper Function Diagram
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
+
 This diagram shows the input/output structure of the pure unit test wrapper function:
 <img src="plsql_network - JSD.png">
 
+### Unit Test Summary Page
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
+
 This is an image of the unit test summary page, and it shows the scenarios tested.
 <img src="plsql_network_ut_root.png">
+
+### Scenario 3 Network Diagram
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
 
 This is a diagram of the 4-subnetwork network in scenario 3
 <img src="plsql_network - Scenario 3.png">
