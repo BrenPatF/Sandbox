@@ -23,7 +23,9 @@ The package is tested using the Math Function Unit Testing design pattern, with 
 
 ## Usage - example for app schema foreign key network
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
-### Network detail
+- [Network Detail](https://github.com/BrenPatF/sandbox#network-detail)
+- [Network Summary](https://github.com/BrenPatF/sandbox#network-summary)
+### Network Detail
 ```sql
 SELECT root_node_id                                                            "Network",
        Count(DISTINCT link_id) OVER (PARTITION BY root_node_id) - 1            "#Links",
@@ -71,7 +73,8 @@ SDO_COORD_AXES|MDSYS     31     15   0 SDO_COORD_AXES|MDSYS                     
                                      3     < SDO_SRIDS_BY_URN|MDSYS                        sys_c006526|mdsys
 
 ```
-### Network summary
+### Network Summary
+- [Usage - example for app schema foreign key network](https://github.com/BrenPatF/sandbox#usage---example-for-app-schema-foreign-key-network)
 ```sql
 SELECT root_node_id            "Network",
        Count(DISTINCT link_id) "#Links",
@@ -125,6 +128,10 @@ Options for formatting and aggregating the output can be seen in the usage secti
 
 ## Installation
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+- [Install 1: Install Utils module (optional)](https://github.com/BrenPatF/sandbox#install-1-install-utils-module-optional)
+- [Install 2: Create Net_Pipe components](https://github.com/BrenPatF/sandbox#install-2-create-net_pipe-components)
+- [Install 3: Example networks (optional)](https://github.com/BrenPatF/sandbox#install-3-example-networks-optional)
+- [Install 4: Install unit test code (optional)](https://github.com/BrenPatF/sandbox#install-4-install-unit-test-code-optional)
 
 The base code consists of a PL/SQL package containing a pipelined function, and a view links_v pointing to network data. These can be easily installed into an existing schema following the steps in Install 2 below.
 
@@ -207,10 +214,10 @@ The three testing steps can easily be automated in Powershell (or Unix bash).
 The package is tested using the Math Function Unit Testing design pattern (`See also - Trapit` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
 This diagram shows the input/output structure of the pure unit test wrapper function:
-<img src="sandbox - JSD.png">
+<img src="plsql_network - JSD.png">
 
 This is an image of the unit test summary page, and it shows the scenarios tested.
-<img src="sandbox - Scenario 3.png">
+<img src="plsql_network - Scenario 3.png">
 
 You can review the formatted unit test results obtained by the author here, [Unit Test Report: net_pipe](http://htmlpreview.github.io/?https://github.com/BrenPatF/timer_set_oracle/blob/master/test_output/net_pipe.html), and the files are available in the `test_output` subfolder [net_pipe.html is the root page for the HTML version and net_pipe.txt has the results in text format].
 
