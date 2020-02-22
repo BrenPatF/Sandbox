@@ -19,7 +19,7 @@ The package is tested using the Math Function Unit Testing design pattern, with 
 - [API - Log_Set](https://github.com/BrenPatF/sandbox#api---log_set)
 - [API - Log_Config](https://github.com/BrenPatF/sandbox#api---log_config)
 - [Installation](https://github.com/BrenPatF/sandbox#installation)
-- [Unit testing](https://github.com/BrenPatF/sandbox#unit-testing)
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
 - [Operating System/Oracle Versions](https://github.com/BrenPatF/sandbox#operating-systemoracle-versions)
 
 ## Usage (extract from main_col_group.sql)
@@ -368,7 +368,7 @@ $ ./cp_json_to_input.ksh
 SQL> @install_log_set_tt
 ```
 
-## Unit testing
+## Unit Testing
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 - [Wrapper Function Diagram](https://github.com/BrenPatF/sandbox#wrapper-function-diagram)
 - [Unit Test Summary Page](https://github.com/BrenPatF/sandbox#unit-test-summary-page)
