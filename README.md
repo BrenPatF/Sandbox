@@ -15,13 +15,13 @@ See [PL/SQL Pipelined Function for Network Analysis](http://aprogrammerwrites.eu
 The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\net_pipe.html for the unit test results root page. The module also comes with two example networks.
 
 ## In this README...
-- [Usage - example for app schema foreign key network](https://github.com/BrenPatF/sandbox#usage---example-for-app-schema-foreign-key-network)
+- [Usage - Example for app schema foreign key network](https://github.com/BrenPatF/sandbox#usage---example-for-app-schema-foreign-key-network)
 - [API](https://github.com/BrenPatF/sandbox#api)
 - [Installation](https://github.com/BrenPatF/sandbox#installation)
 - [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
 - [Operating System/Oracle Versions](https://github.com/BrenPatF/sandbox#operating-systemoracle-versions)
 
-## Usage - example for app schema foreign key network
+## Usage - Example for app schema foreign key network
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 - [Network Detail](https://github.com/BrenPatF/sandbox#network-detail)
 - [Network Summary](https://github.com/BrenPatF/sandbox#network-summary)
