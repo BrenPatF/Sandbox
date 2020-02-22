@@ -2,7 +2,7 @@
 <img src="mountains.png">
 Oracle PL/SQL network analysis module.
 
-:globe_with_meridian:
+:globe_with_meridians:
 
 The module contains a PL/SQL package for the efficient analysis of networks that can be specified
 by a view representing their node pair links. The package has a pipelined function that returns a
