@@ -1,5 +1,8 @@
 # Oracle PL/SQL API Demos
+<img src="mountains.png">
 Module demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs.
+
+:outbox_tray: :inbox_tray:
 
 PL/SQL procedures were written against Oracle's HR demo schema to represent the different kinds of API across two axes: Setter/Getter and Real Time/Batch.
 
@@ -24,17 +27,17 @@ I presented on <a href="https://www.slideshare.net/brendanfurey7/clean-coding-in
 - record types, defaults and overloading used extensively to provide clean API interfaces 
 
 ## In this README...
-- [Screen Recordings on this Module](https://github.com/BrenPatF/oracle_plsql_api_demos#screen-recordings-on-this-module)
-- [Unit Testing](https://github.com/BrenPatF/oracle_plsql_api_demos#unit-testing)
-- [Logging and Instrumentation](https://github.com/BrenPatF/oracle_plsql_api_demos#logging-and-instrumentation)
-- [Code Timing](https://github.com/BrenPatF/oracle_plsql_api_demos#code-timing)
-- [Functional PL/SQL](https://github.com/BrenPatF/oracle_plsql_api_demos#functional-plsql)
-- [Installation](https://github.com/BrenPatF/oracle_plsql_api_demos#Installation)
-- [Running Driver Script and Unit Tests](https://github.com/BrenPatF/oracle_plsql_api_demos#running-driver-script-and-unit-tests)
-- [Operating System/Oracle Versions](https://github.com/BrenPatF/oracle_plsql_api_demos#operating-systemoracle-versions)
+- [Screen Recordings on this Module](https://github.com/BrenPatF/sandbox#screen-recordings-on-this-module)
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
+- [Logging and Instrumentation](https://github.com/BrenPatF/sandbox#logging-and-instrumentation)
+- [Code Timing](https://github.com/BrenPatF/sandbox#code-timing)
+- [Functional PL/SQL](https://github.com/BrenPatF/sandbox#functional-plsql)
+- [Installation](https://github.com/BrenPatF/sandbox#Installation)
+- [Running Driver Script and Unit Tests](https://github.com/BrenPatF/sandbox#running-driver-script-and-unit-tests)
+- [Operating System/Oracle Versions](https://github.com/BrenPatF/sandbox#operating-systemoracle-versions)
 
 ## Screen Recordings on this Module
-- [In this README...](https://github.com/BrenPatF/oracle_plsql_api_demos#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 I initially made a series of screen recordings that are available at the links below, and later condensed each recording to a length that would upload directly to Twitter, i.e. less than 140 seconds. You can find the [Twitter thread here](https://twitter.com/BrenPatF/status/1195226809987674113). Both sets of recordings are also available in the recordings subfolder of the repository. The links below are to the initial, longer set of recordings.
 
@@ -58,7 +61,9 @@ I initially made a series of screen recordings that are available at the links b
 - [4.4 Review API driver output (7m)](https://reccloud.com/u/tz9ola1)
 
 ## Unit Testing
-- [In this README...](https://github.com/BrenPatF/oracle_plsql_api_demos#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+- [Wrapper Function Diagram Example](https://github.com/BrenPatF/sandbox#wrapper-function-diagram-example)
+- [Unit Test Summary and Scenario Page Examples](https://github.com/BrenPatF/sandbox#unit-test-summary-and-scenario-page-examples)
 
 The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Ireland Oracle User Group Conference in March 2018:
 
@@ -72,6 +77,9 @@ In this data-driven design pattern a driver program reads a set of scenarios fro
 - tt_view_drivers.hr_test_view_v
 
 Where the actual output record matches expected, just one is represented, while if the actual differs it is listed below the expected and with background colour red. The employee group in scenario 4 of tt_emp_ws.save_emps has two records deliberately not matching, the first by changing the expected salary and the second by adding a duplicate expected record.
+
+### Wrapper Function Diagram Example
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
 
 Each of the `pkg.prc` subfolders also includes a JSON Structure Diagram, `pkg.prc.png`, showing the input/output structure of the pure unit test wrapper function. For example:
 <img src="tt_emp_ws.save_emps.png">
@@ -125,6 +133,9 @@ Here is the output JSON for the 4'th scenario of the corresponding test:
        }
     }
 
+### Unit Test Summary and Scenario Page Examples
+- [Unit Testing](https://github.com/BrenPatF/log_set_oracle#unit-testing)
+
 Here are images of the unit test summary and 4'th scenario pages for the corresponding test:
 
 <img src="ws-save.png">
@@ -139,7 +150,7 @@ You can review the formatted unit test results obtained by the author for the fo
 - [Unit Test Report: TT_View_Drivers.HR_Test_View_V](http://htmlpreview.github.io/?https://github.com/BrenPatF/oracle_plsql_api_demos/blob/master/test_output/tt_view_drivers.hr_test_view_v/tt_view_drivers.hr_test_view_v.html)
 
 ## Logging and Instrumentation
-- [In this README...](https://github.com/BrenPatF/oracle_plsql_api_demos#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 Program instrumentation means including lines of code to monitor the execution of a program, such as tracing lines covered, numbers of records processed, and timing information. Logging means storing such information, in database tables or elsewhere.
 
@@ -166,7 +177,7 @@ Here, for example, is the text logged by the driver script for the first call:
     1863 - ONE THOUSAND EIGHT HUNDRED SIXTY-THREE
 
 ## Code Timing
-- [In this README...](https://github.com/BrenPatF/oracle_plsql_api_demos#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 The code timing module Timer_Set is used by the driver script, api_driver.sql, to time the various calls, and at the end of the main block the results are logged using Log_Set.
 
@@ -193,20 +204,20 @@ The code timing module Timer_Set is used by the driver script, api_driver.sql, t
     [Timer timed (per call in ms): Elapsed: 0.00794, CPU: 0.00873]
 
 ## Functional PL/SQL
-- [In this README...](https://github.com/BrenPatF/oracle_plsql_api_demos#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 The recordings 1.5 and 1.6 show examples of the functional style of PL/SQL used in the utility packages demonstrated, and here is a diagram from 1.6 illustrating a design pattern identified in refactoring the main subprogram of the unit test programs.
 
 <img src="Oracle PLSQL API Demos - Nested subprograms.png">
 
 ## Installation
-- [In this README...](https://github.com/BrenPatF/oracle_plsql_api_demos#in-this-readme)
-- [Install 1: Install pre-requisite tools](https://github.com/BrenPatF/oracle_plsql_api_demos#install-1-install-pre-requisite-tools)
-- [Install 2: Clone git repository](https://github.com/BrenPatF/oracle_plsql_api_demos#install-2-clone-git-repository)
-- [Install 3: Install pre-requisite modules](https://github.com/BrenPatF/oracle_plsql_api_demos#install-3-install-pre-requisite-modules)
-- [Install 4: Create Oracle PL/SQL API Demos components](https://github.com/BrenPatF/oracle_plsql_api_demos#install-4-create-oracle-plsql-api-demos-components)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+- [Install 1: Install pre-requisite tools](https://github.com/BrenPatF/sandbox#install-1-install-pre-requisite-tools)
+- [Install 2: Clone git repository](https://github.com/BrenPatF/sandbox#install-2-clone-git-repository)
+- [Install 3: Install pre-requisite modules](https://github.com/BrenPatF/sandbox#install-3-install-pre-requisite-modules)
+- [Install 4: Create Oracle PL/SQL API Demos components](https://github.com/BrenPatF/sandbox#install-4-create-oracle-plsql-api-demos-components)
 ### Install 1: Install pre-requisite tools
-- [Installation](https://github.com/BrenPatF/oracle_plsql_api_demos#installation)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
 #### Oracle database with HR demo schema
 The database installation requires a minimum Oracle version of 12.2, with Oracle's HR demo schema installed [Oracle Database Software Downloads](https://www.oracle.com/database/technologies/oracle-database-software-downloads.html).
 
@@ -220,7 +231,7 @@ In order to clone the code as a git repository you need to have the git applicat
 nodejs is needed to run a program that turns the unit test output files into formatted HTML pages. It requires no javascript knowledge to run the program, and nodejs can be installed [here](https://nodejs.org/en/download/).
 
 ### Install 2: Clone git repository
-- [Installation](https://github.com/BrenPatF/oracle_plsql_api_demos#installation)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
 
 The following steps will download the repository into a folder, oracle_plsql_api_demos, within your GitHub root folder:
 - Open Github desktop and click [File/Clone repository...]
@@ -229,7 +240,7 @@ The following steps will download the repository into a folder, oracle_plsql_api
 - Click [Clone]
 
 ### Install 3: Install pre-requisite modules
-- [Installation](https://github.com/BrenPatF/oracle_plsql_api_demos#installation)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
 
 The demo install depends on the pre-requisite modules Utils, Trapit, Log_Set, and Timer_Set, and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
 
@@ -261,7 +272,7 @@ $ npm install trapit
 This should install the trapit nodejs package in a subfolder .\node_modules\trapit
 
 ### Install 4: Create Oracle PL/SQL API Demos components
-- [Installation](https://github.com/BrenPatF/oracle_plsql_api_demos#installation)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
 #### [Folder: (root)]
 - Copy the following files from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
     - tt_emp_ws.save_emps_inp.json
@@ -291,7 +302,7 @@ SQL> @install_api_demos lib
 ```
 
 ## Running Driver Script and Unit Tests
-- [In this README...](https://github.com/BrenPatF/oracle_plsql_api_demos#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 ### Running driver script
 #### [Schema: app; Folder: app]
 - Run script from slqplus:
@@ -320,7 +331,7 @@ $ node ./examples/externals/test-externals
 ```
 
 ## Operating System/Oracle Versions
-- [In this README...](https://github.com/BrenPatF/oracle_plsql_api_demos#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 ### Windows
 Tested on Windows 10, should be OS-independent
 ### Oracle
