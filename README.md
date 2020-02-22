@@ -1,225 +1,204 @@
-# Timer_Set
+# Net_Pipe
 <img src="mountains.png">
-Oracle PL/SQL code timing module.
+Oracle PL/SQL network analysis module.
 
-:stopwatch:
+:globe_with_meridian:
 
-Oracle PL/SQL package that facilitates code timing for instrumentation and other purposes, with very small footprint in both code and resource usage. Construction and reporting require only a single line each, regardless of how many timers are included in a set.
+The module contains a PL/SQL package for the efficient analysis of networks that can be specified
+by a view representing their node pair links. The package has a pipelined function that returns a
+record for each link in all connected subnetworks, with the root node id used to identify the
+subnetwork that a link belongs to. Examples are included showing how to call the function from SQL
+to list a network in detail, or at any desired level of aggregation. I find it quite useful to map out a database schema like this.
 
-See [Code Timing and Object Orientation and Zombies](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies), November 2010, for the original idea implemented in Oracle PL/SQL, Perl and Java.
+See [PL/SQL Pipelined Function for Network Analysis](http://aprogrammerwrites.eu/?p=1426), May 2015
 
-The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\timer_set.html for the unit test results root page.
+The package is tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. See test_output\net_pipe.html for the unit test results root page. The module also comes with two example networks.
 
 ## In this README...
-- [Usage (extract from main_col_group.sql)](https://github.com/BrenPatF/timer_set_oracle#usage-extract-from-main_col_groupsql)
-- [API - Timer_Set](https://github.com/BrenPatF/timer_set_oracle#api---timer_set)
-- [Installation](https://github.com/BrenPatF/timer_set_oracle#installation)
-- [Unit Testing](https://github.com/BrenPatF/timer_set_oracle#unit-testing)
-- [Operating System/Oracle Versions](https://github.com/BrenPatF/timer_set_oracle#operating-systemoracle-versions)
+- [Usage - example for app schema foreign key network](https://github.com/BrenPatF/sandbox#usage---example-for-app-schema-foreign-key-network)
+- [API](https://github.com/BrenPatF/sandbox#api)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
+- [Operating System/Oracle Versions](https://github.com/BrenPatF/sandbox#operating-systemoracle-versions)
 
-## Usage (extract from main_col_group.sql)
-- [In this README...](https://github.com/BrenPatF/timer_set_oracle#in-this-readme)
+## Usage - example for app schema foreign key network
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+### Network detail
 ```sql
-DECLARE
-  l_timer_set   PLS_INTEGER := Timer_Set.Construct('Col Group');
+SELECT root_node_id                                                            "Network",
+       Count(DISTINCT link_id) OVER (PARTITION BY root_node_id) - 1            "#Links",
+       Count(DISTINCT node_id) OVER (PARTITION BY root_node_id)                "#Nodes",
+       node_level                                                              "Lev",
+       LPad(dirn || ' ', Least(2*node_level, 60), ' ') || node_id || loop_flag "Node",
+       link_id                                                                 "Link"
+  FROM TABLE(Net_Pipe.All_Nets)
+ ORDER BY line_no
 
-BEGIN
+[Extract of ouput for 1 subnetwork, see app/net_fk folder for full output]
+Network              #Links #Nodes Lev Node                                                Link
+-------------------- ------ ------ --- --------------------------------------------------- ------------------------------------
+SDO_COORD_AXES|MDSYS     31     15   0 SDO_COORD_AXES|MDSYS                                ROOT
+                                     1 > SDO_COORD_AXIS_NAMES|MDSYS                        coord_axis_foreign_axis|mdsys
+                                     1 > SDO_COORD_SYS|MDSYS                               coord_axis_foreign_cs|mdsys
+                                     2   < SDO_COORD_REF_SYS|MDSYS                         coord_ref_sys_foreign_cs|mdsys
+                                     3     < SDO_COORD_OPS|MDSYS                           coord_operation_foreign_source|mdsys
+                                     4       = SDO_COORD_OPS|MDSYS*                        coord_operation_foreign_legacy|mdsys
+                                     4       > SDO_COORD_OP_METHODS|MDSYS                  coord_operation_foreign_method|mdsys
+                                     5         < SDO_COORD_OP_PARAM_USE|MDSYS              coord_op_para_use_foreign_meth|mdsys
+                                     6           > SDO_COORD_OP_PARAMS|MDSYS               coord_op_para_use_foreign_para|mdsys
+                                     7             < SDO_COORD_OP_PARAM_VALS|MDSYS         coord_op_para_val_foreign_para|mdsys
+                                     8               > SDO_COORD_OPS|MDSYS*                coord_op_para_val_foreign_op|mdsys
+                                     8               > SDO_COORD_OP_METHODS|MDSYS*         coord_op_para_val_foreign_meth|mdsys
+                                     8               > SDO_UNITS_OF_MEASURE|MDSYS          coord_op_para_val_foreign_uom|mdsys
+                                     9                 < SDO_COORD_AXES|MDSYS*             coord_axis_foreign_uom|mdsys
+                                     9                 > SDO_ELLIPSOIDS|MDSYS              ellipsoid_foreign_legacy|mdsys
+                                    10                   < SDO_DATUMS|MDSYS                datum_foreign_ellipsoid|mdsys
+                                    11                     < SDO_COORD_REF_SYS|MDSYS*      coord_ref_sys_foreign_datum|mdsys
+                                    11                     = SDO_DATUMS|MDSYS*             datum_foreign_legacy|mdsys
+                                    11                     > SDO_PRIME_MERIDIANS|MDSYS     datum_foreign_meridian|mdsys
+                                    12                       > SDO_UNITS_OF_MEASURE|MDSYS* prime_meridian_foreign_uom|mdsys
+                                    10                   > SDO_UNITS_OF_MEASURE|MDSYS*     ellipsoid_foreign_uom|mdsys
+                                     9                 = SDO_UNITS_OF_MEASURE|MDSYS*       unit_of_measure_foreign_legacy|mdsys
+                                     9                 = SDO_UNITS_OF_MEASURE|MDSYS*       unit_of_measure_foreign_uom|mdsys
+                                     4       > SDO_COORD_REF_SYS|MDSYS*                    coord_operation_foreign_target|mdsys
+                                     4       < SDO_COORD_REF_SYS|MDSYS*                    coord_ref_sys_foreign_proj|mdsys
+                                     3     < SDO_COORD_OP_PATHS|MDSYS                      coord_op_path_foreign_source|mdsys
+                                     4       > SDO_COORD_REF_SYS|MDSYS*                    coord_op_path_foreign_target|mdsys
+                                     3     = SDO_COORD_REF_SYS|MDSYS*                      coord_ref_sys_foreign_geog|mdsys
+                                     3     = SDO_COORD_REF_SYS|MDSYS*                      coord_ref_sys_foreign_horiz|mdsys
+                                     3     = SDO_COORD_REF_SYS|MDSYS*                      coord_ref_sys_foreign_legacy|mdsys
+                                     3     = SDO_COORD_REF_SYS|MDSYS*                      coord_ref_sys_foreign_vert|mdsys
+                                     3     < SDO_SRIDS_BY_URN|MDSYS                        sys_c006526|mdsys
 
-  Col_Group.Load_File(p_file   => 'fantasy_premier_league_player_stats.csv', 
-                      p_delim  => ',', 
-                      p_colnum => 7);
-  Timer_Set.Increment_Time(l_timer_set, 'Load File');
-.
-.
-.
-  Print_Results('Sorted by Value, Key', Col_Group.Sort_By_Value);
-  Timer_Set.Increment_Time(l_timer_set, 'Sort_By_Value');
-  Utils.W(p_line_lis => Timer_Set.Format_Results(l_timer_set));
 ```
-This will create a timer set and time the sections, with listing at the end:
+### Network summary
+```sql
+SELECT root_node_id            "Network",
+       Count(DISTINCT link_id) "#Links",
+       Count(DISTINCT node_id) "#Nodes",
+       Max(node_level)         "Max Lev"
+  FROM TABLE(Net_Pipe.All_Nets)
+ GROUP BY root_node_id
+ ORDER BY 2
+
+Network summary 1 - by subnetwork
+
+Network                                     #Links  #Nodes    Max Lev
+------------------------------------------ ------- ------- ----------
+BATCH_JOBS|LIB                                   2       2          1
+OGIS_GEOMETRY_COLUMNS|MDSYS                      2       2          1
+DR$THS_PHRASE|CTXSYS                             2       2          1
+SDO_WS_CONFERENCE_PARTICIPANTS|MDSYS             2       2          1
+LOG_HEADERS|BENCH                                2       2          1
+LOG_CONFIGS|LIB                                  3       3          2
+DEPARTMENTS|HR                                   4       2          2
+SDO_COORD_AXES|MDSYS                            32      15         12
+
+8 rows selected.
+
+Elapsed: 00:00:00.01
 ```
-Timer Set: Col Group, Constructed at 26 Jan 2019 14:16:12, written at 14:16:12
-==============================================================================
-Timer             Elapsed         CPU       Calls       Ela/Call       CPU/Call
--------------  ----------  ----------  ----------  -------------  -------------
-Load File            0.18        0.08           1        0.17500        0.08000
-List_Asis            0.00        0.00           1        0.00100        0.00000
-Sort_By_Key          0.00        0.00           1        0.00000        0.00000
-Sort_By_Value        0.00        0.00           1        0.00000        0.00000
-(Other)              0.00        0.00           1        0.00000        0.00000
--------------  ----------  ----------  ----------  -------------  -------------
-Total                0.18        0.08           5        0.03520        0.01600
--------------  ----------  ----------  ----------  -------------  -------------
-[Timer timed (per call in ms): Elapsed: 0.01124, CPU: 0.01011]
+
+To run the examples in a slqplus session from app subfolders (after installation, including examples):
+
+[net_fk]
+SQL> @main_fk
+
+[net_brightkite]
+SQL> @main_brightkite
+This is a fairly large example, the "Friendship network of Brightkite users", having 58,228 nodes and 214,078 links taken from: https://snap.stanford.edu/data/loc-brightkite.html. The analysis SQL ran in around 38 seconds at summary level on my laptop, and 85 seconds at detail level with 214,625 lines spooled.
+
+## API
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+### View links_v
+The pipelined function reads the network configuration by means of a view representing all the links in the network. The view must be created with three character fields, up to 100 characters long:
+- link_id
+- node_id_fr
+- node_id_to
+
+### Querying the network
+The detailed network structure can be obtained from a simple query of the pipelined function:
+```sql
+SELECT * FROM TABLE(Net_Pipe.All_Nets) ORDER BY line_no
 ```
-To run the example in a slqplus session from app subfolder (after installation):
-
-SQL> @main_col_group
-
-There is also a separate [module](https://github.com/BrenPatF/oracle_plsql_api_demos) demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs.
-
-## API - Timer_Set
-- [In this README...](https://github.com/BrenPatF/timer_set_oracle#in-this-readme)
-- [Construct(p_ts_name)](https://github.com/BrenPatF/timer_set_oracle#l_timer_set---pls_integer--timer_setconstructp_ts_name)
-- [Increment_Time(p_timer_set, p_timer_name)](https://github.com/BrenPatF/timer_set_oracle#timer_setincrement_timep_timer_set-p_timer_name)
-- [Init_Time(p_timer_set)](https://github.com/BrenPatF/timer_set_oracle#timer_setinit_timep_timer_set)
-- [Get_Timers(p_timer_set)](https://github.com/BrenPatF/timer_set_oracle#timer_setget_timersp_timer_set)
-- [Format_Timers(p_timer_set, p_format_prms)](https://github.com/BrenPatF/timer_set_oracle#timer_setformat_timersp_timer_set-p_format_prms)
-- [Get_Self_Timer](https://github.com/BrenPatF/timer_set_oracle#timer_setget_self_timer)
-- [Format_Self_Timer(p_format_prms)](https://github.com/BrenPatF/timer_set_oracle#timer_setformat_self_timerp_format_prms)
-- [Format_Results(p_timer_set, p_format_prms)](https://github.com/BrenPatF/timer_set_oracle#timer_setformat_resultsp_timer_set-p_format_prms)
-### l_timer_set   PLS_INTEGER := Timer_Set.Construct(p_ts_name)
-Constructs a new timer set with name `p_ts_name`, and integer handle `l_timer_set`.
-
-### Timer_Set.Increment_Time(p_timer_set, p_timer_name)
-Increments the timing statistics (elapsed, user and system CPU, and number of calls) for a timer `p_timer_name` within the timer set `p_timer_set` with the times passed since the previous call to Increment_Time, Init_Time or the constructor of the timer set instance. Resets the statistics for timer set `p_timer_set` to the current time, so that the next call to increment_time measures from this point for its increment.
-
-### Timer_Set.Init_Time(p_timer_set)
-Resets the statistics for timer set `p_timer_set` to the current time, so that the next call to increment_time measures from this point for its increment. This is only used where there are gaps between sections to be timed.
-
-### Timer_Set.Get_Timers(p_timer_set)
-- [API - Timer_Set](https://github.com/BrenPatF/timer_set_oracle#api---timer_set)
-
-Returns the results for timer set `p_timer_set` in an array of records of type `Timer_Set.timer_stat_rec`, with fields:
-
-* `name`: timer name
-* `ela_secs`: elapsed time in seconds
-* `cpu_secs`: CPU time in seconds
-* `calls`: number of calls
-
-After a record for each named timer, in order of creation, there are two calculated records:
-
-* `Other`: differences between `Total` values and the sums of the named timers
-* `Total`: totals calculated from the times at timer set construction
-
-### Timer_Set.Format_Timers(p_timer_set, p_format_prms)
-- [API - Timer_Set](https://github.com/BrenPatF/timer_set_oracle#api---timer_set)
-
-Returns the results for timer set `p_timer_set` in an array of formatted strings, including column headers and formatting lines, with fields as in Get_Timers, times in seconds, and per call values added, with p_format_prms record parameter of type `Timer_Set.format_prm_rec` and default `Timer_Set.FORMAT_PRMS_DEF`:
-
-* `time_width`: width of time fields (excluding decimal places), default 8
-* `time_dp`: decimal places to show for absolute time fields, default 2
-* `time_ratio_dp`: decimal places to show for per call time fields, default 5
-* `calls_width`: width of calls field, default 10
-
-### Timer_Set.Get_Self_Timer
-- [API - Timer_Set](https://github.com/BrenPatF/timer_set_oracle#api---timer_set)
-
-Static method to time the Increment_Time method as a way of estimating the overhead in using the timer set. Constructs a timer set instance and calls Increment_Time on it within a loop until 0.1s has elapsed.
-
-Returns a tuple, with fields:
-
-* `ela`: elapsed time per call in ms
-* `cpu`: CPU time per call in ms
-
-### Timer_Set.Format_Self_Timer(p_format_prms)
-Static method to return the results from Get_Self_Timer in a formatted string, with parameter as Format_Timers (but any extra spaces are trimmed here).
-
-### Timer_Set.Format_Results(p_timer_set, p_format_prms)
-- [API - Timer_Set](https://github.com/BrenPatF/timer_set_oracle#api---timer_set)
-
-Returns the results for timer set `p_timer_set` in a formatted string, with parameters as Format_Timers. It uses the array returned from Format_Timers and includes a header line with timer set construction and writing times, and a footer of the self-timing values.
+Options for formatting and aggregating the output can be seen in the usage section above.
 
 ## Installation
-- [In this README...](https://github.com/BrenPatF/timer_set_oracle#in-this-readme)
-- [Install 1: Install pre-requisite modules](https://github.com/BrenPatF/timer_set_oracle#install-1-install-pre-requisite-modules)
-- [Install 2: Create Timer_Set components](https://github.com/BrenPatF/timer_set_oracle#install-2-create-timer_set-components)
-- [Install 3: Create synonyms to lib](https://github.com/BrenPatF/timer_set_oracle#install-3-create-synonyms-to-lib)
-- [Install 4: Install unit test code](https://github.com/BrenPatF/timer_set_oracle#install-4-install-unit-test-code)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
-The install depends on the pre-requisite modules Utils and Trapit (unit testing only) and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
+The base code consists of a PL/SQL package containing a pipelined function, and a view links_v pointing to network data. These can be easily installed into an existing schema following the steps in Install 2 below.
 
-### Install 1: Install pre-requisite modules
-- [Installation](https://github.com/BrenPatF/timer_set_oracle#installation)
+The install steps below also allow for a fuller installation that  includes optional creation of new lib and app schemas, with example network structures and full unit testing. The `lib` schema refers to the schema in which the base package is installed, while the `app` schema refers to the schema where the package is called from and where the optional examples are installed (Install 3).
 
-The pre-requisite modules can be installed by following the instructions at [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils). This allows inclusion of the examples and unit tests for the modules. Alternatively, the next section shows how to install the modules directly without their examples or unit tests here (but with the Trapit module required for unit testing the Timer_Set module).
+### Install 1: Install Utils module (optional)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
+#### [Schema: lib; Folder: (Utils) lib]
+- Download and install the Utils module:
+[Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils)
 
-#### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
-- install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
-- Run script from slqplus:
-```
-SQL> @install_sys
-```
+This module allows for optional creation of new lib and app schemas. Both base and unit test Utils installs are required for the unit test Net_Pipe install (Install 4).
 
-#### [Folder: install_prereq] Copy example csv file to input folder
-- Copy the following file from the install_prereq folder to the server folder pointed to by the Oracle directory INPUT_DIR:
-    - fantasy_premier_league_player_stats.csv
-
-- There is also a bash script to do this, assuming C:\input as INPUT_DIR:
-```
-$ ./cp_csv_to_input.ksh
-```
-
-#### [Schema: lib; Folder: install_prereq\lib] Create lib components
-- Run script from slqplus:
-```
-SQL> @install_lib_all
-```
-#### [Schema: app; Folder: install_prereq\app] Create app synonyms and install example package
-- Run script from slqplus:
-```
-SQL> @install_app_all
-```
-#### [Folder: (npm root)] Install npm trapit package
-The npm trapit package is a nodejs package used to format unit test results as HTML pages.
-
-Open a DOS or Powershell window in the folder where you want to install npm packages, and, with [nodejs](https://nodejs.org/en/download/) installed, run
-```
-$ npm install trapit
-```
-This should install the trapit nodejs package in a subfolder .\node_modules\trapit
-
-### Install 2: Create Timer_Set components
-- [Installation](https://github.com/BrenPatF/timer_set_oracle#installation)
+### Install 2: Create Net_Pipe components
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
 #### [Schema: lib; Folder: lib]
 - Run script from slqplus:
 ```
-SQL> @install_timer_set app
+SQL> @install_net_pipe app
 ```
-This creates the required components for the base install along with grants for them to the app schema (passing none instead of app will bypass the grants). This install is all that is required to use the package within the lib schema and app (if passed, and then Install 3 is required). To grant privileges to another `schema`, run the grants script directly, passing `schema`:
+This creates the required components for the base install along with grants for them to the app schema (passing none instead of app will bypass the grants). This install is all that is required to use the package within the lib schema and app schema (if passed). To grant privileges to another schema, run the grants script directly, passing `schema`:
 ```
-SQL> @grant_timer_set_to_app schema
+SQL> @grant_net_pipe_to_app schema
 ```
+The package reads the network from a view links_v and the install script above creates a 1-link dummy view. To run against any other network, simply recreate the view to point to the network data, as shown in the example scripts (Install 3).
 
-### Install 3: Create synonyms to lib
-- [Installation](https://github.com/BrenPatF/timer_set_oracle#installation)
-#### [Schema: app; Folder: app]
+### Install 3: Example networks (optional)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
+#### Synonym [Schema: app; Folder: app]
+- Run script from slqplus to create the synonym to the lib package:
+```
+SQL> @c_net_pipe_syns lib
+```
+#### Foreign keys [Schema: app; Folder: app\net_fk]
 - Run script from slqplus:
 ```
-SQL> @c_timer_set_syns lib
+SQL> @install_fk
 ```
-This install creates private synonyms to the lib schema. To create synonyms within another schema, run the synonyms script directly from that schema, passing lib schema.
+This install creates and populates the table fk_link with the Oracle foreign key network defined by the standard Oracle view all_constraints (which depends on the privileges granted to the app schema). To run the network analysis script against this example:
+```
+SQL> @main_fk
+```
+#### Brightkite [Schema: app; Folder: app\net_brightkite]
+- Ensure Oracle directory  INPUT_DIR is set up and points to a folder with read/write access
+- Place file Brightkite_edges.csv in folder pointed to by Oracle directory INPUT_DIR
+- Run script from slqplus:
+```
+SQL> @install_brightkite
+```
+This install creates and populates the table net_brightkite with the Brightkite example network. To run the network analysis script against this example:
+```
+SQL> @main_brightkite
+```
 
-### Install 4: Install unit test code
-- [Installation](https://github.com/BrenPatF/timer_set_oracle#installation)
-
-This step requires the Trapit module option to have been installed as part of Install 1.
-
-#### [Folder: (module root)] Copy unit test JSON file to input folder
+### Install 4: Install unit test code (optional)
+- [Installation](https://github.com/BrenPatF/sandbox#installation)
+#### [Schema: lib; Folder: lib]
+This step requires the Trapit module option to have been installed as part of Install 1, and requires a minimum Oracle version of 12.2.
 - Copy the following file from the root folder to the server folder pointed to by the Oracle directory INPUT_DIR:
-  - tt_timer_set.test_api_inp.json
-
-- There is also a bash script to do this, assuming C:\input as INPUT_DIR:
-```
-$ ./cp_json_to_input.ksh
-```
-
-#### [Schema: lib; Folder: lib] Install unit test code
+  - tt_net_pipe.all_nets_inp.json
 - Run script from slqplus:
 ```
-SQL> @install_timer_set_tt
+SQL> @install_net_pipe_tt
 ```
-
-## Unit Testing
-- [In this README...](https://github.com/BrenPatF/timer_set_oracle#in-this-readme)
+## Unit testing
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 
 The unit test program (if installed) may be run from the lib subfolder:
 
 SQL> @r_tests
 
-The program is data-driven from the input file tt_timer_set.test_api_inp.json and produces an output file tt_timer_set.test_api_out.json, that contains arrays of expected and actual records by group and scenario.
+The program is data-driven from the input file tt_net_pipe.all_nets_inp.json and produces an output file tt_net_pipe.all_nets_out.json, that contains arrays of expected and actual records by group and scenario.
 
-The output file is processed by a nodejs program that has to be installed separately from the `npm` nodejs repository, as described in the Trapit install in `Install 1` above. The nodejs program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_timer_set.test_api_out.json, in the subfolder ./examples/externals and run:
+The output file is processed by a nodejs program that has to be installed separately from the `npm` nodejs repository, as described in the Trapit install in `Install 1` above. The nodejs program produces listings of the results in HTML and/or text format, and a sample set of listings is included in the subfolder test_output. To run the processor (in Windows), open a DOS or Powershell window in the trapit package folder after placing the output JSON file, tt_net_pipe.all_nets_out.json, in the subfolder ./examples/externals and run:
 ```
 $ node ./examples/externals/test-externals
 ```
@@ -227,37 +206,26 @@ The three testing steps can easily be automated in Powershell (or Unix bash).
 
 The package is tested using the Math Function Unit Testing design pattern (`See also - Trapit` below). In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file.
 
-The wrapper function represents a generalised transactional use of the package in which multiple timer sets may be constructed, and then timings carried out and reported on at the end of the transaction. 
-
-This kind of package would usually be thought hard to unit-test, with CPU and elapsed times being inherently non-deterministic. However, this is a good example of the power of the design pattern that I recently introduced: One of the inputs is a yes/no flag indicating whether to mock the system timing calls, or not. The timer set `Construct` method takes as an optional parameter an array containing a stream of mocked elapsed and  CPU times read from the input scenario data. 
-
-In the non-mocked scenarios standard function calls are made to return elapsed and epochal CPU times, while in the mocked scenarios these are bypassed, and deterministic values read from the input array.
-
-In this way we can test correctness of the timing aggregations, independence of timer sets etc. using the deterministic values; on the other hand, one of the key benefits of automated unit testing is to test the actual dependencies, and we do this in the non-mocked case by passing in 'sleep' times to the wrapper function and testing the outputs against ranges of values.
-
 This diagram shows the input/output structure of the pure unit test wrapper function:
-<img src="timer_set_oracle.png">
+<img src="sandbox - JSD.png">
 
 This is an image of the unit test summary page, and it shows the scenarios tested.
-<img src="timer_set_oracle_ut_root.png">
+<img src="sandbox - Scenario 3.png">
 
-You can review the formatted unit test results obtained by the author here, [Unit Test Report: timer_set](http://htmlpreview.github.io/?https://github.com/BrenPatF/timer_set_oracle/blob/master/test_output/timer_set.html), and the files are available in the `test_output` subfolder [timer_set.html is the root page for the HTML version and timer_set.txt has the results in text format].
+You can review the formatted unit test results obtained by the author here, [Unit Test Report: net_pipe](http://htmlpreview.github.io/?https://github.com/BrenPatF/timer_set_oracle/blob/master/test_output/net_pipe.html), and the files are available in the `test_output` subfolder [net_pipe.html is the root page for the HTML version and net_pipe.txt has the results in text format].
 
 ## Operating System/Oracle Versions
-- [In this README...](https://github.com/BrenPatF/timer_set_oracle#in-this-readme)
+- [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
 ### Windows
 Windows 10, should be OS-independent
 ### Oracle
 - Tested on Oracle Database Version 18.3.0.0.0
-- Base code (and example) should work on earlier versions at least as far back as v10 and v11
+- Base code (and example) should work on earlier versions at least as far back as v10 and v11, while the unit test code requires a minimum version of 12.2
 
 ## See also
 - [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
 - [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
-- [timer_set - Oracle logging module](https://github.com/BrenPatF/timer_set_oracle)
 - [Trapit - nodejs unit test processing package](https://github.com/BrenPatF/trapit_nodejs_tester)
-- [Oracle PL/SQL API Demos - demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs](https://github.com/BrenPatF/oracle_plsql_api_demos)
-- [Code Timing and Object Orientation and Zombies, Brendan Furey, November 2010](http://www.scribd.com/doc/43588788/Code-Timing-and-Object-Orientation-and-Zombies)
    
 ## License
 MIT
