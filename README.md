@@ -293,7 +293,7 @@ All parameters are optional, with null defaults except where mentioned:
 - [Install 1: Install pre-requisite modules](https://github.com/BrenPatF/sandbox#install-1-install-pre-requisite-modules)
 - [Install 2: Create Log_Set components](https://github.com/BrenPatF/sandbox#install-2-create-log_set-components)
 - [Install 3: Create synonyms to lib](https://github.com/BrenPatF/sandbox#install-3-create-synonyms-to-lib)
-- [Install 4: Install unit test code]https://github.com/BrenPatF/sandbox#install-4-install-unit-test-code)
+- [Install 4: Install unit test code](https://github.com/BrenPatF/sandbox#install-4-install-unit-test-code)
 
 The install depends on the pre-requisite modules Utils and Trapit (unit testing only) and `lib` and `app` schemas refer to the schemas in which Utils and examples are installed, respectively.
 
