@@ -62,9 +62,9 @@ I initially made a series of screen recordings that are available at the links b
 
 ## Unit Testing
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
-- [Wrapper Function Diagram Example](https://github.com/BrenPatF/sandbox#wrapper-function-diagram-example-save-emps)
+- [Wrapper Function Diagram Example (Save Emps)](https://github.com/BrenPatF/sandbox#wrapper-function-diagram-example-save-emps)
 - [Output JSON Example (Save Emps)](https://github.com/BrenPatF/sandbox#output-json-example-save-emps)
-- [Unit Test Summary and Scenario Page Examples](https://github.com/BrenPatF/sandbox#unit-test-summary-and-scenario-page-examples-save-emps)
+- [Unit Test Summary and Scenario Page Examples (Save Emps)](https://github.com/BrenPatF/sandbox#unit-test-summary-and-scenario-page-examples-save-emps)
 
 The PL/SQL APIs are tested using the Math Function Unit Testing design pattern, with test results in HTML and text format included. The design pattern is based on the idea that all API testing programs can follow a universal design pattern, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. I explained the concepts involved in a presentation at the Ireland Oracle User Group Conference in March 2018:
 
