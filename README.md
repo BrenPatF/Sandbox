@@ -1,6 +1,10 @@
 # Trapit
 Oracle PL/SQL unit testing module.
 
+:nerd_face:
+:stopwatch:
+:hourglass:
+
 TRansactional API Testing (TRAPIT) framework for Oracle PL/SQL unit testing.
 
 This is a lightweight PL/SQL-based framework for API testing that can be considered as an alternative to utPLSQL. The framework is based on the idea that all API testing programs can follow a universal design pattern for testing APIs, using the concept of a ‘pure’ function as a wrapper to manage the ‘impurity’ inherent in database APIs. In this approach, a 'pure' wrapper function is constructed that takes input parameters and returns a value, and is tested within a loop over scenario records read from a JSON file. I explained the concepts involved in a presentation at the Oracle User Group Ireland Conference in March 2018:
