@@ -287,6 +287,8 @@ SQL> @install_utils_tt
 
 ## Unit Testing
 - [In this README...](https://github.com/BrenPatF/sandbox#in-this-readme)
+- [Wrapper Function Diagram](https://github.com/BrenPatF/sandbox#wrapper-function-diagram)
+- [Unit Test Summary Page](https://github.com/BrenPatF/sandbox#unit-test-summary-page)
 
 The unit test program (if installed) may be run from the Oracle lib subfolder:
 
@@ -308,11 +310,17 @@ The package is tested using the Math Function Unit Testing design pattern (`See 
 
 In this case, where we have a set of small independent methods, most of which are pure functions, the wrapper function is designed to test all of them in a single generalised transaction. Four high level scenarios were identified (`Small`, `Large`, `Many`, `Bad SQL`).
 
+### Wrapper Function Diagram
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
+
 This diagram shows the input/output structure of the pure unit test wrapper function:
 <img src="utils_oracle.png">
 
+### Unit Test Summary Page
+- [Unit Testing](https://github.com/BrenPatF/sandbox#unit-testing)
+
 This is an image of the unit test summary page, and it shows the scenarios tested.
-<img src="plsql_network_ut_root.png">
+<img src="utils_oracle_ut_root.png">
 
 You can review the formatted unit test results obtained by the author here, [Unit Test Report: utils](http://htmlpreview.github.io/?https://github.com/BrenPatF/sandbox/blob/master/test_output/utils.html), and the files are available in the `test_output` subfolder [utils.html is the root page for the HTML version and utils.txt has the results in text format].
 
