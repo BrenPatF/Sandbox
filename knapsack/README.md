@@ -1,17 +1,9 @@
-# sql_demos - Brendan's repo for interesting SQL<div id="topOfVisibleArea"></div>
+# sql_demos / knapsack
 <img src="mountains.png">
 This project stores the SQL code for solutions to interesting problems I have looked at on my blog,
 or elsewhere. It includes installation scripts with object creation and data setup, and scripts to
 run the SQL on the included datasets.
 
-:file_cabinet: :slot_machine: :question: :outbox_tray:
-
-The idea is that anyone with the pre-requisites should be able to reproduce my results within a few 
-minutes of downloading the repo.
-
-The installation scripts will create a common objects schema, bren, and a separate schema for each
-problem, of which there are five at present. The SYS and bren objects are in the folder bren, with
-the problem-specific scripts in a separate folder for each one.
 
 Links to blog or other sources:
 
@@ -63,6 +55,6 @@ the driving scripts
 
 Video
 =====
-The installation is demonstrated in a short video (8 minutes). It doesn't cover the most recent schemas but the same pattern is followed for those. As it is 170MB in size I placed it in a
+The installation is demonstrated in a short video (8 minutes). It doesn't cover the most recent schemas but the same pattern if followed for those. As it is 170MB in size I placed it in a
 shared Microsoft One-Drive location:
 https://1drv.ms/v/s!AtGOr6YOZ-yVh_1a6_g7XwX0TTBTgA
