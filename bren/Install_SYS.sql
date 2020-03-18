@@ -1,4 +1,4 @@
-@..\bren\InitSpool Install_SYS
+@initspool install_sys
 /***************************************************************************************************
 GitHub Project: sql_demos - Brendan's repo for interesting SQL
                 https://github.com/BrenPatF/sql_demos
@@ -12,10 +12,10 @@ Description: SYS installation script for the sql_demos GitHub project
                 and new role demo_user
 
              To be run from SYS schema before Install_bren.sql, then problem-specific schemas:
-                Install_Fan_Foot.sql      - from fan_foot schema
-                Install_TSP.sql           - from tsp schema
-                Install_Bal_Num_Part.sql  - from bal_num_part schema
-                Install_Shortest_Path.sql - from bal_num_part schema
+                install_fan_foot.sql      - from fan_foot schema
+                install_tsp.sql           - from tsp schema
+                install_bal_num_part.sql  - from bal_num_part schema
+                install_shortest_path.sql - from bal_num_part schema
 
 Further details: 
 
@@ -31,12 +31,12 @@ Brendan Furey        19-Nov-2017 1.2   shortest_path added
 PROMPT DIRECTORY input_dir - C:\input *** Change this if necessary, read access required ***
 CREATE OR REPLACE DIRECTORY input_dir AS 'C:\input'
 /
-@C_Schema bren
-@C_Schema fan_foot
-@C_Schema tsp
-@C_Schema bal_num_part
-@C_Schema shortest_path
-@C_Schema knapsack
+@c_schema bren
+@c_schema fan_foot
+@c_schema tsp
+@c_schema bal_num_part
+@c_schema shortest_path
+@c_schema knapsack
 
 PROMPT Grants to bren
 GRANT EXECUTE ON UTL_File TO bren
@@ -63,4 +63,4 @@ GRANT SELECT ON v_$version TO demo_user
 PROMPT Grant role demo_user to demo schemas
 GRANT demo_user TO fan_foot, tsp, bal_num_part, shortest_path, knapsack
 /
-@..\bren\EndSpool
+@endspool

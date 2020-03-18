@@ -1,4 +1,4 @@
-@..\bren\InitSpool Install_Bren
+@initspool install_bren
 /***************************************************************************************************
 GitHub Project: sql_demos - Brendan's repo for interesting SQL
                 https://github.com/BrenPatF/sql_demos
@@ -29,8 +29,6 @@ CREATE TABLE log_headers (
 PROMPT Insert the default log header
 INSERT INTO log_headers VALUES (0, 'Miscellaneous output', SYSTIMESTAMP)
 /
-CREATE OR REPLACE PUBLIC SYNONYM log_headers FOR log_headers
-/
 GRANT SELECT ON log_headers TO demo_user
 /
 DROP SEQUENCE log_headers_s
@@ -48,8 +46,6 @@ CREATE TABLE log_lines (
         CONSTRAINT lin_hdr_fk   FOREIGN KEY (log_header_id) REFERENCES log_headers (id)
 )
 /
-CREATE OR REPLACE PUBLIC SYNONYM log_lines FOR log_lines
-/
 GRANT SELECT ON log_lines TO demo_user
 /
 DROP SEQUENCE log_lines_s
@@ -66,23 +62,17 @@ PROMPT Packages creation
 PROMPT =================
 
 PROMPT Create package Utils
-@Utils.pks
-@Utils.pkb
+@utils.pks
+@utils.pkb
 
 PROMPT Create package Timer_Set
-@Timer_Set.pks
-@Timer_Set.pkb
+@timer_set.pks
+@timer_set.pkb
 
-CREATE OR REPLACE PUBLIC SYNONYM Utils FOR Utils
-/
-CREATE OR REPLACE PUBLIC SYNONYM Timer_Set FOR Timer_Set
-/
-CREATE OR REPLACE PUBLIC SYNONYM L1_num_arr FOR L1_num_arr
-/
 GRANT EXECUTE ON L1_num_arr TO bal_num_part
 /
 GRANT EXECUTE ON Utils TO fan_foot, tsp, bal_num_part, shortest_path, knapsack
 /
 GRANT EXECUTE ON Timer_Set TO fan_foot, knapsack
 /
-@..\bren\EndSpool
+@endspool

@@ -1,4 +1,4 @@
-@..\bren\InitSpool Install_Knapsack
+@..\bren\initspool install_knapsack
 /***************************************************************************************************
 GitHub Project: sql_demos - Brendan's repo for interesting SQL
                 https://github.com/BrenPatF/sql_demos
@@ -16,10 +16,11 @@ Further details: 'A Simple SQL Solution for the Knapsack Problem (SKP-1)'
                  http://aprogrammerwrites.eu/?p=635
 ***************************************************************************************************/
 
-@Setup_Knp
+@setup_knp
 EXECUTE DBMS_Stats.Gather_Schema_Stats(ownname => 'KNAPSACK');
-@Packing_PLF.pks
-@Packing_PLF.pkb
-@Multi.pks
-@Multi.pkb
-@..\bren\EndSpool
+@..\c_syns_bren bren
+@packing_plf.pks
+@packing_plf.pkb
+@multi.pks
+@multi.pkb
+@..\bren\endspool

@@ -1,4 +1,4 @@
-@..\bren\InitSpool Main_KPM
+@..\bren\initspool main_kpm
 /***************************************************************************************************
 GitHub Project:  sql_demos - Brendan's repo for interesting SQL
                  https://github.com/BrenPatF/sql_demos
@@ -12,7 +12,7 @@ Further details: 'An SQL Solution for the Multiple Knapsack Problem (SKP-m)', Ja
                  http://aprogrammerwrites.eu/?p=635
 ***************************************************************************************************/
 
-@Pop_Data_KPM
-@Run_Queries_KPM
+@pop_data_kpm
+@run_queries_kpm
 
-@..\bren\EndSpool
+@..\bren\endspool

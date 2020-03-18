@@ -244,4 +244,4 @@ COLUMN COLUMN_VALUE FORMAT A100
 SELECT *
   FROM TABLE (Packing_Hash_PLF.Best_Fits (9))
 /
-@..\bren\L_Log_Default
+@..\bren\l_log_default

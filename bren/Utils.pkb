@@ -312,6 +312,3 @@ END Write_Plan;
 END Utils;
 /
 SHOW ERROR
-
-
-

@@ -298,4 +298,4 @@ SELECT /*+ gather_plan_statistics */
  ORDER BY sol_id, con_id, itm_id
 /
 EXECUTE Utils.Write_Plan (p_sql_marker => 'XFNC');
-@..\bren\L_Log_Default
+@..\bren\l_log_default
