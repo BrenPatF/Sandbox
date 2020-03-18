@@ -10,7 +10,6 @@ The installation scripts will create a common objects schema, bren, and a separa
 
 ## Links to blog or other sources:
 
-- knapsack<br />
 - [README: knapsack](knapsack/README.md)<br />
 <a href="http://aprogrammerwrites.eu/?p=560" target="_blank">A Simple SQL Solution for the Knapsack Problem (SKP-1)</a>, January 2013<br />
 <a href="http://aprogrammerwrites.eu/?p=635" target="_blank">An SQL Solution for the Multiple Knapsack Problem (SKP-m)</a>, January 2013
@@ -34,7 +33,7 @@ Here is a summary article that embeds all of the above plus another couple of re
 In order to install this project you need to have SYS access to an Oracle database, minimum version 11.2, along with a suitable database server directory to use for loading data via external tables.
 
 ## Install steps
-### Common install steps (including subproject schemas)
+### Common install steps (including creation of subproject schemas)
 - Update the logon scripts sys.bat, bren.bat for your own credentials for the SYS and (to be created) bren schema
 - Update install_sys.sql with the name of an input directory on your database server that can be used for external tables to read from, and place all the files in db_server_input there
 - Run install_sys.sql in SYS schema from SQL*Plus, or other SQL client, to set up the bren common schema, and the problem-specific schemas

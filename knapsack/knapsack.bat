@@ -1,1 +1,0 @@
-sqlplus knapsack/knapsack@orclpdb
