@@ -6,7 +6,7 @@ This project stores the SQL code for solutions to interesting problems I have lo
 
 The idea is that anyone with the pre-requisites should be able to reproduce my results within a few minutes of downloading the repo.
 
-The installation scripts will create a common objects schema, bren, and a separate schema for each problem, of which there are five at present. The SYS and bren objects are in the folder bren, with the problem-specific scripts in a separate folder for each one.
+The installation scripts will create a common objects schema, bren, and a separate schema for each problem, of which there are five at present. The sys and bren objects are in the folder bren, with the problem-specific scripts in a separate folder for each one.
 
 ## Subproject README and Blog Links
 
@@ -29,12 +29,12 @@ The installation scripts will create a common objects schema, bren, and a separa
 
 Here is a summary article that embeds all of the above plus another couple of relevant articles: <a href="http://aprogrammerwrites.eu/?p=2232" target="_blank">Knapsacks and Networks in SQL</a>, December 2017
 
-## Pre-requisites
-In order to install this project you need to have SYS access to an Oracle database, minimum version 11.2, along with a suitable database server directory to use for loading data via external tables.
+## Prerequisites
+In order to install this project you need to have sys access to an Oracle database, minimum version 11.2, along with a suitable database server directory to use for loading data via external tables.
 
 ## Install Steps
 ### Common install steps (including creation of subproject schemas)
-- Update install_sys.sql with the name of an input directory on your database server that can be used for external tables to read from
+- Update install_sys.sql with the name of an input directory on your database server that can be used for external tables to read from (initially set to 'C:\input')
 - Place all the files in db_server_input there
 #### [Schema: sys; Folder: bren] Create schemas
 - Update the login script sys.bat for your own credentials for the sys schema (if necessary)
