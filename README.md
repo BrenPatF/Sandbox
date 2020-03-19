@@ -24,8 +24,8 @@ The installation scripts will create a common objects schema, bren, and a separa
 	- [SQL for the Travelling Salesman Problem, July 2013](http://aprogrammerwrites.eu/?p=896)
 
 - [README: shortest_path](shortest_path/README.md)
-	- [SQL for Shortest Path Problems</a>, April 2015](http://aprogrammerwrites.eu/?p=1391)
-	- [SQL for Shortest Path Problems 2: A Branch and Bound Approach</a>, May 2015](http://aprogrammerwrites.eu/?p=1415)
+	- [SQL for Shortest Path Problems, April 2015](http://aprogrammerwrites.eu/?p=1391)
+	- [SQL for Shortest Path Problems 2: A Branch and Bound Approach, May 2015](http://aprogrammerwrites.eu/?p=1415)
 
 Here is a summary article that embeds all of the above plus another couple of relevant articles: <a href="http://aprogrammerwrites.eu/?p=2232" target="_blank">Knapsacks and Networks in SQL</a>, December 2017
 
