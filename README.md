@@ -10,10 +10,9 @@ The installation scripts will create a common objects schema, bren, and a separa
 
 ## Links to blog or other sources:
 
-- knapsack
+- [README: knapsack](knapsack/README.md)
 	- [A Simple SQL Solution for the Knapsack Problem (SKP-1)](http://aprogrammerwrites.eu/?p=560)
 	- [An SQL Solution for the Multiple Knapsack Problem (SKP-m)](http://aprogrammerwrites.eu/?p=635)
-	- [README: knapsack](knapsack/README.md)<br />
 
 - bal_num_part<br />
 <a href="http://aprogrammerwrites.eu/?p=803" target="_blank">SQL for the Balanced Number Partitioning Problem</a>, May 2013
