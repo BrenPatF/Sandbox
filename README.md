@@ -34,10 +34,20 @@ In order to install this project you need to have SYS access to an Oracle databa
 
 ## Install Steps
 ### Common install steps (including creation of subproject schemas)
-- Update the logon scripts sys.bat, bren.bat for your own credentials for the SYS and (to be created) bren schema
-- Update install_sys.sql with the name of an input directory on your database server that can be used for external tables to read from, and place all the files in db_server_input there
-- Run install_sys.sql in SYS schema from SQL*Plus, or other SQL client, to set up the bren common schema, and the problem-specific schemas
-- Run Install_bren.sql in bren schema to create the bren schema common objects
+- Update install_sys.sql with the name of an input directory on your database server that can be used for external tables to read from
+- Place all the files in db_server_input there
+#### [Schema: sys; Folder: bren] Create schemas
+- Update the login script sys.bat for your own credentials for the sys schema (if necessary)
+- Run script from slqplus, or other SQL client, to set up the bren common schema, and the problem-specific schemas:
+```
+SQL> @install_sys
+```
+#### [Schema: bren; Folder: bren] Create common components in bren schema
+- Update the login script bren.bat for your own credentials for the bren schema (if necessary)
+- Run script from slqplus, or other SQL client, to set up the bren common components:
+```
+SQL> @install_bren
+```
 ### Subproject install steps
 - Run the install script for each schema (as desired) to create the schema objects (you may need to update the login scripts `schema`.bat):
 	- knapsack:      install_knapsack.sql
@@ -53,6 +63,7 @@ shared Microsoft One-Drive location:
 https://1drv.ms/v/s!AtGOr6YOZ-yVh_1a6_g7XwX0TTBTgA
 
 ## Operating System/Oracle Versions
+These are the OS and database versions most recently tested on, but the code should work from Oracle v11.2 on and should be OS-independent.
 ### Windows
 Windows 10
 ### Oracle
