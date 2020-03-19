@@ -8,7 +8,7 @@ The idea is that anyone with the pre-requisites should be able to reproduce my r
 
 The installation scripts will create a common objects schema, bren, and a separate schema for each problem, of which there are five at present. The SYS and bren objects are in the folder bren, with the problem-specific scripts in a separate folder for each one.
 
-## Links to blog or other sources:
+## Subproject README and blog links
 
 - [README: knapsack](knapsack/README.md)
 	- [A Simple SQL Solution for the Knapsack Problem (SKP-1)](http://aprogrammerwrites.eu/?p=560)
