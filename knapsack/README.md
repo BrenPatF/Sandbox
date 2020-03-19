@@ -4,8 +4,8 @@ This project stores the SQL code for solutions to interesting problems I have lo
 
 The knapsack subproject has SQL solutions to single and multiple knapsack problems as discussed in the following blog posts:
 
-- [A Simple SQL Solution for the Knapsack Problem (SKP-1)](http://aprogrammerwrites.eu/?p=560)
-- [An SQL Solution for the Multiple Knapsack Problem (SKP-m)](http://aprogrammerwrites.eu/?p=635)
+- [A Simple SQL Solution for the Knapsack Problem (SKP-1), January 2013](http://aprogrammerwrites.eu/?p=560)
+- [An SQL Solution for the Multiple Knapsack Problem (SKP-m), January 2013](http://aprogrammerwrites.eu/?p=635)
 
 [Back to main README: sql_demos](../README.md)
 

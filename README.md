@@ -8,31 +8,33 @@ The idea is that anyone with the pre-requisites should be able to reproduce my r
 
 The installation scripts will create a common objects schema, bren, and a separate schema for each problem, of which there are five at present. The SYS and bren objects are in the folder bren, with the problem-specific scripts in a separate folder for each one.
 
-## Subproject README and blog links
+## Subproject README and Blog Links
 
 - [README: knapsack](knapsack/README.md)
-	- [A Simple SQL Solution for the Knapsack Problem (SKP-1)](http://aprogrammerwrites.eu/?p=560)
-	- [An SQL Solution for the Multiple Knapsack Problem (SKP-m)](http://aprogrammerwrites.eu/?p=635)
+	- [A Simple SQL Solution for the Knapsack Problem (SKP-1), January 2013](http://aprogrammerwrites.eu/?p=560)
+	- [An SQL Solution for the Multiple Knapsack Problem (SKP-m), January 2013](http://aprogrammerwrites.eu/?p=635)
 
-- bal_num_part<br />
-<a href="http://aprogrammerwrites.eu/?p=803" target="_blank">SQL for the Balanced Number Partitioning Problem</a>, May 2013
+- [README: bal_num_part](bal_num_part/README.md)
+	- [SQL for the Balanced Number Partitioning Problem, May 2013](http://aprogrammerwrites.eu/?p=803)
 
-- fan_foot<br />
-<a href="http://aprogrammerwrites.eu/?p=878" target="_blank">SQL for the Fantasy Football Knapsack Problem</a>, June 2013
+- [README: fan_foot](fan_foot/README.md)
+	- [SQL for the Fantasy Football Knapsack Problem, June 2013](http://aprogrammerwrites.eu/?p=878)
 
 - tsp<br />
-<a href="http://aprogrammerwrites.eu/?p=896" target="_blank">SQL for the Travelling Salesman Problem</a>, July 2013
+<a href="http://aprogrammerwrites.eu/?p=" target="_blank">
+- [README: tsp](tsp/README.md)
+	- [SQL for the Travelling Salesman Problem, July 2013](http://aprogrammerwrites.eu/?p=896)
 
-- shortest_path<br />
-<a href="http://aprogrammerwrites.eu/?p=1391" target="_blank">SQL for Shortest Path Problems</a>, April 2015<br />
-<a href="http://aprogrammerwrites.eu/?p=1415" target="_blank">SQL for Shortest Path Problems 2: A Branch and Bound Approach</a>, May 2015
+- [README: shortest_path](shortest_path/README.md)
+	- [SQL for Shortest Path Problems</a>, April 2015](http://aprogrammerwrites.eu/?p=1391)
+	- [SQL for Shortest Path Problems 2: A Branch and Bound Approach</a>, May 2015](http://aprogrammerwrites.eu/?p=1415)
 
 Here is a summary article that embeds all of the above plus another couple of relevant articles: <a href="http://aprogrammerwrites.eu/?p=2232" target="_blank">Knapsacks and Networks in SQL</a>, December 2017
 
 ## Pre-requisites
 In order to install this project you need to have SYS access to an Oracle database, minimum version 11.2, along with a suitable database server directory to use for loading data via external tables.
 
-## Install steps
+## Install Steps
 ### Common install steps (including creation of subproject schemas)
 - Update the logon scripts sys.bat, bren.bat for your own credentials for the SYS and (to be created) bren schema
 - Update install_sys.sql with the name of an input directory on your database server that can be used for external tables to read from, and place all the files in db_server_input there
@@ -52,7 +54,7 @@ The installation is demonstrated in a short video (8 minutes). It doesn't cover 
 shared Microsoft One-Drive location:
 https://1drv.ms/v/s!AtGOr6YOZ-yVh_1a6_g7XwX0TTBTgA
 
-## Operating System/Oracle Versions 
+## Operating System/Oracle Versions
 ### Windows
 Windows 10
 ### Oracle
