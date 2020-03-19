@@ -20,8 +20,6 @@ The installation scripts will create a common objects schema, bren, and a separa
 - [README: fan_foot](fan_foot/README.md)
 	- [SQL for the Fantasy Football Knapsack Problem, June 2013](http://aprogrammerwrites.eu/?p=878)
 
-- tsp<br />
-<a href="http://aprogrammerwrites.eu/?p=" target="_blank">
 - [README: tsp](tsp/README.md)
 	- [SQL for the Travelling Salesman Problem, July 2013](http://aprogrammerwrites.eu/?p=896)
 
