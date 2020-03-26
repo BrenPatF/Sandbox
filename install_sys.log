@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          24-MAR-2020 11:00:32 Version 19.3.0.0.0
+Start: ORCL          26-MAR-2020 11:46:49 Version 19.3.0.0.0
 
 Drop the app user created by the install_prereq
 
@@ -65,13 +65,23 @@ new   1: GRANT ALL ON DIRECTORY input_dir TO bal_num_part
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$database to &DEMO_USER
-new   1: GRANT SELECT ON v_$database to bal_num_part
+old   1: GRANT SELECT ON v_$database TO &DEMO_USER
+new   1: GRANT SELECT ON v_$database TO bal_num_part
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$sql to &DEMO_USER
-new   1: GRANT SELECT ON v_$sql to bal_num_part
+old   1: GRANT SELECT ON v_$sql TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan_statistics_all TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan_statistics_all TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan TO bal_num_part
 
 Grant succeeded.
 
@@ -133,13 +143,23 @@ new   1: GRANT ALL ON DIRECTORY input_dir TO fan_foot
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$database to &DEMO_USER
-new   1: GRANT SELECT ON v_$database to fan_foot
+old   1: GRANT SELECT ON v_$database TO &DEMO_USER
+new   1: GRANT SELECT ON v_$database TO fan_foot
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$sql to &DEMO_USER
-new   1: GRANT SELECT ON v_$sql to fan_foot
+old   1: GRANT SELECT ON v_$sql TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan_statistics_all TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan_statistics_all TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan TO fan_foot
 
 Grant succeeded.
 
@@ -201,13 +221,23 @@ new   1: GRANT ALL ON DIRECTORY input_dir TO knapsack
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$database to &DEMO_USER
-new   1: GRANT SELECT ON v_$database to knapsack
+old   1: GRANT SELECT ON v_$database TO &DEMO_USER
+new   1: GRANT SELECT ON v_$database TO knapsack
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$sql to &DEMO_USER
-new   1: GRANT SELECT ON v_$sql to knapsack
+old   1: GRANT SELECT ON v_$sql TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan_statistics_all TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan_statistics_all TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan TO knapsack
 
 Grant succeeded.
 
@@ -269,13 +299,23 @@ new   1: GRANT ALL ON DIRECTORY input_dir TO shortest_path
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$database to &DEMO_USER
-new   1: GRANT SELECT ON v_$database to shortest_path
+old   1: GRANT SELECT ON v_$database TO &DEMO_USER
+new   1: GRANT SELECT ON v_$database TO shortest_path
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$sql to &DEMO_USER
-new   1: GRANT SELECT ON v_$sql to shortest_path
+old   1: GRANT SELECT ON v_$sql TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan_statistics_all TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan_statistics_all TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan TO shortest_path
 
 Grant succeeded.
 
@@ -337,13 +377,23 @@ new   1: GRANT ALL ON DIRECTORY input_dir TO tsp
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$database to &DEMO_USER
-new   1: GRANT SELECT ON v_$database to tsp
+old   1: GRANT SELECT ON v_$database TO &DEMO_USER
+new   1: GRANT SELECT ON v_$database TO tsp
 
 Grant succeeded.
 
-old   1: GRANT SELECT ON v_$sql to &DEMO_USER
-new   1: GRANT SELECT ON v_$sql to tsp
+old   1: GRANT SELECT ON v_$sql TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql TO tsp
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan_statistics_all TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan_statistics_all TO tsp
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql_plan TO &DEMO_USER
+new   1: GRANT SELECT ON v_$sql_plan TO tsp
 
 Grant succeeded.
 
@@ -356,5 +406,5 @@ Grant succeeded.
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 24-MAR-2020 11:00:33
+End: 26-MAR-2020 11:46:49
 

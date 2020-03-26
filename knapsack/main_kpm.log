@@ -1,9 +1,9 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          24-MAR-2020 11:39:36 Version 19.3.0.0.0
+Start: ORCL          26-MAR-2020 12:28:07 Version 19.3.0.0.0
 
-Elapsed: 00:00:00.01
+Elapsed: 00:00:00.00
 
 Table truncated.
 
@@ -25,7 +25,7 @@ Input Data - Items
          3           5           12          30           60
          4           6           18          40          100
 
-Elapsed: 00:00:00.00
+Elapsed: 00:00:00.01
 Input Data - Containers
 
         ID NAME                           MAX_WEIGHT
@@ -33,11 +33,11 @@ Input Data - Containers
          1 Con 1                                   8
          2 Con 2                                  10
 
-Elapsed: 00:00:00.00
+Elapsed: 00:00:00.01
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.08
+Elapsed: 00:00:00.11
 Tree
 
     CON_ID MAX_WEIGHT ITM_ ITM_PATH                       TOT_WEIGHT TOT_PROFIT
@@ -60,7 +60,7 @@ Tree
 
 15 rows selected.
 
-Elapsed: 00:00:00.01
+Elapsed: 00:00:00.02
 SQL_ID  fbrjydhk7sjpg, child number 0
 -------------------------------------
 WITH /* XTRE */ rsf_itm (con_id, max_weight, itm_id, lev, tot_weight,
@@ -76,7 +76,7 @@ con_id, itm_id SET line_no SELECT  /*+ gather_plan_statistics */
 con_id,        max_weight,        LPad (To_Char(itm_id), 2*lev + 1, '
 ') itm_id,        path itm_path,        tot_weight, tot_profit   FROM
 rsf_itm  ORDER BY line_no
-Plan hash value: 888558854
+Plan hash value: 109616438
 --------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                               | Name        | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ Plan hash value: 888558854
 |   6 |    NESTED LOOPS                         |             |      2 |      1 |      7 |00:00:00.01 |       6 |       |       |          |
 |   7 |     NESTED LOOPS                        |             |      2 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |   8 |      RECURSIVE WITH PUMP                |             |      2 |        |     15 |00:00:00.01 |       0 |       |       |          |
-|*  9 |      INDEX RANGE SCAN                   | SYS_C008077 |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
+|*  9 |      INDEX RANGE SCAN                   | SYS_C008148 |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |* 10 |     TABLE ACCESS BY INDEX ROWID         | ITEMS       |     19 |      1 |      7 |00:00:00.01 |       2 |       |       |          |
 --------------------------------------------------------------------------------------------------------------------------------------------
 Predicate Information (identified by operation id):
@@ -150,7 +150,7 @@ CON_ITM_SE CON_ITM_PATH         TOT_WEIGHT TOT_PROFIT
 
 42 rows selected.
 
-Elapsed: 00:00:00.04
+Elapsed: 00:00:00.03
 SQL_ID  4rm6pzsftaz43, child number 0
 -------------------------------------
 WITH /* XTR2 */ rsf_itm (con_id, max_weight, itm_id, tot_weight,
@@ -168,13 +168,13 @@ tot_profit   FROM rsf_itm  UNION ALL SELECT r_i.con_id,        ':' ||
 r_i.con_id || ':' || r_i.path,        r_c.con_itm_path ||  ':' ||
 r_i.con_id || ':' || r_i.path,        r_c.lev + 1,
 r_c.tot_weight + r_i.tot_weight,        r_c.tot_pr
-Plan hash value: 114763978
+Plan hash value: 4114881146
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                                  | Name                      | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 |   0 | SELECT STATEMENT                           |                           |      1 |        |     42 |00:00:00.01 |      26 |       |       |          |
 |   1 |  TEMP TABLE TRANSFORMATION                 |                           |      1 |        |     42 |00:00:00.01 |      26 |       |       |          |
-|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)  | SYS_TEMP_0FD9D6649_6A4DD3 |      1 |        |      0 |00:00:00.01 |      25 |  1024 |  1024 |          |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)  | SYS_TEMP_0FD9D669C_6A4DD3 |      1 |        |      0 |00:00:00.01 |      25 |  1024 |  1024 |          |
 |   3 |    UNION ALL (RECURSIVE WITH) BREADTH FIRST|                           |      1 |        |     15 |00:00:00.01 |      24 |  2048 |  2048 | 2048  (0)|
 |   4 |     NESTED LOOPS                           |                           |      1 |      8 |      8 |00:00:00.01 |      18 |       |       |          |
 |   5 |      TABLE ACCESS FULL                     | CONTAINERS                |      1 |      2 |      2 |00:00:00.01 |       6 |       |       |          |
@@ -182,29 +182,29 @@ Plan hash value: 114763978
 |   7 |     NESTED LOOPS                           |                           |      2 |      1 |      7 |00:00:00.01 |       6 |       |       |          |
 |   8 |      NESTED LOOPS                          |                           |      2 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |   9 |       RECURSIVE WITH PUMP                  |                           |      2 |        |     15 |00:00:00.01 |       0 |       |       |          |
-|* 10 |       INDEX RANGE SCAN                     | SYS_C008077               |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
+|* 10 |       INDEX RANGE SCAN                     | SYS_C008148               |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |* 11 |      TABLE ACCESS BY INDEX ROWID           | ITEMS                     |     19 |      1 |      7 |00:00:00.01 |       2 |       |       |          |
 |  12 |   VIEW                                     |                           |      1 |     10 |     42 |00:00:00.01 |       0 |       |       |          |
 |  13 |    UNION ALL (RECURSIVE WITH) DEPTH FIRST  |                           |      1 |        |     42 |00:00:00.01 |       0 |  6144 |  6144 | 6144  (0)|
 |  14 |     VIEW                                   |                           |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
-|  15 |      TABLE ACCESS FULL                     | SYS_TEMP_0FD9D6649_6A4DD3 |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
+|  15 |      TABLE ACCESS FULL                     | SYS_TEMP_0FD9D669C_6A4DD3 |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
 |  16 |     NESTED LOOPS                           |                           |      2 |      1 |     27 |00:00:00.01 |       0 |       |       |          |
 |  17 |      RECURSIVE WITH PUMP                   |                           |      2 |        |     42 |00:00:00.01 |       0 |       |       |          |
 |* 18 |      VIEW                                  |                           |     42 |      1 |     27 |00:00:00.01 |       0 |       |       |          |
-|  19 |       TABLE ACCESS FULL                    | SYS_TEMP_0FD9D6649_6A4DD3 |     42 |      9 |    630 |00:00:00.01 |       0 |       |       |          |
+|  19 |       TABLE ACCESS FULL                    | SYS_TEMP_0FD9D669C_6A4DD3 |     42 |      9 |    630 |00:00:00.01 |       0 |       |       |          |
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 Predicate Information (identified by operation id):
 ---------------------------------------------------
 6 - filter("I"."ITEM_WEIGHT"<="C"."MAX_WEIGHT")
 10 - access("I"."ID">"R"."ITM_ID")
 11 - filter("R"."MAX_WEIGHT">="R"."TOT_WEIGHT"+"I"."ITEM_WEIGHT")
-18 - filter(( REGEXP_INSTR ("R_C"."CON_ITM_PATH"||"R_I"."PATH",',(\d+),.*?,\1,',HEXTORAW('F86CEA7AFA7F0000D0EFD4E6F67F0000000000000000000070F1D4E6F
-67F0000000000000000000000000000000000006800000000000000786DEA7AFA7F00000900010000000000000000000100000080F69EDEF67F00000000000000000000'))=0 AND
+18 - filter(( REGEXP_INSTR ("R_C"."CON_ITM_PATH"||"R_I"."PATH",',(\d+),.*?,\1,',HEXTORAW('80FB9762FA7F0000D0EFD4E6F67F0000000000000000000070F1D4E6F
+67F000000000000000000000000000000000000680000000000000000FC9762FA7F00000900010000000000000000000100000080F69EDEF67F00000000000000000000'))=0 AND
 "R_I"."CON_ID">"R_C"."CON_ID"))
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.19
+Elapsed: 00:00:00.14
 Solution with path
 
     SOL_ID ITM_PATH                       TOT_WEIGHT TOT_PROFIT
@@ -254,7 +254,7 @@ Solution with path
 
 42 rows selected.
 
-Elapsed: 00:00:00.08
+Elapsed: 00:00:00.04
 SQL_ID  gsv5fpa2smjsf, child number 0
 -------------------------------------
 WITH /* XSTR */ rsf_itm (con_id, max_weight, itm_id, tot_weight,
@@ -272,13 +272,13 @@ r_i.con_id,        r_c.itm_path ||  ':' || r_i.con_id || ':' ||
 r_i.path,        r_c.lev + 1,        r_c.tot_weight + r_i.tot_weight,
 r_c.tot_profit + r_i.tot_profit   FROM rsf_con r_c   JOIN rsf_itm
 r_i     ON r_i.con_id > r_c.con_
-Plan hash value: 21621833
+Plan hash value: 1227519227
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                                     | Name                      | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 |   0 | SELECT STATEMENT                              |                           |      1 |        |     42 |00:00:00.01 |      29 |       |       |          |
 |   1 |  TEMP TABLE TRANSFORMATION                    |                           |      1 |        |     42 |00:00:00.01 |      29 |       |       |          |
-|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)     | SYS_TEMP_0FD9D664A_6A4DD3 |      1 |        |      0 |00:00:00.01 |      28 |  1024 |  1024 |          |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)     | SYS_TEMP_0FD9D669D_6A4DD3 |      1 |        |      0 |00:00:00.01 |      28 |  1024 |  1024 |          |
 |   3 |    UNION ALL (RECURSIVE WITH) BREADTH FIRST   |                           |      1 |        |     15 |00:00:00.01 |      27 |  2048 |  2048 | 2048  (0)|
 |   4 |     NESTED LOOPS                              |                           |      1 |      8 |      8 |00:00:00.01 |      21 |       |       |          |
 |   5 |      TABLE ACCESS FULL                        | CONTAINERS                |      1 |      2 |      2 |00:00:00.01 |       7 |       |       |          |
@@ -286,7 +286,7 @@ Plan hash value: 21621833
 |   7 |     NESTED LOOPS                              |                           |      2 |      1 |      7 |00:00:00.01 |       6 |       |       |          |
 |   8 |      NESTED LOOPS                             |                           |      2 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |   9 |       RECURSIVE WITH PUMP                     |                           |      2 |        |     15 |00:00:00.01 |       0 |       |       |          |
-|* 10 |       INDEX RANGE SCAN                        | SYS_C008077               |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
+|* 10 |       INDEX RANGE SCAN                        | SYS_C008148               |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |* 11 |      TABLE ACCESS BY INDEX ROWID              | ITEMS                     |     19 |      1 |      7 |00:00:00.01 |       2 |       |       |          |
 |  12 |   SORT ORDER BY                               |                           |      1 |     10 |     42 |00:00:00.01 |       0 |  4096 |  4096 | 4096  (0)|
 |  13 |    VIEW                                       |                           |      1 |     10 |     42 |00:00:00.01 |       0 |       |       |          |
@@ -294,19 +294,19 @@ Plan hash value: 21621833
 |  15 |      VIEW                                     |                           |      1 |     10 |     42 |00:00:00.01 |       0 |       |       |          |
 |  16 |       UNION ALL (RECURSIVE WITH) BREADTH FIRST|                           |      1 |        |     42 |00:00:00.01 |       0 |  2048 |  2048 | 2048  (0)|
 |  17 |        VIEW                                   |                           |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
-|  18 |         TABLE ACCESS FULL                     | SYS_TEMP_0FD9D664A_6A4DD3 |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
+|  18 |         TABLE ACCESS FULL                     | SYS_TEMP_0FD9D669D_6A4DD3 |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
 |  19 |        NESTED LOOPS                           |                           |      2 |      1 |     27 |00:00:00.01 |       0 |       |       |          |
 |  20 |         RECURSIVE WITH PUMP                   |                           |      2 |        |     42 |00:00:00.01 |       0 |       |       |          |
 |* 21 |         VIEW                                  |                           |     42 |      1 |     27 |00:00:00.01 |       0 |       |       |          |
-|  22 |          TABLE ACCESS FULL                    | SYS_TEMP_0FD9D664A_6A4DD3 |     42 |      9 |    630 |00:00:00.01 |       0 |       |       |          |
+|  22 |          TABLE ACCESS FULL                    | SYS_TEMP_0FD9D669D_6A4DD3 |     42 |      9 |    630 |00:00:00.01 |       0 |       |       |          |
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Predicate Information (identified by operation id):
 ---------------------------------------------------
 6 - filter("I"."ITEM_WEIGHT"<="C"."MAX_WEIGHT")
 10 - access("I"."ID">"R"."ITM_ID")
 11 - filter("R"."MAX_WEIGHT">="R"."TOT_WEIGHT"+"I"."ITEM_WEIGHT")
-21 - filter(( REGEXP_INSTR ("R_C"."ITM_PATH"||"R_I"."PATH",',(\d+),.*?,\1,',HEXTORAW('C84FD87AFA7F0000D0EFD4E6F67F0000000000000000000070F1D4E6F67F0000
-0000000000000000000000000000000068000000000000004850D87AFA7F00000900010000000000000000000100000080F69EDEF67F00000000000000000000'))=0 AND
+21 - filter(( REGEXP_INSTR ("R_C"."ITM_PATH"||"R_I"."PATH",',(\d+),.*?,\1,',HEXTORAW('20E8397AFA7F0000D0EFD4E6F67F0000000000000000000070F1D4E6F67F0000
+000000000000000000000000000000006800000000000000A0E8397AFA7F00000900010000000000000000000100000080F69EDEF67F00000000000000000000'))=0 AND
 "R_I"."CON_ID">"R_C"."CON_ID"))
 
 PL/SQL procedure successfully completed.
@@ -321,7 +321,7 @@ Solution with SQL and functions
                                           2 Con 2                                  10         10          2          4         20
                                                                                                           4          6         40
 
-Elapsed: 00:00:00.05
+Elapsed: 00:00:00.04
 SQL_ID  2662g75w0gra0, child number 0
 -------------------------------------
 WITH /* XFUN */ rsf_itm (con_id, max_weight, itm_id, tot_weight,
@@ -339,13 +339,13 @@ r_c.itm_path ||  ':' || r_i.con_id || ':' || r_i.path,
 r_c.tot_weight + r_i.tot_weight,        r_c.tot_profit + r_i.tot_profit
 FROM rsf_con r_c   JOIN rsf_itm r_i     ON r_i.con_id > r_c.con_id
 WHERE RegExp_Instr (r_c.itm_pat
-Plan hash value: 3752224806
+Plan hash value: 3330653086
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                                         | Name                      | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 |   0 | SELECT STATEMENT                                  |                           |      1 |        |      4 |00:00:00.01 |      91 |       |       |          |
 |   1 |  TEMP TABLE TRANSFORMATION                        |                           |      1 |        |      4 |00:00:00.01 |      91 |       |       |          |
-|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)         | SYS_TEMP_0FD9D664B_6A4DD3 |      1 |        |      0 |00:00:00.01 |      28 |  1024 |  1024 |          |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)         | SYS_TEMP_0FD9D669E_6A4DD3 |      1 |        |      0 |00:00:00.01 |      28 |  1024 |  1024 |          |
 |   3 |    UNION ALL (RECURSIVE WITH) BREADTH FIRST       |                           |      1 |        |     15 |00:00:00.01 |      27 |  2048 |  2048 | 2048  (0)|
 |   4 |     NESTED LOOPS                                  |                           |      1 |      8 |      8 |00:00:00.01 |      21 |       |       |          |
 |   5 |      TABLE ACCESS FULL                            | CONTAINERS                |      1 |      2 |      2 |00:00:00.01 |       7 |       |       |          |
@@ -353,13 +353,13 @@ Plan hash value: 3752224806
 |   7 |     NESTED LOOPS                                  |                           |      2 |      1 |      7 |00:00:00.01 |       6 |       |       |          |
 |   8 |      NESTED LOOPS                                 |                           |      2 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |   9 |       RECURSIVE WITH PUMP                         |                           |      2 |        |     15 |00:00:00.01 |       0 |       |       |          |
-|* 10 |       INDEX RANGE SCAN                            | SYS_C008077               |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
+|* 10 |       INDEX RANGE SCAN                            | SYS_C008148               |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |* 11 |      TABLE ACCESS BY INDEX ROWID                  | ITEMS                     |     19 |      1 |      7 |00:00:00.01 |       2 |       |       |          |
 |  12 |   SORT ORDER BY                                   |                           |      1 |  81680 |      4 |00:00:00.01 |      62 |  2048 |  2048 | 2048  (0)|
 |  13 |    WINDOW SORT                                    |                           |      1 |  81680 |      4 |00:00:00.01 |      62 |  2048 |  2048 | 2048  (0)|
-|* 14 |     HASH JOIN                                     |                           |      1 |  81680 |      4 |00:00:00.01 |      62 |  1744K|  1744K| 1016K (0)|
+|* 14 |     HASH JOIN                                     |                           |      1 |  81680 |      4 |00:00:00.01 |      62 |  1744K|  1744K|  994K (0)|
 |  15 |      TABLE ACCESS FULL                            | ITEMS                     |      1 |      4 |      4 |00:00:00.01 |       7 |       |       |          |
-|* 16 |      HASH JOIN                                    |                           |      1 |  81680 |      4 |00:00:00.01 |      55 |  1610K|  1610K|  682K (0)|
+|* 16 |      HASH JOIN                                    |                           |      1 |  81680 |      4 |00:00:00.01 |      55 |  1610K|  1610K|  671K (0)|
 |  17 |       TABLE ACCESS FULL                           | CONTAINERS                |      1 |      2 |      2 |00:00:00.01 |       7 |       |       |          |
 |  18 |       NESTED LOOPS                                |                           |      1 |  81680 |      4 |00:00:00.01 |      48 |       |       |          |
 |* 19 |        VIEW                                       |                           |      1 |     10 |      1 |00:00:00.01 |       0 |       |       |          |
@@ -367,11 +367,11 @@ Plan hash value: 3752224806
 |  21 |          VIEW                                     |                           |      1 |     10 |     42 |00:00:00.01 |       0 |       |       |          |
 |  22 |           UNION ALL (RECURSIVE WITH) BREADTH FIRST|                           |      1 |        |     42 |00:00:00.01 |       0 |  2048 |  2048 | 2048  (0)|
 |  23 |            VIEW                                   |                           |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
-|  24 |             TABLE ACCESS FULL                     | SYS_TEMP_0FD9D664B_6A4DD3 |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
+|  24 |             TABLE ACCESS FULL                     | SYS_TEMP_0FD9D669E_6A4DD3 |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
 |  25 |            NESTED LOOPS                           |                           |      2 |      1 |     27 |00:00:00.01 |       0 |       |       |          |
 |  26 |             RECURSIVE WITH PUMP                   |                           |      2 |        |     42 |00:00:00.01 |       0 |       |       |          |
 |* 27 |             VIEW                                  |                           |     42 |      1 |     27 |00:00:00.01 |       0 |       |       |          |
-|  28 |              TABLE ACCESS FULL                    | SYS_TEMP_0FD9D664B_6A4DD3 |     42 |      9 |    630 |00:00:00.01 |       0 |       |       |          |
+|  28 |              TABLE ACCESS FULL                    | SYS_TEMP_0FD9D669E_6A4DD3 |     42 |      9 |    630 |00:00:00.01 |       0 |       |       |          |
 |  29 |        COLLECTION ITERATOR PICKLER FETCH          | SPLIT_STRING              |      1 |   8168 |      4 |00:00:00.01 |      48 |       |       |          |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Predicate Information (identified by operation id):
@@ -383,13 +383,13 @@ Predicate Information (identified by operation id):
 16 - access("C"."ID"=TO_NUMBER(TO_CHAR(VALUE(KOKBF$))))
 19 - filter("P"."RN"=1)
 20 - filter(RANK() OVER ( ORDER BY INTERNAL_FUNCTION("TOT_PROFIT") DESC )<=1)
-27 - filter(( REGEXP_INSTR ("R_C"."ITM_PATH"||"R_I"."PATH",',(\d+),.*?,\1,',HEXTORAW('7054607AFA7F0000D0EFD4E6F67F0000000000000000000070F1D4E6F67F00000000
-00000000000000000000000000006800000000000000F054607AFA7F00000900010000000000000000000100000080F69EDEF67F00000000000000000000'))=0 AND
+27 - filter(( REGEXP_INSTR ("R_C"."ITM_PATH"||"R_I"."PATH",',(\d+),.*?,\1,',HEXTORAW('F0144075FA7F0000D0EFD4E6F67F0000000000000000000070F1D4E6F67F00000000
+0000000000000000000000000000680000000000000070154075FA7F00000900010000000000000000000100000080F69EDEF67F00000000000000000000'))=0 AND
 "R_I"."CON_ID">"R_C"."CON_ID"))
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.14
+Elapsed: 00:00:00.15
 Solution with SQL and functions, with CARDINALITY hint
 
     SOL_ID       S_WT       S_PR       C_ID C_NAME                               M_WT       C_WT       I_ID       I_WT       I_PR
@@ -399,7 +399,7 @@ Solution with SQL and functions, with CARDINALITY hint
                                           2 Con 2                                  10         10          2          4         20
                                                                                                           4          6         40
 
-Elapsed: 00:00:00.05
+Elapsed: 00:00:00.03
 SQL_ID  02bskar3byrs3, child number 0
 -------------------------------------
 WITH /* XFNC */ rsf_itm (con_id, max_weight, itm_id, tot_weight,
@@ -417,13 +417,13 @@ r_c.itm_path ||  ':' || r_i.con_id || ':' || r_i.path,
 r_c.tot_weight + r_i.tot_weight,        r_c.tot_profit + r_i.tot_profit
 FROM rsf_con r_c   JOIN rsf_itm r_i     ON r_i.con_id > r_c.con_id
 WHERE RegExp_Instr (r_c.itm_pat
-Plan hash value: 3752224806
+Plan hash value: 3330653086
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                                         | Name                      | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 |   0 | SELECT STATEMENT                                  |                           |      1 |        |      4 |00:00:00.01 |      43 |       |       |          |
 |   1 |  TEMP TABLE TRANSFORMATION                        |                           |      1 |        |      4 |00:00:00.01 |      43 |       |       |          |
-|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)         | SYS_TEMP_0FD9D664C_6A4DD3 |      1 |        |      0 |00:00:00.01 |      28 |  1024 |  1024 |          |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)         | SYS_TEMP_0FD9D669F_6A4DD3 |      1 |        |      0 |00:00:00.01 |      28 |  1024 |  1024 |          |
 |   3 |    UNION ALL (RECURSIVE WITH) BREADTH FIRST       |                           |      1 |        |     15 |00:00:00.01 |      27 |  2048 |  2048 | 2048  (0)|
 |   4 |     NESTED LOOPS                                  |                           |      1 |      8 |      8 |00:00:00.01 |      21 |       |       |          |
 |   5 |      TABLE ACCESS FULL                            | CONTAINERS                |      1 |      2 |      2 |00:00:00.01 |       7 |       |       |          |
@@ -431,13 +431,13 @@ Plan hash value: 3752224806
 |   7 |     NESTED LOOPS                                  |                           |      2 |      1 |      7 |00:00:00.01 |       6 |       |       |          |
 |   8 |      NESTED LOOPS                                 |                           |      2 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |   9 |       RECURSIVE WITH PUMP                         |                           |      2 |        |     15 |00:00:00.01 |       0 |       |       |          |
-|* 10 |       INDEX RANGE SCAN                            | SYS_C008077               |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
+|* 10 |       INDEX RANGE SCAN                            | SYS_C008148               |     15 |      1 |     19 |00:00:00.01 |       4 |       |       |          |
 |* 11 |      TABLE ACCESS BY INDEX ROWID                  | ITEMS                     |     19 |      1 |      7 |00:00:00.01 |       2 |       |       |          |
 |  12 |   SORT ORDER BY                                   |                           |      1 |    400 |      4 |00:00:00.01 |      14 |  2048 |  2048 | 2048  (0)|
 |  13 |    WINDOW SORT                                    |                           |      1 |    400 |      4 |00:00:00.01 |      14 |  2048 |  2048 | 2048  (0)|
-|* 14 |     HASH JOIN                                     |                           |      1 |    400 |      4 |00:00:00.01 |      14 |  1744K|  1744K| 1036K (0)|
+|* 14 |     HASH JOIN                                     |                           |      1 |    400 |      4 |00:00:00.01 |      14 |  1744K|  1744K|  954K (0)|
 |  15 |      TABLE ACCESS FULL                            | ITEMS                     |      1 |      4 |      4 |00:00:00.01 |       7 |       |       |          |
-|* 16 |      HASH JOIN                                    |                           |      1 |    400 |      4 |00:00:00.01 |       7 |  1610K|  1610K|  676K (0)|
+|* 16 |      HASH JOIN                                    |                           |      1 |    400 |      4 |00:00:00.01 |       7 |  1610K|  1610K|  684K (0)|
 |  17 |       TABLE ACCESS FULL                           | CONTAINERS                |      1 |      2 |      2 |00:00:00.01 |       7 |       |       |          |
 |  18 |       NESTED LOOPS                                |                           |      1 |    400 |      4 |00:00:00.01 |       0 |       |       |          |
 |* 19 |        VIEW                                       |                           |      1 |     10 |      1 |00:00:00.01 |       0 |       |       |          |
@@ -445,11 +445,11 @@ Plan hash value: 3752224806
 |  21 |          VIEW                                     |                           |      1 |     10 |     42 |00:00:00.01 |       0 |       |       |          |
 |  22 |           UNION ALL (RECURSIVE WITH) BREADTH FIRST|                           |      1 |        |     42 |00:00:00.01 |       0 |  2048 |  2048 | 2048  (0)|
 |  23 |            VIEW                                   |                           |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
-|  24 |             TABLE ACCESS FULL                     | SYS_TEMP_0FD9D664C_6A4DD3 |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
+|  24 |             TABLE ACCESS FULL                     | SYS_TEMP_0FD9D669F_6A4DD3 |      1 |      9 |     15 |00:00:00.01 |       0 |       |       |          |
 |  25 |            NESTED LOOPS                           |                           |      2 |      1 |     27 |00:00:00.01 |       0 |       |       |          |
 |  26 |             RECURSIVE WITH PUMP                   |                           |      2 |        |     42 |00:00:00.01 |       0 |       |       |          |
 |* 27 |             VIEW                                  |                           |     42 |      1 |     27 |00:00:00.01 |       0 |       |       |          |
-|  28 |              TABLE ACCESS FULL                    | SYS_TEMP_0FD9D664C_6A4DD3 |     42 |      9 |    630 |00:00:00.01 |       0 |       |       |          |
+|  28 |              TABLE ACCESS FULL                    | SYS_TEMP_0FD9D669F_6A4DD3 |     42 |      9 |    630 |00:00:00.01 |       0 |       |       |          |
 |  29 |        COLLECTION ITERATOR PICKLER FETCH          | SPLIT_STRING              |      1 |     40 |      4 |00:00:00.01 |       0 |       |       |          |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Predicate Information (identified by operation id):
@@ -461,16 +461,16 @@ Predicate Information (identified by operation id):
 16 - access("C"."ID"=TO_NUMBER(TO_CHAR(VALUE(KOKBF$))))
 19 - filter("P"."RN"=1)
 20 - filter(RANK() OVER ( ORDER BY INTERNAL_FUNCTION("TOT_PROFIT") DESC )<=1)
-27 - filter(( REGEXP_INSTR ("R_C"."ITM_PATH"||"R_I"."PATH",',(\d+),.*?,\1,',HEXTORAW('3028B37AFA7F0000D0EFD4E6F67F0000000000000000000070F1D4E6F67F00000000
-00000000000000000000000000006800000000000000B028B37AFA7F00000900010000000000000000000100000080F69EDEF67F00000000000000000000'))=0 AND
+27 - filter(( REGEXP_INSTR ("R_C"."ITM_PATH"||"R_I"."PATH",',(\d+),.*?,\1,',HEXTORAW('5058615DFA7F0000D0EFD4E6F67F0000000000000000000070F1D4E6F67F00000000
+00000000000000000000000000006800000000000000D058615DFA7F00000900010000000000000000000100000080F69EDEF67F00000000000000000000'))=0 AND
 "R_I"."CON_ID">"R_C"."CON_ID"))
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.19
+Elapsed: 00:00:00.16
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 24-MAR-2020 11:39:37
+End: 26-MAR-2020 12:28:08
 
 Elapsed: 00:00:00.00

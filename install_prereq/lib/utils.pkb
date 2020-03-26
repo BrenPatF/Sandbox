@@ -468,15 +468,18 @@ END Read_File;
 get_SQL_Id: Given a marker string to match against in v$sql get the sql_id
 
 ***************************************************************************************************/
-FUNCTION get_SQL_Id  (p_sql_marker VARCHAR2)   -- marker string
-                            RETURN VARCHAR2 IS -- sql id
+FUNCTION get_SQL_Id(
+            p_sql_marker                 VARCHAR2)          -- marker string
+                                         RETURN VARCHAR2 IS -- sql id
   l_sql_id VARCHAR2(60);
 BEGIN
 
-  SELECT Max (sql_id) KEEP (DENSE_RANK LAST ORDER BY last_load_time)
+  SELECT Max(sql_id) KEEP (DENSE_RANK LAST ORDER BY last_load_time)
     INTO l_sql_id
     FROM v$sql
-   WHERE sql_text LIKE '%' || p_sql_marker || '%' AND sql_text NOT LIKE '%SQL_TEXT LIKE%' AND sql_text NOT LIKE 'BEGIN%';
+   WHERE sql_text LIKE '% ' || p_sql_marker || ' %' 
+     AND UPPER(sql_text) NOT LIKE '%SQL_TEXT LIKE%' -- excludes this query
+     AND plan_hash_value != 0;                      -- excludes PL/SQL blocks
 
   RETURN l_sql_id;
 
@@ -493,15 +496,15 @@ FUNCTION Get_XPlan(
             p_add_outline                  BOOLEAN DEFAULT FALSE) -- repeat the plan with outline added
             RETURN                         L1_chr_arr IS          -- list of XPlan lines
 
-  l_sql_id      VARCHAR2(60) := Get_SQL_Id (p_sql_marker);
+  l_sql_id      VARCHAR2(60) := get_SQL_Id (p_sql_marker);
   l_xplan_lis   L1_chr_arr := L1_chr_arr();
 
-  PROCEDURE Ins_Plan (p_type VARCHAR2) IS
+  PROCEDURE Ins_Plan(p_type VARCHAR2) IS
   BEGIN
 
     FOR rec IN (
         SELECT plan_table_output
-          FROM TABLE (DBMS_XPlan.Display_Cursor (l_sql_id, NULL, p_type))
+          FROM TABLE(DBMS_XPlan.Display_Cursor(l_sql_id, NULL, p_type))
                ) LOOP
       l_xplan_lis.EXTEND;
       l_xplan_lis(l_xplan_lis.COUNT) := rec.plan_table_output;

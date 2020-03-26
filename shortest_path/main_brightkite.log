@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          24-MAR-2020 11:40:41 Version 19.3.0.0.0
+Start: ORCL          26-MAR-2020 12:28:45 Version 19.3.0.0.0
 
 Point view to arcs_brightkite
 
@@ -63,7 +63,7 @@ NODE                            LEV  MAXLEV  INTNOD  INTMAX PATH                
 
 45 rows selected.
 
-Elapsed: 00:00:00.37
+Elapsed: 00:00:00.38
 SQL_ID  7c8a850qd4sm3, child number 0
 -------------------------------------
 WITH paths (node, path, lev, rn) AS ( SELECT a.dst, To_Char(a.dst), 1,
@@ -84,14 +84,14 @@ Plan hash value: 4268130090
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                                 | Name               | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 -----------------------------------------------------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                          |                    |      1 |        |     45 |00:00:00.32 |     870 |       |       |          |
-|   1 |  WINDOW SORT                              |                    |      1 |  58652 |     45 |00:00:00.32 |     870 |  4096 |  4096 | 4096  (0)|
-|   2 |   SORT GROUP BY                           |                    |      1 |  58652 |     45 |00:00:00.32 |     870 |   277K|   277K|  246K (0)|
-|   3 |    VIEW                                   |                    |      1 |   7712K|    286 |00:00:00.32 |     870 |       |       |          |
-|   4 |     UNION ALL (RECURSIVE WITH) DEPTH FIRST|                    |      1 |        |    286 |00:00:00.32 |     870 | 36864 | 36864 |32768  (0)|
+|   0 | SELECT STATEMENT                          |                    |      1 |        |     45 |00:00:00.35 |     870 |       |       |          |
+|   1 |  WINDOW SORT                              |                    |      1 |  58652 |     45 |00:00:00.35 |     870 |  4096 |  4096 | 4096  (0)|
+|   2 |   SORT GROUP BY                           |                    |      1 |  58652 |     45 |00:00:00.35 |     870 |   277K|   277K|  246K (0)|
+|   3 |    VIEW                                   |                    |      1 |   7712K|    286 |00:00:00.35 |     870 |       |       |          |
+|   4 |     UNION ALL (RECURSIVE WITH) DEPTH FIRST|                    |      1 |        |    286 |00:00:00.35 |     870 | 36864 | 36864 |32768  (0)|
 |*  5 |      INDEX RANGE SCAN                     | ARCS_BRIGHTKITE_PK |      1 |      7 |      1 |00:00:00.01 |       3 |       |       |          |
-|   6 |      WINDOW SORT                          |                    |      5 |   7712K|    285 |00:00:00.32 |     867 | 18432 | 18432 |16384  (0)|
-|*  7 |       HASH JOIN                           |                    |      5 |   7712K|    285 |00:00:00.32 |     867 |    24M|  4946K|   34M (0)|
+|   6 |      WINDOW SORT                          |                    |      5 |   7712K|    285 |00:00:00.34 |     867 | 18432 | 18432 |16384  (0)|
+|*  7 |       HASH JOIN                           |                    |      5 |   7712K|    285 |00:00:00.34 |     867 |    24M|  4946K|   34M (0)|
 |   8 |        BUFFER SORT (REUSE)                |                    |      5 |        |   2140K|00:00:00.13 |     867 |    18M|  1593K|   16M (0)|
 |   9 |         TABLE ACCESS FULL                 | ARCS_BRIGHTKITE    |      1 |    428K|    428K|00:00:00.01 |     867 |       |       |          |
 |  10 |        RECURSIVE WITH PUMP                |                    |      5 |        |     58 |00:00:00.01 |       0 |       |       |          |
@@ -166,7 +166,7 @@ NODE                            LEV  MAXLEV  INTNOD  INTMAX PATH                
 
 49 rows selected.
 
-Elapsed: 00:00:01.19
+Elapsed: 00:00:01.21
 SQL_ID  fvw93b0acuw5s, child number 0
 -------------------------------------
 WITH paths_0 (node, path, lev, rn) /* SP_RSFTWO */ AS ( SELECT a.dst,
@@ -188,24 +188,24 @@ Plan hash value: 734777365
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                                           | Name               | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                                    |                    |      1 |        |     49 |00:00:01.14 |    1740 |       |       |          |
-|   1 |  WINDOW SORT                                        |                    |      1 |  58652 |     49 |00:00:01.14 |    1740 |  4096 |  4096 | 4096  (0)|
-|   2 |   SORT GROUP BY                                     |                    |      1 |  58652 |     49 |00:00:01.14 |    1740 |   312K|   312K|  277K (0)|
-|   3 |    VIEW                                             |                    |      1 |    385K|     68 |00:00:01.14 |    1740 |       |       |          |
-|   4 |     UNION ALL (RECURSIVE WITH) DEPTH FIRST          |                    |      1 |        |     68 |00:00:01.14 |    1740 |  9216 |  9216 | 8192  (0)|
+|   0 | SELECT STATEMENT                                    |                    |      1 |        |     49 |00:00:01.16 |    1740 |       |       |          |
+|   1 |  WINDOW SORT                                        |                    |      1 |  58652 |     49 |00:00:01.16 |    1740 |  4096 |  4096 | 4096  (0)|
+|   2 |   SORT GROUP BY                                     |                    |      1 |  58652 |     49 |00:00:01.16 |    1740 |   312K|   312K|  277K (0)|
+|   3 |    VIEW                                             |                    |      1 |    385K|     68 |00:00:01.16 |    1740 |       |       |          |
+|   4 |     UNION ALL (RECURSIVE WITH) DEPTH FIRST          |                    |      1 |        |     68 |00:00:01.16 |    1740 |  9216 |  9216 | 8192  (0)|
 |*  5 |      INDEX RANGE SCAN                               | ARCS_BRIGHTKITE_PK |      1 |      7 |      1 |00:00:00.01 |       3 |       |       |          |
-|   6 |      WINDOW SORT                                    |                    |      8 |    385K|     67 |00:00:01.14 |    1737 |  4096 |  4096 | 4096  (0)|
-|*  7 |       HASH JOIN                                     |                    |      8 |    385K|     67 |00:00:01.14 |    1737 |    25M|  4399K|   37M (0)|
+|   6 |      WINDOW SORT                                    |                    |      8 |    385K|     67 |00:00:01.16 |    1737 |  4096 |  4096 | 4096  (0)|
+|*  7 |       HASH JOIN                                     |                    |      8 |    385K|     67 |00:00:01.16 |    1737 |    25M|  4399K|   37M (0)|
 |   8 |        BUFFER SORT (REUSE)                          |                    |      8 |        |   3425K|00:00:00.74 |    1737 |    18M|  1593K|   16M (0)|
-|*  9 |         HASH JOIN RIGHT OUTER                       |                    |      1 |    428K|    428K|00:00:00.44 |    1737 |  1995K|  1995K| 2579K (0)|
+|*  9 |         HASH JOIN RIGHT OUTER                       |                    |      1 |    428K|    428K|00:00:00.44 |    1737 |  1995K|  1995K| 2581K (0)|
 |  10 |          VIEW                                       |                    |      1 |  58652 |     45 |00:00:00.33 |     870 |       |       |          |
 |  11 |           SORT GROUP BY                             |                    |      1 |  58652 |     45 |00:00:00.33 |     870 |  6144 |  6144 | 6144  (0)|
-|  12 |            VIEW                                     |                    |      1 |   7712K|    286 |00:00:10.44 |     870 |       |       |          |
-|  13 |             UNION ALL (RECURSIVE WITH) BREADTH FIRST|                    |      1 |        |    286 |00:00:10.44 |     870 | 11264 | 11264 |10240  (0)|
+|  12 |            VIEW                                     |                    |      1 |   7712K|    286 |00:00:10.12 |     870 |       |       |          |
+|  13 |             UNION ALL (RECURSIVE WITH) BREADTH FIRST|                    |      1 |        |    286 |00:00:10.12 |     870 | 11264 | 11264 |10240  (0)|
 |* 14 |              INDEX RANGE SCAN                       | ARCS_BRIGHTKITE_PK |      1 |      7 |      1 |00:00:00.01 |       3 |       |       |          |
 |  15 |              WINDOW SORT                            |                    |      5 |   7712K|    285 |00:00:00.33 |     867 | 18432 | 18432 |16384  (0)|
 |* 16 |               HASH JOIN                             |                    |      5 |   7712K|    285 |00:00:00.33 |     867 |    24M|  4946K|   34M (0)|
-|  17 |                BUFFER SORT (REUSE)                  |                    |      5 |        |   2140K|00:00:00.14 |     867 |    18M|  1593K|   16M (0)|
+|  17 |                BUFFER SORT (REUSE)                  |                    |      5 |        |   2140K|00:00:00.13 |     867 |    18M|  1593K|   16M (0)|
 |  18 |                 TABLE ACCESS FULL                   | ARCS_BRIGHTKITE    |      1 |    428K|    428K|00:00:00.01 |     867 |       |       |          |
 |  19 |                RECURSIVE WITH PUMP                  |                    |      5 |        |     58 |00:00:00.01 |       0 |       |       |          |
 |  20 |          TABLE ACCESS FULL                          | ARCS_BRIGHTKITE    |      1 |    428K|    428K|00:00:00.02 |     867 |       |       |          |
@@ -222,7 +222,7 @@ filter("P"."LEV"<NVL("B"."LEV",1000000))
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.14
+Elapsed: 00:00:00.15
 BPF Exact Solution - SP_GTTRSF_I - Insert approximate to GTT
 old   5: WHERE a.src = &SRC
 new   5: WHERE a.src = 51944
@@ -247,15 +247,15 @@ Plan hash value: 3059335945
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                                   | Name               | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 -------------------------------------------------------------------------------------------------------------------------------------------------------
-|   0 | INSERT STATEMENT                            |                    |      1 |        |      0 |00:00:00.33 |     891 |       |       |          |
-|   1 |  LOAD TABLE CONVENTIONAL                    | APPROX_MIN_LEVS    |      1 |        |      0 |00:00:00.33 |     891 |       |       |          |
-|   2 |   SORT GROUP BY                             |                    |      1 |  58652 |     45 |00:00:00.33 |     870 |  6144 |  6144 | 6144  (0)|
-|   3 |    VIEW                                     |                    |      1 |   7712K|    286 |00:00:10.25 |     870 |       |       |          |
-|   4 |     UNION ALL (RECURSIVE WITH) BREADTH FIRST|                    |      1 |        |    286 |00:00:10.25 |     870 | 11264 | 11264 |10240  (0)|
+|   0 | INSERT STATEMENT                            |                    |      1 |        |      0 |00:00:00.34 |     891 |       |       |          |
+|   1 |  LOAD TABLE CONVENTIONAL                    | APPROX_MIN_LEVS    |      1 |        |      0 |00:00:00.34 |     891 |       |       |          |
+|   2 |   SORT GROUP BY                             |                    |      1 |  58652 |     45 |00:00:00.34 |     870 |  6144 |  6144 | 6144  (0)|
+|   3 |    VIEW                                     |                    |      1 |   7712K|    286 |00:00:09.90 |     870 |       |       |          |
+|   4 |     UNION ALL (RECURSIVE WITH) BREADTH FIRST|                    |      1 |        |    286 |00:00:09.90 |     870 | 11264 | 11264 |10240  (0)|
 |*  5 |      INDEX RANGE SCAN                       | ARCS_BRIGHTKITE_PK |      1 |      7 |      1 |00:00:00.01 |       3 |       |       |          |
 |   6 |      WINDOW SORT                            |                    |      5 |   7712K|    285 |00:00:00.33 |     867 | 18432 | 18432 |16384  (0)|
 |*  7 |       HASH JOIN                             |                    |      5 |   7712K|    285 |00:00:00.33 |     867 |    24M|  4946K|   34M (0)|
-|   8 |        BUFFER SORT (REUSE)                  |                    |      5 |        |   2140K|00:00:00.13 |     867 |    18M|  1593K|   16M (0)|
+|   8 |        BUFFER SORT (REUSE)                  |                    |      5 |        |   2140K|00:00:00.12 |     867 |    18M|  1593K|   16M (0)|
 |   9 |         TABLE ACCESS FULL                   | ARCS_BRIGHTKITE    |      1 |    428K|    428K|00:00:00.01 |     867 |       |       |          |
 |  10 |        RECURSIVE WITH PUMP                  |                    |      5 |        |     58 |00:00:00.01 |       0 |       |       |          |
 -------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -266,7 +266,7 @@ Predicate Information (identified by operation id):
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.11
+Elapsed: 00:00:00.12
 BPF Exact solution - SP_GTTRSF_Q - Query
 old   4: WHERE a.src = &SRC
 new   4: WHERE a.src = 51944
@@ -374,9 +374,9 @@ Note
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.12
+Elapsed: 00:00:00.16
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 24-MAR-2020 11:40:43
+End: 26-MAR-2020 12:28:47
 

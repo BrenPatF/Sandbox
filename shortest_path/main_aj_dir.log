@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          24-MAR-2020 12:02:38 Version 19.3.0.0.0
+Start: ORCL          26-MAR-2020 12:29:07 Version 19.3.0.0.0
 
 Point view at Directed table
 
@@ -61,7 +61,7 @@ Plan hash value: 1291565129
 |   6 |       TABLE ACCESS BY INDEX ROWID BATCHED  | ARCS_AJ_DIR    |      1 |      2 |      3 |00:00:00.01 |       2 |       |       |          |
 |*  7 |        INDEX RANGE SCAN                    | ARCS_AJ_DIR_PK |      1 |      2 |      3 |00:00:00.01 |       1 |       |       |          |
 |   8 |       WINDOW SORT                          |                |      4 |    484 |     24 |00:00:00.01 |       7 |  2048 |  2048 | 2048  (0)|
-|*  9 |        HASH JOIN                           |                |      4 |    484 |     24 |00:00:00.01 |       7 |  1856K|  1856K| 1241K (0)|
+|*  9 |        HASH JOIN                           |                |      4 |    484 |     24 |00:00:00.01 |       7 |  1856K|  1856K| 1217K (0)|
 |  10 |         BUFFER SORT (REUSE)                |                |      4 |        |     80 |00:00:00.01 |       7 | 73728 | 73728 |          |
 |  11 |          TABLE ACCESS FULL                 | ARCS_AJ_DIR    |      1 |     20 |     20 |00:00:00.01 |       7 |       |       |          |
 |  12 |         RECURSIVE WITH PUMP                |                |      4 |        |     15 |00:00:00.01 |       0 |       |       |          |
@@ -76,7 +76,7 @@ Predicate Information (identified by operation id):
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.09
+Elapsed: 00:00:00.13
 Solution - all intermediate, depth first
 
 NODE                    LEV PATH                                 COST      RNK_T        RNK LP
@@ -139,7 +139,7 @@ Plan hash value: 4277657746
 |   6 |       TABLE ACCESS BY INDEX ROWID BATCHED  | ARCS_AJ_DIR    |      1 |      2 |      3 |00:00:00.01 |       2 |       |       |          |
 |*  7 |        INDEX RANGE SCAN                    | ARCS_AJ_DIR_PK |      1 |      2 |      3 |00:00:00.01 |       1 |       |       |          |
 |   8 |       WINDOW SORT                          |                |      4 |    484 |     24 |00:00:00.01 |       7 |  2048 |  2048 | 2048  (0)|
-|*  9 |        HASH JOIN                           |                |      4 |    484 |     24 |00:00:00.01 |       7 |  1856K|  1856K| 1160K (0)|
+|*  9 |        HASH JOIN                           |                |      4 |    484 |     24 |00:00:00.01 |       7 |  1856K|  1856K| 1200K (0)|
 |  10 |         BUFFER SORT (REUSE)                |                |      4 |        |     80 |00:00:00.01 |       7 | 73728 | 73728 |          |
 |  11 |          TABLE ACCESS FULL                 | ARCS_AJ_DIR    |      1 |     20 |     20 |00:00:00.01 |       7 |       |       |          |
 |  12 |         RECURSIVE WITH PUMP                |                |      4 |        |     15 |00:00:00.01 |       0 |       |       |          |
@@ -151,7 +151,7 @@ Predicate Information (identified by operation id):
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.09
+Elapsed: 00:00:00.11
 Solution -  all intermediate, breadth first
 
 NODE                    LEV PATH                                 COST      RNK_T        RNK LP
@@ -214,7 +214,7 @@ Plan hash value: 1901300209
 |   6 |       TABLE ACCESS BY INDEX ROWID BATCHED    | ARCS_AJ_DIR    |      1 |      2 |      3 |00:00:00.01 |       2 |       |       |          |
 |*  7 |        INDEX RANGE SCAN                      | ARCS_AJ_DIR_PK |      1 |      2 |      3 |00:00:00.01 |       1 |       |       |          |
 |   8 |       WINDOW SORT                            |                |      4 |    484 |     24 |00:00:00.01 |       7 |  2048 |  2048 | 2048  (0)|
-|*  9 |        HASH JOIN                             |                |      4 |    484 |     24 |00:00:00.01 |       7 |  1856K|  1856K| 1165K (0)|
+|*  9 |        HASH JOIN                             |                |      4 |    484 |     24 |00:00:00.01 |       7 |  1856K|  1856K| 1200K (0)|
 |  10 |         BUFFER SORT (REUSE)                  |                |      4 |        |     80 |00:00:00.01 |       7 | 73728 | 73728 |          |
 |  11 |          TABLE ACCESS FULL                   | ARCS_AJ_DIR    |      1 |     20 |     20 |00:00:00.01 |       7 |       |       |          |
 |  12 |         RECURSIVE WITH PUMP                  |                |      4 |        |     15 |00:00:00.01 |       0 |       |       |          |
@@ -226,7 +226,7 @@ Predicate Information (identified by operation id):
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.09
+Elapsed: 00:00:00.11
 All solutions
 
 NODE                    LEV PATH                                 COST      RNK_T        RNK LP
@@ -309,7 +309,7 @@ Plan hash value: 4277657746
 |   6 |       TABLE ACCESS BY INDEX ROWID BATCHED  | ARCS_AJ_DIR    |      1 |      2 |      3 |00:00:00.01 |       2 |       |       |          |
 |*  7 |        INDEX RANGE SCAN                    | ARCS_AJ_DIR_PK |      1 |      2 |      3 |00:00:00.01 |       1 |       |       |          |
 |   8 |       WINDOW SORT                          |                |      4 |    484 |     45 |00:00:00.01 |       7 |  2048 |  2048 | 2048  (0)|
-|*  9 |        HASH JOIN                           |                |      4 |    484 |     45 |00:00:00.01 |       7 |  1856K|  1856K| 1161K (0)|
+|*  9 |        HASH JOIN                           |                |      4 |    484 |     45 |00:00:00.01 |       7 |  1856K|  1856K| 1197K (0)|
 |  10 |         BUFFER SORT (REUSE)                |                |      4 |        |     80 |00:00:00.01 |       7 | 73728 | 73728 |          |
 |  11 |          TABLE ACCESS FULL                 | ARCS_AJ_DIR    |      1 |     20 |     20 |00:00:00.01 |       7 |       |       |          |
 |  12 |         RECURSIVE WITH PUMP                |                |      4 |        |     48 |00:00:00.01 |       0 |       |       |          |
@@ -321,7 +321,7 @@ Predicate Information (identified by operation id):
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.08
+Elapsed: 00:00:00.12
 
 PL/SQL procedure successfully completed.
 
@@ -373,9 +373,9 @@ Predicate Information (identified by operation id):
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.08
+Elapsed: 00:00:00.12
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 24-MAR-2020 12:02:38
+End: 26-MAR-2020 12:29:08
 

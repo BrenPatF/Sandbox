@@ -22,6 +22,4 @@ DROP USER app CASCADE
 
 GRANT CREATE SYNONYM TO bal_num_part, fan_foot, knapsack, shortest_path, tsp
 /
-GRANT SELECT ON v_$sql_plan_statistics_all TO bal_num_part, fan_foot, knapsack, shortest_path, tsp
-/
 @install_prereq\endspool

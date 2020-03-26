@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          22-MAR-2020 16:14:20 Version 19.3.0.0.0
+Start: ORCL          26-MAR-2020 11:49:13 Version 19.3.0.0.0
 
 Point view at England tables and set England bind variables
 
@@ -130,7 +130,7 @@ TOT_PROFIT  TOT_PRICE        RNK PO P_ID PLAYER_NAME          CLUB_NAME         
 
 110 rows selected.
 
-Elapsed: 00:00:32.89
+Elapsed: 00:00:34.80
 SQL_ID  dc2utgdukrh50, child number 0
 -------------------------------------
 WITH  /* FF_QRY */ position_counts AS ( SELECT Min (CASE WHEN id !=
@@ -148,41 +148,41 @@ n_pos, team_size, min_players, pos_path, path) AS ( SELECT 0, 0, 0, 0,
 Row_Number() OVER (PARTITION BY r.pos_path || p.position_id ORDER BY
 r.tot_profit + p.avg_points DESC),        p.rnk,        r.lev + 1,
 r.tot_price + p.price,
-Plan hash value: 1196386532
+Plan hash value: 1491208478
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                                        | Name                      | Starts | E-Rows | A-Rows |   A-Time   | Buffers | Reads  | Writes |  OMem |  1Mem | Used-Mem | Used-Tmp|
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                                 |                           |      1 |        |    110 |00:00:32.79 |      32M|  10987 |  10987 |       |       |          |         |
-|   1 |  TEMP TABLE TRANSFORMATION                       |                           |      1 |        |    110 |00:00:32.79 |      32M|  10987 |  10987 |       |       |          |         |
-|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)        | SYS_TEMP_0FD9D66C3_5E5FE0 |      1 |        |      0 |00:00:00.01 |       8 |      0 |      0 |  1024 |  1024 |          |         |
+|   0 | SELECT STATEMENT                                 |                           |      1 |        |    110 |00:00:34.70 |      32M|  10987 |  10987 |       |       |          |         |
+|   1 |  TEMP TABLE TRANSFORMATION                       |                           |      1 |        |    110 |00:00:34.70 |      32M|  10987 |  10987 |       |       |          |         |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)        | SYS_TEMP_0FD9D669B_6A4DD3 |      1 |        |      0 |00:00:00.01 |       8 |      0 |      0 |  1024 |  1024 |          |         |
 |   3 |    SORT AGGREGATE                                |                           |      1 |      1 |      1 |00:00:00.01 |       7 |      0 |      0 |       |       |          |         |
 |   4 |     TABLE ACCESS FULL                            | EPL_POSITIONS             |      1 |      5 |      5 |00:00:00.01 |       7 |      0 |      0 |       |       |          |         |
-|   5 |   SORT ORDER BY                                  |                           |      1 |      7 |    110 |00:00:32.79 |      32M|  10987 |  10987 | 27648 | 27648 |24576  (0)|         |
-|*  6 |    HASH JOIN                                     |                           |      1 |      7 |    110 |00:00:32.79 |      32M|  10987 |  10987 |  1014K|  1014K| 1215K (0)|         |
-|   7 |     MERGE JOIN CARTESIAN                         |                           |      1 |     10 |    110 |00:00:32.79 |      32M|  10987 |  10987 |       |       |          |         |
+|   5 |   SORT ORDER BY                                  |                           |      1 |      7 |    110 |00:00:34.70 |      32M|  10987 |  10987 | 27648 | 27648 |24576  (0)|         |
+|*  6 |    HASH JOIN                                     |                           |      1 |      7 |    110 |00:00:34.70 |      32M|  10987 |  10987 |  1014K|  1014K| 1204K (0)|         |
+|   7 |     MERGE JOIN CARTESIAN                         |                           |      1 |     10 |    110 |00:00:34.70 |      32M|  10987 |  10987 |       |       |          |         |
 |   8 |      VIEW                                        |                           |      1 |      1 |     11 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
 |   9 |       CONNECT BY WITHOUT FILTERING               |                           |      1 |        |     11 |00:00:00.01 |       0 |      0 |      0 |  2048 |  2048 | 2048  (0)|         |
 |  10 |        VIEW                                      |                           |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
-|  11 |         TABLE ACCESS FULL                        | SYS_TEMP_0FD9D66C3_5E5FE0 |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
-|  12 |      BUFFER SORT                                 |                           |     11 |     10 |    110 |00:00:32.79 |      32M|  10987 |  10987 |  2048 |  2048 | 2048  (0)|         |
-|* 13 |       VIEW                                       |                           |      1 |     10 |     10 |00:00:32.79 |      32M|  10987 |  10987 |       |       |          |         |
-|* 14 |        WINDOW SORT PUSHED RANK                   |                           |      1 |      2 |     10 |00:00:32.79 |      32M|  10987 |  10987 |  2048 |  2048 | 2048  (0)|         |
-|* 15 |         VIEW                                     |                           |      1 |      2 |    112K|00:00:32.81 |      32M|  10987 |  10987 |       |       |          |         |
-|  16 |          UNION ALL (RECURSIVE WITH) BREADTH FIRST|                           |      1 |        |   1440K|00:00:27.87 |      32M|  10987 |  10987 |    29M|  1949K|   25M (0)|         |
+|  11 |         TABLE ACCESS FULL                        | SYS_TEMP_0FD9D669B_6A4DD3 |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
+|  12 |      BUFFER SORT                                 |                           |     11 |     10 |    110 |00:00:34.70 |      32M|  10987 |  10987 |  2048 |  2048 | 2048  (0)|         |
+|* 13 |       VIEW                                       |                           |      1 |     10 |     10 |00:00:34.70 |      32M|  10987 |  10987 |       |       |          |         |
+|* 14 |        WINDOW SORT PUSHED RANK                   |                           |      1 |      2 |     10 |00:00:34.70 |      32M|  10987 |  10987 |  2048 |  2048 | 2048  (0)|         |
+|* 15 |         VIEW                                     |                           |      1 |      2 |    112K|00:00:34.69 |      32M|  10987 |  10987 |       |       |          |         |
+|  16 |          UNION ALL (RECURSIVE WITH) BREADTH FIRST|                           |      1 |        |   1440K|00:00:29.21 |      32M|  10987 |  10987 |    29M|  1949K|   25M (0)|         |
 |  17 |           VIEW                                   |                           |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
-|  18 |            TABLE ACCESS FULL                     | SYS_TEMP_0FD9D66C3_5E5FE0 |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
-|  19 |           WINDOW SORT                            |                           |     12 |      1 |   1440K|00:00:06.35 |     178 |  10987 |  10987 |    41M|  2287K|   37M (0)|         |
-|* 20 |            HASH JOIN                             |                           |     12 |      1 |   1440K|00:00:04.32 |     178 |  10987 |  10987 |    41M|  4559K|   51M (0)|      30M|
-|  21 |             NESTED LOOPS                         |                           |     12 |      1 |   1621K|00:00:02.71 |     176 |      0 |      0 |       |       |          |         |
-|  22 |              RECURSIVE WITH PUMP                 |                           |     12 |        |   6397 |00:00:00.35 |       0 |      0 |      0 |       |       |          |         |
-|* 23 |              VIEW                                |                           |   6397 |      1 |   1621K|00:00:02.52 |     176 |      0 |      0 |       |       |          |         |
-|  24 |               WINDOW SORT                        |                           |   6397 |    575 |   3684K|00:00:01.62 |     176 |      0 |      0 | 76800 | 76800 |67584  (0)|         |
+|  18 |            TABLE ACCESS FULL                     | SYS_TEMP_0FD9D669B_6A4DD3 |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
+|  19 |           WINDOW SORT                            |                           |     12 |      1 |   1440K|00:00:06.89 |     178 |  10987 |  10987 |    41M|  2287K|   37M (0)|         |
+|* 20 |            HASH JOIN                             |                           |     12 |      1 |   1440K|00:00:04.71 |     178 |  10987 |  10987 |    41M|  4559K|   51M (0)|      30M|
+|  21 |             NESTED LOOPS                         |                           |     12 |      1 |   1621K|00:00:03.13 |     176 |      0 |      0 |       |       |          |         |
+|  22 |              RECURSIVE WITH PUMP                 |                           |     12 |        |   6397 |00:00:00.16 |       0 |      0 |      0 |       |       |          |         |
+|* 23 |              VIEW                                |                           |   6397 |      1 |   1621K|00:00:02.82 |     176 |      0 |      0 |       |       |          |         |
+|  24 |               WINDOW SORT                        |                           |   6397 |    575 |   3684K|00:00:01.79 |     176 |      0 |      0 | 68608 | 68608 |61440  (0)|         |
 |* 25 |                TABLE ACCESS FULL                 | EPL_PLAYERS               |     11 |    575 |   6336 |00:00:00.01 |     176 |      0 |      0 |       |       |          |         |
 |  26 |             BUFFER SORT (REUSE)                  |                           |     11 |        |     55 |00:00:00.01 |       2 |      0 |      0 | 73728 | 73728 |          |         |
 |  27 |              VIEW                                |                           |      1 |      5 |      5 |00:00:00.01 |       2 |      0 |      0 |       |       |          |         |
 |  28 |               WINDOW BUFFER                      |                           |      1 |      5 |      5 |00:00:00.01 |       2 |      0 |      0 |  2048 |  2048 | 2048  (0)|         |
 |  29 |                TABLE ACCESS BY INDEX ROWID       | EPL_POSITIONS             |      1 |      5 |      5 |00:00:00.01 |       2 |      0 |      0 |       |       |          |         |
-|  30 |                 INDEX FULL SCAN DESCENDING       | SYS_C008004               |      1 |      5 |      5 |00:00:00.01 |       1 |      0 |      0 |       |       |          |         |
+|  30 |                 INDEX FULL SCAN DESCENDING       | SYS_C008146               |      1 |      5 |      5 |00:00:00.01 |       1 |      0 |      0 |       |       |          |         |
 |* 31 |     TABLE ACCESS FULL                            | EPL_PLAYERS               |      1 |    575 |    576 |00:00:00.01 |      16 |      0 |      0 |       |       |          |         |
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Predicate Information (identified by operation id):
@@ -304,23 +304,23 @@ SOL_PROFIT  SOL_PRICE        RNK PO ITEM_ID    PLAYER_NAME          CLUB_NAME   
                                     30         Santi Santi Cazorla  Arsenal                 97        198
                                     641        Miguel Michu         Swansea                 79        169
                                     661        Gareth Bale          Tottenham              111        240
-                  899         10 DF 165        Leighton Baines      Everton                 78        173
-                                    270        Sanchez Jose Enrique Liverpool               61        133
+                  897         10 DF 165        Leighton Baines      Everton                 78        173
+                                    248        Daniel Agger         Liverpool               64        133
                                     332        Patrice Evra         Man Utd                 73        152
                                  FW 286        Luis Suarez          Liverpool              105        213
-                                    47         Christian Benteke    Aston Villa             74        166
                                     533        Rickie Lambert       Southampton             69        178
                                  GK 549        Asmir Begovic        Stoke City              56        154
-                                 MF 149        Juan Mata            Chelsea                102        190
-                                    177        Marouane Fellaini    Everton                 73        168
+                                 MF 177        Marouane Fellaini    Everton                 73        168
+                                    265        Steven Gerrard       Liverpool               92        187
                                     30         Santi Santi Cazorla  Arsenal                 97        198
+                                    641        Miguel Michu         Swansea                 79        169
                                     661        Gareth Bale          Tottenham              111        240
 
 110 rows selected.
 
 Collected 5 cats
 Collected 576 items
-cats
+6 cats
 Hash first price min / profit max 21312 / 138240
 10: price min / profit max 37 / 240
 9: price min / profit max 74 / 453
@@ -332,11 +332,131 @@ Hash first price min / profit max 21312 / 138240
 3: price min / profit max 301 / 1551
 2: price min / profit max 339 / 1722
 1: price min / profit max 377 / 1891
-Price min / profit max 37 / 240
+Price min / profit max 37 / 1320
 Cat 1 : DF - 3 - 5 - 1 - 179
 Cat 2 : FW - 1 - 3 - 180 - 286
 Cat 3 : GK - 1 - 1 - 287 - 330
 Cat 4 : MF - 2 - 5 - 331 - 576
+Profit = 1973, price = 898 items...
+... 165
+... 332
+... 268
+... 286
+... 533
+... 549
+... 661
+... 30
+... 265
+... 641
+... 177
+Profit = 1968, price = 899 items...
+... 165
+... 332
+... 569
+... 286
+... 533
+... 549
+... 661
+... 30
+... 149
+... 641
+... 177
+Profit = 1966, price = 900 items...
+... 165
+... 332
+... 569
+... 286
+... 533
+... 47
+... 549
+... 661
+... 30
+... 149
+... 641
+Profit = 1971, price = 899 items...
+... 165
+... 332
+... 268
+... 286
+... 533
+... 47
+... 549
+... 661
+... 30
+... 265
+... 641
+Profit = 1967, price = 900 items...
+... 165
+... 569
+... 270
+... 286
+... 533
+... 549
+... 661
+... 30
+... 149
+... 265
+... 177
+Profit = 1965, price = 897 items...
+... 165
+... 332
+... 248
+... 286
+... 533
+... 549
+... 661
+... 30
+... 265
+... 641
+... 177
+Profit = 1970, price = 893 items...
+... 165
+... 332
+... 268
+... 286
+... 533
+... 47
+... 549
+... 661
+... 30
+... 265
+... 177
+Profit = 1968, price = 900 items...
+... 165
+... 332
+... 268
+... 286
+... 533
+... 204
+... 549
+... 661
+... 30
+... 149
+... 177
+Profit = 1965, price = 894 items...
+... 165
+... 332
+... 270
+... 286
+... 533
+... 549
+... 661
+... 30
+... 265
+... 641
+... 177
+Profit = 1966, price = 896 items...
+... 165
+... 332
+... 268
+... 286
+... 533
+... 204
+... 549
+... 661
+... 30
+... 265
+... 641
 Profit = 1973, price = 898 items...
 ... 165
 ... 332
@@ -433,10 +553,10 @@ Profit = 1966, price = 896 items...
 ... 30
 ... 265
 ... 641
-Profit = 1965, price = 894 items...
+Profit = 1965, price = 897 items...
 ... 165
 ... 332
-... 270
+... 248
 ... 286
 ... 533
 ... 549
@@ -445,22 +565,31 @@ Profit = 1965, price = 894 items...
 ... 265
 ... 641
 ... 177
-Profit = 1965, price = 899 items...
-36036763 solutions found in 1183748 recursive calls
-Timer Set: Best_N_Sets, Constructed at 22 Mar 2020 16:14:53, written at 16:31:37
+Profit = 1965, price = 894 items...
+35622182 solutions found in 1206997 recursive calls
+Timer Set: Best_N_Sets, Constructed at 26 Mar 2020 11:49:48, written at 12:12:08
 ================================================================================
 Timer            Elapsed         CPU       Calls       Ela/Call       CPU/Call
 ------------  ----------  ----------  ----------  -------------  -------------
-Pop_Arrays          0.00        0.00           1        0.00400        0.00000
-Try_Position     1003.97     1002.09           1     1003.96700     1002.09000
+Pop_Arrays          0.01        0.01           1        0.00500        0.01000
+Try_Position     1340.70     1329.08           1     1340.69500     1329.08000
 Write_Sols          0.00        0.00           1        0.00000        0.00000
 Pipe                0.00        0.00           1        0.00100        0.00000
 (Other)             0.00        0.00           1        0.00000        0.00000
 ------------  ----------  ----------  ----------  -------------  -------------
-Total            1003.97     1002.09           5      200.79440      200.41800
+Total            1340.70     1329.09           5      268.14020      265.81800
 ------------  ----------  ----------  ----------  -------------  -------------
-[Timer timed (per call in ms): Elapsed: 0.00980, CPU: 0.01078]
-Elapsed: 00:16:44.23
+[Timer timed (per call in ms): Elapsed: 0.01111, CPU: 0.01222]
+Timer Set: Try_Position, Constructed at 26 Mar 2020 11:49:48, written at 12:12:08
+=================================================================================
+Timer       Elapsed         CPU       Calls       Ela/Call       CPU/Call
+-------  ----------  ----------  ----------  -------------  -------------
+(Other)     1340.80     1329.20           1     1340.80100     1329.20000
+-------  ----------  ----------  ----------  -------------  -------------
+Total       1340.80     1329.20           1     1340.80100     1329.20000
+-------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01667, CPU: 0.01667]
+Elapsed: 00:22:21.17
 SQL_ID  8ngag9ndmr65k, child number 0
 -------------------------------------
 SELECT  /*+ gather_plan_statistics FF_PLF */        t.sol_profit,
@@ -482,11 +611,11 @@ Plan hash value: 1973281990
 ------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                           | Name          | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 ------------------------------------------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                    |               |      1 |        |    110 |00:09:02.89 |     108 |       |       |          |
-|   1 |  WINDOW SORT                        |               |      1 |   5543 |    110 |00:09:02.89 |     108 | 24576 | 24576 |22528  (0)|
-|*  2 |   HASH JOIN                         |               |      1 |   5543 |    110 |00:09:02.80 |     108 |  1115K|  1115K| 1339K (0)|
+|   0 | SELECT STATEMENT                    |               |      1 |        |    110 |00:16:30.39 |      36 |       |       |          |
+|   1 |  WINDOW SORT                        |               |      1 |   5543 |    110 |00:16:30.39 |      36 | 20480 | 20480 |18432  (0)|
+|*  2 |   HASH JOIN                         |               |      1 |   5543 |    110 |00:16:30.19 |      36 |  1115K|  1115K| 1306K (0)|
 |*  3 |    TABLE ACCESS FULL                | EPL_PLAYERS   |      1 |    575 |    576 |00:00:00.01 |      15 |       |       |          |
-|   4 |    COLLECTION ITERATOR PICKLER FETCH| BEST_N_SETS   |      1 |   8168 |    110 |00:09:02.79 |      93 |       |       |          |
+|   4 |    COLLECTION ITERATOR PICKLER FETCH| BEST_N_SETS   |      1 |   8168 |    110 |00:16:30.18 |      21 |       |       |          |
 |   5 |     SORT ORDER BY                   |               |      0 |      5 |      0 |00:00:00.01 |       0 | 73728 | 73728 |          |
 |   6 |      TABLE ACCESS FULL              | EPL_POSITIONS |      0 |      5 |      0 |00:00:00.01 |       0 |       |       |          |
 |   7 |     SORT ORDER BY                   |               |      0 |    575 |      0 |00:00:00.01 |       0 | 73728 | 73728 |          |
@@ -503,5 +632,5 @@ PL/SQL procedure successfully completed.
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 22-MAR-2020 16:31:37
+End: 26-MAR-2020 12:12:09
 

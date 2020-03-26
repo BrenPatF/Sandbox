@@ -32,30 +32,51 @@ Here is a summary article that embeds all of the above plus another couple of re
 ## Prerequisites
 In order to install this project you need to have sys access to an Oracle database, minimum version 11.2, along with a suitable database server directory to use for loading data via external tables.
 
-## Install Steps
-### Common install steps (including creation of subproject schemas)
-- Update install_sys.sql with the name of an input directory on your database server that can be used for external tables to read from (initially set to 'C:\input')
-- Place all the files in the db_server_input folder there
-#### [Schema: sys; Folder: bren] Create schemas
-- Update the login script sys.bat for your own credentials for the sys schema (if necessary)
-- Run script from slqplus, or other SQL client, to set up the bren common schema, and the problem-specific schemas:
+## Installation
+
+The install depends on the prerequisite module Utils and `lib` schema refers to the schema in which Utils is installed.
+
+### Install 1: Install prerequisite modules
+
+The prerequisite module can be installed by following the instructions at [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils). This allows inclusion of the examples and unit tests for the module. Alternatively, the next section shows how to install the modules directly without the example or unit tests here.
+
+#### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
+- install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
+- Run script from slqplus:
 ```
 SQL> @install_sys
 ```
-#### [Schema: bren; Folder: bren] Create common components in bren schema
-- Update the login script bren.bat for your own credentials for the bren schema (if necessary)
-- Run script from slqplus, or other SQL client, to set up the bren common components:
+This install creates an app schema, which is not used by the current project so will be dropped later, in the main install.
+
+#### [Schema: lib; Folder: install_prereq\lib] Create lib components
+- Run script from slqplus:
 ```
-SQL> @install_bren
+SQL> @install_lib_all
 ```
-### Subproject install steps
+
+### Install 2: Create sql_demos components
+
+#### [Schema: sys; Folder: (root)] Drop app schema, create subproject schemas and grant privilege
+- install_sys.sql drops the app schema that is not needed, creates a schema for each subproject and grants privileges to the new schemas.
+- Run script from slqplus:
+```
+SQL> @install_sys
+```
+
+#### [Schema: lib; Folder: lib] Create lib components (grants to subproject schemas)
+- Run script from slqplus:
+```
+SQL> @install_lib_all
+```
+
+### Install 3: Subproject install steps
 The subproject READMEs have the install and run steps, which are summarised below:
 - Run the install script for each schema (as desired) to create the schema objects (you may need to update the login scripts `schema`.bat):
-	- knapsack:      install_knapsack.sql
 	- bal_num_part:  install_bal_num_part.sql
 	- fan_foot:      install_fan_foot.sql
-	- tsp:           install_tsp.sql
+	- knapsack:      install_knapsack.sql
 	- shortest_path: install_shortest_path.sql
+	- tsp:           install_tsp.sql
 - Run main_*.sql as desired in the specific schemas to run the SQL for the different datasets and get execution plans and results logs. For example, for fan_foot: main_bra.sql and main_eng.sql are the driving scripts
 
 ## Video

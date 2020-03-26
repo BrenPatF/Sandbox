@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          24-MAR-2020 11:14:56 Version 19.3.0.0.0
+Start: ORCL          26-MAR-2020 11:48:45 Version 19.3.0.0.0
 
 Creating synonyms for lib Utils components...
 old   1: CREATE OR REPLACE SYNONYM L1_chr_arr FOR &lib..L1_chr_arr
@@ -114,5 +114,5 @@ No errors.
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 24-MAR-2020 11:14:57
+End: 26-MAR-2020 11:48:46
 

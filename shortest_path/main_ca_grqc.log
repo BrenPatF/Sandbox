@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          24-MAR-2020 11:40:31 Version 19.3.0.0.0
+Start: ORCL          26-MAR-2020 12:28:36 Version 19.3.0.0.0
 
 Point view to arcs_ca_grqc
 
@@ -53,14 +53,14 @@ Plan hash value: 2196629848
 --------------------------------------------------------------------------------------------------------------------------------------------------
 | Id  | Operation                                 | Name            | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
 --------------------------------------------------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                          |                 |      1 |        |     14 |00:00:00.03 |      63 |       |       |          |
-|   1 |  WINDOW SORT                              |                 |      1 |   5242 |     14 |00:00:00.03 |      63 |  2048 |  2048 | 2048  (0)|
-|   2 |   SORT GROUP BY                           |                 |      1 |   5242 |     14 |00:00:00.03 |      63 |   102K|   102K|92160  (0)|
-|   3 |    VIEW                                   |                 |      1 |    939K|    230 |00:00:00.03 |      63 |       |       |          |
+|   0 | SELECT STATEMENT                          |                 |      1 |        |     14 |00:00:00.04 |      63 |       |       |          |
+|   1 |  WINDOW SORT                              |                 |      1 |   5242 |     14 |00:00:00.04 |      63 |  2048 |  2048 | 2048  (0)|
+|   2 |   SORT GROUP BY                           |                 |      1 |   5242 |     14 |00:00:00.04 |      63 |   102K|   102K|92160  (0)|
+|   3 |    VIEW                                   |                 |      1 |    939K|    230 |00:00:00.04 |      63 |       |       |          |
 |   4 |     UNION ALL (RECURSIVE WITH) DEPTH FIRST|                 |      1 |        |    230 |00:00:00.03 |      63 | 29696 | 29696 |26624  (0)|
 |*  5 |      INDEX RANGE SCAN                     | ARCS_CA_GRQC_PK |      1 |      6 |      3 |00:00:00.01 |       2 |       |       |          |
 |   6 |      WINDOW SORT                          |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  4096 |  4096 | 4096  (0)|
-|*  7 |       HASH JOIN                           |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  2844K|  2395K| 3656K (0)|
+|*  7 |       HASH JOIN                           |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  2844K|  2395K| 3566K (0)|
 |   8 |        BUFFER SORT (REUSE)                |                 |      7 |        |    202K|00:00:00.01 |      61 |  1328K|   587K| 1180K (0)|
 |   9 |         TABLE ACCESS FULL                 | ARCS_CA_GRQC    |      1 |  28980 |  28980 |00:00:00.01 |      61 |       |       |          |
 |  10 |        RECURSIVE WITH PUMP                |                 |      7 |        |     55 |00:00:00.01 |       0 |       |       |          |
@@ -72,7 +72,7 @@ Predicate Information (identified by operation id):
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.15
+Elapsed: 00:00:00.13
 BPF Exact solution - SP_RSFTWO
 old   4:  WHERE a.src = &SRC
 new   4:  WHERE a.src = 10677
@@ -129,16 +129,16 @@ Plan hash value: 1348281114
 |   4 |     UNION ALL (RECURSIVE WITH) DEPTH FIRST          |                 |      1 |        |     18 |00:00:00.05 |     126 |  2048 |  2048 | 2048  (0)|
 |*  5 |      INDEX RANGE SCAN                               | ARCS_CA_GRQC_PK |      1 |      6 |      3 |00:00:00.01 |       2 |       |       |          |
 |   6 |      WINDOW SORT                                    |                 |      2 |   2350 |     15 |00:00:00.05 |     124 |  2048 |  2048 | 2048  (0)|
-|*  7 |       HASH JOIN                                     |                 |      2 |   2350 |     15 |00:00:00.05 |     124 |  2949K|  2146K| 4559K (0)|
+|*  7 |       HASH JOIN                                     |                 |      2 |   2350 |     15 |00:00:00.05 |     124 |  2949K|  2146K| 4592K (0)|
 |   8 |        BUFFER SORT (REUSE)                          |                 |      2 |        |  57960 |00:00:00.04 |     124 |  1328K|   587K| 1180K (0)|
-|*  9 |         HASH JOIN RIGHT OUTER                       |                 |      1 |  28980 |  28980 |00:00:00.04 |     124 |  1995K|  1995K| 1439K (0)|
+|*  9 |         HASH JOIN RIGHT OUTER                       |                 |      1 |  28980 |  28980 |00:00:00.04 |     124 |  1995K|  1995K| 1361K (0)|
 |  10 |          VIEW                                       |                 |      1 |   5242 |     14 |00:00:00.03 |      63 |       |       |          |
 |  11 |           SORT GROUP BY                             |                 |      1 |   5242 |     14 |00:00:00.03 |      63 |  2048 |  2048 | 2048  (0)|
 |  12 |            VIEW                                     |                 |      1 |    939K|    230 |00:00:00.01 |      63 |       |       |          |
 |  13 |             UNION ALL (RECURSIVE WITH) BREADTH FIRST|                 |      1 |        |    230 |00:00:00.01 |      63 |  4096 |  4096 | 4096  (0)|
 |* 14 |              INDEX RANGE SCAN                       | ARCS_CA_GRQC_PK |      1 |      6 |      3 |00:00:00.01 |       2 |       |       |          |
 |  15 |              WINDOW SORT                            |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  4096 |  4096 | 4096  (0)|
-|* 16 |               HASH JOIN                             |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  2844K|  2395K| 3679K (0)|
+|* 16 |               HASH JOIN                             |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  2844K|  2395K| 3693K (0)|
 |  17 |                BUFFER SORT (REUSE)                  |                 |      7 |        |    202K|00:00:00.01 |      61 |  1328K|   587K| 1180K (0)|
 |  18 |                 TABLE ACCESS FULL                   | ARCS_CA_GRQC    |      1 |  28980 |  28980 |00:00:00.01 |      61 |       |       |          |
 |  19 |                RECURSIVE WITH PUMP                  |                 |      7 |        |     55 |00:00:00.01 |       0 |       |       |          |
@@ -156,7 +156,7 @@ filter("P"."LEV"<NVL("B"."LEV",1000000))
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.13
+Elapsed: 00:00:00.14
 BPF Exact Solution - SP_GTTRSF_I - Insert approximate to GTT
 old   5: WHERE a.src = &SRC
 new   5: WHERE a.src = 10677
@@ -165,7 +165,7 @@ new  15:    AND p.lev < 10
 
 14 rows created.
 
-Elapsed: 00:00:00.03
+Elapsed: 00:00:00.04
 SQL_ID  dygkskk4jwd43, child number 0
 -------------------------------------
 INSERT INTO approx_min_levs WITH paths_0 (node, path, lev, rn) /*
@@ -188,7 +188,7 @@ Plan hash value: 1249960226
 |   4 |     UNION ALL (RECURSIVE WITH) BREADTH FIRST|                 |      1 |        |    230 |00:00:00.01 |      63 |  4096 |  4096 | 4096  (0)|
 |*  5 |      INDEX RANGE SCAN                       | ARCS_CA_GRQC_PK |      1 |      6 |      3 |00:00:00.01 |       2 |       |       |          |
 |   6 |      WINDOW SORT                            |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  4096 |  4096 | 4096  (0)|
-|*  7 |       HASH JOIN                             |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  2844K|  2395K| 3635K (0)|
+|*  7 |       HASH JOIN                             |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  2844K|  2395K| 3657K (0)|
 |   8 |        BUFFER SORT (REUSE)                  |                 |      7 |        |    202K|00:00:00.01 |      61 |  1328K|   587K| 1180K (0)|
 |   9 |         TABLE ACCESS FULL                   | ARCS_CA_GRQC    |      1 |  28980 |  28980 |00:00:00.01 |      61 |       |       |          |
 |  10 |        RECURSIVE WITH PUMP                  |                 |      7 |        |     55 |00:00:00.01 |       0 |       |       |          |
@@ -200,7 +200,7 @@ Predicate Information (identified by operation id):
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.11
+Elapsed: 00:00:00.13
 BPF Exact solution - SP_GTTRSF_Q - Query
 old   4: WHERE a.src = &SRC
 new   4: WHERE a.src = 10677
@@ -273,9 +273,9 @@ Note
 
 PL/SQL procedure successfully completed.
 
-Elapsed: 00:00:00.16
+Elapsed: 00:00:00.14
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 24-MAR-2020 11:40:32
+End: 26-MAR-2020 12:28:37
 
