@@ -10,11 +10,6 @@ Further details: 'A Simple SQL Solution for the Knapsack Problem (SKP-1)', Janua
                  http://aprogrammerwrites.eu/?p=560
 ***************************************************************************************************/
 
-BEGIN
-  Utils.Clear_Log;
-  Utils.g_debug_level := 0;
-END;
-/
 COLUMN path FORMAT A30
 COLUMN node FORMAT A10
 COLUMN p_id FORMAT A4
@@ -42,7 +37,7 @@ SELECT  /*+ gather_plan_statistics */
   FROM rsf
  ORDER BY line_no
 /
-EXECUTE Utils.Write_Plan (p_sql_marker => 'XTREE');
+EXECUTE Utils.W(Utils.Get_XPlan (p_sql_marker => 'XTREE'));
 
 PROMPT Best combinations - RSF with RANK
 WITH /* XRNK */ rsf (nxt_id, lev, tot_weight, tot_profit, path) AS (
@@ -81,7 +76,7 @@ SELECT  /*+ gather_plan_statistics */
  WHERE rnk_profit = 1
  ORDER BY tot_profit DESC
 /
-EXECUTE Utils.Write_Plan (p_sql_marker => 'XRNK');
+EXECUTE Utils.W(Utils.Get_XPlan (p_sql_marker => 'XRNK'));
 
 PROMPT Best combinations - RSF with KEEP
 WITH /* XKEE */  rsf (nxt_id, lev, tot_weight, tot_profit, path) AS (
@@ -112,7 +107,7 @@ SELECT /*+ gather_plan_statistics */
  WHERE is_leaf = 'Y'
  ORDER BY 1 DESC
 /
-EXECUTE Utils.Write_Plan (p_sql_marker => 'XKEE');
+EXECUTE Utils.W(Utils.Get_XPlan (p_sql_marker => 'XKEE'));
 
 PROMPT PL/SQL Recursion
 DECLARE
@@ -209,7 +204,7 @@ BEGIN
 
   END LOOP;
 
-  DBMS_Output.Put_Line (l_profit);
+  Utils.W(l_profit);
   l_profit := g_leaf_hash.LAST;
 
   FOR i IN 1..g_leaf_hash (l_profit).COUNT LOOP
@@ -224,13 +219,13 @@ BEGIN
 
     END LOOP;
     l_sol_cnt := l_sol_cnt + 1;
-    DBMS_Output.Put_Line ('Solution ' || l_sol_cnt || ' (profit ' || l_profit || ', weight ' || l_weight || ') : ' || RTrim (l_sol, ', '));
+    Utils.W('Solution ' || l_sol_cnt || ' (profit ' || l_profit || ', weight ' || l_weight || ') : ' || RTrim (l_sol, ', '));
 
   END LOOP;
 
   Timer_Set.Increment_Time (g_timer,  'Write output');
-  DBMS_Output.Put_Line ('Profit ' || l_profit || ' has ' || l_sol_cnt || ' solutions...');
-  Timer_Set.Write_Times (g_timer);
+  Utils.W('Profit ' || l_profit || ' has ' || l_sol_cnt || ' solutions...');
+  Utils.W(Timer_Set.Format_Results(g_timer));
 
 END;
 /
@@ -244,4 +239,3 @@ COLUMN COLUMN_VALUE FORMAT A100
 SELECT *
   FROM TABLE (Packing_Hash_PLF.Best_Fits (9))
 /
-@..\bren\l_log_default

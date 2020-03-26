@@ -150,10 +150,11 @@ BEGIN
 
   END LOOP;
 
-  Timer_Set.Increment_Time (g_timer,  'Write output');
-  Timer_Set.Write_Times (g_timer);
+  Timer_Set.Increment_Time(g_timer,  'Write output');
+  Utils.W(Timer_Set.Format_Results(g_timer));
 
 END Best_Fits;
 
 END Packing_Hash_PLF;
 /
+SHO ERR

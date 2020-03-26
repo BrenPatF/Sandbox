@@ -10,11 +10,6 @@ Further details: 'An SQL Solution for the Multiple Knapsack Problem (SKP-m)', Ja
                  http://aprogrammerwrites.eu/?p=635
 ***************************************************************************************************/
 
-BEGIN
-  Utils.Clear_Log;
-  Utils.g_debug_level := 0;
-END;
-/
 COLUMN itm_path FORMAT A30
 COLUMN path FORMAT A30
 COLUMN node FORMAT A10
@@ -61,7 +56,7 @@ SELECT  /*+ gather_plan_statistics */
   FROM rsf_itm
  ORDER BY line_no
 /
-EXECUTE Utils.Write_Plan (p_sql_marker => 'XTRE');
+EXECUTE Utils.W(Utils.Get_XPlan (p_sql_marker => 'XTRE'));
 
 BREAK ON sol_id ON s_wt ON s_pr ON c_id ON c_name ON m_wt ON c_wt
 PROMPT Solution with path tree
@@ -114,7 +109,7 @@ SELECT /*+ gather_plan_statistics */
   FROM rsf_con
  ORDER BY line_no
 /
-EXECUTE Utils.Write_Plan (p_sql_marker => 'XTR2');
+EXECUTE Utils.W(Utils.Get_XPlan (p_sql_marker => 'XTR2'));
 
 PROMPT Solution with path
 WITH /* XSTR */ rsf_itm (con_id, max_weight, itm_id, tot_weight, tot_profit, path) AS (
@@ -168,7 +163,7 @@ SELECT /*+ gather_plan_statistics */
   FROM paths_ranked p
  ORDER BY sol_id
 /
-EXECUTE Utils.Write_Plan (p_sql_marker => 'XSTR');
+EXECUTE Utils.W(Utils.Get_XPlan (p_sql_marker => 'XSTR'));
 
 PROMPT Solution with SQL and functions
 WITH /* XFUN */ rsf_itm (con_id, max_weight, itm_id, tot_weight, tot_profit, path) AS (
@@ -232,7 +227,7 @@ SELECT /*+ gather_plan_statistics */
     ON i.id = To_Number (v.itm_id)
  ORDER BY sol_id, con_id, itm_id
 /
-EXECUTE Utils.Write_Plan (p_sql_marker => 'XFUN');
+EXECUTE Utils.W(Utils.Get_XPlan (p_sql_marker => 'XFUN'));
 
 PROMPT Solution with SQL and functions, with CARDINALITY hint
 WITH /* XFNC */ rsf_itm (con_id, max_weight, itm_id, tot_weight, tot_profit, path) AS (
@@ -297,5 +292,4 @@ SELECT /*+ gather_plan_statistics */
     ON i.id = To_Number (v.itm_id)
  ORDER BY sol_id, con_id, itm_id
 /
-EXECUTE Utils.Write_Plan (p_sql_marker => 'XFNC');
-@..\bren\l_log_default
+EXECUTE Utils.W(Utils.Get_XPlan (p_sql_marker => 'XFNC'));

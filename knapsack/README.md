@@ -9,7 +9,7 @@ The knapsack subproject has SQL solutions to single and multiple knapsack proble
 
 [Back to main README: sql_demos](../README.md)
 
-## Pre-requisites
+## Prerequisites
 In order to install this subproject you need to have executed the `Common install steps.` from the [main README: sql_demos](../README.md)
 
 ## Install steps
@@ -25,5 +25,5 @@ SQL> @main_kp1
 ```
 ### Multi-knapsack problem
 ```
-SQL> @main_kp1
+SQL> @main_kpm
 ```

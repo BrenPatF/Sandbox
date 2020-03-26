@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          25-NOV-2017 15:58:22 Oracle Database 12c 12.2.0.1.0
+Start: ORCL          19-MAR-2020 15:36:20
 
 DIRECTORY input_dir - C:\input *** Change this if necessary, read access required ***
 
@@ -355,9 +355,6 @@ Grant succeeded.
 
 Role demo_user
 
-Role dropped.
-
-
 Role created.
 
 
@@ -376,5 +373,5 @@ Grant succeeded.
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 25-NOV-2017 15:58:23
+End: 19-MAR-2020 15:36:21
 

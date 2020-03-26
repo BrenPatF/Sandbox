@@ -1,0 +1,44 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          21-MAR-2020 16:13:38 Version 19.3.0.0.0
+
+Create Single- and Multi-Container Knapsack tables...
+Table items
+
+Table dropped.
+
+
+Table created.
+
+Table containers
+
+Table dropped.
+
+
+Table created.
+
+
+Type dropped.
+
+
+Type created.
+
+
+Type created.
+
+
+PL/SQL procedure successfully completed.
+
+SP2-0310: unable to open file "..\install_prereq\app\c_syns_all.sql"
+SP2-0310: unable to open file "packing_plf.pks"
+SP2-0310: unable to open file "packing_plf.pkb"
+SP2-0310: unable to open file "packing_hash_plf.pks"
+SP2-0310: unable to open file "packing_hash_plf.pkb"
+SP2-0310: unable to open file "multi.pks"
+SP2-0310: unable to open file "multi.pkb"
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 21-MAR-2020 16:13:38
+

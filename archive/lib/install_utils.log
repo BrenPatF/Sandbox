@@ -1,0 +1,47 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          20-MAR-2020 15:35:17 Version 19.3.0.0.0
+
+Common type creation
+====================
+Create type L1_chr_arr
+
+Type created.
+
+Create type L1_num_arr
+
+Type created.
+
+DROP TYPE chr_int_arr
+*
+ERROR at line 1:
+ORA-04043: object CHR_INT_ARR does not exist
+
+
+
+Type created.
+
+
+Type created.
+
+Packages creation
+=================
+Create package Utils
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+Grant access to none (skip if none passed)
+BEGIN IF 'none' = 'none' THEN RAISE_APPLICATION_ERROR(-20000, 'Skipping schema grants'); END IF; END;
+
+*
+ERROR at line 1:
+ORA-20000: Skipping schema grants
+ORA-06512: at line 1
+
+

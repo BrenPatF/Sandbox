@@ -1,0 +1,37 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          20-MAR-2020 11:48:41 Version 19.3.0.0.0
+
+Drop users
+
+User dropped.
+
+
+User dropped.
+
+
+User dropped.
+
+
+User dropped.
+
+
+User dropped.
+
+
+User dropped.
+
+Drop role demo_user
+
+Role dropped.
+
+Drop directory input_dir
+
+Directory dropped.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 20-MAR-2020 11:48:42
+

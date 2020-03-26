@@ -1,0 +1,170 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          24-MAR-2020 11:01:44 Version 19.3.0.0.0
+
+Granting Utils components to bal_num_part..
+old   1: GRANT EXECUTE ON L1_chr_arr TO &app
+new   1: GRANT EXECUTE ON L1_chr_arr TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON L1_num_arr TO &app
+new   1: GRANT EXECUTE ON L1_num_arr TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_rec TO &app
+new   1: GRANT EXECUTE ON chr_int_rec TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_arr TO &app
+new   1: GRANT EXECUTE ON chr_int_arr TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON Utils TO &app
+new   1: GRANT EXECUTE ON Utils TO bal_num_part
+
+Grant succeeded.
+
+Granting Timer_Set components to bal_num_part..
+old   1: GRANT EXECUTE ON Timer_Set TO &app
+new   1: GRANT EXECUTE ON Timer_Set TO bal_num_part
+
+Grant succeeded.
+
+Granting Utils components to fan_foot..
+old   1: GRANT EXECUTE ON L1_chr_arr TO &app
+new   1: GRANT EXECUTE ON L1_chr_arr TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON L1_num_arr TO &app
+new   1: GRANT EXECUTE ON L1_num_arr TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_rec TO &app
+new   1: GRANT EXECUTE ON chr_int_rec TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_arr TO &app
+new   1: GRANT EXECUTE ON chr_int_arr TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON Utils TO &app
+new   1: GRANT EXECUTE ON Utils TO fan_foot
+
+Grant succeeded.
+
+Granting Timer_Set components to fan_foot..
+old   1: GRANT EXECUTE ON Timer_Set TO &app
+new   1: GRANT EXECUTE ON Timer_Set TO fan_foot
+
+Grant succeeded.
+
+Granting Utils components to knapsack..
+old   1: GRANT EXECUTE ON L1_chr_arr TO &app
+new   1: GRANT EXECUTE ON L1_chr_arr TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON L1_num_arr TO &app
+new   1: GRANT EXECUTE ON L1_num_arr TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_rec TO &app
+new   1: GRANT EXECUTE ON chr_int_rec TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_arr TO &app
+new   1: GRANT EXECUTE ON chr_int_arr TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON Utils TO &app
+new   1: GRANT EXECUTE ON Utils TO knapsack
+
+Grant succeeded.
+
+Granting Timer_Set components to knapsack..
+old   1: GRANT EXECUTE ON Timer_Set TO &app
+new   1: GRANT EXECUTE ON Timer_Set TO knapsack
+
+Grant succeeded.
+
+Granting Utils components to shortest_path..
+old   1: GRANT EXECUTE ON L1_chr_arr TO &app
+new   1: GRANT EXECUTE ON L1_chr_arr TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON L1_num_arr TO &app
+new   1: GRANT EXECUTE ON L1_num_arr TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_rec TO &app
+new   1: GRANT EXECUTE ON chr_int_rec TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_arr TO &app
+new   1: GRANT EXECUTE ON chr_int_arr TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON Utils TO &app
+new   1: GRANT EXECUTE ON Utils TO shortest_path
+
+Grant succeeded.
+
+Granting Timer_Set components to shortest_path..
+old   1: GRANT EXECUTE ON Timer_Set TO &app
+new   1: GRANT EXECUTE ON Timer_Set TO shortest_path
+
+Grant succeeded.
+
+Granting Utils components to tsp..
+old   1: GRANT EXECUTE ON L1_chr_arr TO &app
+new   1: GRANT EXECUTE ON L1_chr_arr TO tsp
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON L1_num_arr TO &app
+new   1: GRANT EXECUTE ON L1_num_arr TO tsp
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_rec TO &app
+new   1: GRANT EXECUTE ON chr_int_rec TO tsp
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_arr TO &app
+new   1: GRANT EXECUTE ON chr_int_arr TO tsp
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON Utils TO &app
+new   1: GRANT EXECUTE ON Utils TO tsp
+
+Grant succeeded.
+
+Granting Timer_Set components to tsp..
+old   1: GRANT EXECUTE ON Timer_Set TO &app
+new   1: GRANT EXECUTE ON Timer_Set TO tsp
+
+Grant succeeded.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 24-MAR-2020 11:01:44
+

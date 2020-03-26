@@ -1,0 +1,36 @@
+  FROM v$database dbs,  v$version ver
+       *
+ERROR at line 3:
+ORA-00942: table or view does not exist
+
+
+
+Package dropped.
+
+
+Package dropped.
+
+Drop type L1_chr_arr
+
+Type dropped.
+
+Drop type L1_num_arr
+
+Type dropped.
+
+Drop sequence log_lines_s
+
+Sequence dropped.
+
+Drop tables log_lines and log_headers
+
+Table dropped.
+
+
+Table dropped.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 19-MAR-2020 15:33:16
+

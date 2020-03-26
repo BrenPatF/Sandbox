@@ -1,0 +1,281 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          24-MAR-2020 11:40:31 Version 19.3.0.0.0
+
+Point view to arcs_ca_grqc
+
+View created.
+
+BPF Approximate Solution - SP_RSFONE
+old   4: WHERE a.src = &SRC
+new   4: WHERE a.src = 10677
+old  14:    AND p.lev < &LEVMAX
+new  14:    AND p.lev < 10
+
+NODE                            LEV  MAXLEV  INTNOD  INTMAX PATH                                                                             LP
+------------------------------ ---- ------- ------- ------- -------------------------------------------------------------------------------- --
+..2186                            2       2       3       8 9591,2186
+..13704                           2       2       3       8 9591,13704
+..2136                            2       2       6       8 9591,2136
+..25611                           2       2       8       8 9591,25611
+..6012                            2       2       8       8 9591,6012
+..11030                           2       2       8       8 9591,11030
+..23946                           2       2       8       8 9591,23946
+..10677                           2       2       7       8 9591,10677
+..17453                           2       2       8       8 9591,17453
+9591                              1       2       8       8 9591
+..20560                           2       2       7       8 309,20560
+309                               1       2       8       8 309
+..21314                           2       2       7       8 17015,21314
+17015                             1       2       8       8 17015
+
+14 rows selected.
+
+Elapsed: 00:00:00.05
+SQL_ID  1p9ap13rtw5n3, child number 0
+-------------------------------------
+WITH paths (node, path, lev, rn) AS ( SELECT a.dst, To_Char(a.dst), 1,
+1   FROM arcs_v a WHERE a.src = 10677  UNION ALL SELECT  a.dst,
+p.path || ',' || a.dst,         p.lev + 1,         Row_Number () OVER
+(PARTITION BY a.dst ORDER BY a.dst)   FROM paths p   JOIN arcs_v a
+ON a.src = p.node  WHERE p.rn = 1    AND p.lev < 10 )  SEARCH DEPTH
+FIRST BY node SET line_no CYCLE node SET lp TO '*' DEFAULT ' ' SELECT
+/*+ gather_plan_statistics SP_RSFONE */        Substr (LPad ('.', 1 + 2
+* (Max (lev) KEEP (DENSE_RANK FIRST ORDER BY lev) - 1), '.') || node,
+2) node,        Max (lev) KEEP (DENSE_RANK FIRST ORDER BY lev) lev,
+Max (Max (lev) KEEP (DENSE_RANK FIRST ORDER BY lev)) OVER () maxlev,
+Max (lev) intnod,        Max (Max (lev)) OVER () intmax,
+Max (path) KEEP (DENSE_RANK FIRST ORDER BY lev) path,        Max (lp)
+KEEP (DENSE_RANK FIRST ORDER BY lev) lp   FROM paths  GROUP BY node
+ORDER BY Max (line_no) KEEP (DENSE_RANK FIRST ORDER BY lev)
+Plan hash value: 2196629848
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                 | Name            | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+--------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                          |                 |      1 |        |     14 |00:00:00.03 |      63 |       |       |          |
+|   1 |  WINDOW SORT                              |                 |      1 |   5242 |     14 |00:00:00.03 |      63 |  2048 |  2048 | 2048  (0)|
+|   2 |   SORT GROUP BY                           |                 |      1 |   5242 |     14 |00:00:00.03 |      63 |   102K|   102K|92160  (0)|
+|   3 |    VIEW                                   |                 |      1 |    939K|    230 |00:00:00.03 |      63 |       |       |          |
+|   4 |     UNION ALL (RECURSIVE WITH) DEPTH FIRST|                 |      1 |        |    230 |00:00:00.03 |      63 | 29696 | 29696 |26624  (0)|
+|*  5 |      INDEX RANGE SCAN                     | ARCS_CA_GRQC_PK |      1 |      6 |      3 |00:00:00.01 |       2 |       |       |          |
+|   6 |      WINDOW SORT                          |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  4096 |  4096 | 4096  (0)|
+|*  7 |       HASH JOIN                           |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  2844K|  2395K| 3656K (0)|
+|   8 |        BUFFER SORT (REUSE)                |                 |      7 |        |    202K|00:00:00.01 |      61 |  1328K|   587K| 1180K (0)|
+|   9 |         TABLE ACCESS FULL                 | ARCS_CA_GRQC    |      1 |  28980 |  28980 |00:00:00.01 |      61 |       |       |          |
+|  10 |        RECURSIVE WITH PUMP                |                 |      7 |        |     55 |00:00:00.01 |       0 |       |       |          |
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("SRC"=10677)
+7 - access("SRC"="P"."NODE")
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.15
+BPF Exact solution - SP_RSFTWO
+old   4:  WHERE a.src = &SRC
+new   4:  WHERE a.src = 10677
+old  14:    AND p.lev < &LEVMAX
+new  14:    AND p.lev < 10
+old  24: WHERE a.src = &SRC
+new  24: WHERE a.src = 10677
+
+NODE                            LEV  MAXLEV  INTNOD  INTMAX PATH                                                                             LP
+------------------------------ ---- ------- ------- ------- -------------------------------------------------------------------------------- --
+309                               1       2       1       2 309
+9591                              1       2       1       2 9591
+..2136                            2       2       2       2 9591,2136
+..2186                            2       2       2       2 9591,2186
+..6012                            2       2       2       2 9591,6012
+..11030                           2       2       2       2 9591,11030
+..13704                           2       2       2       2 9591,13704
+..17453                           2       2       2       2 9591,17453
+..23946                           2       2       2       2 9591,23946
+..25611                           2       2       2       2 9591,25611
+17015                             1       2       1       2 17015
+..10677                           2       2       2       2 9591,10677
+..20560                           2       2       2       2 309,20560
+..21314                           2       2       2       2 17015,21314
+
+14 rows selected.
+
+Elapsed: 00:00:00.07
+SQL_ID  1y4pcf1u2qwtq, child number 0
+-------------------------------------
+WITH paths_0 (node, path, lev, rn) /* SP_RSFTWO */ AS ( SELECT a.dst,
+To_Char(a.dst), 1, 1   FROM arcs_v a  WHERE a.src = 10677  UNION ALL
+SELECT a.dst,        p.path || ',' || a.dst,        p.lev + 1,
+Row_Number () OVER (PARTITION BY a.dst ORDER BY a.dst)   FROM paths_0 p
+JOIN arcs_v a     ON a.src = p.node  WHERE p.rn = 1    AND p.lev < 10
+) CYCLE node SET lp TO '*' DEFAULT ' ' , approx_best_paths AS ( SELECT
+node,        Max (lev) KEEP (DENSE_RANK FIRST ORDER BY lev) lev   FROM
+paths_0  GROUP BY node ), paths (node, path, lev, rn) AS ( SELECT
+a.dst, To_Char(a.dst), 1, 1   FROM arcs_v a WHERE a.src = 10677  UNION
+ALL SELECT a.dst,         p.path || ',' || a.dst,         p.lev + 1,
+Row_Number () OVER (PARTITION BY a.dst ORDER BY a.dst)   FROM
+paths p   JOIN arcs_v a     ON a.src = p.node   LEFT JOIN
+approx_best_paths b     ON b.node = a.dst  WHERE p.rn = 1    AND p.lev
+< Nvl (b.lev, 1000000) )  SEARCH DEPTH FIRST BY node SET line_no CYCLE
+node SET lp TO '*' DEFAULT '
+Plan hash value: 1348281114
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                           | Name            | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                                    |                 |      1 |        |     14 |00:00:00.05 |     126 |       |       |          |
+|   1 |  WINDOW SORT                                        |                 |      1 |   2356 |     14 |00:00:00.05 |     126 |  2048 |  2048 | 2048  (0)|
+|   2 |   SORT GROUP BY                                     |                 |      1 |   2356 |     14 |00:00:00.05 |     126 |   102K|   102K|92160  (0)|
+|   3 |    VIEW                                             |                 |      1 |   2356 |     18 |00:00:00.05 |     126 |       |       |          |
+|   4 |     UNION ALL (RECURSIVE WITH) DEPTH FIRST          |                 |      1 |        |     18 |00:00:00.05 |     126 |  2048 |  2048 | 2048  (0)|
+|*  5 |      INDEX RANGE SCAN                               | ARCS_CA_GRQC_PK |      1 |      6 |      3 |00:00:00.01 |       2 |       |       |          |
+|   6 |      WINDOW SORT                                    |                 |      2 |   2350 |     15 |00:00:00.05 |     124 |  2048 |  2048 | 2048  (0)|
+|*  7 |       HASH JOIN                                     |                 |      2 |   2350 |     15 |00:00:00.05 |     124 |  2949K|  2146K| 4559K (0)|
+|   8 |        BUFFER SORT (REUSE)                          |                 |      2 |        |  57960 |00:00:00.04 |     124 |  1328K|   587K| 1180K (0)|
+|*  9 |         HASH JOIN RIGHT OUTER                       |                 |      1 |  28980 |  28980 |00:00:00.04 |     124 |  1995K|  1995K| 1439K (0)|
+|  10 |          VIEW                                       |                 |      1 |   5242 |     14 |00:00:00.03 |      63 |       |       |          |
+|  11 |           SORT GROUP BY                             |                 |      1 |   5242 |     14 |00:00:00.03 |      63 |  2048 |  2048 | 2048  (0)|
+|  12 |            VIEW                                     |                 |      1 |    939K|    230 |00:00:00.01 |      63 |       |       |          |
+|  13 |             UNION ALL (RECURSIVE WITH) BREADTH FIRST|                 |      1 |        |    230 |00:00:00.01 |      63 |  4096 |  4096 | 4096  (0)|
+|* 14 |              INDEX RANGE SCAN                       | ARCS_CA_GRQC_PK |      1 |      6 |      3 |00:00:00.01 |       2 |       |       |          |
+|  15 |              WINDOW SORT                            |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  4096 |  4096 | 4096  (0)|
+|* 16 |               HASH JOIN                             |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  2844K|  2395K| 3679K (0)|
+|  17 |                BUFFER SORT (REUSE)                  |                 |      7 |        |    202K|00:00:00.01 |      61 |  1328K|   587K| 1180K (0)|
+|  18 |                 TABLE ACCESS FULL                   | ARCS_CA_GRQC    |      1 |  28980 |  28980 |00:00:00.01 |      61 |       |       |          |
+|  19 |                RECURSIVE WITH PUMP                  |                 |      7 |        |     55 |00:00:00.01 |       0 |       |       |          |
+|  20 |          TABLE ACCESS FULL                          | ARCS_CA_GRQC    |      1 |  28980 |  28980 |00:00:00.01 |      61 |       |       |          |
+|  21 |        RECURSIVE WITH PUMP                          |                 |      2 |        |     14 |00:00:00.01 |       0 |       |       |          |
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("SRC"=10677)
+7 - access("SRC"="P"."NODE")
+filter("P"."LEV"<NVL("B"."LEV",1000000))
+9 - access("B"."NODE"="DST")
+14 - access("SRC"=10677)
+16 - access("SRC"="P"."NODE")
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.13
+BPF Exact Solution - SP_GTTRSF_I - Insert approximate to GTT
+old   5: WHERE a.src = &SRC
+new   5: WHERE a.src = 10677
+old  15:    AND p.lev < &LEVMAX
+new  15:    AND p.lev < 10
+
+14 rows created.
+
+Elapsed: 00:00:00.03
+SQL_ID  dygkskk4jwd43, child number 0
+-------------------------------------
+INSERT INTO approx_min_levs WITH paths_0 (node, path, lev, rn) /*
+SP_GTTRSF_I */ AS ( SELECT a.dst, To_Char(a.dst), 1, 1   FROM arcs_v a
+WHERE a.src = 10677  UNION ALL SELECT  a.dst,         p.path || ',' ||
+a.dst,         p.lev + 1,         Row_Number () OVER (PARTITION BY
+a.dst ORDER BY a.dst)   FROM paths_0 p   JOIN arcs_v a     ON a.src =
+p.node  WHERE p.rn = 1    AND p.lev < 10 ) CYCLE node SET lp TO '*'
+DEFAULT ' ' SELECT  /*+ gather_plan_statistics */        node,
+Max (lev) KEEP (DENSE_RANK FIRST ORDER BY lev) lev   FROM paths_0
+GROUP BY node
+Plan hash value: 1249960226
+----------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                   | Name            | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+----------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT                            |                 |      1 |        |      0 |00:00:00.03 |      84 |       |       |          |
+|   1 |  LOAD TABLE CONVENTIONAL                    | APPROX_MIN_LEVS |      1 |        |      0 |00:00:00.03 |      84 |       |       |          |
+|   2 |   SORT GROUP BY                             |                 |      1 |   5242 |     14 |00:00:00.03 |      63 |  2048 |  2048 | 2048  (0)|
+|   3 |    VIEW                                     |                 |      1 |    939K|    230 |00:00:00.01 |      63 |       |       |          |
+|   4 |     UNION ALL (RECURSIVE WITH) BREADTH FIRST|                 |      1 |        |    230 |00:00:00.01 |      63 |  4096 |  4096 | 4096  (0)|
+|*  5 |      INDEX RANGE SCAN                       | ARCS_CA_GRQC_PK |      1 |      6 |      3 |00:00:00.01 |       2 |       |       |          |
+|   6 |      WINDOW SORT                            |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  4096 |  4096 | 4096  (0)|
+|*  7 |       HASH JOIN                             |                 |      7 |    939K|    227 |00:00:00.03 |      61 |  2844K|  2395K| 3635K (0)|
+|   8 |        BUFFER SORT (REUSE)                  |                 |      7 |        |    202K|00:00:00.01 |      61 |  1328K|   587K| 1180K (0)|
+|   9 |         TABLE ACCESS FULL                   | ARCS_CA_GRQC    |      1 |  28980 |  28980 |00:00:00.01 |      61 |       |       |          |
+|  10 |        RECURSIVE WITH PUMP                  |                 |      7 |        |     55 |00:00:00.01 |       0 |       |       |          |
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("SRC"=10677)
+7 - access("SRC"="P"."NODE")
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.11
+BPF Exact solution - SP_GTTRSF_Q - Query
+old   4: WHERE a.src = &SRC
+new   4: WHERE a.src = 10677
+
+NODE                            LEV  MAXLEV  INTNOD  INTMAX PATH                                                                             LP
+------------------------------ ---- ------- ------- ------- -------------------------------------------------------------------------------- --
+309                               1       2       1       2 309
+9591                              1       2       1       2 9591
+..2136                            2       2       2       2 9591,2136
+..2186                            2       2       2       2 9591,2186
+..6012                            2       2       2       2 9591,6012
+..11030                           2       2       2       2 9591,11030
+..13704                           2       2       2       2 9591,13704
+..17453                           2       2       2       2 9591,17453
+..23946                           2       2       2       2 9591,23946
+..25611                           2       2       2       2 9591,25611
+17015                             1       2       1       2 17015
+..10677                           2       2       2       2 9591,10677
+..20560                           2       2       2       2 309,20560
+..21314                           2       2       2       2 17015,21314
+
+14 rows selected.
+
+Elapsed: 00:00:00.03
+SQL_ID  91xvggkts4y39, child number 0
+-------------------------------------
+WITH paths (node, path, lev, rn) AS /* SP_GTTRSF_Q */ ( SELECT a.dst,
+To_Char(a.dst), 1, 1   FROM arcs_v a WHERE a.src = 10677  UNION ALL
+SELECT a.dst,         p.path || ',' || a.dst,         p.lev + 1,
+Row_Number () OVER (PARTITION BY a.dst ORDER BY a.dst)   FROM paths p
+JOIN arcs_v a     ON a.src = p.node   LEFT JOIN approx_min_levs b
+ON b.node = a.dst  WHERE p.rn = 1    AND p.lev < Nvl (b.lev, 1000000) )
+SEARCH DEPTH FIRST BY node SET line_no CYCLE node SET lp TO '*'
+DEFAULT ' ' SELECT /*+ gather_plan_statistics */        Substr (LPad
+('.', 1 + 2 * (Max (lev) KEEP (DENSE_RANK FIRST ORDER BY lev) - 1),
+'.') || node, 2) node,        Max (lev) KEEP (DENSE_RANK FIRST ORDER BY
+lev) lev,        Max (Max (lev) KEEP (DENSE_RANK FIRST ORDER BY lev))
+OVER () maxlev,        Max (lev) intnod,        Max (Max (lev)) OVER ()
+intmax,        Max (path) KEEP (DENSE_RANK FIRST ORDER BY lev) path,
+Max (lp) KEEP (DENSE_RANK FIRST ORDER BY lev) lp   FROM paths
+GROUP BY node  ORDER
+Plan hash value: 2076403423
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                 | Name               | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                          |                    |      1 |        |     14 |00:00:00.01 |      82 |       |       |          |
+|   1 |  WINDOW SORT                              |                    |      1 |      7 |     14 |00:00:00.01 |      82 |  2048 |  2048 | 2048  (0)|
+|   2 |   SORT GROUP BY                           |                    |      1 |      7 |     14 |00:00:00.01 |      82 |   102K|   102K|92160  (0)|
+|   3 |    VIEW                                   |                    |      1 |      7 |     18 |00:00:00.01 |      82 |       |       |          |
+|   4 |     UNION ALL (RECURSIVE WITH) DEPTH FIRST|                    |      1 |        |     18 |00:00:00.01 |      82 |  2048 |  2048 | 2048  (0)|
+|*  5 |      INDEX RANGE SCAN                     | ARCS_CA_GRQC_PK    |      1 |      6 |      3 |00:00:00.01 |       2 |       |       |          |
+|   6 |      WINDOW SORT                          |                    |      2 |      1 |     15 |00:00:00.01 |      80 |  2048 |  2048 | 2048  (0)|
+|*  7 |       FILTER                              |                    |      2 |        |     15 |00:00:00.01 |      80 |       |       |          |
+|   8 |        NESTED LOOPS OUTER                 |                    |      2 |      1 |     58 |00:00:00.01 |      80 |       |       |          |
+|   9 |         NESTED LOOPS                      |                    |      2 |      6 |     58 |00:00:00.01 |      17 |       |       |          |
+|  10 |          RECURSIVE WITH PUMP              |                    |      2 |        |     14 |00:00:00.01 |       0 |       |       |          |
+|* 11 |          INDEX RANGE SCAN                 | ARCS_CA_GRQC_PK    |     14 |      6 |     58 |00:00:00.01 |      17 |       |       |          |
+|  12 |         TABLE ACCESS BY INDEX ROWID       | APPROX_MIN_LEVS    |     58 |      1 |     58 |00:00:00.01 |      63 |       |       |          |
+|* 13 |          INDEX UNIQUE SCAN                | APPROX_MIN_LEVS_U1 |     58 |      1 |     58 |00:00:00.01 |       5 |       |       |          |
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("SRC"=10677)
+7 - filter("P"."LEV"<NVL("B"."LEV",1000000))
+11 - access("SRC"="P"."NODE")
+13 - access("B"."NODE"="DST")
+Note
+-----
+- dynamic statistics used: dynamic sampling (level=2)
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.16
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 24-MAR-2020 11:40:32
+

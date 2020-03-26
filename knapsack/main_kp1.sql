@@ -1,4 +1,4 @@
-@..\bren\initspool main_kp1
+@..\install_prereq\initspool main_kp1
 /***************************************************************************************************
 GitHub Project:  sql_demos - Brendan's repo for interesting SQL
                  https://github.com/BrenPatF/sql_demos
@@ -15,4 +15,4 @@ Further details: 'A Simple SQL Solution for the Knapsack Problem (SKP-1)', Janua
 @pop_data_kp1
 @run_queries_kp1
 
-@..\bren\endspool
+@..\install_prereq\endspool

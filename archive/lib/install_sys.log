@@ -1,0 +1,90 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          21-MAR-2020 16:13:38 Version 19.3.0.0.0
+
+Executing install_app_one for parameters lib and knapsack
+Granting Utils components to knapsack..
+old   1: GRANT EXECUTE ON L1_chr_arr TO &app
+new   1: GRANT EXECUTE ON L1_chr_arr TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON L1_num_arr TO &app
+new   1: GRANT EXECUTE ON L1_num_arr TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_rec TO &app
+new   1: GRANT EXECUTE ON chr_int_rec TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON chr_int_arr TO &app
+new   1: GRANT EXECUTE ON chr_int_arr TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON Utils TO &app
+new   1: GRANT EXECUTE ON Utils TO knapsack
+
+Grant succeeded.
+
+Granting Timer_Set components to knapsack..
+old   1: GRANT EXECUTE ON Timer_Set TO &app
+new   1: GRANT EXECUTE ON Timer_Set TO knapsack
+
+Grant succeeded.
+
+Connected.
+Executing c_syns_all for parameters knapsack
+Creating synonyms for knapsack Utils components...
+old   1: CREATE OR REPLACE SYNONYM L1_chr_arr FOR &lib..L1_chr_arr
+new   1: CREATE OR REPLACE SYNONYM L1_chr_arr FOR knapsack.L1_chr_arr
+CREATE OR REPLACE SYNONYM L1_chr_arr FOR knapsack.L1_chr_arr
+*
+ERROR at line 1:
+ORA-01471: cannot create a synonym with same name as object
+
+
+old   1: CREATE OR REPLACE SYNONYM L1_num_arr FOR &lib..L1_num_arr
+new   1: CREATE OR REPLACE SYNONYM L1_num_arr FOR knapsack.L1_num_arr
+CREATE OR REPLACE SYNONYM L1_num_arr FOR knapsack.L1_num_arr
+*
+ERROR at line 1:
+ORA-01471: cannot create a synonym with same name as object
+
+
+old   1: CREATE OR REPLACE SYNONYM chr_int_rec FOR &lib..chr_int_rec
+new   1: CREATE OR REPLACE SYNONYM chr_int_rec FOR knapsack.chr_int_rec
+CREATE OR REPLACE SYNONYM chr_int_rec FOR knapsack.chr_int_rec
+*
+ERROR at line 1:
+ORA-01471: cannot create a synonym with same name as object
+
+
+old   1: CREATE OR REPLACE SYNONYM chr_int_arr FOR &lib..chr_int_arr
+new   1: CREATE OR REPLACE SYNONYM chr_int_arr FOR knapsack.chr_int_arr
+CREATE OR REPLACE SYNONYM chr_int_arr FOR knapsack.chr_int_arr
+*
+ERROR at line 1:
+ORA-01471: cannot create a synonym with same name as object
+
+
+old   1: CREATE OR REPLACE SYNONYM Utils FOR &lib..Utils
+new   1: CREATE OR REPLACE SYNONYM Utils FOR knapsack.Utils
+CREATE OR REPLACE SYNONYM Utils FOR knapsack.Utils
+*
+ERROR at line 1:
+ORA-01471: cannot create a synonym with same name as object
+
+
+Creating synonyms for knapsack Timer_Set components...
+old   1: CREATE OR REPLACE SYNONYM Timer_Set FOR &lib..Timer_Set
+new   1: CREATE OR REPLACE SYNONYM Timer_Set FOR knapsack.Timer_Set
+CREATE OR REPLACE SYNONYM Timer_Set FOR knapsack.Timer_Set
+*
+ERROR at line 1:
+ORA-01471: cannot create a synonym with same name as object
+
+

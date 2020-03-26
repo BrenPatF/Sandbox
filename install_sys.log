@@ -1,0 +1,360 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          24-MAR-2020 11:00:32 Version 19.3.0.0.0
+
+Drop the app user created by the install_prereq
+
+User dropped.
+
+old   1: CREATE USER &DEMO_USER IDENTIFIED BY &DEMO_USER
+new   1: CREATE USER bal_num_part IDENTIFIED BY bal_num_part
+CREATE USER bal_num_part IDENTIFIED BY bal_num_part
+            *
+ERROR at line 1:
+ORA-01920: user name 'BAL_NUM_PART' conflicts with another user or role name
+
+
+old   1: GRANT CREATE SESSION TO &DEMO_USER
+new   1: GRANT CREATE SESSION TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT ALTER SESSION TO &DEMO_USER
+new   1: GRANT ALTER SESSION TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT CREATE TABLE TO &DEMO_USER
+new   1: GRANT CREATE TABLE TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT CREATE TYPE TO &DEMO_USER
+new   1: GRANT CREATE TYPE TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT CREATE SEQUENCE TO &DEMO_USER
+new   1: GRANT CREATE SEQUENCE TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT CREATE VIEW TO &DEMO_USER
+new   1: GRANT CREATE VIEW TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT UNLIMITED TABLESPACE TO &DEMO_USER
+new   1: GRANT UNLIMITED TABLESPACE TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT CREATE PROCEDURE TO &DEMO_USER
+new   1: GRANT CREATE PROCEDURE TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON UTL_File TO &DEMO_USER
+new   1: GRANT EXECUTE ON UTL_File TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT ALL ON DIRECTORY input_dir TO &DEMO_USER
+new   1: GRANT ALL ON DIRECTORY input_dir TO bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$database to &DEMO_USER
+new   1: GRANT SELECT ON v_$database to bal_num_part
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql to &DEMO_USER
+new   1: GRANT SELECT ON v_$sql to bal_num_part
+
+Grant succeeded.
+
+old   1: CREATE USER &DEMO_USER IDENTIFIED BY &DEMO_USER
+new   1: CREATE USER fan_foot IDENTIFIED BY fan_foot
+CREATE USER fan_foot IDENTIFIED BY fan_foot
+            *
+ERROR at line 1:
+ORA-01920: user name 'FAN_FOOT' conflicts with another user or role name
+
+
+old   1: GRANT CREATE SESSION TO &DEMO_USER
+new   1: GRANT CREATE SESSION TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT ALTER SESSION TO &DEMO_USER
+new   1: GRANT ALTER SESSION TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT CREATE TABLE TO &DEMO_USER
+new   1: GRANT CREATE TABLE TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT CREATE TYPE TO &DEMO_USER
+new   1: GRANT CREATE TYPE TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT CREATE SEQUENCE TO &DEMO_USER
+new   1: GRANT CREATE SEQUENCE TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT CREATE VIEW TO &DEMO_USER
+new   1: GRANT CREATE VIEW TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT UNLIMITED TABLESPACE TO &DEMO_USER
+new   1: GRANT UNLIMITED TABLESPACE TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT CREATE PROCEDURE TO &DEMO_USER
+new   1: GRANT CREATE PROCEDURE TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON UTL_File TO &DEMO_USER
+new   1: GRANT EXECUTE ON UTL_File TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT ALL ON DIRECTORY input_dir TO &DEMO_USER
+new   1: GRANT ALL ON DIRECTORY input_dir TO fan_foot
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$database to &DEMO_USER
+new   1: GRANT SELECT ON v_$database to fan_foot
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql to &DEMO_USER
+new   1: GRANT SELECT ON v_$sql to fan_foot
+
+Grant succeeded.
+
+old   1: CREATE USER &DEMO_USER IDENTIFIED BY &DEMO_USER
+new   1: CREATE USER knapsack IDENTIFIED BY knapsack
+CREATE USER knapsack IDENTIFIED BY knapsack
+            *
+ERROR at line 1:
+ORA-01920: user name 'KNAPSACK' conflicts with another user or role name
+
+
+old   1: GRANT CREATE SESSION TO &DEMO_USER
+new   1: GRANT CREATE SESSION TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT ALTER SESSION TO &DEMO_USER
+new   1: GRANT ALTER SESSION TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT CREATE TABLE TO &DEMO_USER
+new   1: GRANT CREATE TABLE TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT CREATE TYPE TO &DEMO_USER
+new   1: GRANT CREATE TYPE TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT CREATE SEQUENCE TO &DEMO_USER
+new   1: GRANT CREATE SEQUENCE TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT CREATE VIEW TO &DEMO_USER
+new   1: GRANT CREATE VIEW TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT UNLIMITED TABLESPACE TO &DEMO_USER
+new   1: GRANT UNLIMITED TABLESPACE TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT CREATE PROCEDURE TO &DEMO_USER
+new   1: GRANT CREATE PROCEDURE TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON UTL_File TO &DEMO_USER
+new   1: GRANT EXECUTE ON UTL_File TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT ALL ON DIRECTORY input_dir TO &DEMO_USER
+new   1: GRANT ALL ON DIRECTORY input_dir TO knapsack
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$database to &DEMO_USER
+new   1: GRANT SELECT ON v_$database to knapsack
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql to &DEMO_USER
+new   1: GRANT SELECT ON v_$sql to knapsack
+
+Grant succeeded.
+
+old   1: CREATE USER &DEMO_USER IDENTIFIED BY &DEMO_USER
+new   1: CREATE USER shortest_path IDENTIFIED BY shortest_path
+CREATE USER shortest_path IDENTIFIED BY shortest_path
+            *
+ERROR at line 1:
+ORA-01920: user name 'SHORTEST_PATH' conflicts with another user or role name
+
+
+old   1: GRANT CREATE SESSION TO &DEMO_USER
+new   1: GRANT CREATE SESSION TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT ALTER SESSION TO &DEMO_USER
+new   1: GRANT ALTER SESSION TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT CREATE TABLE TO &DEMO_USER
+new   1: GRANT CREATE TABLE TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT CREATE TYPE TO &DEMO_USER
+new   1: GRANT CREATE TYPE TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT CREATE SEQUENCE TO &DEMO_USER
+new   1: GRANT CREATE SEQUENCE TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT CREATE VIEW TO &DEMO_USER
+new   1: GRANT CREATE VIEW TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT UNLIMITED TABLESPACE TO &DEMO_USER
+new   1: GRANT UNLIMITED TABLESPACE TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT CREATE PROCEDURE TO &DEMO_USER
+new   1: GRANT CREATE PROCEDURE TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON UTL_File TO &DEMO_USER
+new   1: GRANT EXECUTE ON UTL_File TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT ALL ON DIRECTORY input_dir TO &DEMO_USER
+new   1: GRANT ALL ON DIRECTORY input_dir TO shortest_path
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$database to &DEMO_USER
+new   1: GRANT SELECT ON v_$database to shortest_path
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql to &DEMO_USER
+new   1: GRANT SELECT ON v_$sql to shortest_path
+
+Grant succeeded.
+
+old   1: CREATE USER &DEMO_USER IDENTIFIED BY &DEMO_USER
+new   1: CREATE USER tsp IDENTIFIED BY tsp
+CREATE USER tsp IDENTIFIED BY tsp
+            *
+ERROR at line 1:
+ORA-01920: user name 'TSP' conflicts with another user or role name
+
+
+old   1: GRANT CREATE SESSION TO &DEMO_USER
+new   1: GRANT CREATE SESSION TO tsp
+
+Grant succeeded.
+
+old   1: GRANT ALTER SESSION TO &DEMO_USER
+new   1: GRANT ALTER SESSION TO tsp
+
+Grant succeeded.
+
+old   1: GRANT CREATE TABLE TO &DEMO_USER
+new   1: GRANT CREATE TABLE TO tsp
+
+Grant succeeded.
+
+old   1: GRANT CREATE TYPE TO &DEMO_USER
+new   1: GRANT CREATE TYPE TO tsp
+
+Grant succeeded.
+
+old   1: GRANT CREATE SEQUENCE TO &DEMO_USER
+new   1: GRANT CREATE SEQUENCE TO tsp
+
+Grant succeeded.
+
+old   1: GRANT CREATE VIEW TO &DEMO_USER
+new   1: GRANT CREATE VIEW TO tsp
+
+Grant succeeded.
+
+old   1: GRANT UNLIMITED TABLESPACE TO &DEMO_USER
+new   1: GRANT UNLIMITED TABLESPACE TO tsp
+
+Grant succeeded.
+
+old   1: GRANT CREATE PROCEDURE TO &DEMO_USER
+new   1: GRANT CREATE PROCEDURE TO tsp
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON UTL_File TO &DEMO_USER
+new   1: GRANT EXECUTE ON UTL_File TO tsp
+
+Grant succeeded.
+
+old   1: GRANT ALL ON DIRECTORY input_dir TO &DEMO_USER
+new   1: GRANT ALL ON DIRECTORY input_dir TO tsp
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$database to &DEMO_USER
+new   1: GRANT SELECT ON v_$database to tsp
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON v_$sql to &DEMO_USER
+new   1: GRANT SELECT ON v_$sql to tsp
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 24-MAR-2020 11:00:33
+

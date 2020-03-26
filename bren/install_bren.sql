@@ -15,10 +15,6 @@ PROMPT Common tables creation
 PROMPT ======================
 
 PROMPT Create table log_headers
-DROP TABLE log_lines
-/
-DROP TABLE log_headers
-/
 CREATE TABLE log_headers (
         id                      INTEGER NOT NULL,
         description             VARCHAR2(500),
@@ -30,8 +26,6 @@ PROMPT Insert the default log header
 INSERT INTO log_headers VALUES (0, 'Miscellaneous output', SYSTIMESTAMP)
 /
 GRANT SELECT ON log_headers TO demo_user
-/
-DROP SEQUENCE log_headers_s
 /
 CREATE SEQUENCE log_headers_s START WITH 1
 /
@@ -47,8 +41,6 @@ CREATE TABLE log_lines (
 )
 /
 GRANT SELECT ON log_lines TO demo_user
-/
-DROP SEQUENCE log_lines_s
 /
 CREATE SEQUENCE log_lines_s START WITH 1
 /

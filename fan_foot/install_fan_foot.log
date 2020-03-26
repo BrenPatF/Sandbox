@@ -1,0 +1,118 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          24-MAR-2020 11:14:56 Version 19.3.0.0.0
+
+Creating synonyms for lib Utils components...
+old   1: CREATE OR REPLACE SYNONYM L1_chr_arr FOR &lib..L1_chr_arr
+new   1: CREATE OR REPLACE SYNONYM L1_chr_arr FOR lib.L1_chr_arr
+
+Synonym created.
+
+old   1: CREATE OR REPLACE SYNONYM L1_num_arr FOR &lib..L1_num_arr
+new   1: CREATE OR REPLACE SYNONYM L1_num_arr FOR lib.L1_num_arr
+
+Synonym created.
+
+old   1: CREATE OR REPLACE SYNONYM chr_int_rec FOR &lib..chr_int_rec
+new   1: CREATE OR REPLACE SYNONYM chr_int_rec FOR lib.chr_int_rec
+
+Synonym created.
+
+old   1: CREATE OR REPLACE SYNONYM chr_int_arr FOR &lib..chr_int_arr
+new   1: CREATE OR REPLACE SYNONYM chr_int_arr FOR lib.chr_int_arr
+
+Synonym created.
+
+old   1: CREATE OR REPLACE SYNONYM Utils FOR &lib..Utils
+new   1: CREATE OR REPLACE SYNONYM Utils FOR lib.Utils
+
+Synonym created.
+
+Creating synonyms for lib Timer_Set components...
+old   1: CREATE OR REPLACE SYNONYM Timer_Set FOR &lib..Timer_Set
+new   1: CREATE OR REPLACE SYNONYM Timer_Set FOR lib.Timer_Set
+
+Synonym created.
+
+Create Brazil tables...
+
+Table dropped.
+
+
+Table created.
+
+
+Table dropped.
+
+
+Table created.
+
+Insert Brazil data
+
+PL/SQL procedure successfully completed.
+
+Create EPL tables...
+Table epl_positions
+
+Table dropped.
+
+
+Table created.
+
+External table player_matches_ext pointing to stats.txt
+
+Table dropped.
+
+
+Table created.
+
+Table epl_players
+
+Table dropped.
+
+
+Table created.
+
+Insert EPL data...
+Insert EPL positions
+
+PL/SQL procedure successfully completed.
+
+Insert EPL PLAYERS
+
+849 rows created.
+
+
+  COUNT(*)
+----------
+       576
+
+Delete Gervino as Forward
+
+1 row deleted.
+
+
+Index created.
+
+
+  COUNT(*)
+----------
+       576
+
+
+PL/SQL procedure successfully completed.
+
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 24-MAR-2020 11:14:57
+

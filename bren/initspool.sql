@@ -10,6 +10,7 @@ SET SERVEROUTPUT ON
 SET TRIMSPOOL ON
 SPOOL &1..log
 SELECT 'Start: ' || dbs.name "Database", To_Char (SYSDATE,'DD-MON-YYYY HH24:MI:SS') "Time",
-        Replace (Substr(ver.banner, 1, Instr(ver.banner, '64')-4), 'Enterprise Edition Release ', '') "Version"
+        Substr(ver.banner_full, Instr(ver.banner_full, 'Version')) "Version"
   FROM v$database dbs,  v$version ver
- WHERE ver.banner LIKE 'Oracle%';
+ WHERE ver.banner LIKE 'Oracle%'
+/
