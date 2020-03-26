@@ -188,21 +188,25 @@ Deletes a file on database server, in `input_dir`, with parameters as follows:
 
 * `p_file_name`: file name
 
-### Utils.Write_File(p_file_name)
+### Utils.Write_File(p_file_name, p_line_lis)
 Writes a list of lines to a file on database server, in `input_dir`, with parameters as follows:
 
 * `p_file_name`: file name
 * `p_line_lis`: list of lines to write
+
+The file is opened and closed within the procedure.
 
 ### l_lines_lis L1_chr_arr := Utils.Read_File(p_file_name)
 Returns contents of a file on database server, in `input_dir`, into a list of lines, with parameters as follows:
 
 * `p_file_name`: file name
 
+The file is opened and closed within the function.
+
 ### l_lines_lis L1_chr_arr := Utils.Get_XPlan(p_sql_marker, `optional parameters`)
 Returns execution plan for a recently excuted query, identified by a marker string, into a list of lines, with parameters as follows:
 
-* `p_sql_marker`: file name
+* `p_sql_marker`: marker string
 
 Optional parameters:
 * `p_add_outline`: boolean, if TRUE return plan outline after normal execution plan, defaults to FALSE
