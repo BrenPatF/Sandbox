@@ -38,10 +38,10 @@ The install depends on the prerequisite module Utils and `lib` schema refers to 
 
 ### Install 1: Install prerequisite modules
 
-The prerequisite module can be installed by following the instructions at [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils). This allows inclusion of the examples and unit tests for the module. Alternatively, the next section shows how to install the modules directly without the example or unit tests here.
+The prerequisite module can be installed by following the instructions at [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils). This allows inclusion of the example and unit tests for the module. Alternatively, the next section shows how to install the modules directly without the example or unit tests here.
 
 #### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
-- install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
+install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
 - Run script from slqplus:
 ```
 SQL> @install_sys
@@ -54,7 +54,7 @@ This install creates an app schema, which is not used by the current project so 
 SQL> @install_lib_all
 ```
 
-### Install 2: Create sql_demos components
+### Install 2: Create sql_demos common components
 
 #### [Schema: sys; Folder: (root)] Drop app schema, create subproject schemas and grant privilege
 - install_sys.sql drops the app schema that is not needed, creates a schema for each subproject and grants privileges to the new schemas.
