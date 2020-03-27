@@ -20,12 +20,24 @@ In order to install this subproject you need to have executed the first two part
 ```
 SQL> @install_knapsack
 ```
-## Running the scripts
-### One-knapsack problem
+## One-knapsack problem
+In the blog mentoned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
+<img src="Packing, v1.3 - Items.jpg">
+
+There are 16 possible combinations of these items, having from 0 to 4 items. These are depicted below:
+<img src="Packing, v1.3 - Combis.jpg">
+
+### Running the scripts
 ```
 SQL> @main_kp1
 ```
-### Multi-knapsack problem
+## Multi-knapsack problem
+For this case, I consider the same simple example problem as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
+
+We can again depict the 24 possible item combinations in a diagram, with the container limits added:
+<img src="Multi, v1.1 - Combis.jpg">
+
+### Running the scripts
 ```
 SQL> @main_kpm
 ```

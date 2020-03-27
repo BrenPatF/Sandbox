@@ -36,7 +36,7 @@ In order to install this project you need to have sys access to an Oracle databa
 
 The install depends on the prerequisite module Utils and `lib` schema refers to the schema in which Utils is installed.
 
-### Install 1: Install prerequisite modules
+### Install 1: Install prerequisite module
 
 The prerequisite module can be installed by following the instructions at [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils). This allows inclusion of the example and unit tests for the module. Alternatively, the next section shows how to install the modules directly without the example or unit tests here.
 
