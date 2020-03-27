@@ -2,8 +2,10 @@
 <img src="../mountains.png">
 This project stores the SQL code for solutions to interesting problems I have looked at on my blog, or elsewhere. It includes installation scripts with object creation and data setup, and scripts to run the SQL on the included datasets.
 <br>
+
 The knapsack subproject has SQL solutions to single and multiple knapsack problems as discussed in the following blog posts:
 <br>
+
 - [A Simple SQL Solution for the Knapsack Problem (SKP-1), January 2013](http://aprogrammerwrites.eu/?p=560)
 - [An SQL Solution for the Multiple Knapsack Problem (SKP-m), January 2013](http://aprogrammerwrites.eu/?p=635)
 
