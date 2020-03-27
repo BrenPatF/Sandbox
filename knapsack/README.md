@@ -21,8 +21,11 @@ In order to install this subproject you need to have executed the first two part
 SQL> @install_knapsack
 ```
 ## Knapsack problems
-The problem in general is to maximise profit from packing items (from a set of n items) into m containers while respecting capacity limits on the containers. The difficulty of the problem arises from the number of possible combinations increasing exponentially with problem size. The number of assignments of n items into m containers, disregarding capacity limits, is easily seen to be:
+The problem in general is to maximise profit from packing items, from a set of n items, into m containers while respecting capacity limits on the containers. The difficulty of the problem arises from the number of possible combinations increasing exponentially with problem size. The number of assignments of n items into m containers, disregarding capacity limits, is:
+
 <img src="CodeCogsEqn_pack_3.png">
+
+This can be seen by noting that the number is that for the number of ways choosing one container, or none, for each of n items independently.
 
 ### One-knapsack problem
 In the blog mentioned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
