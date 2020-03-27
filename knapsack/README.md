@@ -20,24 +20,28 @@ In order to install this subproject you need to have executed the first two part
 ```
 SQL> @install_knapsack
 ```
-## One-knapsack problem
-In the blog mentoned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
+## Knapsack problems
+The problem in general is to maximise profit from packing items (from a set of n items) into m containers while respecting capacity limits on the containers. The difficulty of the problem arises from the number of possible combinations increasing exponentially with problem size. The number of assignments of n items into m containers, disregarding capacity limits, is easily seen to be:
+<img src="CodeCogsEqn_pack_3.png">
+
+### One-knapsack problem
+In the blog mentioned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
 <img src="Packing, v1.3 - Items.jpg">
 
 There are 16 possible combinations of these items, having from 0 to 4 items. These are depicted below:
 <img src="Packing, v1.3 - Combis.jpg">
 
-### Running the scripts
+#### Running the script
 ```
 SQL> @main_kp1
 ```
-## Multi-knapsack problem
+### Multi-knapsack problem
 For this case, I consider the same simple example problem as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
 
 We can again depict the 24 possible item combinations in a diagram, with the container limits added:
 <img src="Multi, v1.1 - Combis.jpg">
 
-### Running the scripts
+#### Running the script
 ```
 SQL> @main_kpm
 ```
