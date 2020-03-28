@@ -47,7 +47,7 @@ We can see that there are two optimal solutions in this case, with a profit of 5
 
 How to find them using SQL? The blog post explains how it can be done in a number of different ways, and includes query diagrams, and performance analysis for a range of randomly generated larger data sets.
 
-#### [Schema: knapsack; Folder: knapsack] Running the script
+#### [Schema: knapsack; Folder: knapsack] Running the one-knapsack script
 The script solves the small example problem using several methods, and includes automatically generated execution plans. It also uses the Timer_Set module to time sections of the PL/SQL solution.
 ```
 SQL> @main_kp1
@@ -66,7 +66,7 @@ From the diagram we see that the first 7 combinations meet the container-1 limit
 
 How to find it using SQL? The blog post explains how it can be done in a number of different ways, and includes query diagrams, and performance analysis for a range of randomly generated larger data sets.
 
-#### [Schema: knapsack; Folder: knapsack] Running the script
+#### [Schema: knapsack; Folder: knapsack] Running the multi-knapsack script
 The script solves the small example problem using several methods, and includes automatically generated execution plans.
 ```
 SQL> @main_kpm
