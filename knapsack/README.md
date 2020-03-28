@@ -36,7 +36,7 @@ This can be seen by noting that the number is equal to the number of ways of cho
 ### One-knapsack problem
 - [In this README...](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#in-this-readme)
 
-In the blog mentioned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
+In the blog post [SKP-1](http://aprogrammerwrites.eu/?p=560) mentioned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
 <img src="Packing, v1.3 - Items.jpg">
 
 There are 16 [N(4,1) = 2**4] possible combinations of these items, having from 0 to 4 items. These are depicted below:
@@ -54,7 +54,7 @@ SQL> @main_kp1
 ### Multi-knapsack problem
 - [In this README...](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#in-this-readme)
 
-For this case, I considered the same simple example item set as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
+For this case, [SKP-m](http://aprogrammerwrites.eu/?p=635), I considered the same simple example item set as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
 
 We can again depict the 16 possible item combinations in a diagram, with the container limits added:
 <img src="Multi, v1.1 - Combis.jpg">
