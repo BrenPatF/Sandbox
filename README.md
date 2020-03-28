@@ -6,7 +6,13 @@ This project stores the SQL code for solutions to interesting problems I have lo
 
 The idea is that anyone with the pre-requisites should be able to reproduce my results within a few minutes of downloading the repo.
 
-The installation scripts will create a common objects schema, bren, and a separate schema for each problem, of which there are five at present. The sys and bren objects are in the folder bren, with the problem-specific scripts in a separate folder for each one.
+The installation scripts will create a common components schema, lib, and a separate schema for each problem, of which there are five at present. The sys and lib components are in the folder lib, with the problem-specific scripts in a separate folder for each one.
+
+## In this README...
+- [Subproject README and Blog Links](https://github.com/BrenPatF/Sandbox#subproject-readme-and-blog-links)
+- [Prerequisites](https://github.com/BrenPatF/Sandbox#prerequisites)
+- [Installation](https://github.com/BrenPatF/Sandbox#installation)
+- [Operating System/Oracle Versions](https://github.com/BrenPatF/Sandbox#operating-systemoracle-versions)
 
 ## Subproject README and Blog Links
 
@@ -33,6 +39,10 @@ Here is a summary article that embeds all of the above plus another couple of re
 In order to install this project you need to have sys access to an Oracle database, minimum version 11.2, along with a suitable database server directory to use for loading data via external tables.
 
 ## Installation
+- [In this README...]()
+- [Install 1: Install prerequisite module](https://github.com/BrenPatF/Sandbox#install-1-install-prerequisite-module)
+- [Install 2: Create sql_demos common components](https://github.com/BrenPatF/Sandbox#install-2-create-sql_demos-common-components)
+- [Install 3: Subproject install steps](https://github.com/BrenPatF/Sandbox#install-3-subproject-install-steps)
 
 The install depends on the prerequisite module Utils and `lib` schema refers to the schema in which Utils is installed.
 
