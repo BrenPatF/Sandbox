@@ -12,10 +12,10 @@ The knapsack subproject has SQL solutions to single and multiple knapsack proble
 [Back to main README: sql_demos](../README.md)
 ## In this README...
 - [Prerequisites](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#prerequisites)
-- [Install steps]https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#install-steps)
+- [Install steps](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#install-steps)
 - [Knapsack problems](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#knapsack-problems)
-- [One-knapsack problem](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#one-knapsack-problem)
-- [Multi-knapsack problem](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#multi-knapsack-problem)
+	- [One-knapsack problem](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#one-knapsack-problem)
+	- [Multi-knapsack problem](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#multi-knapsack-problem)
 
 ## Prerequisites
 In order to install this subproject you need to have executed the first two parts of the installation in [main README: sql_demos](../README.md), i.e. `Install prerequisite modules` and `Create sql_demos common components`. If you executed the third part, `Subproject install steps`, you will have already installed this subproject and can run the scripts directly, see `Running the script` sections below.
@@ -34,6 +34,7 @@ The problem in general is to maximise profit from packing items, from a set of n
 This can be seen by noting that the number is equal to the number of ways of choosing one container from m, or none (making m + 1), for each of n items independently.
 
 ### One-knapsack problem
+- [In this README...](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#in-this-readme)
 In the blog mentioned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
 <img src="Packing, v1.3 - Items.jpg">
 
@@ -50,6 +51,7 @@ The script solves the small example problem using several methods, and includes 
 SQL> @main_kp1
 ```
 ### Multi-knapsack problem
+- [In this README...](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#in-this-readme)
 For this case, I considered the same simple example item set as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
 
 We can again depict the 16 possible item combinations in a diagram, with the container limits added:
