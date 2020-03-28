@@ -37,6 +37,7 @@ This can be seen by noting that the number is equal to the number of ways of cho
 - [In this README...](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#in-this-readme)
 
 In the blog post [SKP-1](http://aprogrammerwrites.eu/?p=560) mentioned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
+
 <img src="Packing, v1.3 - Items.jpg">
 
 There are 16 [N(4,1) = 2**4] possible combinations of these items, having from 0 to 4 items. These are depicted below:
