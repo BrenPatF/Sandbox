@@ -15,6 +15,7 @@ The installation scripts will create a common components schema, lib, and a sepa
 - [Operating System/Oracle Versions](https://github.com/BrenPatF/Sandbox#operating-systemoracle-versions)
 
 ## Subproject README and Blog Links
+- [In this README...](https://github.com/BrenPatF/Sandbox#in-this-readme)
 
 - [README: knapsack](knapsack/README.md)
 	- [A Simple SQL Solution for the Knapsack Problem (SKP-1), January 2013](http://aprogrammerwrites.eu/?p=560)
@@ -39,7 +40,7 @@ Here is a summary article that embeds all of the above plus another couple of re
 In order to install this project you need to have sys access to an Oracle database, minimum version 11.2, along with a suitable database server directory to use for loading data via external tables.
 
 ## Installation
-- [In this README...]()
+- [In this README...](https://github.com/BrenPatF/Sandbox#in-this-readme)
 - [Install 1: Install prerequisite module](https://github.com/BrenPatF/Sandbox#install-1-install-prerequisite-module)
 - [Install 2: Create sql_demos common components](https://github.com/BrenPatF/Sandbox#install-2-create-sql_demos-common-components)
 - [Install 3: Subproject install steps](https://github.com/BrenPatF/Sandbox#install-3-subproject-install-steps)
@@ -47,6 +48,7 @@ In order to install this project you need to have sys access to an Oracle databa
 The install depends on the prerequisite module Utils and `lib` schema refers to the schema in which Utils is installed.
 
 ### Install 1: Install prerequisite module
+- [Installation](https://github.com/BrenPatF/Sandbox#installation)
 
 The prerequisite module can be installed by following the instructions at [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils). This allows inclusion of the example and unit tests for the module. Alternatively, the next section shows how to install the modules directly without the example or unit tests here.
 
@@ -65,7 +67,7 @@ SQL> @install_lib_all
 ```
 
 ### Install 2: Create sql_demos common components
-
+- [Installation](https://github.com/BrenPatF/Sandbox#installation)
 #### [Schema: sys; Folder: (root)] Drop app schema, create subproject schemas and grant privilege
 - install_sys.sql drops the app schema that is not needed, creates a schema for each subproject and grants privileges to the new schemas.
 - Run script from slqplus:
@@ -80,6 +82,8 @@ SQL> @install_lib_all
 ```
 
 ### Install 3: Subproject install steps
+- [Installation](https://github.com/BrenPatF/Sandbox#installation)
+
 The subproject READMEs have the install and run steps, which are summarised below:
 - Run the install script for each schema (as desired) to create the schema objects (you may need to update the login scripts `schema`.bat):
 	- bal_num_part:  install_bal_num_part.sql
@@ -94,6 +98,8 @@ The installation is demonstrated in a short video (8 minutes). It doesn't cover 
 https://1drv.ms/v/s!AtGOr6YOZ-yVh_1a6_g7XwX0TTBTgA
 
 ## Operating System/Oracle Versions
+- [In this README...](https://github.com/BrenPatF/Sandbox#in-this-readme)
+
 These are the OS and database versions most recently tested on, but the code should work from Oracle v11.2 on and should be OS-independent.
 ### Windows
 Windows 10
