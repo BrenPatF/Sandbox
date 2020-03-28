@@ -10,6 +10,12 @@ The knapsack subproject has SQL solutions to single and multiple knapsack proble
 - [An SQL Solution for the Multiple Knapsack Problem (SKP-m), January 2013](http://aprogrammerwrites.eu/?p=635)
 
 [Back to main README: sql_demos](../README.md)
+## In this README...
+- [Prerequisites](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#prerequisites)
+- [Install steps]https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#install-steps)
+- [Knapsack problems](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#knapsack-problems)
+- [One-knapsack problem](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#one-knapsack-problem)
+- [Multi-knapsack problem](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#multi-knapsack-problem)
 
 ## Prerequisites
 In order to install this subproject you need to have executed the first two parts of the installation in [main README: sql_demos](../README.md), i.e. `Install prerequisite modules` and `Create sql_demos common components`. If you executed the third part, `Subproject install steps`, you will have already installed this subproject and can run the scripts directly, see `Running the script` sections below.
@@ -49,7 +55,7 @@ For this case, I considered the same simple example item set as in the earlier a
 We can again depict the 16 possible item combinations in a diagram, with the container limits added:
 <img src="Multi, v1.1 - Combis.jpg">
 
-There are 81 assignments of 4 items to 2 containers, disregarding the capity limits [N(4,2) = 3**4].
+There are 81 assignments of 4 items to 2 containers, disregarding the capacity limits [N(4,2) = 3**4].
 
 From the diagram we see that the first 7 combinations meet the container-1 limit of 8, while the first 10 meet the container-2 limit of 10. The task is to pick a pair of disjoint combinations from these sets that maximises profit. We can see that there is one optimal solution in this case, in which items 1 and 3 are assigned to container 1, while items 2 and 4 are assigned to container 2, with a profit of 100.
 
