@@ -36,7 +36,7 @@ This can be seen by noting that the number is equal to the number of ways of cho
 ### One-knapsack problem
 - [In this README...](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#in-this-readme)
 
-In the blog post [SKP-1](http://aprogrammerwrites.eu/?p=560) mentioned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
+In the blog post mentioned above, [SKP-1](http://aprogrammerwrites.eu/?p=560), I look at a simple example problem having four items, with a weight limit of 9, as shown below:
 
 <img src="Packing, v1.3 - Items.jpg">
 
@@ -47,7 +47,7 @@ We can see that there are two optimal solutions in this case, with a profit of 5
 
 How to find them using SQL? The blog post explains how it can be done in a number of different ways, and includes query diagrams, and performance analysis for a range of randomly generated larger data sets.
 
-#### Running the script
+#### [Schema: knapsack; Folder: knapsack] Running the script
 The script solves the small example problem using several methods, and includes automatically generated execution plans. It also uses the Timer_Set module to time sections of the PL/SQL solution.
 ```
 SQL> @main_kp1
@@ -55,7 +55,7 @@ SQL> @main_kp1
 ### Multi-knapsack problem
 - [In this README...](https://github.com/BrenPatF/Sandbox/blob/master/knapsack/README.md#in-this-readme)
 
-For this case, [SKP-m](http://aprogrammerwrites.eu/?p=635), I considered the same simple example item set as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
+For this case, in blog post [SKP-m](http://aprogrammerwrites.eu/?p=635) I considered the same simple example item set as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
 
 We can again depict the 16 possible item combinations in a diagram, with the container limits added:
 <img src="Multi, v1.1 - Combis.jpg">
@@ -66,7 +66,7 @@ From the diagram we see that the first 7 combinations meet the container-1 limit
 
 How to find it using SQL? The blog post explains how it can be done in a number of different ways, and includes query diagrams, and performance analysis for a range of randomly generated larger data sets.
 
-#### Running the script
+#### [Schema: knapsack; Folder: knapsack] Running the script
 The script solves the small example problem using several methods, and includes automatically generated execution plans.
 ```
 SQL> @main_kpm
