@@ -25,7 +25,7 @@ The problem in general is to maximise profit from packing items, from a set of n
 
 <img src="CodeCogsEqn_pack_3.png">
 
-This can be seen by noting that the number is that for the number of ways choosing one container, or none, for each of n items independently.
+This can be seen by noting that the number is equal to the number of ways of choosing one container from m, or none (making m + 1), for each of n items independently.
 
 ### One-knapsack problem
 In the blog mentioned above I look at a simple example problem having four items, with a weight limit of 9, as shown below:
@@ -35,16 +35,21 @@ There are 16 possible combinations of these items, having from 0 to 4 items. The
 <img src="Packing, v1.3 - Combis.jpg">
 
 #### Running the script
+The script solves the small example problem using several methods, and includes automatically generated execution plans. It also uses the Timer_Set module to time sections of the PL/SQL solution.
 ```
 SQL> @main_kp1
 ```
 ### Multi-knapsack problem
-For this case, I consider the same simple example problem as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
+For this case, I considered the same simple example item set as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
 
-We can again depict the 24 possible item combinations in a diagram, with the container limits added:
+We can again depict the 16 possible item combinations in a diagram, with the container limits added:
 <img src="Multi, v1.1 - Combis.jpg">
+From the diagram we see that the first 7 combinations meet the container-1 limit of 8, while the first 10 meet the container-2 limit of 10. The task is to pick a pair of disjoint combinations from these sets that maximises profit. We can see that there is one optimal solution in this case, in which items 1 and 3 are assigned to container 1, while items 2 and 4 are assigned to container 2, with a profit of 100.
+
+How to find it using SQL? The blog post explains how it can be done in a number of different ways, and includes query diagrams, and performance analysis for a range of randomly generated larger data sets.
 
 #### Running the script
+The script solves the small example problem using several methods, and includes automatically generated execution plans.
 ```
 SQL> @main_kpm
 ```
