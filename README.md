@@ -53,7 +53,7 @@ Oracle provides a package DBMS_XPlan that allows you to obtain the execution pla
 
 The prerequisite [Utils](https://github.com/BrenPatF/oracle_plsql_utils) module includes a function Get_XPlan that generates the plan automatically by searching v$sql for the last instance of a marker string, then passing the sql_id into the DBMS_XPlan call.
 
-In order for Oracle to provide actual row and other useful statistics in the plan, the hint gather_plan_statistics may be included in the query. If a marker string, say 'FF_PL' is also included, then passing this string into the Utils function allows the correct sql_id to be identified:
+In order for Oracle to provide actual row and other useful statistics in the plan, the hint `gather_plan_statistics` may be included in the query. If a marker string, say 'FF_PL' is also included, then passing this string into the Utils function allows the correct sql_id to be identified:
 
 `Utils.Get_XPlan(p_sql_marker => 'FF_PLF')`
 
@@ -145,8 +145,6 @@ In order to install this project you need to have sys access to an Oracle databa
 - [Install 2: Create sql_demos common components](https://github.com/BrenPatF/Sandbox#install-2-create-sql_demos-common-components)
 - [Install 3: Subproject install steps](https://github.com/BrenPatF/Sandbox#install-3-subproject-install-steps)
 
-The install depends on the prerequisite module Utils and `lib` schema refers to the schema in which Utils is installed.
-
 ### Install 1: Install prerequisite modules
 - [Installation](https://github.com/BrenPatF/Sandbox#installation)
 
@@ -171,7 +169,7 @@ SQL> @install_lib_all
 ### Install 2: Create sql_demos common components
 - [Installation](https://github.com/BrenPatF/Sandbox#installation)
 #### [Schema: sys; Folder: (root)] Drop app schema, create subproject schemas and grant privilege
-- install_sys.sql drops the app schema that is not needed, creates a schema for each subproject and grants privileges to the new schemas.
+install_sys.sql drops the app schema that is not needed, creates a schema for each subproject and grants privileges to the new schemas.
 - Run script from slqplus:
 ```
 SQL> @install_sys
