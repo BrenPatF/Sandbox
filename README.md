@@ -41,7 +41,7 @@ In order to install this project you need to have sys access to an Oracle databa
 
 ## Installation
 - [In this README...](https://github.com/BrenPatF/Sandbox#in-this-readme)
-- [Install 1: Install prerequisite module](https://github.com/BrenPatF/Sandbox#install-1-install-prerequisite-module)
+- [Install 1: Install prerequisite modules](https://github.com/BrenPatF/Sandbox#install-1-install-prerequisite-modules)
 - [Install 2: Create sql_demos common components](https://github.com/BrenPatF/Sandbox#install-2-create-sql_demos-common-components)
 - [Install 3: Subproject install steps](https://github.com/BrenPatF/Sandbox#install-3-subproject-install-steps)
 
