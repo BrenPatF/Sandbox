@@ -38,7 +38,7 @@ Here is a summary article that embeds all of the above plus another couple of re
 
 ## Execution Plans and Code Timing
 
-In performance analysis of SQL and PL/SQL code
+In performance analysis of SQL and PL/SQL code, Oracle provides a number of useful tools, including a package for displaying a query execution plan, and access to CPU and elapsed times. The prerequisite modules provide wrappers to facilitate the use of these features.
 
 ### Getting the SQL query execution plan
 
@@ -46,9 +46,9 @@ Oracle provides a package DBMS_XPlan that allows you to obtain the execution pla
 
 The prerequisite [Utils](https://github.com/BrenPatF/oracle_plsql_utils) module includes a function Get_XPlan that generates the plan automatically by searching v$sql for the last instance of a marker string, then passing the sql_id into the DBMS_XPlan call.
 
-In order for Oracle to provide actual row and other useful statistics in the plan, the hint gather_plan_statistics may be included in the query. In addition a marker string can be included, here FF_PL. Then passing this string into the Utils function allows the correct sql_id to be identified:
+In order for Oracle to provide actual row and other useful statistics in the plan, the hint gather_plan_statistics may be included in the query. If a marker string, say 'FF_PL' is also included, then passing this string into the Utils function allows the correct sql_id to be identified:
 
-Utils.Get_XPlan(p_sql_marker => 'FF_PLF')
+`Utils.Get_XPlan(p_sql_marker => 'FF_PLF')`
 
 Here is an example of the query and function call from the fanfoot subproject, followed by the resulting output plan:
 
