@@ -41,6 +41,7 @@ In the blog post mentioned above, [SKP-1](http://aprogrammerwrites.eu/?p=560), I
 <img src="Packing, v1.3 - Items.jpg">
 
 There are 16 [N(4,1) = 2**4] possible combinations of these items, having from 0 to 4 items. These are depicted below:
+
 <img src="Packing, v1.3 - Combis.jpg">
 
 We can see that there are two optimal solutions in this case, with a profit of 50.
@@ -58,6 +59,7 @@ SQL> @main_kp1
 For this case, in blog post [SKP-m](http://aprogrammerwrites.eu/?p=635) I considered the same simple example item set as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10.
 
 We can again depict the 16 possible item combinations in a diagram, with the container limits added:
+
 <img src="Multi, v1.1 - Combis.jpg">
 
 There are 81 assignments of 4 items to 2 containers, disregarding the capacity limits [N(4,2) = 3**4].
