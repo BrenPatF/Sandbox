@@ -81,7 +81,6 @@ g_min_item_price            PLS_INTEGER := 1000000;
 g_max_item_profit           PLS_INTEGER := 0;
 g_min_price_togo            num_list_type := num_list_type();
 g_max_profit_togo           num_list_type := num_list_type();
-g_timer                     PLS_INTEGER;
 g_n_recursive_calls         PLS_INTEGER := 0;
 g_n_sols                    PLS_INTEGER := 0;
 
@@ -517,7 +516,6 @@ FUNCTION Best_N_Sets (  p_keep_size     PLS_INTEGER,   -- number of solutions to
   l_timer                   PLS_INTEGER := Timer_Set.Construct ('Best_N_Sets');
 BEGIN
 
-  g_timer := Timer_Set.Construct ('Try_Position');
   g_keep_size := p_keep_size; g_max_calls := p_max_calls; g_n_size := p_n_size; g_max_price := p_max_price;
 
   Pop_Arrays (p_cat_cur, p_item_cur);
@@ -551,7 +549,6 @@ BEGIN
   Write_Log (g_n_sols || ' solutions found in ' || g_n_recursive_calls || ' recursive calls');
 
   Utils.W(Timer_Set.Format_Results(l_timer));
-  Utils.W(Timer_Set.Format_Results(g_timer));
   RETURN;
 
 END Best_N_Sets;

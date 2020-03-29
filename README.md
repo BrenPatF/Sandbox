@@ -4,9 +4,9 @@ This project stores the SQL code for solutions to interesting problems I have lo
 
 :file_cabinet: :slot_machine: :question: :outbox_tray:
 
-The idea is that anyone with the pre-requisites should be able to reproduce my results within a few minutes of downloading the repo.
+The idea is that anyone with the prerequisites should be able to reproduce my results within a few minutes of downloading the repo.
 
-The installation scripts will create a common components schema, lib, and a separate schema for each problem, of which there are five at present. The sys and lib components are in the folder lib, with the problem-specific scripts in a separate folder for each one.
+The installation scripts will create a common components schema, lib, and a separate schema, with its own folder, for each problem, of which there are five at present.
 
 ## In this README...
 - [Subproject README and Blog Links](https://github.com/BrenPatF/Sandbox#subproject-readme-and-blog-links)
@@ -36,6 +36,96 @@ The installation scripts will create a common components schema, lib, and a sepa
 
 Here is a summary article that embeds all of the above plus another couple of relevant articles: <a href="http://aprogrammerwrites.eu/?p=2232" target="_blank">Knapsacks and Networks in SQL</a>, December 2017
 
+## Execution Plans and Code Timing
+
+In performance analysis of SQL and PL/SQL code
+
+### Getting the SQL query execution plan
+
+Oracle provides a package DBMS_XPlan that allows you to obtain the execution plan actually followed for a given query, identified by the `sql_id`. You get the sql_id by querying the system view v$sql and identifying the correct row for your query.
+
+The prerequisite [Utils](https://github.com/BrenPatF/oracle_plsql_utils) module includes a function Get_XPlan that generates the plan automatically by searching v$sql for the last instance of a marker string, then passing the sql_id into the DBMS_XPlan call.
+
+In order for Oracle to provide actual row and other useful statistics in the plan, the hint gather_plan_statistics may be included in the query. In addition a marker string can be included, here FF_PL. Then passing this string into the Utils function allows the correct sql_id to be identified:
+
+Utils.Get_XPlan(p_sql_marker => 'FF_PLF')
+
+Here is an example of the query and function call from the fanfoot subproject, followed by the resulting output plan:
+
+	SELECT /*+ gather_plan_statistics FF_PLF */
+	       t.sol_profit, 
+	       t.sol_price,
+	       Dense_Rank() OVER (ORDER BY t.sol_profit DESC, t.sol_price) RNK,
+	       p.position_id,
+	       t.item_id, 
+	       p.player_name,
+	       p.club_name,
+	       p.price,
+	       p.avg_points
+	  FROM TABLE (Item_Cats.Best_N_Sets (
+	                  p_keep_size => :KEEP_NUM, 
+	                  p_max_calls => 10000000,
+	                  p_n_size => 10, 
+	                  p_max_price => :MAX_PRICE,
+	                  p_cat_cur => CURSOR (
+	                      SELECT id, min_players, max_players
+	                        FROM positions
+	                       ORDER BY CASE WHEN id != 'AL' THEN 0 END, id
+	                      ), 
+	                  p_item_cur => CURSOR (
+	                      SELECT id, price, avg_points, position_id
+	                        FROM players
+	                       ORDER BY position_id, avg_points DESC
+	                      )
+	             )) t
+	  JOIN players p
+	    ON p.id = t.item_id
+	  ORDER BY t.sol_profit DESC, t.sol_price, p.position_id, t.item_id
+	/
+	EXECUTE Utils.W(Utils.Get_XPlan(p_sql_marker => 'FF_PLF'));
+
+#### Output
+
+	Plan hash value: 1973281990
+	------------------------------------------------------------------------------------------------------------------------------------------
+	| Id  | Operation                           | Name          | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+	------------------------------------------------------------------------------------------------------------------------------------------
+	|   0 | SELECT STATEMENT                    |               |      1 |        |    110 |00:16:30.39 |      36 |       |       |          |
+	|   1 |  WINDOW SORT                        |               |      1 |   5543 |    110 |00:16:30.39 |      36 | 20480 | 20480 |18432  (0)|
+	|*  2 |   HASH JOIN                         |               |      1 |   5543 |    110 |00:16:30.19 |      36 |  1115K|  1115K| 1306K (0)|
+	|*  3 |    TABLE ACCESS FULL                | EPL_PLAYERS   |      1 |    575 |    576 |00:00:00.01 |      15 |       |       |          |
+	|   4 |    COLLECTION ITERATOR PICKLER FETCH| BEST_N_SETS   |      1 |   8168 |    110 |00:16:30.18 |      21 |       |       |          |
+	|   5 |     SORT ORDER BY                   |               |      0 |      5 |      0 |00:00:00.01 |       0 | 73728 | 73728 |          |
+	|   6 |      TABLE ACCESS FULL              | EPL_POSITIONS |      0 |      5 |      0 |00:00:00.01 |       0 |       |       |          |
+	|   7 |     SORT ORDER BY                   |               |      0 |    575 |      0 |00:00:00.01 |       0 | 73728 | 73728 |          |
+	|*  8 |      TABLE ACCESS FULL              | EPL_PLAYERS   |      0 |    575 |      0 |00:00:00.01 |       0 |       |       |          |
+	------------------------------------------------------------------------------------------------------------------------------------------
+	Predicate Information (identified by operation id):
+	---------------------------------------------------
+	2 - access("ID"=TO_NUMBER(SYS_OP_ATG("KOKBF$0"."SYS_NC_ROWINFO$",2,3,2)))
+	3 - filter("POINTS">0)
+	8 - filter("POINTS">0)
+
+### PL/SQL Code timing
+
+The prerequisite [Timer_Set](https://github.com/BrenPatF/timer_set_oracle) module allows you to obtain CPU and elapsed timings, as well as numbers of calls, for sections of PL/SQL code. Here is an example of the formatted output from timing within the fan_foot function Item_Cats.Best_N_Sets:
+
+	Timer Set: Best_N_Sets, Constructed at 26 Mar 2020 11:49:48, written at 12:12:08
+	================================================================================
+	Timer            Elapsed         CPU       Calls       Ela/Call       CPU/Call
+	------------  ----------  ----------  ----------  -------------  -------------
+	Pop_Arrays          0.01        0.01           1        0.00500        0.01000
+	Try_Position     1340.70     1329.08           1     1340.69500     1329.08000
+	Write_Sols          0.00        0.00           1        0.00000        0.00000
+	Pipe                0.00        0.00           1        0.00100        0.00000
+	(Other)             0.00        0.00           1        0.00000        0.00000
+	------------  ----------  ----------  ----------  -------------  -------------
+	Total            1340.70     1329.09           5      268.14020      265.81800
+	------------  ----------  ----------  ----------  -------------  -------------
+	[Timer timed (per call in ms): Elapsed: 0.01111, CPU: 0.01222]
+
+It's also possible to do more general profiling of PL/SQL code using some standard Oracle tools, which I wrote about in [Notes on Profiling Oracle PL/SQL, March 2013](http://aprogrammerwrites.eu/?p=703).
+
 ## Prerequisites
 In order to install this project you need to have sys access to an Oracle database, minimum version 11.2, along with a suitable database server directory to use for loading data via external tables.
 
@@ -50,9 +140,9 @@ The install depends on the prerequisite module Utils and `lib` schema refers to 
 ### Install 1: Install prerequisite modules
 - [Installation](https://github.com/BrenPatF/Sandbox#installation)
 
-The demo install depends on the pre-requisite modules Utils and Timer_Set, and `lib` schema refers to the schema in which Utils is installed.
+The install depends on the prerequisite modules Utils and Timer_Set, and `lib` schema refers to the schema in which they are installed.
 
-The pre-requisite modules can be installed by following the instructions for each module at the module root pages listed in the `See also` section below. This allows inclusion of the examples and unit tests for those modules. Alternatively, the next section shows how to install these modules directly without their examples or unit tests here.
+The prerequisite modules can be installed by following the instructions for each module at the module root pages listed in the `See also` section below. This allows inclusion of the examples and unit tests for those modules. Alternatively, the next section shows how to install these modules directly without their examples or unit tests here.
 
 #### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
 install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
@@ -110,7 +200,6 @@ Oracle Database Version 19.3.0.0.0
 
 ## See also
 - [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
-- [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
 - [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
 
 ## License
