@@ -47,10 +47,12 @@ In order to install this project you need to have sys access to an Oracle databa
 
 The install depends on the prerequisite module Utils and `lib` schema refers to the schema in which Utils is installed.
 
-### Install 1: Install prerequisite module
+### Install 1: Install prerequisite modules
 - [Installation](https://github.com/BrenPatF/Sandbox#installation)
 
-The prerequisite module can be installed by following the instructions at [Utils on GitHub](https://github.com/BrenPatF/oracle_plsql_utils). This allows inclusion of the example and unit tests for the module. Alternatively, the next section shows how to install the modules directly without the example or unit tests here.
+The demo install depends on the pre-requisite modules Utils and Timer_Set, and `lib` schema refers to the schema in which Utils is installed.
+
+The pre-requisite modules can be installed by following the instructions for each module at the module root pages listed in the `See also` section below. This allows inclusion of the examples and unit tests for those modules. Alternatively, the next section shows how to install these modules directly without their examples or unit tests here.
 
 #### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
 install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
@@ -105,6 +107,11 @@ These are the OS and database versions most recently tested on, but the code sho
 Windows 10
 ### Oracle
 Oracle Database Version 19.3.0.0.0
+
+## See also
+- [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
+- [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
+- [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
 
 ## License
 MIT
