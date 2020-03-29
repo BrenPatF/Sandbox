@@ -132,7 +132,9 @@ The prerequisite [Timer_Set](https://github.com/BrenPatF/timer_set_oracle) modul
 	------------  ----------  ----------  ----------  -------------  -------------
 	[Timer timed (per call in ms): Elapsed: 0.01111, CPU: 0.01222]
 
-It's also possible to do more general profiling of PL/SQL code using some standard Oracle tools, which I wrote about in [Notes on Profiling Oracle PL/SQL, March 2013](http://aprogrammerwrites.eu/?p=703).
+It's also possible to do more general profiling of PL/SQL code using some standard Oracle tools, which I wrote about in:
+
+[Notes on Profiling Oracle PL/SQL, March 2013](http://aprogrammerwrites.eu/?p=703).
 
 ## Prerequisites
 In order to install this project you need to have sys access to an Oracle database, minimum version 11.2, along with a suitable database server directory to use for loading data via external tables.
