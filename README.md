@@ -153,7 +153,7 @@ The install depends on the prerequisite modules Utils and Timer_Set, and `lib` s
 The prerequisite modules can be installed by following the instructions for each module at the module root pages listed in the `See also` section below. This allows inclusion of the examples and unit tests for those modules. Alternatively, the next section shows how to install these modules directly without their examples or unit tests here.
 
 #### [Schema: sys; Folder: install_prereq] Create lib and app schemas and Oracle directory
-install_sys.sql creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
+The install_sys.sql script creates an Oracle directory, `input_dir`, pointing to 'c:\input'. Update this if necessary to a folder on the database server with read/write access for the Oracle OS user
 - Run script from slqplus:
 ```
 SQL> @install_sys
@@ -169,7 +169,7 @@ SQL> @install_lib_all
 ### Install 2: Create sql_demos common components
 - [Installation](https://github.com/BrenPatF/Sandbox#installation)
 #### [Schema: sys; Folder: (root)] Drop app schema, create subproject schemas and grant privilege
-install_sys.sql drops the app schema that is not needed, creates a schema for each subproject and grants privileges to the new schemas.
+The install_sys.sql script drops the app schema that is not needed, creates a schema for each subproject and grants privileges to the new schemas.
 - Run script from slqplus:
 ```
 SQL> @install_sys
