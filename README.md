@@ -10,6 +10,7 @@ The installation scripts will create a common components schema, lib, and a sepa
 
 ## In this README...
 - [Subproject README and Blog Links](https://github.com/BrenPatF/Sandbox#subproject-readme-and-blog-links)
+- [Execution Plans and Code Timing](https://github.com/BrenPatF/Sandbox#execution-plans-and-code-timing)
 - [Prerequisites](https://github.com/BrenPatF/Sandbox#prerequisites)
 - [Installation](https://github.com/BrenPatF/Sandbox#installation)
 - [Operating System/Oracle Versions](https://github.com/BrenPatF/Sandbox#operating-systemoracle-versions)
@@ -34,13 +35,19 @@ The installation scripts will create a common components schema, lib, and a sepa
 	- [SQL for Shortest Path Problems, April 2015](http://aprogrammerwrites.eu/?p=1391)
 	- [SQL for Shortest Path Problems 2: A Branch and Bound Approach, May 2015](http://aprogrammerwrites.eu/?p=1415)
 
-Here is a summary article that embeds all of the above plus another couple of relevant articles: <a href="http://aprogrammerwrites.eu/?p=2232" target="_blank">Knapsacks and Networks in SQL</a>, December 2017
+Here is a summary article that embeds all of the above plus another couple of relevant articles:
+
+[Knapsacks and Networks in SQL, December 2017](http://aprogrammerwrites.eu/?p=2232)
 
 ## Execution Plans and Code Timing
+- [In this README...](https://github.com/BrenPatF/Sandbox#in-this-readme)
+- [Getting the SQL query execution plan](https://github.com/BrenPatF/Sandbox#getting-the-sql-query-execution-plan)
+- [PL/SQL Code timing](https://github.com/BrenPatF/Sandbox#plsql-code-timing)
 
 In performance analysis of SQL and PL/SQL code, Oracle provides a number of useful tools, including a package for displaying a query execution plan, and access to CPU and elapsed times. The prerequisite modules provide wrappers to facilitate the use of these features.
 
 ### Getting the SQL query execution plan
+- [Execution Plans and Code Timing](https://github.com/BrenPatF/Sandbox#execution-plans-and-code-timing)
 
 Oracle provides a package DBMS_XPlan that allows you to obtain the execution plan actually followed for a given query, identified by the `sql_id`. You get the sql_id by querying the system view v$sql and identifying the correct row for your query.
 
@@ -107,6 +114,7 @@ Here is an example of the query and function call from the fanfoot subproject, f
 	8 - filter("POINTS">0)
 
 ### PL/SQL Code timing
+- [Execution Plans and Code Timing](https://github.com/BrenPatF/Sandbox#execution-plans-and-code-timing)
 
 The prerequisite [Timer_Set](https://github.com/BrenPatF/timer_set_oracle) module allows you to obtain CPU and elapsed timings, as well as numbers of calls, for sections of PL/SQL code. Here is an example of the formatted output from timing within the fan_foot function Item_Cats.Best_N_Sets:
 
