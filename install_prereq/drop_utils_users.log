@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          26-MAR-2020 11:45:00 Version 19.3.0.0.0
+Start: ORCL          29-MAR-2020 17:17:05 Version 19.3.0.0.0
 
 Drop lib and app
 old   1: DROP USER &LIB_USER CASCADE
@@ -11,8 +11,11 @@ User dropped.
 
 old   1: DROP USER &APP_USER CASCADE
 new   1: DROP USER app CASCADE
+DROP USER app CASCADE
+          *
+ERROR at line 1:
+ORA-01918: user 'APP' does not exist
 
-User dropped.
 
 Drop directory input_dir
 
@@ -21,5 +24,5 @@ Directory dropped.
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 26-MAR-2020 11:45:01
+End: 29-MAR-2020 17:17:06
 

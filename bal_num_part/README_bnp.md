@@ -1,6 +1,6 @@
 # sql_demos / knapsack
 <img src="../mountains.png">
-This project stores the SQL code for solutions to interesting problems I have looked at on my blog, or elsewhere. It includes installation scripts with object creation and data setup, and scripts to run the SQL on the included datasets.
+This project stores the SQL code for solutions to interesting problems I have looked at on my blog, or elsewhere. It includes installation scripts with component creation and data setup, and scripts to run the SQL on the included datasets.
 <br><br>
 
 The knapsack subproject has SQL solutions to single and multiple knapsack problems as discussed in the following blog posts:

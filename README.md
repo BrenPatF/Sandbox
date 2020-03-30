@@ -1,6 +1,6 @@
 # sql_demos - Brendan's repo for interesting SQL<div id="topOfVisibleArea"></div>
 <img src="mountains.png">
-This project stores the SQL code for solutions to interesting problems I have looked at on my blog, or elsewhere. It includes installation scripts with object creation and data setup, and scripts to run the SQL on the included datasets.
+This project stores the SQL code for solutions to interesting problems I have looked at on my blog, or elsewhere. It includes installation scripts with component creation and data setup, and scripts to run the SQL on the included datasets.
 
 :file_cabinet: :slot_machine: :question: :outbox_tray:
 
@@ -18,20 +18,20 @@ The installation scripts will create a common components schema, lib, and a sepa
 ## Subproject README and Blog Links
 - [In this README...](https://github.com/BrenPatF/Sandbox#in-this-readme)
 
-- [README: knapsack](knapsack/README.md)
+- [README - knapsack](knapsack/README_kns.md)
 	- [A Simple SQL Solution for the Knapsack Problem (SKP-1), January 2013](http://aprogrammerwrites.eu/?p=560)
 	- [An SQL Solution for the Multiple Knapsack Problem (SKP-m), January 2013](http://aprogrammerwrites.eu/?p=635)
 
-- [README: bal_num_part](bal_num_part/README.md)
+- [README - bal_num_part](bal_num_part/README_bnp.md)
 	- [SQL for the Balanced Number Partitioning Problem, May 2013](http://aprogrammerwrites.eu/?p=803)
 
-- [README: fan_foot](fan_foot/README.md)
+- [README - fan_foot](fan_foot/README_fft.md)
 	- [SQL for the Fantasy Football Knapsack Problem, June 2013](http://aprogrammerwrites.eu/?p=878)
 
-- [README: tsp](tsp/README.md)
+- [README - tsp](tsp/README_tsp.md)
 	- [SQL for the Travelling Salesman Problem, July 2013](http://aprogrammerwrites.eu/?p=896)
 
-- [README: shortest_path](shortest_path/README.md)
+- [README - shortest_path](shortest_path/README_sph.md)
 	- [SQL for Shortest Path Problems, April 2015](http://aprogrammerwrites.eu/?p=1391)
 	- [SQL for Shortest Path Problems 2: A Branch and Bound Approach, May 2015](http://aprogrammerwrites.eu/?p=1415)
 

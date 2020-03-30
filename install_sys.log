@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          26-MAR-2020 11:46:49 Version 19.3.0.0.0
+Start: ORCL          29-MAR-2020 17:21:49 Version 19.3.0.0.0
 
 Drop the app user created by the install_prereq
 
@@ -401,10 +401,7 @@ Grant succeeded.
 Grant succeeded.
 
 
-Grant succeeded.
-
-
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 26-MAR-2020 11:46:49
+End: 29-MAR-2020 17:21:50
 

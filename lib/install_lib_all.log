@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          26-MAR-2020 11:47:10 Version 19.3.0.0.0
+Start: ORCL          29-MAR-2020 17:22:09 Version 19.3.0.0.0
 
 Granting Utils components to bal_num_part..
 old   1: GRANT EXECUTE ON L1_chr_arr TO &app
@@ -166,5 +166,5 @@ Grant succeeded.
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 26-MAR-2020 11:47:11
+End: 29-MAR-2020 17:22:09
 
