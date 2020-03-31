@@ -15,7 +15,7 @@ The `bal_num_part` subproject has SQL solutions to balanced number partitioning 
 - [Balanced Number Partitioning problems](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#balanced-number-partitioning-problems)
 	- [Example: Four Items](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#example-four-items)
 	- [Example: Six Items](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#example-six-items)
-	- [Example: Six Items](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#example-six-items)
+	- [Running the bal_num_part scripts](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#running-the-bal_num_part-scripts)
 
 ## Prerequisites
 In order to install this subproject you need to have executed the first two parts of the installation in [main README: sql_demos](../README.md), i.e. `Install prerequisite modules` and `Create sql_demos common components`. If you executed the third part, `Subproject install steps`, you will have already installed this subproject and can run the scripts directly, see `Running the script` sections below.
