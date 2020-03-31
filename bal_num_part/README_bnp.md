@@ -3,7 +3,7 @@
 This project stores the SQL code for solutions to interesting problems I have looked at on my blog, or elsewhere. It includes installation scripts with component creation and data setup, and scripts to run the SQL on the included datasets.
 <br><br>
 
-The `bal_num_part` subproject has SQL solutions to balanced number partitioning problems problems as discussed in the following blog post:
+The `bal_num_part` subproject has SQL and PL/SQL solutions to balanced number partitioning problems problems as discussed in the following blog post:
 <br>
 
 - [SQL for the Balanced Number Partitioning Problem, May 2013](http://aprogrammerwrites.eu/?p=803)
