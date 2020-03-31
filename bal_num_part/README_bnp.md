@@ -41,12 +41,14 @@ I illustrated the problem and the results from applying the different algorithm 
 
 ### Example: Four Items
 [Balanced Number Partitioning problems](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#balanced-number-partitioning-problems)
+
 <img src="Binfit, v1.3 - 4-items.jpg">
 
 Here we see that the Greedy Algorithm finds the perfect solution, with no difference in bin size, but the two variants have a difference of two.
 
 ### Example: Six Items
 [Balanced Number Partitioning problems](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#balanced-number-partitioning-problems)
+
 <img src="Binfit, v1.3 - 6-items.jpg">
 
 Here we see that none of the algorithms finds the perfect solution. Both the standard Greedy Algorithm and its batched variant give a difference of two, while the variant without rebalancing gives a difference of four.
