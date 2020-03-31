@@ -3,7 +3,7 @@
 This project stores the SQL code for solutions to interesting problems I have looked at on my blog, or elsewhere. It includes installation scripts with component creation and data setup, and scripts to run the SQL on the included datasets.
 <br><br>
 
-The bal_num_part subproject has SQL solutions to single and multiple bal_num_part problems as discussed in the following blog posts:
+The bal_num_part subproject has SQL solutions to balanced number partitioning problems problems as discussed in the following blog post:
 <br>
 
 - [SQL for the Balanced Number Partitioning Problem, May 2013](http://aprogrammerwrites.eu/?p=803)
@@ -27,7 +27,7 @@ SQL> @install_bal_num_part
 ```
 ## Balanced Number Partitioning problems
 
-Balanced Number Partitioning problems are a form of bin-fitting problem in which the aim is to distribute numbers across a fixed number of bins in such a way that the nin totals are as close as possible. An interesting article in American Scientist, <a href="http://www.americanscientist.org/issues/pub/2002/3/the-easiest-hard-problem" target="_blank">The Easiest Hard Problem</a>, notes that the problem is <em>NP-complete</em>, or <em>certifiably hard</em>, but that simple <em>greedy</em> heuristics often produce a good solution, including one used by schoolboys to pick football teams.
+Balanced Number Partitioning problems are a form of bin-fitting problem in which the aim is to distribute numbers across a fixed number of bins in such a way that the bin totals are as close as possible. An interesting article in American Scientist, <a href="http://www.americanscientist.org/issues/pub/2002/3/the-easiest-hard-problem" target="_blank">The Easiest Hard Problem</a>, notes that the problem is <em>NP-complete</em>, or <em>certifiably hard</em>, but that simple <em>greedy</em> heuristics often produce a good solution, including one used by schoolboys to pick football teams.
 
 The blog post considers three variants of the *greedy* algorithm and implements them variously using recursive SQL and PL/SQL. The three variants, which are explained in the blog post, are named as follows:
 
@@ -37,22 +37,39 @@ The blog post considers three variants of the *greedy* algorithm and implements 
 
 I illustrated the problem and the results from applying the different algorithm variants on two small example problems:
 
-Example: Four Items
+### Example: Four Items
 
 <img src="Binfit, v1.3 - 4-items.jpg">
 
 Here we see that the Greedy Algorithm finds the perfect solution, with no difference in bin size, but the two variants have a difference of two.
 
-Example: Six Items
+### Example: Six Items
 
 <img src="Binfit, v1.3 - 6-items.jpg">
 
 Here we see that none of the algorithms finds the perfect solution. Both the standard Greedy Algorithm and its batched variant give a difference of two, while the variant without rebalancing gives a difference of four.
 
+### [Schema: bal_num_part; Folder: bal_num_part] Running the multi-bal_num_part script
+The scripts solve randomly generated problems using several methods, and include automatically generated execution plans. The two driver scripts call pop_data_bnp.sql passing an N_ITEMS parameter to generate N_ITEMS items with a random value between 0 and N_ITEMS. They then call a script to run the queries, passing an N_BINS parameter for the number of bins.
 
-#### [Schema: bal_num_part; Folder: bal_num_part] Running the multi-bal_num_part script
-The script solves the small example problem using several methods, and includes automatically generated execution plans.
+The first script is for a smaller value of N_ITEMS = 100, and the query script lists the full solutions.
 ```
 SQL> @main_sml
+```
+The above script runs the following two lines:
+```
+	@pop_data_bnp 100
+	@run_queries_bnp 3
+```
+
+The second script is for a larger value of N_ITEMS = 10000, and the query script lists the solutions grouped by bin.
+```
 SQL> @main_big
+```
+The above script runs the following two lines:
+```
+	@pop_data_bnp 10000
+	@run_queries_agg_bnp 3
+```
+
 ```
