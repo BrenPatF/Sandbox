@@ -27,6 +27,7 @@ In order to install this subproject you need to have executed the first two part
 SQL> @install_bal_num_part
 ```
 ## Balanced Number Partitioning problems
+[In this README...](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#in-this-readme)
 
 Balanced Number Partitioning problems are a form of bin-fitting problem in which the aim is to distribute numbers across a fixed number of bins in such a way that the bin totals are as close as possible. An interesting article in American Scientist, <a href="http://www.americanscientist.org/issues/pub/2002/3/the-easiest-hard-problem" target="_blank">The Easiest Hard Problem</a>, notes that the problem is <em>NP-complete</em>, or <em>certifiably hard</em>, but that simple <em>greedy</em> heuristics often produce a good solution, including one used by schoolboys to pick football teams.
 
@@ -39,18 +40,19 @@ The blog post considers three variants of the *greedy* algorithm and implements 
 I illustrated the problem and the results from applying the different algorithm variants on two small example problems:
 
 ### Example: Four Items
-
+[Balanced Number Partitioning problems](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#balanced-number-partitioning-problems)
 <img src="Binfit, v1.3 - 4-items.jpg">
 
 Here we see that the Greedy Algorithm finds the perfect solution, with no difference in bin size, but the two variants have a difference of two.
 
 ### Example: Six Items
-
+[Balanced Number Partitioning problems](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#balanced-number-partitioning-problems)
 <img src="Binfit, v1.3 - 6-items.jpg">
 
 Here we see that none of the algorithms finds the perfect solution. Both the standard Greedy Algorithm and its batched variant give a difference of two, while the variant without rebalancing gives a difference of four.
 
 ### Running the bal_num_part scripts
+[Balanced Number Partitioning problems](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#balanced-number-partitioning-problems)
 [Schema: bal_num_part; Folder: bal_num_part]
 
 The scripts solve randomly generated problems using several methods, and include automatically generated execution plans. The two driver scripts call pop_data_bnp.sql passing an N_ITEMS parameter to generate N_ITEMS items with a random value between 0 and N_ITEMS. They then call a script to run the queries, passing an N_BINS parameter for the number of bins, currently set to 3 for both scripts.
