@@ -12,9 +12,10 @@ The `bal_num_part` subproject has SQL solutions to balanced number partitioning 
 ## In this README...
 - [Prerequisites](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README.md#prerequisites)
 - [Install steps](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README.md#install-steps)
-- [bal_num_part problems](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README.md#bal_num_part-problems)
-	- [One-bal_num_part problem](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README.md#one-bal_num_part-problem)
-	- [Multi-bal_num_part problem](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README.md#multi-bal_num_part-problem)
+- [Balanced Number Partitioning problems](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#balanced-number-partitioning-problems)
+	- [Example: Four Items](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#example-four-items)
+	- [Example: Six Items](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#example-six-items)
+	- [Example: Six Items](https://github.com/BrenPatF/Sandbox/blob/master/bal_num_part/README_bnp.md#example-six-items)
 
 ## Prerequisites
 In order to install this subproject you need to have executed the first two parts of the installation in [main README: sql_demos](../README.md), i.e. `Install prerequisite modules` and `Create sql_demos common components`. If you executed the third part, `Subproject install steps`, you will have already installed this subproject and can run the scripts directly, see `Running the script` sections below.
@@ -49,7 +50,9 @@ Here we see that the Greedy Algorithm finds the perfect solution, with no differ
 
 Here we see that none of the algorithms finds the perfect solution. Both the standard Greedy Algorithm and its batched variant give a difference of two, while the variant without rebalancing gives a difference of four.
 
-### [Schema: bal_num_part; Folder: bal_num_part] Running the bal_num_part scripts
+### Running the bal_num_part scripts
+[Schema: bal_num_part; Folder: bal_num_part]
+
 The scripts solve randomly generated problems using several methods, and include automatically generated execution plans. The two driver scripts call pop_data_bnp.sql passing an N_ITEMS parameter to generate N_ITEMS items with a random value between 0 and N_ITEMS. They then call a script to run the queries, passing an N_BINS parameter for the number of bins, currently set to 3 for both scripts.
 
 The first script is for a smaller value of N_ITEMS = 100, and the query script lists the full solutions.
