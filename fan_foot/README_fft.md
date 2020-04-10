@@ -40,6 +40,7 @@ I illustrated the problem and the results from :
 - [Fantasy Football problems](https://github.com/BrenPatF/Sandbox/blob/master/fan_foot/README_bnp.md#balanced-number-partitioning-problems)
 
 <img src="pi=.png"> price of item i
+<br>
 <img src="pi=.png"> value of item i
 
 Here we see that the Greedy Algorithm finds the perfect solution, with no difference in bin size, but the two variants have a difference of two.
