@@ -17,6 +17,7 @@ Further details: 'SQL for the Fantasy Football Knapsack Problem', June 2013
 
 @setup_bra
 @setup_eng
+@setup_sml
 EXECUTE DBMS_Stats.Gather_Schema_Stats(ownname => 'FAN_FOOT');
 @item_cats.pks
 @item_cats.pkb

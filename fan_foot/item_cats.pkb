@@ -20,7 +20,7 @@ c_hash_renew_point  CONSTANT PLS_INTEGER := 1000;
 -- Bulk collect array types
 --
 TYPE cat_rec_type IS RECORD (
-        id                      VARCHAR2(3),
+        id                      VARCHAR2(5),
         min_items               PLS_INTEGER,
         max_items               PLS_INTEGER
         );
@@ -30,7 +30,7 @@ TYPE item_cat_rec_type IS RECORD (
         id                      VARCHAR2(10),
         price                   PLS_INTEGER,
         profit                  PLS_INTEGER,
-        cat_id                  VARCHAR2(3)
+        cat_id                  VARCHAR2(5)
         );
 TYPE item_cat_list_type IS VARRAY(1000) OF item_cat_rec_type;
 

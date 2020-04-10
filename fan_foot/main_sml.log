@@ -1,0 +1,344 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          05-APR-2020 08:09:23 Version 19.3.0.0.0
+
+Point view at small tables and set small bind variables
+
+View created.
+
+
+View dropped.
+
+
+View created.
+
+
+PL/SQL procedure successfully completed.
+
+Positions for this problem (AL row gives team size)...
+
+POSIT MIN_PLAYERS MAX_PLAYERS
+----- ----------- -----------
+AL              3           3
+CAT_A           1           2
+CAT_B           1           2
+
+Elapsed: 00:00:00.00
+Position statistics for this problem...
+
+POSIT  AVG_PRICE AVG_POINTS AVG_APPEARANCES  N_PLAYERS
+----- ---------- ---------- --------------- ----------
+CAT_A          2          2               0          3
+CAT_B          2          4               0          3
+
+Elapsed: 00:00:00.00
+Top ten solutions for direct recursive query
+
+no rows selected
+
+Elapsed: 00:00:00.01
+SQL_ID  dc2utgdukrh50, child number 0
+-------------------------------------
+WITH  /* FF_QRY */ position_counts AS ( SELECT Min (CASE WHEN id !=
+'AL' THEN id END) min_id,        Max (CASE id WHEN 'AL' THEN
+min_players END) team_size   FROM positions ), pos_runs AS ( SELECT id,
+Sum (CASE WHEN id != 'AL' THEN min_players END) OVER (ORDER BY id DESC)
+num_remain, min_players, max_players   FROM positions ), players_ranked
+AS ( SELECT id,        position_id,        price,        avg_points,
+appearances,        Row_Number() OVER (ORDER BY position_id,
+avg_points DESC) rnk,        Min (price) OVER () min_price   FROM
+players ), rsf (path_rnk, nxt_id, lev, tot_price, tot_profit, pos_id,
+n_pos, team_size, min_players, pos_path, path) AS ( SELECT 0, 0, 0, 0,
+0, 'AL', 0, c.team_size, 0, CAST (NULL AS VARCHAR2(400)) pos_path, CAST
+(NULL AS VARCHAR2(400)) path   FROM position_counts c  UNION ALL SELECT
+Row_Number() OVER (PARTITION BY r.pos_path || p.position_id ORDER BY
+r.tot_profit + p.avg_points DESC),        p.rnk,        r.lev + 1,
+r.tot_price + p.price,
+Plan hash value: 3741536314
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                        | Name                      | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                                 |                           |      1 |        |      0 |00:00:00.01 |      39 |       |       |          |
+|   1 |  TEMP TABLE TRANSFORMATION                       |                           |      1 |        |      0 |00:00:00.01 |      39 |       |       |          |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)        | SYS_TEMP_0FD9D6632_7E52F9 |      1 |        |      0 |00:00:00.01 |       8 |  1024 |  1024 |          |
+|   3 |    SORT AGGREGATE                                |                           |      1 |      1 |      1 |00:00:00.01 |       7 |       |       |          |
+|   4 |     TABLE ACCESS FULL                            | SMALL_CATEGORIES          |      1 |      3 |      3 |00:00:00.01 |       7 |       |       |          |
+|   5 |   SORT ORDER BY                                  |                           |      1 |     10 |      0 |00:00:00.01 |      30 |  1024 |  1024 |          |
+|*  6 |    HASH JOIN                                     |                           |      1 |     10 |      0 |00:00:00.01 |      30 |  1281K|  1281K|  790K (0)|
+|   7 |     TABLE ACCESS FULL                            | SMALL_ITEMS               |      1 |      6 |      6 |00:00:00.01 |       7 |       |       |          |
+|   8 |     MERGE JOIN CARTESIAN                         |                           |      1 |     10 |     18 |00:00:00.01 |      23 |       |       |          |
+|   9 |      VIEW                                        |                           |      1 |      1 |      3 |00:00:00.01 |       0 |       |       |          |
+|  10 |       CONNECT BY WITHOUT FILTERING               |                           |      1 |        |      3 |00:00:00.01 |       0 |  2048 |  2048 | 2048  (0)|
+|  11 |        VIEW                                      |                           |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|  12 |         TABLE ACCESS FULL                        | SYS_TEMP_0FD9D6632_7E52F9 |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|  13 |      BUFFER SORT                                 |                           |      3 |     10 |     18 |00:00:00.01 |      23 |  2048 |  2048 | 2048  (0)|
+|* 14 |       VIEW                                       |                           |      1 |     10 |      6 |00:00:00.01 |      23 |       |       |          |
+|* 15 |        WINDOW SORT PUSHED RANK                   |                           |      1 |      2 |      6 |00:00:00.01 |      23 |  2048 |  2048 | 2048  (0)|
+|* 16 |         VIEW                                     |                           |      1 |      2 |      6 |00:00:00.01 |      23 |       |       |          |
+|  17 |          UNION ALL (RECURSIVE WITH) BREADTH FIRST|                           |      1 |        |     23 |00:00:00.01 |      23 |  2048 |  2048 | 2048  (0)|
+|  18 |           VIEW                                   |                           |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|  19 |            TABLE ACCESS FULL                     | SYS_TEMP_0FD9D6632_7E52F9 |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|  20 |           WINDOW SORT                            |                           |      4 |      1 |     22 |00:00:00.01 |      23 |  9216 |  9216 | 8192  (0)|
+|* 21 |            HASH JOIN                             |                           |      4 |      1 |     22 |00:00:00.01 |      23 |   978K|   978K|  582K (0)|
+|  22 |             NESTED LOOPS                         |                           |      4 |      1 |     22 |00:00:00.01 |      21 |       |       |          |
+|  23 |              RECURSIVE WITH PUMP                 |                           |      4 |        |     17 |00:00:00.01 |       0 |       |       |          |
+|* 24 |              VIEW                                |                           |     17 |      1 |     22 |00:00:00.01 |      21 |       |       |          |
+|  25 |               WINDOW SORT                        |                           |     17 |      6 |    102 |00:00:00.01 |      21 |  2048 |  2048 | 2048  (0)|
+|  26 |                TABLE ACCESS FULL                 | SMALL_ITEMS               |      3 |      6 |     18 |00:00:00.01 |      21 |       |       |          |
+|  27 |             BUFFER SORT (REUSE)                  |                           |      3 |        |      9 |00:00:00.01 |       2 | 73728 | 73728 |          |
+|  28 |              VIEW                                |                           |      1 |      3 |      3 |00:00:00.01 |       2 |       |       |          |
+|  29 |               WINDOW BUFFER                      |                           |      1 |      3 |      3 |00:00:00.01 |       2 |  2048 |  2048 | 2048  (0)|
+|  30 |                TABLE ACCESS BY INDEX ROWID       | SMALL_CATEGORIES          |      1 |      3 |      3 |00:00:00.01 |       2 |       |       |          |
+|  31 |                 INDEX FULL SCAN DESCENDING       | SYS_C008335               |      1 |      3 |      3 |00:00:00.01 |       1 |       |       |          |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+6 - access("ID"=SUBSTR("PATHS_RANKED"."PATH",("from$_subquery$_012"."PLAYER_INDEX"-1)*3+1,3))
+14 - filter("PATHS_RANKED"."R_PROFIT"<=10)
+15 - filter(ROW_NUMBER() OVER ( ORDER BY INTERNAL_FUNCTION("TOT_PROFIT") DESC ,"TOT_PRICE")<=10)
+16 - filter("LEV"="TEAM_SIZE")
+21 - access("M1"."ID"="P"."POSITION_ID")
+filter(("M1"."MAX_PLAYERS">=CASE "P"."POSITION_ID" WHEN "R"."POS_ID" THEN "R"."N_POS"+1 ELSE 1 END  AND
+"R"."TEAM_SIZE"-"R"."LEV"-1>="M1"."NUM_REMAIN"-CASE "P"."POSITION_ID" WHEN "R"."POS_ID" THEN ("R"."N_POS"+1) ELSE 1 END ))
+24 - filter(("R"."TOT_PRICE"+"P"."PRICE"+("R"."TEAM_SIZE"-"R"."LEV"-1)*"P"."MIN_PRICE"<=:MAX_PRICE AND ("R"."LEV"=0 OR "P"."POSITION_ID"="R"."POS_ID" OR
+"R"."N_POS">="R"."MIN_PLAYERS") AND "P"."RNK">"R"."NXT_ID"))
+
+PL/SQL procedure successfully completed.
+
+Top ten solutions for query calling pipelined function...
+
+SOL_PROFIT  SOL_PRICE        RNK POSIT ITEM_ID    PLAYER_NAME          CLUB_NAME            PRICE AVG_POINTS
+---------- ---------- ---------- ----- ---------- -------------------- --------------- ---------- ----------
+        12          5          1 CAT_A 2          Item-A-2                                      2          2
+                                 CAT_B 4          Item-B-1                                      1          6
+                                       5          Item-B-2                                      2          4
+        11          4          2 CAT_A 1          Item-A-1                                      1          1
+                                 CAT_B 4          Item-B-1                                      1          6
+                                       5          Item-B-2                                      2          4
+        10          5          3 CAT_A 1          Item-A-1                                      1          1
+                                       3          Item-A-3                                      3          3
+                                 CAT_B 4          Item-B-1                                      1          6
+         9          4          4 CAT_A 1          Item-A-1                                      1          1
+                                       2          Item-A-2                                      2          2
+                                 CAT_B 4          Item-B-1                                      1          6
+                    5          5 CAT_A 1          Item-A-1                                      1          1
+                                 CAT_B 4          Item-B-1                                      1          6
+                                       6          Item-B-3                                      3          2
+         7          5          6 CAT_A 1          Item-A-1                                      1          1
+                                       2          Item-A-2                                      2          2
+                                 CAT_B 5          Item-B-2                                      2          4
+
+18 rows selected.
+
+Collected 3 cats
+Collected 6 items
+2 cats
+Hash first price min / profit max 6 / 36
+2: price min / profit max 1 / 6
+1: price min / profit max 2 / 10
+Price min / profit max 1 / 6
+Cat 1 : CAT_A - 1 - 2 - 1 - 3
+Cat 2 : CAT_B - 1 - 2 - 4 - 6
+Profit = 12, price = 5 items...
+... 2
+... 4
+... 5
+Profit = 12, price = 5 items...
+... 2
+... 4
+... 5
+Profit = 12, price = 5 items...
+... 2
+... 4
+... 5
+Profit = 12, price = 5 items...
+... 2
+... 4
+... 5
+Profit = 12, price = 5 items...
+... 2
+... 4
+... 5
+Profit = 12, price = 5 items...
+... 2
+... 4
+... 5
+Profit = 11, price = 4 items...
+... 1
+... 4
+... 5
+Profit = 11, price = 4 items...
+... 1
+... 4
+... 5
+Profit = 11, price = 4 items...
+... 1
+... 4
+... 5
+Profit = 11, price = 4 items...
+... 1
+... 4
+... 5
+Profit = 11, price = 4 items...
+... 1
+... 4
+... 5
+Profit = 11, price = 4 items...
+... 1
+... 4
+... 5
+Profit = 9, price = 5 items...
+... 1
+... 4
+... 6
+Profit = 9, price = 4 items...
+... 2
+... 1
+... 4
+Profit = 10, price = 5 items...
+... 3
+... 1
+... 4
+Profit = 10, price = 5 items...
+... 3
+... 1
+... 4
+Profit = 10, price = 5 items...
+... 3
+... 1
+... 4
+Profit = 10, price = 5 items...
+... 3
+... 1
+... 4
+Profit = 10, price = 5 items...
+... 3
+... 1
+... 4
+Profit = 10, price = 5 items...
+... 3
+... 1
+... 4
+Profit = 9, price = 5 items...
+... 1
+... 4
+... 6
+Profit = 9, price = 4 items...
+... 2
+... 1
+... 4
+Profit = 9, price = 5 items...
+... 1
+... 4
+... 6
+Profit = 9, price = 4 items...
+... 2
+... 1
+... 4
+Profit = 9, price = 5 items...
+... 1
+... 4
+... 6
+Profit = 9, price = 4 items...
+... 2
+... 1
+... 4
+Profit = 9, price = 5 items...
+... 1
+... 4
+... 6
+Profit = 9, price = 4 items...
+... 2
+... 1
+... 4
+Profit = 9, price = 5 items...
+... 1
+... 4
+... 6
+Profit = 9, price = 4 items...
+... 2
+... 1
+... 4
+Profit = 7, price = 5 items...
+... 2
+... 1
+... 5
+Profit = 7, price = 5 items...
+... 2
+... 1
+... 5
+Profit = 7, price = 5 items...
+... 2
+... 1
+... 5
+Profit = 7, price = 5 items...
+... 2
+... 1
+... 5
+Profit = 7, price = 5 items...
+... 2
+... 1
+... 5
+Profit = 7, price = 5 items...
+Profit = , price =  items...
+Profit = , price =  items...
+Profit = , price =  items...
+Profit = , price =  items...
+36 solutions found in 73 recursive calls
+Timer Set: Best_N_Sets, Constructed at 05 Apr 2020 08:09:23, written at 08:09:23
+================================================================================
+Timer            Elapsed         CPU       Calls       Ela/Call       CPU/Call
+------------  ----------  ----------  ----------  -------------  -------------
+Pop_Arrays          0.00        0.00           1        0.00000        0.00000
+Try_Position        0.00        0.00           1        0.00000        0.00000
+Write_Sols          0.00        0.00           1        0.00100        0.00000
+Pipe                0.00        0.00           1        0.00000        0.00000
+(Other)             0.00        0.00           1        0.00000        0.00000
+------------  ----------  ----------  ----------  -------------  -------------
+Total               0.00        0.00           5        0.00020        0.00000
+------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01163, CPU: 0.01163]
+Elapsed: 00:00:00.22
+SQL_ID  8ngag9ndmr65k, child number 0
+-------------------------------------
+SELECT  /*+ gather_plan_statistics FF_PLF */        t.sol_profit,
+t.sol_price,        Dense_Rank() OVER (ORDER BY t.sol_profit DESC,
+t.sol_price) RNK,        p.position_id,        t.item_id,
+p.player_name,        p.club_name,        p.price,        p.avg_points
+FROM TABLE (Item_Cats.Best_N_Sets (                   p_keep_size =>
+:KEEP_NUM,                   p_max_calls => 10000000,
+p_n_size => 10,                   p_max_price => :MAX_PRICE,
+p_cat_cur => CURSOR (                       SELECT id,
+min_players, max_players                         FROM positions
+ORDER BY CASE WHEN id != 'AL' THEN 0 END, id
+),                   p_item_cur => CURSOR (
+SELECT id, price, avg_points, position_id
+FROM players                        ORDER BY position_id, avg_points
+DESC                       )              )) t   JOIN players p     ON
+p.id = t.item_id   OR
+Plan hash value: 1952487088
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                           | Name             | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+---------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                    |                  |      1 |        |     18 |00:00:00.10 |      18 |       |       |          |
+|   1 |  WINDOW SORT                        |                  |      1 |   8168 |     18 |00:00:00.10 |      18 |  4096 |  4096 | 4096  (0)|
+|*  2 |   HASH JOIN                         |                  |      1 |   8168 |     18 |00:00:00.01 |      18 |  1281K|  1281K|  713K (0)|
+|   3 |    TABLE ACCESS FULL                | SMALL_ITEMS      |      1 |      6 |      6 |00:00:00.01 |       6 |       |       |          |
+|   4 |    COLLECTION ITERATOR PICKLER FETCH| BEST_N_SETS      |      1 |   8168 |     18 |00:00:00.01 |      12 |       |       |          |
+|   5 |     SORT ORDER BY                   |                  |      0 |      3 |      0 |00:00:00.01 |       0 | 73728 | 73728 |          |
+|   6 |      TABLE ACCESS FULL              | SMALL_CATEGORIES |      0 |      3 |      0 |00:00:00.01 |       0 |       |       |          |
+|   7 |     SORT ORDER BY                   |                  |      0 |      6 |      0 |00:00:00.01 |       0 | 73728 | 73728 |          |
+|   8 |      TABLE ACCESS FULL              | SMALL_ITEMS      |      0 |      6 |      0 |00:00:00.01 |       0 |       |       |          |
+---------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+2 - access("ID"=SYS_OP_ATG("KOKBF$0"."SYS_NC_ROWINFO$",2,3,2))
+
+PL/SQL procedure successfully completed.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 05-APR-2020 08:09:24
+

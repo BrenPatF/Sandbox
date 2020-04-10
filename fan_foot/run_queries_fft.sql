@@ -15,6 +15,21 @@ COLUMN node FORMAT A10
 COLUMN p_id FORMAT A4
 BREAK ON tot_profit ON tot_price ON rnk ON position_id
 SET TIMING ON
+PROMPT Positions for this problem (AL row gives team size)...
+SELECT id position, min_players, max_players
+  FROM positions
+ ORDER BY id
+/
+PROMPT Position statistics for this problem...
+SELECT position_id,
+       Round(Avg(price)) avg_price,
+       Round(Avg(avg_points)) avg_points,
+       Round(Avg(appearances)) avg_appearances,
+       Count(*) n_players
+  FROM players
+ GROUP BY position_id
+ ORDER BY 1
+/
 PROMPT Top ten solutions for direct recursive query
 WITH  /* FF_QRY */ position_counts AS (
 SELECT Min (CASE WHEN id != 'AL' THEN id END) min_id,

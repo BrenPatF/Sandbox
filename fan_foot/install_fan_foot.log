@@ -1,7 +1,7 @@
 
 Database             Time                 Version
 -------------------- -------------------- ------------------------------
-Start: ORCL          29-MAR-2020 17:23:04 Version 19.3.0.0.0
+Start: ORCL          05-APR-2020 08:08:50 Version 19.3.0.0.0
 
 Creating synonyms for lib Utils components...
 old   1: CREATE OR REPLACE SYNONYM L1_chr_arr FOR &lib..L1_chr_arr
@@ -100,6 +100,35 @@ Index created.
 ----------
        576
 
+Create small tables...
+
+Table dropped.
+
+
+Table created.
+
+
+Table dropped.
+
+
+Table created.
+
+Insert small data
+
+PL/SQL procedure successfully completed.
+
+
+CATEG ID  ITEM_NAME                           PRICE      VALUE
+----- --- ------------------------------ ---------- ----------
+CAT_A 1   Item-A-1                                1          1
+      2   Item-A-2                                2          2
+      3   Item-A-3                                3          3
+CAT_B 4   Item-B-1                                1          6
+      5   Item-B-2                                2          4
+      6   Item-B-3                                3          2
+
+6 rows selected.
+
 
 PL/SQL procedure successfully completed.
 
@@ -114,5 +143,5 @@ No errors.
 
 'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
 ----------------------------------
-End: 29-MAR-2020 17:23:07
+End: 05-APR-2020 08:08:51
 
