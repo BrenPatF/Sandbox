@@ -36,6 +36,36 @@ The blog post considers
 
 I illustrated the problem and the results from :
 
+Let I be a set of items, identified by positive integers i = 1,...,|I|
+	For each i in I, let:
+        <img src="pi=.png"> price of item i
+<br>
+        <img src="vi=.png"> value of item i
+Let C be a set of categories, identified by positive integers j = 1,...,|C|
+	For each category j in C, define bounds on the numbers of items for category j, let:
+		L(j) = lower bound for category j
+		U(j) = upper bound for category j
+Let ic be a function representing the item-category links:
+	For each item i in I, and category j in C,  let:
+		ic(i,j) = 1 if item i is of category j
+		        = 0 if item i is not of category j
+	Where, for each item i in I, the item is of exactly one category:
+		SUM[j in C]ic(i,j) = 1
+Let S and P represent limits on the cardinality and total price of subsets of I, respectively:
+		S = allowed cardinality of subsets of I
+		P = maximum total price of subsets of I
+
+With this notation, we can define F, feasible subsets of I for our problem as subsets satisfying the following constraints:
+
+		SIZE: |F| = S
+		PL: SUM[i in F]p(i) <= P
+		Foreach j in C: 
+			CAT-j: L(j) <= SUM[i in F]ic(i,j) <= U(j)
+
+
+In the fantasy football examples below, the item is the player and the category is the position.
+
+
 ### Example: 6 Items, 2 Categories
 - [Fantasy Football problems](https://github.com/BrenPatF/Sandbox/blob/master/fan_foot/README_bnp.md#balanced-number-partitioning-problems)
 
