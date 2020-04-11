@@ -36,26 +36,27 @@ The blog post considers
 
 I illustrated the problem and the results from :
 
-    Let I be a set of items, identified by positive integers i = 1,...,|I|
-	    For each i in I, let:
+Let I be a set of items, identified by positive integers i = 1,...,|I|
+For each i in I, let:
 <blockquote>
         &nbsp&nbsp&nbsp&nbsp<img src="pi=.png"> price of item i<br>
         &nbsp&nbsp&nbsp&nbsp<img src="vi=.png"> value of item i
 </blockquote>
 
-    Let C be a set of categories, identified by positive integers j = 1,...,|C|
-	    For each category j in C, define bounds on the numbers of items for category j, let:
+Let C be a set of categories, identified by positive integers j = 1,...,|C|
+For each category j in C, define bounds on the numbers of items for category j, let:
 <blockquote>
         &nbsp&nbsp&nbsp&nbsp<img src="L_j=.png">  lower bound for category j<br>
         &nbsp&nbsp&nbsp&nbsp<img src="U_j=.png">  upper bound for category j
 </blockquote>
 
 Let <img src="M_ij.png"> be a function representing the item-category links:
-
-    For each item i in I, and category j in C,  let:
-	    ic(i,j) = 1 if item i is of category j
-		            = 0 if item i is not of category j
-	Where, for each item i in I, the item is of exactly one category:
+For each item i in I, and category j in C, let:
+<blockquote>
+	    <img src="M_ij=1.png"> if item i is of category j<br>
+		<img src="M_ij=0.png"> if item i is not of category j
+</blockquote>
+Where, for each item i in I, the item is of exactly one category:
 		SUM[j in C]ic(i,j) = 1
 Let S and P represent limits on the cardinality and total price of subsets of I, respectively:
 		S = allowed cardinality of subsets of I
