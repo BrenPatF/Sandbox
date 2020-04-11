@@ -38,22 +38,16 @@ I illustrated the problem and the results from :
 
     Let I be a set of items, identified by positive integers i = 1,...,|I|
 	    For each i in I, let:
-<br>
 <blockquote>
         &nbsp&nbsp&nbsp&nbsp<img src="pi=.png"> price of item i<br>
         &nbsp&nbsp&nbsp&nbsp<img src="vi=.png"> value of item i
 </blockquote>
-<p align="center">
-</p>
 
     Let C be a set of categories, identified by positive integers j = 1,...,|C|
 	    For each category j in C, define bounds on the numbers of items for category j, let:
-<p align="center">
-		<img src="L_j=.png">  lower bound for category j
-</p>
-<p align="center">
-		<img src="U_j=.png">  upper bound for category j
-</p>
+<blockquote>
+        &nbsp&nbsp&nbsp&nbsp<img src="L_j=.png">  lower bound for category j        &nbsp&nbsp&nbsp&nbsp<img src="U_j=.png">  upper bound for category j
+</blockquote>
 Let ic be a function representing the item-category links:
 	For each item i in I, and category j in C,  let:
 		ic(i,j) = 1 if item i is of category j
