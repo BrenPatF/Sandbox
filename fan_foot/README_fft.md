@@ -72,7 +72,9 @@ With this notation, we can define F, feasible subsets of I for our problem as su
 	|F| = S
 ### 2. Subset price limit, PL:
 
-	SUM[i in F]p(i) <= P
+<blockquote>
+		&nbsp&nbsp&nbsp&nbsp:<img src="PL.png">
+</blockquote>
 ### 3. For each j in C, CAT-j: 
 <blockquote>
 		&nbsp&nbsp&nbsp&nbsp:<img src="CAT-j.png">
