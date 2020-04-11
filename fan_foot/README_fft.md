@@ -50,7 +50,7 @@ I illustrated the problem and the results from :
         &nbsp&nbsp&nbsp&nbsp<img src="U_j=.png">  upper bound for category j
 </blockquote>
 
-Let <img src="M_ij=.png"> be a function representing the item-category links:
+Let <img src="M_ij.png"> be a function representing the item-category links:
 
     For each item i in I, and category j in C,  let:
 	    ic(i,j) = 1 if item i is of category j
