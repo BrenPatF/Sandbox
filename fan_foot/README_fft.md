@@ -41,7 +41,7 @@ I illustrated the problem and the results from :
 <br>
 <blockquote>
         <img src="pi=.png"> price of item i<br>
-        &ensp<img src="vi=.png"> value of item i
+        &nbsp&nbsp&nbsp&nbsp<img src="vi=.png"> value of item i
 </blockquote>
 <p align="center">
 </p>
