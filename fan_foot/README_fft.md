@@ -39,19 +39,19 @@ I illustrated the problem and the results from :
     Let I be a set of items, identified by positive integers i = 1,...,|I|
 	    For each i in I, let:
 <br>
-<p align="left">
+<p align="center">
            <img src="pi=.png"> price of item i
 </p>
-<p align="left">
+<p align="center">
         <img src="vi=.png"> value of item i
 </p>
 
     Let C be a set of categories, identified by positive integers j = 1,...,|C|
 	    For each category j in C, define bounds on the numbers of items for category j, let:
-<p align="left">
+<p align="center">
 		<img src="L_j=.png">  lower bound for category j
 </p>
-<p align="left">
+<p align="center">
 		<img src="U_j=.png">  upper bound for category j
 </p>
 Let ic be a function representing the item-category links:
