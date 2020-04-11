@@ -39,7 +39,7 @@ I illustrated the problem and the results from :
     Let I be a set of items, identified by positive integers i = 1,...,|I|
 	    For each i in I, let:
 <br>
-<blockquote>
+<blockquote style="margin-left: 100px">
            <img src="pi=.png"> price of item i
 </blockquote>
 <p align="center">
