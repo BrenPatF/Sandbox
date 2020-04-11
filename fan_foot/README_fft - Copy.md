@@ -39,9 +39,11 @@ I illustrated the problem and the results from :
     Let I be a set of items, identified by positive integers i = 1,...,|I|
 	    For each i in I, let:
 <br>
-           <img align="left" src="pi=.png"> price of item i
+<p align="center">
+           <img src="pi=.png"> price of item i
+</p>
 <br>
-        <img align="left" src="vi=.png"> value of item i
+        <img src="vi=.png"> value of item i
 Let C be a set of categories, identified by positive integers j = 1,...,|C|
 	For each category j in C, define bounds on the numbers of items for category j, let:
 		L(j) = lower bound for category j
