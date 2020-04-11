@@ -39,9 +39,9 @@ I illustrated the problem and the results from :
     Let I be a set of items, identified by positive integers i = 1,...,|I|
 	    For each i in I, let:
 <br>
-<p style="text-indent: 400px">
+<blockquote>
            <img src="pi=.png"> price of item i
-</p>
+</blockquote>
 <p align="center">
         <img src="vi=.png"> value of item i
 </p>
