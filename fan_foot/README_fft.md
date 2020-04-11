@@ -43,14 +43,14 @@ For each i in I, let:
         &nbsp&nbsp&nbsp&nbsp<img src="vi=.png"> value of item i
 </blockquote>
 
-Let C be a set of categories, identified by positive integers j = 1,...,|C|
+Let C be a set of categories, identified by positive integers j = 1,...,|C|<br>
 For each category j in C, define bounds on the numbers of items for category j, let:
 <blockquote>
         &nbsp&nbsp&nbsp&nbsp<img src="L_j=.png">  lower bound for category j<br>
         &nbsp&nbsp&nbsp&nbsp<img src="U_j=.png">  upper bound for category j
 </blockquote>
 
-Let <img src="M_ij.png"> be a function representing the item-category links:
+Let <img src="M_ij.png"> be a function representing the item-category links.<br>
 For each item i in I, and category j in C, let:
 <blockquote>
 	    &nbsp&nbsp&nbsp&nbsp<img src="M_ij=1.png"> if item i is of category j<br>
