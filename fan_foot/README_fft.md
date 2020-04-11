@@ -70,8 +70,10 @@ With this notation, we can define F, feasible subsets of I for our problem as su
 
 		SIZE: |F| = S
 		PL: SUM[i in F]p(i) <= P
-		Foreach j in C: 
-			CAT-j: L(j) <= SUM[i in F]ic(i,j) <= U(j)
+Foreach j in C: 
+<blockquote>
+		&nbsp&nbsp&nbsp&nbspCAT-j:<img src="CAT-j.png">
+</blockquote>
 
 
 In the fantasy football examples below, the item is the player and the category is the position.
