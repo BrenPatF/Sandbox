@@ -73,6 +73,7 @@ With this notation, we can define F, feasible subsets of I for our problem as su
 		&nbsp&nbsp&nbsp&nbsp	|F| = S
 
 </blockquote>
+
 ### 2. Subset price limit, PL:
 
 <blockquote>
