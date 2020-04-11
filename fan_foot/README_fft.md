@@ -58,7 +58,7 @@ For each item i in I, and category j in C, let:
 </blockquote>
 Where, for each item i in I, the item is of exactly one category:
 <blockquote>
-	    &nbsp&nbsp&nbsp&nbsp<img src="SUM_j.png">
+	    &nbsp&nbsp&nbsp&nbsp<img src="SUM_Mij.png">
 </blockquote>
 Let S and P represent limits on the cardinality and total price of subsets of I, respectively:
 		S = allowed cardinality of subsets of I
