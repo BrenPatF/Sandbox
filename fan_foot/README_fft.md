@@ -75,6 +75,7 @@ With this notation, we can define F, feasible subsets of I for our problem as su
 <blockquote>
 		&nbsp&nbsp&nbsp&nbsp:<img src="PL.png">
 </blockquote>
+
 ### 3. For each j in C, CAT-j: 
 <blockquote>
 		&nbsp&nbsp&nbsp&nbsp:<img src="CAT-j.png">
