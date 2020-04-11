@@ -36,7 +36,7 @@ The blog post considers
 
 I illustrated the problem and the results from :
 
-Let I be a set of items, identified by positive integers i = 1,...,|I|
+Let I be a set of items, identified by positive integers i = 1,...,|I|<br>
 For each i in I, let:
 <blockquote>
         &nbsp&nbsp&nbsp&nbsp<img src="pi=.png"> price of item i<br>
