@@ -66,13 +66,16 @@ Let S and P represent limits on the cardinality and total price of subsets of I,
 		&nbsp&nbsp&nbsp&nbspP = maximum total price of subsets of I
 </blockquote>
 
-With this notation, we can define F, feasible subsets of I for our problem as subsets satisfying the following constraints:
+With this notation, we can define F, feasible subsets of I for our problem as subsets satisfying the following constraints:<br><br>
+Subset cardinality, SIZE: 
 
-		SIZE: |F| = S
-		PL: SUM[i in F]p(i) <= P
-Foreach j in C: 
+	|F| = S
+Subset price limit, PL:
+
+	SUM[i in F]p(i) <= P
+For each j in C, CAT-j: 
 <blockquote>
-		&nbsp&nbsp&nbsp&nbspCAT-j:<img src="CAT-j.png">
+		&nbsp&nbsp&nbsp&nbsp:<img src="CAT-j.png">
 </blockquote>
 
 
