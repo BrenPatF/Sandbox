@@ -46,7 +46,7 @@ I illustrated the problem and the results from :
     Let C be a set of categories, identified by positive integers j = 1,...,|C|
 	    For each category j in C, define bounds on the numbers of items for category j, let:
 <blockquote>
-        &nbsp&nbsp&nbsp&nbsp<img src="L_j=.png">  lower bound for category j
+        &nbsp&nbsp&nbsp&nbsp<img src="L_j=.png">  lower bound for category j<br>
         &nbsp&nbsp&nbsp&nbsp<img src="U_j=.png">  upper bound for category j
 </blockquote>
 Let ic be a function representing the item-category links:
