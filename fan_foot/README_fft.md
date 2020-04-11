@@ -53,8 +53,8 @@ For each category j in C, define bounds on the numbers of items for category j, 
 Let <img src="M_ij.png"> be a function representing the item-category links:
 For each item i in I, and category j in C, let:
 <blockquote>
-	    <img src="M_ij=1.png"> if item i is of category j<br>
-		<img src="M_ij=0.png"> if item i is not of category j
+	    &nbsp&nbsp&nbsp&nbsp<img src="M_ij=1.png"> if item i is of category j<br>
+		&nbsp&nbsp&nbsp&nbsp<img src="M_ij=0.png"> if item i is not of category j
 </blockquote>
 Where, for each item i in I, the item is of exactly one category:
 		SUM[j in C]ic(i,j) = 1
