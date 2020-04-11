@@ -40,7 +40,7 @@ I illustrated the problem and the results from :
 	    For each i in I, let:
 <br>
 <blockquote>
-        <img src="pi=.png"> price of item i<br>
+        &nbsp&nbsp&nbsp&nbsp<img src="pi=.png"> price of item i<br>
         &nbsp&nbsp&nbsp&nbsp<img src="vi=.png"> value of item i
 </blockquote>
 <p align="center">
