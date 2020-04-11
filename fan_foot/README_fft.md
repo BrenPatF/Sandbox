@@ -50,14 +50,16 @@ For each category j in C, define bounds on the numbers of items for category j, 
         &nbsp&nbsp&nbsp&nbsp<img src="U_j=.png">  upper bound for category j
 </blockquote>
 
-Let <img src="M_ij.png"> be a function representing the item-category links.<br>
+Let <img src="M_ij.png"> be a function representing the item-category links<br>
 For each item i in I, and category j in C, let:
 <blockquote>
 	    &nbsp&nbsp&nbsp&nbsp<img src="M_ij=1.png"> if item i is of category j<br>
 		&nbsp&nbsp&nbsp&nbsp<img src="M_ij=0.png"> if item i is not of category j
 </blockquote>
 Where, for each item i in I, the item is of exactly one category:
-		SUM[j in C]ic(i,j) = 1
+<blockquote>
+	    &nbsp&nbsp&nbsp&nbsp<img src="M_ij.png">
+</blockquote>
 Let S and P represent limits on the cardinality and total price of subsets of I, respectively:
 		S = allowed cardinality of subsets of I
 		P = maximum total price of subsets of I
