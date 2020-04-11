@@ -61,8 +61,10 @@ Where, for each item i in I, the item is of exactly one category:
 	    &nbsp&nbsp&nbsp&nbsp<img src="SUM_Mij=1.png">
 </blockquote>
 Let S and P represent limits on the cardinality and total price of subsets of I, respectively:
-		S = allowed cardinality of subsets of I
-		P = maximum total price of subsets of I
+<blockquote>
+		&nbsp&nbsp&nbsp&nbspS = allowed cardinality of subsets of I<br>
+		&nbsp&nbsp&nbsp&nbspP = maximum total price of subsets of I
+</blockquote>
 
 With this notation, we can define F, feasible subsets of I for our problem as subsets satisfying the following constraints:
 
