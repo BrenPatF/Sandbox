@@ -67,20 +67,20 @@ Let S and P represent limits on the cardinality and total price of subsets of I,
 </blockquote>
 
 With this notation, we can define F, feasible subsets of I for our problem as subsets satisfying the following constraints:<br><br>
-### 1. Subset cardinality, SIZE: 
+#### 1. Subset cardinality, SIZE: 
 
 <blockquote>
 		&nbsp&nbsp&nbsp&nbsp	|F| = S
 
 </blockquote>
 
-### 2. Subset price limit, PL:
+#### 2. Subset price limit, PL:
 
 <blockquote>
 		&nbsp&nbsp&nbsp&nbsp<img src="PL.png">
 </blockquote>
 
-### 3. For each j in C, CAT-j:
+#### 3. For each j in C, CAT-j:
 <blockquote>
 		&nbsp&nbsp&nbsp&nbsp<img src="CAT-j.png">
 </blockquote>
